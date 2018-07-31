@@ -1,0 +1,52 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Float.xAPI", "Float.xAPI\Float.xAPI.fsproj", "{962D667A-CA1B-4DE5-9642-99E8E4720D74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Float.xAPI.Tests", "Float.xAPI.Tests\Float.xAPI.Tests.csproj", "{9C34C770-6FE9-405E-82AF-429278571B82}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{962D667A-CA1B-4DE5-9642-99E8E4720D74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962D667A-CA1B-4DE5-9642-99E8E4720D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962D667A-CA1B-4DE5-9642-99E8E4720D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962D667A-CA1B-4DE5-9642-99E8E4720D74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C34C770-6FE9-405E-82AF-429278571B82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C34C770-6FE9-405E-82AF-429278571B82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C34C770-6FE9-405E-82AF-429278571B82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C34C770-6FE9-405E-82AF-429278571B82}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.StandardHeader = $1
+		$1.Text = @<copyright file="${FileName}" company="${CopyrightHolder}">\nCopyright (c) ${Year} ${CopyrightHolder}, All rights reserved.\nShared under an MIT license. See license.md for details.\n</copyright>
+		$0.TextStylePolicy = $2
+		$2.inheritsSet = null
+		$2.scope = text/x-fsharp
+		$0.FSharpFormattingPolicy = $3
+		$3.DefaultFormat = $4
+		$4.IndentOnTryWith = False
+		$4.ReorderOpenDeclaration = False
+		$4.SpaceAfterComma = True
+		$4.SpaceAfterSemicolon = True
+		$4.SpaceAroundDelimiter = True
+		$4.SpaceBeforeArgument = True
+		$4.SpaceBeforeColon = True
+		$4.__added = 0
+		$3.scope = text/x-fsharp
+		$0.TextStylePolicy = $5
+		$5.FileWidth = 80
+		$5.TabsToSpaces = True
+		$5.NoTabsAfterNonTabs = True
+		$5.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $6
+		$6.scope = text/x-csharp
+		$0.VersionControlPolicy = $7
+		description = F# implementation of the xAPI standard.
+		version = 0.0.1
+	EndGlobalSection
+EndGlobal

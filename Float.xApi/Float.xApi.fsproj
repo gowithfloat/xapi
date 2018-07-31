@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ReleaseVersion>0.0.1</ReleaseVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Documents\" />
+    <Folder Include="Actor\" />
+    <Folder Include="Actor\Identifier\" />
+    <Folder Include="Activities\Definitions\" />
+    <Folder Include="Activities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interop.fs" />
+    <Compile Include="IObject.fs" />
+    <Compile Include="Actor\Identifier\IInverseFunctionalIdentifier.fs" />
+    <Compile Include="Actor\Identifier\Mailbox.fs" />
+    <Compile Include="Actor\Identifier\MailboxSha1Sum.fs" />
+    <Compile Include="Actor\Identifier\OpenID.fs" />
+    <Compile Include="Actor\Identifier\Account.fs" />
+    <Compile Include="Actor\IActor.fs" />
+    <Compile Include="Actor\Agent.fs" />
+    <Compile Include="Actor\IGroup.fs" />
+    <Compile Include="Actor\AnonymousGroup.fs" />
+    <Compile Include="Actor\IdentifiedGroup.fs" />
+    <Compile Include="IExtensions.fs" />
+    <Compile Include="LanguageMap.fs" />
+    <Compile Include="Verb.fs" />
+    <Compile Include="Version.fs" />
+    <Compile Include="Score.fs" />
+    <Compile Include="Result.fs" />
+    <Compile Include="Documents\Document.fs" />
+    <Compile Include="Activities\Interaction.fs" />
+    <Compile Include="Activities\Definitions\ActivityDefinition.fs" />
+    <Compile Include="Activities\Definitions\IInteractionActivityDefinition.fs" />
+    <Compile Include="Activities\Definitions\InteractionComponent.fs" />
+    <Compile Include="Activities\Definitions\TrueFalseInteractionActivityDefinition.fs" />
+    <Compile Include="Activities\Definitions\ChoiceInteractionActivityDefinition.fs" />
+    <Compile Include="Activities\Definitions\FillInInteractionActivityDefinition.fs" />
+    <Compile Include="Activities\Definitions\LongFillInInteractionActivityDefinition.fs" />
+    <Compile Include="Activities\Definitions\MatchingInteractionActivityDefinition.fs" />
+    <Compile Include="Activities\Definitions\PerformanceInteractionActivityDefinition.fs" />
+    <Compile Include="Activities\Definitions\SequencingInteractionActivityDefinition.fs" />
+    <Compile Include="Activities\Definitions\LikertInteractionActivityDefinition.fs" />
+    <Compile Include="Activities\Definitions\NumericInteractionActivityDefinition.fs" />
+    <Compile Include="Activities\Definitions\OtherInteractionActivityDefinition.fs" />
+    <Compile Include="Activities\Activity.fs" />
+    <Compile Include="Activities\ContextActivities.fs" />
+    <Compile Include="StatementReference.fs" />
+    <Compile Include="IContext.fs" />
+    <Compile Include="Context.fs" />
+    <Compile Include="Attachment.fs" />
+    <Compile Include="IGenericStatement.fs" />
+    <Compile Include="SubStatement.fs" />
+    <Compile Include="Statement.fs" />
+  </ItemGroup>
+</Project>
