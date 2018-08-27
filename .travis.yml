@@ -4,6 +4,8 @@ dist: trusty
 os: linux
 mono: none
 dotnet: 2.1
+script:
+ - dotnet restore ; msbuild
 
 branches:
   only:
