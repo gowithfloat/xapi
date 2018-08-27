@@ -14,4 +14,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Float.xAPI\Float.xAPI.fsproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="coverage.json" />
+    <None Remove="coverage.opencover.xml" />
+  </ItemGroup>
 </Project>

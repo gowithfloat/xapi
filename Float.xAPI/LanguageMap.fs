@@ -35,7 +35,7 @@ type public LanguageMap =
         /// </summary>
         /// <param name="pairs">The language tag and value pairs.</param>
         public new(pairs) =
-            invalidMapArg pairs "pairs"
+            emptySeqArg pairs "pairs"
             { map = pairs }
 
         /// <summary>

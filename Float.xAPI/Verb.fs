@@ -41,7 +41,7 @@ type public Verb =
         public new (id, display) =
             nullArg id "id"
             nullArg display "display"
-            invalidMapArg display "display"
+            emptySeqArg display "display"
             { Id = id; Display = display }
 
         override this.GetHashCode() = hash this.Id

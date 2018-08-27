@@ -63,8 +63,8 @@ type public ActivityDefinition =
         /// <param name="description"A description of the Activity.</param>
         /// <param name="thetype">The type of Activity.</param>
         new (name, description, thetype) =
-            invalidMapArg name "name"
-            invalidMapArg description "description"
+            emptySeqArg name "name"
+            emptySeqArg description "description"
             invalidIRIArg thetype "thetype"
             { Name = name; Description = description; Type = thetype; MoreInfo = None; Extensions = None }
 
@@ -77,8 +77,8 @@ type public ActivityDefinition =
         /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
         /// <param name="extensions">A map of other properties as needed.</param>
         new(name, description, thetype, ?moreInfo, ?extensions) =
-            invalidMapArg name "name"
-            invalidMapArg description "description"
+            emptySeqArg name "name"
+            emptySeqArg description "description"
             invalidIRIArg thetype "thetype"
             { Name = name; Description = description; Type = thetype; MoreInfo = moreInfo; Extensions = extensions }
 

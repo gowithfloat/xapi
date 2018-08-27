@@ -31,7 +31,7 @@ type public MailboxSha1Sum =
         val MboxSha1Sum: SHA1Hash
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.Mailbox"/> struct.
+        /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.MailboxSha1Sum"/> struct.
         /// </summary>
         /// <param name="mboxSha1Sum">The hex-encoded SHA1 hash of a mailto IRI.</param>
         new (mboxSha1Sum) =
@@ -46,8 +46,7 @@ type public MailboxSha1Sum =
             | _ -> false
 
         interface IEquatable<IMailboxSha1Sum> with
-            member this.Equals other =
-                this.MboxSha1Sum = other.MboxSha1Sum
+            member this.Equals other = this.Equals other
 
         interface IMailboxSha1Sum with
             member this.MboxSha1Sum = this.MboxSha1Sum

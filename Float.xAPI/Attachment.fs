@@ -90,7 +90,7 @@ type public Attachment =
         /// <param name="fileUrl">An IRL at which the Attachment data can be retrieved, or from which it used to be retrievable.</param>
         public new (usageType, display, contentType, length, sha, ?description, ?fileUrl) =
             invalidIRIArg usageType "usageType"
-            invalidMapArg display "display"
+            emptySeqArg display "display"
             { UsageType = usageType; Display = display; ContentType = contentType; Length = length; Sha2 = sha; Description = description; FileUrl = fileUrl }
 
         override this.ToString() = sprintf "<%A: UsageType %A Display %A Description %A ContentType %A Length %A Sha2 %A FileUrl %A>" (this.GetType().Name) this.UsageType this.Display this.Description this.ContentType this.Length this.Sha2 this.FileUrl

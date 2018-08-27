@@ -17,8 +17,7 @@ module Interop =
     let inline nullArg x name =
         if (isNull (box x)) then raise (ArgumentNullException name)
 
-    [<CompiledName("InvalidMapArg")>]
-    let inline invalidMapArg x name =
+    let inline emptySeqArg x name =
         ifRaise (Seq.isEmpty x) name
 
     [<CompiledName("InvalidStringArg")>]

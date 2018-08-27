@@ -31,6 +31,14 @@ type public SHA1Hash =
             invalidStringArg text "text"
             { Encoded = computeSha text }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Float.xAPI.SHA1Hash"/> struct.
+        /// <param name="bytes">The encoded data.</param>
+        new (bytes) =
+            nullArg bytes "bytes"
+            emptySeqArg bytes "bytes"
+            { Encoded = bytes }
+
         override this.GetHashCode() = hash this.Encoded
         override this.ToString() = stringFrom this.Encoded
         override this.Equals(other) =

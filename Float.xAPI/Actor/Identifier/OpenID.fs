@@ -39,8 +39,7 @@ type public OpenID =
             | _ -> false
 
         interface IEquatable<IOpenID> with
-            member this.Equals other =
-                this.OpenID = other.OpenID
+            member this.Equals other = this.Equals other
 
         interface IOpenID with
             member this.OpenID = this.OpenID
