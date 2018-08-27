@@ -31,7 +31,8 @@ namespace Float.xAPI.Tests
             var description = new LanguageMap("en-US", "An example activity.");
             var theType = new Uri("http://adlnet.gov/expapi/activities/course");
             var definition = new ActivityDefinition(name, description, theType);
-            var activity = new Activity(new Uri("http://www.example.com/example-activity"), definition);
+            var activityId = new Uri("http://www.example.com/example-activity");
+            var activity = new Activity(activityId, definition);
             var statement = new Statement(actor, verb, activity);
         }
 

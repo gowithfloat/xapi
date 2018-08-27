@@ -23,9 +23,9 @@ module Interop =
     let inline invalidStringArg x name =
         ifRaise (String.IsNullOrWhiteSpace x) name
 
-    let inline private isAbsolute(x: Uri) =
-        x.IsAbsoluteUri
+    let inline private isNotAbsolute(x: Uri) =
+        not x.IsAbsoluteUri
 
     [<CompiledName("InvalidIRIArg")>]
     let inline invalidIRIArg x name =
-        ifRaise (isAbsolute x) name
+        ifRaise (isNotAbsolute x) name
