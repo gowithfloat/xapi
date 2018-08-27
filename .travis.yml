@@ -1,5 +1,5 @@
 language: csharp
-solution: Float.xApi.sln
+solution: Float.xAPI.sln
 dist: trusty
 os: linux
 
