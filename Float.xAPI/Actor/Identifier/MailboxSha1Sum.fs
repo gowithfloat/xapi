@@ -37,7 +37,7 @@ type public MailboxSha1Sum =
             { MboxSha1Sum = mboxSha1Sum }
 
         override this.GetHashCode() = hash this.MboxSha1Sum
-        override this.ToString() = sprintf "%A" this.MboxSha1Sum
+        override this.ToString() = sprintf "mbox_sha1sum: %A" this.MboxSha1Sum
         override this.Equals(other) = 
             match other with
             | :? IMailboxSha1Sum as sha -> this.MboxSha1Sum = sha.MboxSha1Sum

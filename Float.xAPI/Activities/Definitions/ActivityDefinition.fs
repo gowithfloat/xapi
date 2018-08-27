@@ -82,7 +82,7 @@ type public ActivityDefinition =
             invalidIRIArg thetype "thetype"
             { Name = name; Description = description; Type = thetype; MoreInfo = moreInfo; Extensions = extensions }
 
-        override this.ToString() = sprintf "%A %A %A %A %A" this.Name this.Description this.Type this.MoreInfo this.Extensions
+        override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions
 
         interface IActivityDefinition with
             member this.Name = this.Name

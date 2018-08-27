@@ -47,7 +47,7 @@ type public TrueFalseInteractionActivityDefinition =
         new(name, description, thetype, correctAnswer: bool, ?moreInfo, ?extensions) =
             { Name = name; Description = description; Type = thetype; CorrectResponsesPattern = Seq.singleton(correctAnswer.ToString()) ; MoreInfo = moreInfo; Extensions = extensions }
 
-        override this.ToString() = sprintf "%A %A %A %A %A %A" this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern
+        override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern
 
         /// <inheritdoc />
         member this.InteractionType = Interaction.TrueFalse

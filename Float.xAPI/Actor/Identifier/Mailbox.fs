@@ -7,6 +7,7 @@ namespace Float.xAPI.Actor.Identifier
 
 open System
 open System.Net.Mail
+open Float.xAPI.Interop
 
 /// <summary>
 /// A personal mailbox, ie. an Internet mailbox associated with exactly one owner, the first owner of this mailbox.
@@ -31,6 +32,7 @@ type public Mailbox =
         /// </summary>
         /// <param name="address">The address associated with this mailbox.</param>
         new (address) =
+            nullArg address "address"
             { Address = address }
 
         override this.GetHashCode() = hash this.Address

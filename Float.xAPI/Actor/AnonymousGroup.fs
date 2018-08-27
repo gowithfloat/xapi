@@ -33,7 +33,7 @@ type public AnonymousGroup =
         new (members, ?name) =
             { Name = name; Member = members }
 
-        override this.ToString() = sprintf "%A %A" this.Name this.Member
+        override this.ToString() = sprintf "<%A: Name %A Member %A>" (this.GetType().Name) this.Name this.Member
 
         member this.ObjectType = (this :> IObject).ObjectType
 

@@ -60,7 +60,7 @@ type public ContextActivites =
         new (?parent, ?grouping, ?category, ?other) =
             { Parent = parent; Grouping = grouping; Category = category; Other = other }
 
-        override this.ToString() = sprintf "%A %A %A %A" this.Parent this.Grouping this.Category this.Other
+        override this.ToString() = sprintf "<%A: Parent %A Grouping %A Category %A Other %A>" (this.GetType().Name) this.Parent this.Grouping this.Category this.Other
 
         interface IContextActivities with
             member this.Parent = this.Parent

@@ -75,7 +75,7 @@ type public Result =
         new (?score, ?success, ?completion, ?response, ?duration, ?extensions) =
             { Score = score; Success = success; Completion = completion ; Response = response; Duration = duration; Extensions = extensions }
 
-        override this.ToString() = sprintf "%A %A %A %A %A %A" this.Score this.Success this.Completion this.Response this.Duration this.Extensions
+        override this.ToString() = sprintf "<%A: Score %A Success %A Completion %A Response %A Duration %A Extensions %A>" (this.GetType().Name) this.Score this.Success this.Completion this.Response this.Duration this.Extensions
 
         interface IResult with
             member this.Score = this.Score

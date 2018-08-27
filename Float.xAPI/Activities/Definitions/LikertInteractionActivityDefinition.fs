@@ -59,7 +59,7 @@ type public LikertInteractionActivityDefinition =
         new(name, description, thetype, correctResponsesPattern, responses, ?moreInfo, ?extensions) =
             { Name = name; Description = description; Type = thetype; CorrectResponsesPattern = correctResponsesPattern; Responses = responses; MoreInfo = moreInfo; Extensions = extensions }
 
-        override this.ToString() = sprintf "%A %A %A %A %A %A %A" this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Responses
+        override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A Responses %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Responses
 
         member this.InteractionType = Interaction.Likert
 

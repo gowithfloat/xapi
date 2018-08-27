@@ -58,7 +58,7 @@ type public SequencingInteractionActivityDefinition =
         new(name, description, thetype, correctResponsesPattern, choices, ?moreInfo, ?extensions) =
             { Name = name; Description = description; Type = thetype; CorrectResponsesPattern = correctResponsesPattern; Choices = choices; MoreInfo = moreInfo; Extensions = extensions }
 
-        override this.ToString() = sprintf "%A %A %A %A %A %A %A" this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Choices
+        override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A Choices %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Choices
 
         member this.InteractionType = Interaction.Sequencing
 

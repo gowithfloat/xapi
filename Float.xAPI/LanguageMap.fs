@@ -59,7 +59,7 @@ type public LanguageMap =
             { map = dict[new CultureInfo(cultureInfo), value] }
 
         override this.GetHashCode() = hash this.map
-        override this.ToString() = sprintf "keys: %A values: %A" this.map.Keys this.map.Values
+        override this.ToString() = sprintf "<%A: Keys %A Values %A>" (this.GetType().Name) this.map.Keys this.map.Values
         override this.Equals(other) =
             match other with
             | :? ILanguageMap as map -> this.GetHashCode() <> map.GetHashCode()

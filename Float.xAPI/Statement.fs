@@ -108,7 +108,7 @@ type public Statement =
             { Id = id; Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = timestamp; Stored = stored; Authority = authority; Version = version; Attachments = attachments }
 
         override this.GetHashCode() = hash this.Id
-        override this.ToString() = sprintf "%A %A %A %A %A %A %A %A %A %A" this.Id this.Actor this.Object this.Result this.Context this.Timestamp this.Stored this.Authority this.Version this.Attachments
+        override this.ToString() = sprintf "<%A: Id %A Actor %A Object %A Result %A Context %A Timestamp %A Stored %A Authority %A Version %A Attachments %A>" (this.GetType().Name) this.Id this.Actor this.Object this.Result this.Context this.Timestamp this.Stored this.Authority this.Version this.Attachments
         override this.Equals(other) =
             match other with
             | :? IStatement as statement -> this.Id = statement.Id

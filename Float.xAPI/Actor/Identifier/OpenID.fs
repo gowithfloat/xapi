@@ -32,7 +32,7 @@ type public OpenID =
             { OpenID = openID }
 
         override this.GetHashCode() = hash this.OpenID
-        override this.ToString() = sprintf "%A" this.OpenID
+        override this.ToString() = sprintf "<%A: %A>" (this.GetType().Name) this.OpenID
         override this.Equals(other) = 
             match other with
             | :? IOpenID as mailbox -> this.OpenID = mailbox.OpenID

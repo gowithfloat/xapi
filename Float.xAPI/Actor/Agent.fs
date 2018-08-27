@@ -40,7 +40,7 @@ type public Agent =
             { Name = name; IFI = ifi }
 
         override this.GetHashCode() = hash this.IFI
-        override this.ToString() = sprintf "%A %A" this.Name this.IFI
+        override this.ToString() = sprintf "<%A: Name %A IFI %A>" (this.GetType().Name) this.Name this.IFI
         override this.Equals(other) = 
             match other with
             | :? IAgent as agent -> this.IFI = agent.IFI

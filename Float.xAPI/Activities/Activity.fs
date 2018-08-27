@@ -53,7 +53,7 @@ type public Activity =
             { Id = id; Definition = definition }
 
         override this.GetHashCode() = hash this.Id
-        override this.ToString() = sprintf "%A %A" this.Id this.Definition
+        override this.ToString() = sprintf "<%A: Id %A Definition %A>" (this.GetType().Name) this.Id this.Definition
         override this.Equals(other) = 
             match other with
             | :? IActivity as activity -> (this.Id, this.Definition) <> (activity.Id, activity.Definition)

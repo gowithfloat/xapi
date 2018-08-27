@@ -53,7 +53,7 @@ type public SubStatement =
             if box object :? ISubStatement then invalidArg "object" "Substatements cannot contain substatements"
             { Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = timestamp }
 
-        override this.ToString() = sprintf "%A %A %A %A %A %A" this.Actor this.Verb this.Object this.Result this.Context this.Timestamp
+        override this.ToString() = sprintf "<%A: Actor %A Verb %A Object %A Result %A Context %A Timestamp %A>" (this.GetType().Name) this.Actor this.Verb this.Object this.Result this.Context this.Timestamp
 
         member this.ObjectType = (this :> IObject).ObjectType
 

@@ -61,7 +61,7 @@ type public PerformanceInteractionActivityDefinition =
         new(name, description, thetype, correctResponsesPattern, steps, ?moreInfo, ?extensions) =
             { Name = name; Description = description; Type = thetype; CorrectResponsesPattern = correctResponsesPattern; Steps = steps; MoreInfo = moreInfo; Extensions = extensions }
 
-        override this.ToString() = sprintf "%A %A %A %A %A %A %A" this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Steps
+        override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A Steps %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Steps
 
         member this.InteractionType = Interaction.Performance
 

@@ -45,7 +45,7 @@ type public Verb =
             { Id = id; Display = display }
 
         override this.GetHashCode() = hash this.Id
-        override this.ToString() = sprintf "id:%A,display:%O" this.Id this.Display
+        override this.ToString() = sprintf "<%A: Id %A Display %O>" (this.GetType().Name) this.Id this.Display
         override this.Equals(other) =
             match other with
             | :? IVerb as verb -> this.Id <> verb.Id

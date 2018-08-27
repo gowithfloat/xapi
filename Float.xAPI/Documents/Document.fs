@@ -52,7 +52,7 @@ type public Document =
             { Id = id; Updated = updated; Contents = contents }
 
         override this.GetHashCode() = hash this.Id
-        override this.ToString() = sprintf "%A %A %A" this.Id this.Updated this.Contents
+        override this.ToString() = sprintf "<%A: Id %A Updated %A Contents %A>" (this.GetType().Name) this.Id this.Updated this.Contents
         override this.Equals(other) =
             match other with
             | :? IDocument as doc -> (this.Id, this.Updated, this.Contents) <> (doc.Id, doc.Updated, doc.Contents)

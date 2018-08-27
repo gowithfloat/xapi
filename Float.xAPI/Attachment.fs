@@ -93,7 +93,7 @@ type public Attachment =
             invalidMapArg display "display"
             { UsageType = usageType; Display = display; ContentType = contentType; Length = length; Sha2 = sha; Description = description; FileUrl = fileUrl }
 
-        override this.ToString() = sprintf "%A %A %A %A %A %A %A" this.UsageType this.Display this.Description this.ContentType this.Length this.Sha2 this.FileUrl
+        override this.ToString() = sprintf "<%A: UsageType %A Display %A Description %A ContentType %A Length %A Sha2 %A FileUrl %A>" (this.GetType().Name) this.UsageType this.Display this.Description this.ContentType this.Length this.Sha2 this.FileUrl
 
         interface IAttachment with
             member this.UsageType = this.UsageType

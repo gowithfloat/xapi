@@ -44,7 +44,7 @@ type public IdentifiedGroup =
             { Name = name; IFI = ifi; Member = members }
 
         override this.GetHashCode() = hash this.IFI
-        override this.ToString() = sprintf "%A %A %A" this.Name this.Member this.IFI
+        override this.ToString() = sprintf "<%A: Name %A Member %A IFI %A>" (this.GetType().Name) this.Name this.Member this.IFI
         override this.Equals(other) =
             match other with
             | :? IIdentifiedGroup as group -> this.IFI = group.IFI

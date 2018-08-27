@@ -71,7 +71,7 @@ type public MatchingInteractionActivityDefinition =
         new(name, description, thetype, correctResponsesPattern, source, target, ?moreInfo, ?extensions) =
             { Name = name; Description = description; Type = thetype; CorrectResponsesPattern = correctResponsesPattern; Source = source; Target = target; MoreInfo = moreInfo; Extensions = extensions }
 
-        override this.ToString() = sprintf "%A %A %A %A %A %A %A %A" this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Source this.Target
+        override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A Source %A Target %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Source this.Target
 
         member this.InteractionType = Interaction.Matching
 

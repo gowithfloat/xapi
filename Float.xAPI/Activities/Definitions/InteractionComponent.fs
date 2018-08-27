@@ -42,7 +42,7 @@ type public InteractionComponent =
             { Id = id; Description = description }
 
         override this.GetHashCode() = hash this.Id
-        override this.ToString() = sprintf "%A %A" this.Id this.Description
+        override this.ToString() = sprintf "<%A: Id %A Description %A>" (this.GetType().Name) this.Id this.Description
         override this.Equals(other) =
             match other with
             | :? IInteractionComponent as interaction -> (this.Id, this.Description) <> (interaction.Id, interaction.Description)

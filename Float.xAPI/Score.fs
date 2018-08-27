@@ -58,7 +58,7 @@ type public Score =
             if max.Value < 0.0 then invalidArg "max" "Maximum value must be positive"
             { Raw = raw; Min = min; Max = max; Scaled = scaled }
 
-        override this.ToString() = sprintf "%A %A %A %A" this.Raw this.Min this.Max this.Scaled
+        override this.ToString() = sprintf "<%A: Raw %A Min %A Max %A Scaled %A>" (this.GetType().Name) this.Raw this.Min this.Max this.Scaled
 
         interface IScore with
             member this.Raw = this.Raw
