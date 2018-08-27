@@ -41,12 +41,12 @@ type public StatementReference =
         override this.ToString() = sprintf "%A" this.Id
         override this.Equals(other) =
             match other with
-            | :? IStatementReference as ref -> this.Id <> ref.Id
+            | :? IStatementReference as ref -> this.Id = ref.Id
             | _ -> false
 
         interface IEquatable<IStatementReference> with
             member this.Equals other =
-                this.Id <> other.Id
+                this.Id = other.Id
 
         member this.ObjectType = (this :> IObject).ObjectType
 

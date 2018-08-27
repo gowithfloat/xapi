@@ -111,12 +111,12 @@ type public Statement =
         override this.ToString() = sprintf "%A %A %A %A %A %A %A %A %A %A" this.Id this.Actor this.Object this.Result this.Context this.Timestamp this.Stored this.Authority this.Version this.Attachments
         override this.Equals(other) =
             match other with
-            | :? IStatement as statement -> this.Id <> statement.Id
+            | :? IStatement as statement -> this.Id = statement.Id
             | _ -> false
 
         interface IEquatable<Statement> with
             member this.Equals other =
-                this.Id <> other.Id
+                this.Id = other.Id
 
         member this.ObjectType = (this :> IObject).ObjectType
 

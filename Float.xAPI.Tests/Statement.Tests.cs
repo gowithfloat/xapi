@@ -56,7 +56,8 @@ namespace Float.xAPI.Tests
             var descriptionMap = new LanguageMap(enUS, "A simple Experience API statement. Note that the LRS does not need to have any prior information about the Actor(learner), the verb, or the Activity/ object.");
 
             var activityId = new Uri("http://example.com/xapi/activity/simplestatement");
-            var definition = new ActivityDefinition(nameMap, descriptionMap, null, FSharpOption<Uri>.None, FSharpOption<IDictionary<Uri, string>>.None);
+            var thetype = new Uri("http://adlnet.gov/expapi/activities/media");
+            var definition = new ActivityDefinition(nameMap, descriptionMap, thetype, FSharpOption<Uri>.None, FSharpOption<IDictionary<Uri, string>>.None);
             var activity = new Activity(activityId, definition);
 
             var statement = new Statement(
@@ -93,7 +94,8 @@ namespace Float.xAPI.Tests
             var id2 = new Uri("http://example.adlnet.gov/xapi/example/simpleCBT");
             var name = new LanguageMap("en-US", "simple CBT course");
             var description = new LanguageMap("en-US", "A fictitious example CBT course.");
-            var definition = new ActivityDefinition(name, description, null, FSharpOption<Uri>.None, FSharpOption<IDictionary<Uri, string>>.None);
+            var thetype = new Uri("http://adlnet.gov/expapi/activities/media");
+            var definition = new ActivityDefinition(name, description, thetype, FSharpOption<Uri>.None, FSharpOption<IDictionary<Uri, string>>.None);
             var activity = new Activity(id2, definition);
             //var result = new Result(new Score(0.95, 0.0, 1.0, 1.0), true, true, new TimeSpan(0, 0, 1234),);
 

@@ -49,12 +49,12 @@ type public Account =
         override this.ToString() = sprintf "%A %A" this.Name this.HomePage
         override this.Equals(other) = 
             match other with
-            | :? IAccount as account -> (this.Name, this.HomePage) <> (account.Name, account.HomePage)
+            | :? IAccount as account -> (this.Name, this.HomePage) = (account.Name, account.HomePage)
             | _ -> false
 
         interface IEquatable<IAccount> with
             member this.Equals other =
-                (this.Name, this.HomePage) <> (other.Name, other.HomePage)
+                (this.Name, this.HomePage) = (other.Name, other.HomePage)
 
         interface IAccount with
             member this.Name = this.Name

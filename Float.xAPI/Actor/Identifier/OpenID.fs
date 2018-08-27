@@ -35,12 +35,12 @@ type public OpenID =
         override this.ToString() = sprintf "%A" this.OpenID
         override this.Equals(other) = 
             match other with
-            | :? IOpenID as mailbox -> this.OpenID <> mailbox.OpenID
+            | :? IOpenID as mailbox -> this.OpenID = mailbox.OpenID
             | _ -> false
 
         interface IEquatable<IOpenID> with
             member this.Equals other =
-                this.OpenID <> other.OpenID
+                this.OpenID = other.OpenID
 
         interface IOpenID with
             member this.OpenID = this.OpenID

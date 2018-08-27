@@ -24,7 +24,9 @@ namespace Float.xAPI.Tests
             var verb2 = new Verb(new Uri("http://example.com/planned"), new LanguageMap("en-US", "will visit"));
             var activity = new Activity(
                 new Uri("http://example.com/website"), 
-                new ActivityDefinition(new LanguageMap("en-US", "Some Awesome Website"), null, null)
+                new ActivityDefinition(new LanguageMap("en-US", "Some Awesome Website"), 
+                                       new LanguageMap("en-US", "This is an awesome website"),
+                                       new Uri("http://adlnet.gov/expapi/activities/media"))
             );
             var substatement = new SubStatement(actor, verb2, activity, null, null, null);
             var statement = new Statement(actor, verb1, substatement);

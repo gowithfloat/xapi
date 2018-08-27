@@ -40,12 +40,12 @@ type public MailboxSha1Sum =
         override this.ToString() = sprintf "%A" this.MboxSha1Sum
         override this.Equals(other) = 
             match other with
-            | :? IMailboxSha1Sum as sha -> this.MboxSha1Sum <> sha.MboxSha1Sum
+            | :? IMailboxSha1Sum as sha -> this.MboxSha1Sum = sha.MboxSha1Sum
             | _ -> false
 
         interface IEquatable<IMailboxSha1Sum> with
             member this.Equals other =
-                this.MboxSha1Sum <> other.MboxSha1Sum
+                this.MboxSha1Sum = other.MboxSha1Sum
 
         interface IMailboxSha1Sum with
             member this.MboxSha1Sum = this.MboxSha1Sum

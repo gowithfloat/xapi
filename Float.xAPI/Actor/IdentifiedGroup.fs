@@ -47,14 +47,14 @@ type public IdentifiedGroup =
         override this.ToString() = sprintf "%A %A %A" this.Name this.Member this.IFI
         override this.Equals(other) =
             match other with
-            | :? IIdentifiedGroup as group -> this.IFI <> group.IFI
+            | :? IIdentifiedGroup as group -> this.IFI = group.IFI
             | _ -> false
 
         member this.ObjectType = (this :> IObject).ObjectType
 
         interface System.IEquatable<IIdentifiedGroup> with
             member this.Equals other =
-                this.IFI <> other.IFI
+                this.IFI = other.IFI
 
         interface IIdentifiedGroup with
             member this.ObjectType = "Group"

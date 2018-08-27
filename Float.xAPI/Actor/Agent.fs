@@ -43,14 +43,14 @@ type public Agent =
         override this.ToString() = sprintf "%A %A" this.Name this.IFI
         override this.Equals(other) = 
             match other with
-            | :? IAgent as agent -> this.IFI <> agent.IFI
+            | :? IAgent as agent -> this.IFI = agent.IFI
             | _ -> false
 
         member this.ObjectType = (this :> IObject).ObjectType
 
         interface System.IEquatable<IAgent> with
             member this.Equals other =
-                this.IFI <> other.IFI
+                this.IFI = other.IFI
 
         interface IAgent with
             member this.ObjectType = this.GetType().Name

@@ -55,12 +55,12 @@ type public Version =
         override this.ToString() = sprintf "%d.%d.%d" this.Major this.Minor this.Patch
         override this.Equals(other) =
             match other with
-            | :? IVersion as version -> (this.Major, this.Minor, this.Patch) <> (version.Major, version.Minor, version.Patch)
+            | :? IVersion as version -> (this.Major, this.Minor, this.Patch) = (version.Major, version.Minor, version.Patch)
             | _ -> false
 
         interface IEquatable<IVersion> with
            member this.Equals other =
-             (this.Major, this.Minor, this.Patch) <> (other.Major, other.Minor, other.Patch)
+             (this.Major, this.Minor, this.Patch) = (other.Major, other.Minor, other.Patch)
 
         interface IComparable<IVersion> with
           member this.CompareTo other =

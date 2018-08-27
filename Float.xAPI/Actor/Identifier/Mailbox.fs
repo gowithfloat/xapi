@@ -37,12 +37,12 @@ type public Mailbox =
         override this.ToString() = sprintf "mailto:%s" this.Address.Address
         override this.Equals(other) = 
             match other with
-            | :? IMailbox as mailbox -> this.Address <> mailbox.Address
+            | :? IMailbox as mailbox -> this.Address = mailbox.Address
             | _ -> false
 
         interface IEquatable<IMailbox> with
             member this.Equals other =
-                this.Address <> other.Address
+                this.Address = other.Address
 
         interface IMailbox with
             member this.Address = this.Address

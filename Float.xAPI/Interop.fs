@@ -13,7 +13,7 @@ module Interop =
 
     [<CompiledName("NullArg")>]
     let inline nullArg x name =
-        ifRaise (isNull (box x)) name
+        if (isNull (box x)) then raise (ArgumentNullException name)
 
     [<CompiledName("InvalidMapArg")>]
     let inline invalidMapArg x name =
