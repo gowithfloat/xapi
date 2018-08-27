@@ -46,6 +46,7 @@ This implementation is influenced by the existing [TinCan.NET](https://github.co
 * Add missing type definitions
 * Provide serialization logic
 * Add implementation and interface for an LRS
+* Improve build pipeline with [Fake](https://fake.build/)
 * Publish library on [NuGet](https://www.nuget.org/)
 * Determine viability of Fable compiler for JavaScript target
 * Investigate use of F* to improve library with formal verification

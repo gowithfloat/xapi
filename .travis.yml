@@ -1,0 +1,13 @@
+language: csharp
+solution: Float.xApi.sln
+dist: trusty
+os: linux
+
+branches:
+  only:
+    - master
+
+git:
+  depth: 1
+
+sudo: false
