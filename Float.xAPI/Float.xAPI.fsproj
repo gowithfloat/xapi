@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interop.fs" />
+    <Compile Include="SHA1Hash.fs" />
     <Compile Include="IObject.fs" />
     <Compile Include="Actor\Identifier\IInverseFunctionalIdentifier.fs" />
     <Compile Include="Actor\Identifier\Mailbox.fs" />

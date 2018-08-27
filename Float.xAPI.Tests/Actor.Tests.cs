@@ -34,7 +34,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestGroup()
         {
-            var agent1 = new Agent(new MailboxSha1Sum(SHA1.Create()), "jeff");
+            var agent1 = new Agent(new MailboxSha1Sum(new SHA1Hash("jeff")), "jeff");
             var agent2 = new Agent(new OpenID(new Uri("http://www.example.com")), "bob");
             var group = new AnonymousGroup(new IAgent[] { agent1, agent2 }, "my group");
             Assert.Equal("my group", group.Name);

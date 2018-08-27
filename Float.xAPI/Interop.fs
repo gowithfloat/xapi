@@ -6,6 +6,8 @@
 namespace Float.xAPI
 
 open System
+open System.Text
+open System.Security.Cryptography
 
 module Interop =
     let inline private ifRaise x name =
@@ -29,3 +31,12 @@ module Interop =
     [<CompiledName("InvalidIRIArg")>]
     let inline invalidIRIArg x name =
         ifRaise (isNotAbsolute x) name
+
+    let inline bytesFrom(str: string) =
+        (new UTF8Encoding()).GetBytes str
+
+    let inline stringFrom bytes =
+        BitConverter.ToString(bytes).Replace("-", String.Empty).ToLower()
+
+    let inline computeSha x =
+        SHA1.Create().ComputeHash(bytesFrom(x))

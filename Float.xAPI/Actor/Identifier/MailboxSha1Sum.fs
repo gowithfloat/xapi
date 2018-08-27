@@ -6,7 +6,8 @@
 namespace Float.xAPI.Actor.Identifier
 
 open System
-open System.Security.Cryptography
+open Float.xAPI
+open Float.xAPI.Interop
 
 /// <summary>
 /// The sha1sum of the URI of an Internet mailbox associated with exactly one owner, the first owner of the mailbox.
@@ -16,7 +17,7 @@ type public IMailboxSha1Sum =
     /// The hex-encoded SHA1 hash of a mailto IRI (i.e. the value of an mbox property).
     /// An LRS MAY include Agents with a matching hash when a request is based on an mbox.
     /// </summary>
-    abstract member MboxSha1Sum: SHA1
+    abstract member MboxSha1Sum: SHA1Hash
 
     /// <summary>
     /// A mailbox SHA1 sum is a type of inverse functional identifier.
@@ -27,13 +28,14 @@ type public IMailboxSha1Sum =
 type public MailboxSha1Sum =
     struct
         /// <inheritdoc />
-        val MboxSha1Sum: SHA1
+        val MboxSha1Sum: SHA1Hash
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.Mailbox"/> class.
+        /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.Mailbox"/> struct.
         /// </summary>
         /// <param name="mboxSha1Sum">The hex-encoded SHA1 hash of a mailto IRI.</param>
         new (mboxSha1Sum) =
+            nullArg mboxSha1Sum "mboxSha1Sum"
             { MboxSha1Sum = mboxSha1Sum }
 
         override this.GetHashCode() = hash this.MboxSha1Sum
