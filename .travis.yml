@@ -2,6 +2,8 @@ language: csharp
 solution: Float.xAPI.sln
 dist: trusty
 os: linux
+mono: none
+dotnet: 2.1
 
 branches:
   only:
