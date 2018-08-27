@@ -1,4 +1,4 @@
-# Float.xAPI
+# Float.xAPI [![Build Status](https://travis-ci.org/gowithfloat/xapi.svg?branch=master)](https://travis-ci.org/gowithfloat/xapi) [![MIT License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](./license.md)
 
 An F# implementation of the [xAPI](https://xapi.com/) specification with a focus on type safety and immutability. Wherever possible, we have strived to translate the [xAPI specification](https://github.com/adlnet/xAPI-Spec) directly to code, with requirements embedded as type checks.
 
