@@ -1,11 +1,13 @@
 language: csharp
-solution: Float.xAPI.sln
 dist: trusty
 os: linux
 mono: none
 dotnet: 2.1
+install:
+  - dotnet restore
 script:
- - dotnet restore ; dotnet build
+ - dotnet build
+ - dotnet test Float.xAPI.Tests/Float.xAPI.Tests.csproj
 
 branches:
   only:
