@@ -7,7 +7,7 @@ install:
   - dotnet restore
 script:
  - dotnet build
- - dotnet test Float.xAPI.Tests/Float.xAPI.Tests.csproj
+ - dotnet test Float.xAPI.Tests/Float.xAPI.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
 branches:
   only:
