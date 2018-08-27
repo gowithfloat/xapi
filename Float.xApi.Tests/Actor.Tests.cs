@@ -39,11 +39,11 @@ namespace Float.xAPI.Tests
             var group = new AnonymousGroup(new IAgent[] { agent1, agent2 }, "my group");
             Assert.Equal("my group", group.Name);
             Assert.Equal("Group", group.ObjectType);
-            Assert.Equal(2, group.Members.Count());
+            Assert.Equal(2, group.Member.Count());
 
             var agent3 = new Agent(new Account("frank", new Uri("http://www.example.com")), "frank");
             var group2 = new AnonymousGroup(new List<IAgent> { agent1, agent2, agent3 }, "list group");
-            Assert.Equal(3, group2.Members.Count());
+            Assert.Equal(3, group2.Member.Count());
         }
     }
 }

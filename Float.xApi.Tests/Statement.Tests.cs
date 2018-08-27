@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Security.Cryptography;
 using Float.xAPI.Activities;
 using Float.xAPI.Activities.Definitions;
@@ -19,6 +20,21 @@ namespace Float.xAPI.Tests
 {
     public class StatementTests
     {
+        [Fact]
+        public void TestConvenienceInitializedStatement()
+        {
+            var mailbox = new Mailbox(new MailAddress("example@gowithfloat.com"));
+            var actor = new Agent(mailbox, "Example Learner");
+            var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/completed"), new LanguageMap("en-US", "completed"));
+
+            var name = new LanguageMap("en-US", "Example Activity");
+            var description = new LanguageMap("en-US", "An example activity.");
+            var theType = new Uri("http://adlnet.gov/expapi/activities/course");
+            var definition = new ActivityDefinition(name, description, theType);
+            var activity = new Activity(new Uri("http://www.example.com/example-activity"), definition);
+            var statement = new Statement(actor, verb, activity);
+        }
+
         /// <summary>
         /// Attempt to create a statement using data from Appendix A.
         /// </summary>
@@ -99,7 +115,7 @@ namespace Float.xAPI.Tests
             var attachment = new Attachment(
                 new Uri("http://example.com/attachment-usage/test"),
                 new LanguageMap("en-US", "A test attachment"),
-                "text/plan; charset=ascii",
+                new ContentType("text/plan; charset=ascii"),
                 27,
                 SHA256.Create(),
                 new LanguageMap("en-US", "A test attachment (description)"),

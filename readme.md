@@ -6,6 +6,33 @@ An F# implementation of the [xAPI](https://xapi.com/) specification with a focus
 
 This library is currently in a pre-release state. Feedback is welcome but active development continues and this library should not be considered ready for production use. However, we hope that the existing code base will provide an indication of the implementation goals for this project.
 
+## C# Example
+
+To craft a simple statement, you first need an actor:
+
+    var address = new MailAddress("example@gowithfloat.com");
+    var mailbox = new Mailbox(address);
+    var actor = new Agent(mailbox, "Example Learner");
+
+A verb is a URI paired with a language map:
+
+    var id = new Uri("http://adlnet.gov/expapi/verbs/completed");
+    var definition = new LanguageMap("en-US", "completed");
+    var verb = new Verb(id, definition);
+
+An activity requires a definition and identifier; the definition needs a name, description, and type:
+
+    var name = new LanguageMap("en-US", "Example Activity");
+    var description = new LanguageMap("en-US", "An example activity.");
+    var theType = new Uri("http://adlnet.gov/expapi/activities/course");
+    var definition = new ActivityDefinition(name, description, theType);
+    var activityId = new Uri("http://www.example.com/example-activity");
+    var activity = new Activity(activityId, definition);
+
+Combine the actor, verb, and activity into a statement:
+
+    var statement = new Statement(actor, verb, activity);
+
 ## About
 
 Existing implementations of the xAPI specification for .NET do not leverage the type system to ensure code will run safely. Furthermore, many implementations allow a high degree of mutability, leading to undesired and unpredictable behavior.
