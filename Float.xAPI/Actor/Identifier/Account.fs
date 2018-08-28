@@ -6,6 +6,7 @@
 namespace Float.xAPI.Actor.Identifier
 
 open System
+open Float.xAPI.Interop
 
 /// <summary>
 /// A user account on an existing system, such as a private system (LMS or intranet) or a public system (social networking site).
@@ -43,6 +44,8 @@ type public Account =
         /// <param name="name">The unique id or name used to log in to this account.</param>
         /// <param name="homePage">The canonical home page for the system the account is on.</param>
         new (name, homePage) =
+            invalidStringArg name "name"
+            nullArg homePage "homePage"
             { Name = name; HomePage = homePage }
 
         override this.GetHashCode() = hash (this.Name, this.HomePage)

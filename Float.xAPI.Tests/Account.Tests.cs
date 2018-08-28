@@ -12,20 +12,34 @@ namespace Float.xAPI.Tests
     public class AccountTests
     {
         [Fact]
-        public void TestExample()
+        public void TestInvalidInit()
         {
-            var account = new Account("1625378", new Uri("http://www.example.com"));
-            Assert.Equal("1625378", account.Name);
-            Assert.Equal(new Uri("http://www.example.com"), account.HomePage);
+            var name = "Example Student";
+            var uri = new Uri("https://www.gowithfloat.com");
 
-            var account2 = new Account("1625378", new Uri("http://www.example.com"));
-            Assert.Equal(account2.ToString(), account.ToString());
-            Assert.True(account2.Equals(account));
-            Assert.False(account.Equals(new object()));
-            Assert.Equal(account2.GetHashCode(), account.GetHashCode());
+            Assert.Throws<ArgumentException>(() => new Account(null, null));
+            Assert.Throws<ArgumentException>(() => new Account(null, uri));
+            Assert.Throws<ArgumentException>(() => new Account(string.Empty, uri));
+            Assert.Throws<ArgumentException>(() => new Account(" ", uri));
+            Assert.Throws<ArgumentNullException>(() => new Account(name, null));
+            Assert.Throws<UriFormatException>(() => new Account(name, new Uri("")));
+        }
+
+        [Fact]
+        public void TestValidInit()
+        {
+            var account1 = new Account("unknown", new Uri("http://www.example.com"));
+        }
+
+        [Fact]
+        public void TestEquality()
+        {
+            var account1 = new Account("unknown", new Uri("http://www.example.com"));
+            var account2 = new Account("known", new Uri("http://www.example.com"));
+            Assert.NotEqual(account1, account2);
 
             var account3 = new Account("other", new Uri("https://www.gowithfloat.com"));
-            Assert.NotEqual(account3.GetHashCode(), account.GetHashCode());
+            Assert.NotEqual(account3.GetHashCode(), account1.GetHashCode());
             Assert.NotEqual(account2.ToString(), account3.ToString());
         }
     }
