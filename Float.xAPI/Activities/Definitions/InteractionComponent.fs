@@ -39,6 +39,7 @@ type public InteractionComponent =
         /// <param name="description">A description of the interaction component.</param>
         new (id, description) =
             nullArg id "id"
+            emptyOptionalSeqArg description "description"
             { Id = id; Description = description }
 
         override this.GetHashCode() = hash this.Id

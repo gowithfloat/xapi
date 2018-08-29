@@ -6,8 +6,10 @@
 namespace Float.xAPI.Activities.Definitions
 
 open System
+open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
+open Float.xAPI.Interop
 
 /// <summary>
 /// An interaction which requires the learner to supply a response in the form of a long string of characters.
@@ -45,7 +47,12 @@ type public LongFillInInteractionActivityDefinition =
         /// <param name="correctResponsesPattern">A pattern representing the correct response to the interaction.</param>
         /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
         /// <param name="extensions">A map of other properties as needed.</param>
-        new(name, description, thetype, correctResponsesPattern, ?moreInfo, ?extensions) =
+        new(name, description, thetype, correctResponsesPattern, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
+            nullArg name "name"
+            emptySeqArg name "name"
+            nullArg description "description"
+            emptySeqArg description "description"
+            nullArg thetype "thetype"
             { Name = name; Description = description; Type = thetype; CorrectResponsesPattern = correctResponsesPattern; MoreInfo = moreInfo; Extensions = extensions }
 
         override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern

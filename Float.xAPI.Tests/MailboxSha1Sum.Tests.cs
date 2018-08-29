@@ -8,8 +8,8 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-	public class MailboxSha1SumTests
-	{
+	public class MailboxSha1SumTests : IInitializationTests, IEqualityTests, IToStringTests
+    {
         [Fact]
 		public void TestValidInit()
 		{
@@ -17,10 +17,9 @@ namespace Float.xAPI.Tests
 		}
 
         [Fact]
-        public void TestToString()
+        public void TestInvalidInit()
         {
-            var mailbox = new MailboxSha1Sum(new SHA1Hash("person@example.com"));
-            Assert.Equal("mbox_sha1sum: 371ab9ac0b1ab6d871f7a4c6e8823579e979eb90", mailbox.ToString());
+
         }
 
         [Fact]
@@ -37,5 +36,18 @@ namespace Float.xAPI.Tests
             Assert.Equal(mailbox1.MboxSha1Sum, mailbox3.MboxSha1Sum);
             Assert.Equal(mailbox1.MboxSha1Sum.Encoded, mailbox3.MboxSha1Sum.Encoded);
         }
-	}
+
+        [Fact]
+        public void TestInequality()
+        {
+
+        }
+
+        [Fact]
+        public void TestToString()
+        {
+            var mailbox = new MailboxSha1Sum(new SHA1Hash("person@example.com"));
+            Assert.Equal("mbox_sha1sum: 371ab9ac0b1ab6d871f7a4c6e8823579e979eb90", mailbox.ToString());
+        }
+    }
 }

@@ -8,8 +8,15 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class SHA1HashTests
+    public class SHA1HashTests : IInitializationTests, IEqualityTests, IToStringTests
     {
+        [Fact]
+        public void TestValidInit()
+        {
+            var hash1 = new SHA1Hash("arbitrary data");
+            var hash2 = new SHA1Hash(new byte[] { 0x8b, 0xad, 0xf0, 0x0d });
+        }
+
         [Fact]
         public void TestInvalidInit()
         {
@@ -21,10 +28,26 @@ namespace Float.xAPI.Tests
         }
 
         [Fact]
-        public void TestValidInit()
+        public void TestEquality()
         {
-            var hash1 = new SHA1Hash("arbitrary data");
-            var hash2 = new SHA1Hash(new byte[] { 0x8b, 0xad, 0xf0, 0x0d });
+            var hash1 = new SHA1Hash("verb");
+            var hash2 = new SHA1Hash("statement");
+            Assert.NotEqual(hash1, hash2);
+
+            var hash3 = new SHA1Hash("verb");
+            Assert.Equal(hash1, hash3);
+        }
+
+        [Fact]
+        public void TestInequality()
+        {
+
+        }
+
+        [Fact]
+        public void TestToString()
+        {
+
         }
 
         [Fact]
@@ -39,17 +62,6 @@ namespace Float.xAPI.Tests
             var bytes = new byte[] { 0x12, 0x34, 0x56, 0x78, 0x90 };
             var hash2 = new SHA1Hash(bytes);
             Assert.Equal(bytes, hash2.Encoded);
-        }
-
-        [Fact]
-        public void TestEquality()
-        {
-            var hash1 = new SHA1Hash("verb");
-            var hash2 = new SHA1Hash("statement");
-            Assert.NotEqual(hash1, hash2);
-
-            var hash3 = new SHA1Hash("verb");
-            Assert.Equal(hash1, hash3);
         }
     }
 }

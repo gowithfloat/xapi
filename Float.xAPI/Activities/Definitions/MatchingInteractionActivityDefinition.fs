@@ -6,8 +6,10 @@
 namespace Float.xAPI.Activities.Definitions
 
 open System
+open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
+open Float.xAPI.Interop
 
 /// <summary>
 /// An interaction where the learner is asked to match items in one set (the source set) to items in another set (the target set).
@@ -68,7 +70,12 @@ type public MatchingInteractionActivityDefinition =
         /// <param name="target">Items in the second set to match.</param>
         /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
         /// <param name="extensions">A map of other properties as needed.</param>
-        new(name, description, thetype, correctResponsesPattern, source, target, ?moreInfo, ?extensions) =
+        new(name, description, thetype, correctResponsesPattern, source, target, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
+            nullArg name "name"
+            emptySeqArg name "name"
+            nullArg description "description"
+            emptySeqArg description "description"
+            nullArg thetype "thetype"
             { Name = name; Description = description; Type = thetype; CorrectResponsesPattern = correctResponsesPattern; Source = source; Target = target; MoreInfo = moreInfo; Extensions = extensions }
 
         override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A Source %A Target %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Source this.Target

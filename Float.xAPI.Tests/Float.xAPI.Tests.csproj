@@ -18,4 +18,10 @@
     <None Remove="coverage.json" />
     <None Remove="coverage.opencover.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Definitions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Actor.Tests.cs" />
+  </ItemGroup>
 </Project>

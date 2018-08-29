@@ -5,8 +5,10 @@
 
 namespace Float.xAPI.Actor
 
+open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Actor.Identifier
+open Float.xAPI.Interop
 
 /// <summary>
 /// An Agent (an individual) is a persona or system.
@@ -36,11 +38,15 @@ type public Agent =
         /// </summary>
         /// <param name="ifi">An Inverse Functional Identifier unique to the Agent. Required.</param>
         /// <param name="display">Name of the Agent. Optional.</param>
-        new (ifi, ?name) =
+        new (ifi, [<Optional;DefaultParameterValue(null)>] ?name) =
+            nullArg ifi "ifi"
             { Name = name; IFI = ifi }
 
         override this.GetHashCode() = hash this.IFI
-        override this.ToString() = sprintf "<%A: Name %A IFI %A>" (this.GetType().Name) this.Name this.IFI
+        override this.ToString() =
+            match this.Name with
+            | Some name -> sprintf "<%O: Name %A IFI %A>" (this.GetType().Name) name this.IFI
+            | None -> sprintf "<%O: IFI %A>" (typeName this) this.IFI
         override this.Equals(other) = 
             match other with
             | :? IAgent as agent -> this.IFI = agent.IFI

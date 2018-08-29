@@ -5,8 +5,10 @@
 
 namespace Float.xAPI.Actor
 
+open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Actor.Identifier
+open Float.xAPI.Interop
 
 /// <summary>
 /// An Identified Group is used to uniquely identify a cluster of Agents.
@@ -40,11 +42,18 @@ type public IdentifiedGroup =
         /// <param name="ifi">An Inverse Functional Identifier unique to the Group. Required.</param>
         /// <param name="members">The members of this Group. Optional.</param>
         /// <param name="display">Name of the Group. Optional.</param>
-        new (ifi, ?members, ?name) =
+        new (ifi, [<Optional;DefaultParameterValue(null)>] ?members, [<Optional;DefaultParameterValue(null)>] ?name) =
+            nullArg ifi "ifi"
+            emptyOptionalSeqArg members "members"
+            invalidOptionalStringArg name "name"
             { Name = name; IFI = ifi; Member = members }
 
-        override this.GetHashCode() = hash this.IFI
-        override this.ToString() = sprintf "<%A: Name %A Member %A IFI %A>" (this.GetType().Name) this.Name this.Member this.IFI
+        override this.GetHashCode() = 
+            hash this.IFI
+
+        override this.ToString() = 
+            sprintf "<%O: %O %O IFI %O>" (typeName this) (toStringOrNone this.Name "Name") (seqToStringOrNone this.Member "Member") this.IFI
+
         override this.Equals(other) =
             match other with
             | :? IIdentifiedGroup as group -> this.IFI = group.IFI

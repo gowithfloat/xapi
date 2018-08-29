@@ -15,7 +15,7 @@ using Microsoft.FSharp.Core;
 
 namespace Float.xAPI.Tests
 {
-    public class ActorTests
+    public abstract class ActorTests
     {
         [Fact]
         public void TestAgent()

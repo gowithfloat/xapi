@@ -5,7 +5,6 @@
 
 using System;
 using System.Net.Mail;
-using Float.xAPI;
 using Float.xAPI.Activities;
 using Float.xAPI.Activities.Definitions;
 using Float.xAPI.Actor;
@@ -14,8 +13,38 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class SubStatementTests
+    public class SubStatementTests : IInitializationTests, IEqualityTests, IToStringTests, ISpecExampleTests
     {
+        [Fact]
+        public void TestValidInit()
+        {
+
+        }
+
+        [Fact]
+        public void TestInvalidInit()
+        {
+
+        }
+
+        [Fact]
+        public void TestEquality()
+        {
+
+        }
+
+        [Fact]
+        public void TestInequality()
+        {
+
+        }
+
+        [Fact]
+        public void TestToString()
+        {
+
+        }
+
         [Fact]
         public void TestExample()
         {

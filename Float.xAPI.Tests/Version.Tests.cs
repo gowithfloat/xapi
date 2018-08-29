@@ -8,10 +8,22 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class VersionTests
+    public class VersionTests : IInitializationTests, IEqualityTests, IToStringTests, IComparisonTests
     {
         [Fact]
-        public void TestVersionString()
+        public void TestValidInit()
+        {
+
+        }
+
+        [Fact]
+        public void TestInvalidInit()
+        {
+
+        }
+
+        [Fact]
+        public void TestToString()
         {
             var version1 = new Version(0, 0, 0);
             Assert.Equal("0.0.0", version1.ToString());
@@ -21,25 +33,28 @@ namespace Float.xAPI.Tests
         }
 
         [Fact]
-        public void TestVersionEquality()
+        public void TestEquality()
         {
             var version1 = new Version(1, 2, 3);
             var version2 = new Version(1, 2, 3);
             Assert.Equal(version1, version2);
+        }
 
+        [Fact]
+        public void TestInequality()
+        {
+            var version2 = new Version(1, 2, 3);
             var version3 = new Version(33, 22, 11);
             Assert.NotEqual(version2, version3);
 
             var version4 = new Version(1, 1, 0);
             Assert.NotEqual(version3, version4);
-
-            // ????
             var version5 = new Version(1, 0, 12);
             Assert.NotEqual(version4, version5);
         }
 
         [Fact]
-        public void TestVersionComparison()
+        public void TestComparison()
         {
             var version1 = new Version(1, 0, 0);
             var version2 = new Version(2, 0, 0);

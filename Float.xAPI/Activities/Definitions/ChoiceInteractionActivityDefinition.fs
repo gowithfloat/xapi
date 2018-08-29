@@ -6,8 +6,10 @@
 namespace Float.xAPI.Activities.Definitions
 
 open System
+open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
+open Float.xAPI.Interop
 
 /// <summary>
 /// An interaction with a number of possible choices from which the learner can select.
@@ -57,7 +59,12 @@ type public ChoiceInteractionActivityDefinition =
         /// <param name="choices">A list of choices.</param>
         /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
         /// <param name="extensions">A map of other properties as needed.</param>
-        new(name, description, thetype, correctResponsesPattern, choices, ?moreInfo, ?extensions) =
+        new(name, description, thetype, correctResponsesPattern, choices, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
+            nullArg name "name"
+            emptySeqArg name "name"
+            nullArg description "description"
+            emptySeqArg description "description"
+            nullArg thetype "thetype"
             { Name = name; Description = description; Type = thetype; CorrectResponsesPattern = correctResponsesPattern; Choices = choices; MoreInfo = moreInfo; Extensions = extensions }
 
         override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A Choices %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Choices

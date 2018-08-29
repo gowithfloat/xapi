@@ -18,8 +18,41 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class StatementTests
+    public class StatementTests : IInitializationTests, IEqualityTests, IToStringTests
     {
+        [Fact]
+        public void TestValidInit()
+        {
+            var actor = new Agent(new Mailbox(new MailAddress("xapi@adlnet.gov")), string.Empty);
+            var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/created"), new LanguageMap("en-US", "created"));
+            var obj = new Activity(new Uri("http://example.adlnet.gov/xapi/example/activity"), FSharpOption<IActivityDefinition>.None);
+            var statement = new Statement(actor, verb, obj);
+        }
+
+        [Fact]
+        public void TestInvalidInit()
+        {
+
+        }
+
+        [Fact]
+        public void TestEquality()
+        {
+
+        }
+
+        [Fact]
+        public void TestInequality()
+        {
+
+        }
+
+        [Fact]
+        public void TestToString()
+        {
+
+        }
+
         [Fact]
         public void TestConvenienceInitializedStatement()
         {
@@ -40,7 +73,7 @@ namespace Float.xAPI.Tests
         /// Attempt to create a statement using data from Appendix A.
         /// </summary>
         [Fact]
-        public void TestExampleStatement1()
+        public void TestExample()
         {
             var id = new Guid("fd41c918-b88b-4b20-a0a5-a4c32391aaa0");
             var timestamp = DateTime.Parse("2015-11-18T12:17:00+00:00");
@@ -61,10 +94,10 @@ namespace Float.xAPI.Tests
             var activity = new Activity(activityId, definition);
 
             var statement = new Statement(
-                id,
                 actor,
                 verb,
                 activity,
+                id,
                 null,
                 null,
                 timestamp,
@@ -125,10 +158,10 @@ namespace Float.xAPI.Tests
                 null
             );
 
-            var statement = new Statement(Guid.NewGuid(),
-                                          actor,
+            var statement = new Statement(actor,
                                           verb,
                                           activity,
+                                          Guid.NewGuid(),
                                           null, null, null, null, null, null,
                                           new IAttachment[] { attachment });
         }
@@ -151,24 +184,13 @@ namespace Float.xAPI.Tests
         }
 
         [Fact]
-        public void TestSimpleStatement()
-        {
-            var actor = new Agent(new Mailbox(new MailAddress("xapi@adlnet.gov")), string.Empty);
-            var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/created"), new LanguageMap("en-US", "created"));
-            var obj = new Activity(new Uri("http://example.adlnet.gov/xapi/example/activity"), FSharpOption<IActivityDefinition>.None);
-            var statement = new Statement(actor, verb, obj);
-        }
-
-        [Fact]
         public void TestWithResult()
         {
             var actor = new Agent(new Mailbox(new MailAddress("test@example.com")), null);
             var verb = new Verb(new Uri("http://example.com/commented"), new LanguageMap("en-US", "commented"));
             var statementRef = new StatementReference(new Guid("8f87ccde-bb56-4c2e-ab83-44982ef22df0"));
-            // todo: this should work
-            // var result = new Result(response: "Wow, nice work!");
-            var result = new Result(null, null, null, "Wow, nice work!", null, null);
-            var statement = new Statement(Guid.NewGuid(), actor, verb, statementRef, result, null, null, null, null, null, null);
+            var result = new Result(response: "Wow, nice work!");
+            var statement = new Statement(actor, verb, statementRef, result: result);
         }
     }
 }

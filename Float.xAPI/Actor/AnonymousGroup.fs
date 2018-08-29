@@ -5,7 +5,9 @@
 
 namespace Float.xAPI.Actor
 
+open System.Runtime.InteropServices
 open Float.xAPI
+open Float.xAPI.Interop
 
 /// <summary>
 /// An Anonymous Group is used to describe a cluster of people where there is no ready identifier for this cluster, e.g. an ad hoc team.
@@ -30,10 +32,16 @@ type public AnonymousGroup =
         /// </summary>
         /// <param name="members">The members of this Group. Required.</param>
         /// <param name="display">Name of the Group. Optional.</param>
-        new (members, ?name) =
+        new (members, [<Optional;DefaultParameterValue(null)>] ?name) =
+            nullArg members "members"
+            emptySeqArg members "members"
+            invalidOptionalStringArg name "name"
             { Name = name; Member = members }
 
-        override this.ToString() = sprintf "<%A: Name %A Member %A>" (this.GetType().Name) this.Name this.Member
+        override this.ToString() =
+            match this.Name with
+            | Some name -> sprintf "<%O: Name %A Member %O>" (typeName this) name (seqToString this.Member)
+            | None -> sprintf "<%O: Member %O>" (typeName this) (seqToString this.Member)
 
         member this.ObjectType = (this :> IObject).ObjectType
 

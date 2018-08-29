@@ -6,6 +6,7 @@
 namespace Float.xAPI
 
 open System
+open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Actor
 
@@ -49,11 +50,11 @@ type public SubStatement =
         /// <param name="result">Result Object, further details representing a measured outcome.</param>
         /// <param name="context">Context that gives the Statement more meaning.</param>
         /// <param name="timestamp">Timestamp of when the events described within this Statement occurred.</param>
-        new (actor, verb, object, ?result, ?context, ?timestamp) =
+        new (actor, verb, object, [<Optional;DefaultParameterValue(null)>] ?result, [<Optional;DefaultParameterValue(null)>] ?context, [<Optional;DefaultParameterValue(null)>] ?timestamp) =
             if box object :? ISubStatement then invalidArg "object" "Substatements cannot contain substatements"
             { Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = timestamp }
 
-        override this.ToString() = sprintf "<%A: Actor %A Verb %A Object %A Result %A Context %A Timestamp %A>" (this.GetType().Name) this.Actor this.Verb this.Object this.Result this.Context this.Timestamp
+        override this.ToString() = sprintf "<%O: Actor %A Verb %A Object %A Result %A Context %A Timestamp %A>" (this.GetType().Name) this.Actor this.Verb this.Object this.Result this.Context this.Timestamp
 
         member this.ObjectType = (this :> IObject).ObjectType
 

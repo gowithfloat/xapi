@@ -9,17 +9,8 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public abstract class OpenIDTests
+    public class OpenIDTests : IInitializationTests, IEqualityTests, IToStringTests
     {
-        [Fact]
-        public void TestInvalidInit()
-        {
-            Assert.Throws<ArgumentException>(() => new OpenID(null));
-            Assert.Throws<ArgumentException>(() => new OpenID(new Uri(null)));
-            Assert.Throws<ArgumentException>(() => new OpenID(new Uri(string.Empty)));
-            Assert.Throws<ArgumentException>(() => new OpenID(new Uri(" ")));
-        }
-
         [Fact]
         public void TestValidInit()
         {
@@ -27,10 +18,12 @@ namespace Float.xAPI.Tests
         }
 
         [Fact]
-        public void TestToString()
+        public void TestInvalidInit()
         {
-            var openid = new OpenID(new Uri("http://openid.com/jane-doe"));
-            Assert.Equal("<OpenID: http://openid.com/jane-doe>", openid.ToString());
+            Assert.Throws<ArgumentNullException>(() => new OpenID(null));
+            Assert.Throws<ArgumentNullException>(() => new OpenID(new Uri(null)));
+            Assert.Throws<UriFormatException>(() => new OpenID(new Uri(string.Empty)));
+            Assert.Throws<UriFormatException>(() => new OpenID(new Uri(" ")));
         }
 
         [Fact]
@@ -42,6 +35,19 @@ namespace Float.xAPI.Tests
 
             var openid3 = new OpenID(new Uri("http://openid.com/sue-schmoe"));
             Assert.Equal(openid1, openid3);
+        }
+
+        [Fact]
+        public void TestInequality()
+        {
+
+        }
+
+        [Fact]
+        public void TestToString()
+        {
+            var openid = new OpenID(new Uri("http://openid.com/jane-doe"));
+            Assert.Equal("<OpenID: http://openid.com/jane-doe>", openid.ToString());
         }
     }
 }

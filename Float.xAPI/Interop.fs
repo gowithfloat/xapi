@@ -9,33 +9,107 @@ open System
 open System.Text
 open System.Security.Cryptography
 
+/// <summary>
+/// Defines functions used internally to ensure proper parameters are received from C#.
+/// </summary>
 module Interop =
+    /// <summary>
+    /// Private function to raise an argument exception if a condition is true.
+    /// </summary>
     let inline private ifRaise x name =
         if x then raise (ArgumentException name)
 
-    [<CompiledName("NullArg")>]
+    /// <summary>
+    /// Raise an argument null exception if the given value is null.
+    /// </summary>
     let inline nullArg x name =
         if (isNull (box x)) then raise (ArgumentNullException name)
 
+    /// <summary>
+    /// Raise an argument exception if the given sequence is empty.
+    /// </summary>
     let inline emptySeqArg x name =
         ifRaise (Seq.isEmpty x) name
+        
+    /// <summary>
+    /// Raise an argument exception if the given sequence has a value and is empty.
+    /// </summary>
+    let inline emptyOptionalSeqArg x name =
+        match x with
+        | Some s -> emptySeqArg s name
+        | _ -> ()
 
-    [<CompiledName("InvalidStringArg")>]
+    /// <summary>
+    /// Return the type name of the given object.
+    /// </summary>
+    let inline typeName x =
+        x.GetType().Name
+
+    /// <summary>
+    /// Fold a sequence down to a string, with comma delineation.
+    /// </summary>
+    let seqToString x =
+        (Seq.fold (fun (sb:StringBuilder) element -> if sb.Length = 0 then sb.Append(element.ToString()) else sb.Append(", ").Append(element.ToString())) (StringBuilder()) x).ToString()
+
+
+    /// <summary>
+    /// Throw an argument exception if the given string is null or whitespace.
+    /// </summary>
     let inline invalidStringArg x name =
         ifRaise (String.IsNullOrWhiteSpace x) name
+        
+    /// <summary>
+    /// Throw an argument exception if the given optional string exists and is null or whitespace.
+    /// </summary>
+    let inline invalidOptionalStringArg x name =
+        match x with
+        | Some n -> invalidStringArg n name
+        | None -> ()
 
+    /// <summary>
+    /// Returns true if the given URI is not absolute.
+    /// </summary>
     let inline private isNotAbsolute(x: Uri) =
         not x.IsAbsoluteUri
 
-    [<CompiledName("InvalidIRIArg")>]
+    /// <summary>
+    /// Throw an argument exception if the given URI is not absolute.
+    /// </summary>
     let inline invalidIRIArg x name =
         ifRaise (isNotAbsolute x) name
 
+    /// <summary>
+    /// Returns the bytes from the given string using UTF-8 encoding.
+    /// </summary>
     let inline bytesFrom(str: string) =
-        (new UTF8Encoding()).GetBytes str
+        (UTF8Encoding()).GetBytes str
 
+    /// <summary>
+    /// Returns a string from the given bytes with standard formatting.
+    /// </summary>
     let inline stringFrom bytes =
         BitConverter.ToString(bytes).Replace("-", String.Empty).ToLower()
 
+    /// <summary>
+    /// Computes the SHA1 hash of the given string.
+    /// </summary>
     let inline computeSha x =
         SHA1.Create().ComputeHash(bytesFrom(x))
+        
+    /// <summary>
+    /// Null coalescing operator for F#.
+    /// </summary>
+    let inline (|?) (a: 'a option) b = 
+        match a with
+        | Some c -> c
+        | None -> b
+
+    let inline toStringOrNone obj name =
+        match obj with
+        | Some ob -> sprintf "%O %O" name (ob.ToString())
+        | _ -> ""
+
+    let inline seqToStringOrNone seq name =
+        match seq with
+        | Some s -> sprintf "%O %O" name (seqToString s)
+        | _ -> ""

@@ -10,8 +10,38 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class LanguageMapTests
+    public class LanguageMapTests : IInitializationTests, IEqualityTests, IToStringTests
     {
+        [Fact]
+        public void TestValidInit()
+        {
+
+        }
+
+        [Fact]
+        public void TestInvalidInit()
+        {
+
+        }
+
+        [Fact]
+        public void TestEquality()
+        {
+
+        }
+
+        [Fact]
+        public void TestInequality()
+        {
+
+        }
+
+        [Fact]
+        public void TestToString()
+        {
+
+        }
+
         [Fact]
         public void TestSingleLanguageMap()
         {

@@ -6,6 +6,7 @@
 namespace Float.xAPI.Actor.Identifier
 
 open System
+open Float.xAPI.Interop
 
 /// <summary>
 /// An openID that uniquely identifies the Agent.
@@ -29,10 +30,11 @@ type public OpenID =
         /// </summary>
         /// <param name="openID">An openID that uniquely identifies the Agent.</param>
         new (openID) =
+            nullArg openID "openID"
             { OpenID = openID }
 
         override this.GetHashCode() = hash this.OpenID
-        override this.ToString() = sprintf "<%A: %A>" (this.GetType().Name) this.OpenID
+        override this.ToString() = sprintf "<%O: %A>" (this.GetType().Name) this.OpenID
         override this.Equals(other) = 
             match other with
             | :? IOpenID as mailbox -> this.OpenID = mailbox.OpenID

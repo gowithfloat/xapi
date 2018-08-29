@@ -6,8 +6,10 @@
 namespace Float.xAPI
 
 open System
+open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Actor
+open Float.xAPI.Interop
 
 /// <summary>
 /// Statements are the evidence for any sort of experience or event which is to be tracked in xAPI.
@@ -82,21 +84,12 @@ type public Statement =
         val Attachments: option<seq<IAttachment>>
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Statement"/> struct with the minimum required parameters.
-        /// </summary>
-        /// <param name="actor">Whom the Statement is about, as an Agent or Group Object.</param>
-        /// <param name="verb">Action taken by the Actor.</param>
-        /// <param name="object">Activity, Agent, or another Statement that is the Object of the Statement.</param>
-        new(actor: IActor, verb: IVerb, object: IObject) =
-            { Id = Guid.NewGuid(); Actor = actor; Verb = verb; Object = object; Result = None; Context = None; Timestamp = None; Stored = None; Authority = None; Version = None; Attachments = None }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="T:Float.xAPI.Statement"/> struct.
         /// </summary>
-        /// <param name="id">UUID assigned by LRS if not set by the Learning Record Provider.</param>
         /// <param name="actor">Whom the Statement is about, as an Agent or Group Object.</param>
         /// <param name="verb">Action taken by the Actor.</param>
         /// <param name="object">Activity, Agent, or another Statement that is the Object of the Statement.</param>
+        /// <param name="id">UUID assigned by LRS if not set by the Learning Record Provider.</param>
         /// <param name="result">Result Object, further details representing a measured outcome.</param>
         /// <param name="context">Context that gives the Statement more meaning.</param>
         /// <param name="timestamp">Timestamp of when the events described within this Statement occurred.</param>
@@ -104,8 +97,11 @@ type public Statement =
         /// <param name="authority">Agent or Group who is asserting this Statement is true.</param>
         /// <param name="version">The Statement’s associated xAPI version.</param>
         /// <param name="attachments">Attachments to this statement.</param>
-        new(id, actor, verb, object, ?result, ?context, ?timestamp, ?stored, ?authority, ?version, ?attachments) =
-            { Id = id; Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = timestamp; Stored = stored; Authority = authority; Version = version; Attachments = attachments }
+        new(actor, verb, object, [<Optional;DefaultParameterValue(null)>] ?id, [<Optional;DefaultParameterValue(null)>] ?result, [<Optional;DefaultParameterValue(null)>] ?context, [<Optional;DefaultParameterValue(null)>] ?timestamp, [<Optional;DefaultParameterValue(null)>] ?stored, [<Optional;DefaultParameterValue(null)>] ?authority, [<Optional;DefaultParameterValue(null)>] ?version, [<Optional;DefaultParameterValue(null)>] ?attachments) =
+            nullArg actor "actor"
+            nullArg verb "verb"
+            nullArg object "object"
+            { Id = (id |? Guid.NewGuid()); Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = Some (timestamp |? DateTime.Now); Stored = stored; Authority = authority; Version = version; Attachments = attachments }
 
         override this.GetHashCode() = hash this.Id
         override this.ToString() = sprintf "<%A: Id %A Actor %A Object %A Result %A Context %A Timestamp %A Stored %A Authority %A Version %A Attachments %A>" (this.GetType().Name) this.Id this.Actor this.Object this.Result this.Context this.Timestamp this.Stored this.Authority this.Version this.Attachments

@@ -47,9 +47,15 @@ This implementation is influenced by the existing [TinCan.NET](https://github.co
 * Provide serialization logic
 * Add implementation and interface for an LRS
 * Improve build pipeline with [Fake](https://fake.build/)
+* Provide a minimal example server implementation that passes the [LRS Test Suite](https://lrstest.adlnet.gov/)
 * Publish library on [NuGet](https://www.nuget.org/)
+* Add support for [xAPI Profiles](https://github.com/adlnet/xAPI-profiles)
 * Determine viability of Fable compiler for JavaScript target
 * Investigate use of F* to improve library with formal verification
+
+## Notes
+
+* C# [does not allow](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-structs) structs to have a [parameterless default constructor](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-constructors) defined, and auto-generates one for all structs. As a result, all struct types can be instantiated with a parameterless constructor, which for most of this library, will create an invalid instance. Note that this may conflict with the CLI [specification](https://www.ecma-international.org/publications/standards/Ecma-335.htm) and could be revised in future versions of C#.
 
 ## License
 

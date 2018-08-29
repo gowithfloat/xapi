@@ -10,27 +10,47 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class VerbTests
+    public class VerbTests : IInitializationTests, IEqualityTests, IToStringTests, ISpecExampleTests
     {
         [Fact]
-        public void TestInit()
+        public void TestInvalidInit()
         {
             var uri = new Uri("http://www.gowithfloat.com");
             var map = new LanguageMap("en-US", "floated");
-
-            // display is required
-            Assert.Throws<ArgumentNullException>(() => new Verb(null, map));
-
-            // map must have at least one element
             var map2 = new LanguageMap();
-            Assert.Throws<ArgumentException>(() => new Verb(uri, map2));
 
-            // valid
+            Assert.Throws<ArgumentNullException>(() => new Verb(null, map));
+            Assert.Throws<ArgumentException>(() => new Verb(uri, map2));
+        }
+
+        [Fact]
+        public void TestValidInit()
+        {
+            var uri = new Uri("http://www.gowithfloat.com");
+            var map = new LanguageMap("en-US", "floated");
             var verb = new Verb(uri, map);
         }
 
         [Fact]
-        public void TestExampleVerb()
+        public void TestEquality()
+        {
+
+        }
+
+        [Fact]
+        public void TestInequality()
+        {
+
+        }
+
+        [Fact]
+        public void TestToString()
+        {
+
+        }
+
+        [Fact]
+        public void TestExample()
         {
             var uri = new Uri("http://example.com/xapi/verbs#defenestrated");
             var map = new Dictionary<CultureInfo, string>

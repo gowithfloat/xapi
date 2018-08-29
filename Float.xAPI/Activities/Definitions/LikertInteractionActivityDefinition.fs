@@ -6,8 +6,10 @@
 namespace Float.xAPI.Activities.Definitions
 
 open System
+open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
+open Float.xAPI.Interop
 
 /// <summary>
 /// An interaction which asks the learner to select from a discrete set of choices on a scale.
@@ -56,7 +58,12 @@ type public LikertInteractionActivityDefinition =
         /// <param name="responses">A list of discrete choices on a scale.</param>
         /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
         /// <param name="extensions">A map of other properties as needed.</param>
-        new(name, description, thetype, correctResponsesPattern, responses, ?moreInfo, ?extensions) =
+        new(name, description, thetype, correctResponsesPattern, responses, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
+            nullArg name "name"
+            emptySeqArg name "name"
+            nullArg description "description"
+            emptySeqArg description "description"
+            nullArg thetype "thetype"
             { Name = name; Description = description; Type = thetype; CorrectResponsesPattern = correctResponsesPattern; Responses = responses; MoreInfo = moreInfo; Extensions = extensions }
 
         override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A Responses %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Responses

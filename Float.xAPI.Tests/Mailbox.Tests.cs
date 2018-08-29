@@ -10,10 +10,10 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class MailboxTests
+    public class MailboxTests : IInitializationTests, IEqualityTests, IToStringTests
     {
         [Fact]
-        public void TestInit()
+        public void TestInvalidInit()
         {
             Assert.Throws<ArgumentNullException>(() => new Mailbox(null));
             Assert.Throws<ArgumentNullException>(() => new Mailbox(new MailAddress(null)));
@@ -21,6 +21,11 @@ namespace Float.xAPI.Tests
             Assert.Throws<FormatException>(() => new Mailbox(new MailAddress(" ")));
             Assert.Throws<FormatException>(() => new Mailbox(new MailAddress("invalid")));
             Assert.Throws<FormatException>(() => new Mailbox(new MailAddress("invalid.com")));
+        }
+
+        [Fact]
+        public void TestValidInit()
+        {
             var mailbox = new Mailbox(new MailAddress("valid@example.com"));
         }
 
@@ -31,6 +36,13 @@ namespace Float.xAPI.Tests
             var mailbox2 = new Mailbox(new MailAddress("test@example.com"));
             var mailbox3 = new Mailbox(new MailAddress("notequal@example.com"));
             Assert.Equal(mailbox1, mailbox2);
+        }
+
+        [Fact]
+        public void TestInequality()
+        {
+            var mailbox1 = new Mailbox(new MailAddress("test@example.com"));
+            var mailbox3 = new Mailbox(new MailAddress("notequal@example.com"));
             Assert.NotEqual(mailbox1, mailbox3);
         }
 

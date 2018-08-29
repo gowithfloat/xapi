@@ -49,7 +49,7 @@ type public Account =
             { Name = name; HomePage = homePage }
 
         override this.GetHashCode() = hash (this.Name, this.HomePage)
-        override this.ToString() = sprintf "<%A: Name %A HomePage %A" (this.GetType().Name) this.Name this.HomePage
+        override this.ToString() = sprintf "<%O: Name %A HomePage %A>" (this.GetType().Name) this.Name this.HomePage
         override this.Equals(other) = 
             match other with
             | :? IAccount as account -> (this.Name, this.HomePage) = (account.Name, account.HomePage)

@@ -7,8 +7,10 @@ namespace Float.xAPI
 
 open System
 open System.Globalization
+open System.Runtime.InteropServices
 open Float.xAPI.Actor
 open Float.xAPI.Activities
+open Float.xAPI.Interop
 
 [<NoEquality;NoComparison>]
 type public Context =
@@ -52,7 +54,9 @@ type public Context =
         /// <param name="language">Code representing the language in which the experience being recorded in this Statement (mainly) occurred in, if applicable and known.</param>
         /// <param name="statement">Another Statement to be considered as context for this Statement.</param>
         /// <param name="extensions">A map of any other domain-specific context relevant to this Statement.</param>
-        new (?registration, ?instructor, ?team, ?contextActivities, ?revision, ?platform, ?language, ?statement, ?extensions) =
+        new ([<Optional;DefaultParameterValue(null)>] ?registration, [<Optional;DefaultParameterValue(null)>] ?instructor, [<Optional;DefaultParameterValue(null)>] ?team, [<Optional;DefaultParameterValue(null)>] ?contextActivities, [<Optional;DefaultParameterValue(null)>] ?revision, [<Optional;DefaultParameterValue(null)>] ?platform, [<Optional;DefaultParameterValue(null)>] ?language, [<Optional;DefaultParameterValue(null)>] ?statement, [<Optional;DefaultParameterValue(null)>] ?extensions) =
+            invalidOptionalStringArg revision "revision"
+            invalidOptionalStringArg platform "platform"
             { Registration = registration; Instructor = instructor; Team = team; ContextActivities = contextActivities; Revision = revision; Platform = platform; Language = language; Statement = statement; Extensions = extensions }
 
         override this.ToString() = sprintf "<%A: Registration %A Instructor %A Team %A ContextActivities %A Revision %A Platform %A Language %A Statement %A Extensions %A>" (this.GetType().Name) this.Registration this.Instructor this.Team this.ContextActivities this.Revision this.Platform this.Language this.Statement this.Extensions

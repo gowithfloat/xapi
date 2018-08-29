@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class AccountTests
+    public class AccountTests : IInitializationTests, IEqualityTests, IToStringTests
     {
         [Fact]
         public void TestInvalidInit()
@@ -35,12 +35,23 @@ namespace Float.xAPI.Tests
         public void TestEquality()
         {
             var account1 = new Account("unknown", new Uri("http://www.example.com"));
+            var account2 = new Account("unknown", new Uri("http://www.example.com"));
+            Assert.Equal(account1, account2);
+        }
+
+        [Fact]
+        public void TestInequality()
+        {
+            var account1 = new Account("unknown", new Uri("http://www.example.com"));
             var account2 = new Account("known", new Uri("http://www.example.com"));
             Assert.NotEqual(account1, account2);
+        }
 
-            var account3 = new Account("other", new Uri("https://www.gowithfloat.com"));
-            Assert.NotEqual(account3.GetHashCode(), account1.GetHashCode());
-            Assert.NotEqual(account2.ToString(), account3.ToString());
+        [Fact]
+        public void TestToString()
+        {
+            var account1 = new Account("Example Learner", new Uri("https://www.gowithfloat.com"));
+            Assert.Equal("<Account: Name \"Example Learner\" HomePage https://www.gowithfloat.com/>", account1.ToString());
         }
     }
 }
