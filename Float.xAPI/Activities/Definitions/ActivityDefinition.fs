@@ -66,12 +66,16 @@ type public ActivityDefinition =
         /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
         /// <param name="extensions">A map of other properties as needed.</param>
         new(name, description, thetype, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
+            nullArg name "name"
             emptySeqArg name "name"
+            nullArg description "description"
             emptySeqArg description "description"
+            nullArg thetype "thetype"
             invalidIRIArg thetype "thetype"
             { Name = name; Description = description; Type = thetype; MoreInfo = moreInfo; Extensions = extensions }
 
-        override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions
+        override this.ToString() = 
+            sprintf "<%O: Name %A Description %A Type %A MoreInfo %A Extensions %A>" (typeName this) (seqToString this.Name) (seqToString this.Description) this.Type this.MoreInfo this.Extensions
 
         interface IActivityDefinition with
             member this.Name = this.Name

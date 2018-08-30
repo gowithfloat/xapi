@@ -192,5 +192,39 @@ namespace Float.xAPI.Tests
             var result = new Result(response: "Wow, nice work!");
             var statement = new Statement(actor, verb, statementRef, result: result);
         }
+
+        [Fact]
+        public void TestAboutExample()
+        {
+            var id = new Guid("2a41c918-b88b-4220-20a5-a4c32391a240");
+            var account = new Account("1625378", new Uri("http://example.adlnet.gov"));
+            var agent = new Agent(account, "Gert Frobe");
+            var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/failed"), new LanguageMap("en-US", "failed"));
+            var activity = new Activity(new Uri("https://example.adlnet.gov/AUidentifier"));
+            var extensions = new Dictionary<Uri, string>
+            {
+                {
+                    new Uri("https://w3id.org/xapi/cmi5/result/extensions/progress"), "100"
+
+                }
+            };
+            var timespan = new TimeSpan(0, 30, 0);
+            var result = new Result(new Score(), false, duration: timespan, extensions: extensions);
+            var categories = new List<IActivity>
+            {
+                new Activity(new Uri("https://w3id.org/xapi/cmi5/context/categories/moveon")),
+                new Activity(new Uri("https://w3id.org/xapi/cmi5/context/categories/cmi5"))
+            };
+            var contextActivities = new ContextActivities(category: categories);
+            var ctxExtensions = new Dictionary<Uri, string>
+            {
+                {
+                    new Uri("https://w3id.org/xapi/cmi5/context/extensions/sessionid"), "458240298378231"
+                }
+            };
+            var context = new Context(new Guid("ec231277-b27b-4c15-8291-d29225b2b8f7"), contextActivities: contextActivities, extensions: ctxExtensions);
+            var timestamp = DateTime.Parse("2012-06-01T19:09:13.245+00:00");
+            var statement = new Statement(agent, verb, activity, id, result, context, timestamp);
+        }
     }
 }
