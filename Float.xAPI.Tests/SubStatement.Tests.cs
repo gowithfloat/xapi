@@ -9,6 +9,7 @@ using Float.xAPI.Activities;
 using Float.xAPI.Activities.Definitions;
 using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
+using Float.xAPI.Languages;
 using Xunit;
 
 namespace Float.xAPI.Tests
@@ -49,12 +50,12 @@ namespace Float.xAPI.Tests
         public void TestExample()
         {
             var actor = new Agent(new Mailbox(new MailAddress("test@example.com")), "Agent");
-            var verb1 = new Verb(new Uri("http://example.com/planned"), new LanguageMap("en-US", "planned"));
-            var verb2 = new Verb(new Uri("http://example.com/planned"), new LanguageMap("en-US", "will visit"));
+            var verb1 = new Verb(new Uri("http://example.com/planned"), new LanguageMap(LanguageTag.EnglishUS, "planned"));
+            var verb2 = new Verb(new Uri("http://example.com/planned"), new LanguageMap(LanguageTag.EnglishUS, "will visit"));
             var activity = new Activity(
                 new Uri("http://example.com/website"), 
-                new ActivityDefinition(new LanguageMap("en-US", "Some Awesome Website"), 
-                                       new LanguageMap("en-US", "This is an awesome website"),
+                new ActivityDefinition(new LanguageMap(LanguageTag.EnglishUS, "Some Awesome Website"), 
+                                       new LanguageMap(LanguageTag.EnglishUS, "This is an awesome website"),
                                        new Uri("http://adlnet.gov/expapi/activities/media"))
             );
             var substatement = new SubStatement(actor, verb2, activity, null, null, null);

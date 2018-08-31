@@ -7,6 +7,7 @@ namespace Float.xAPI.Activities.Definitions
 
 open System
 open Float.xAPI
+open Float.xAPI.Languages
 open Interop
 
 /// <summary>

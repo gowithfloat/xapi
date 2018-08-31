@@ -14,15 +14,8 @@ open Float.xAPI.Interop
 /// An Identified Group is used to uniquely identify a cluster of Agents.
 /// </summary>
 type public IIdentifiedGroup =
-    /// <summary>
-    /// An Inverse Functional Identifier unique to the Group.
-    /// </summary>
-    abstract member IFI: IInverseFunctionalIdentifier
-
-    /// <summary>
-    /// The members of an anonymous group are an optional list of agents.
-    /// </summary>
     inherit IGroup<option<seq<IAgent>>>
+    inherit IIdentifiedActor
 
 [<CustomEquality;NoComparison>]
 type public IdentifiedGroup =

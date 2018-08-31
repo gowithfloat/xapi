@@ -9,6 +9,7 @@ open System
 open System.Net.Mime
 open System.Runtime.InteropServices
 open System.Security.Cryptography
+open Float.xAPI.Languages
 open Interop
 
 /// <summary>

@@ -6,9 +6,9 @@
 namespace Float.xAPI
 
 open System
-open System.Globalization
 open Float.xAPI.Actor
 open Float.xAPI.Activities
+open Float.xAPI.Languages
 
 /// <summary>
 /// An optional property that provides a place to add contextual information to a Statement.
@@ -47,7 +47,7 @@ type public IContext =
     /// <summary>
     /// Code representing the language in which the experience being recorded in this Statement (mainly) occurred in, if applicable and known.
     /// </summary>
-    abstract member Language: option<CultureInfo>
+    abstract member Language: option<ILanguageTag>
 
     /// <summary>
     /// Another Statement to be considered as context for this Statement.

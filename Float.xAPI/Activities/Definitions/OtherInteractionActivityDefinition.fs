@@ -10,6 +10,7 @@ open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
 open Float.xAPI.Interop
+open Float.xAPI.Languages
 
 /// <summary>
 /// Another type of interaction that does not fit into those defined above.

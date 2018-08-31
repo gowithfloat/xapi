@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using Float.xAPI.Activities.Definitions;
+using Float.xAPI.Languages;
 using Xunit;
 
 namespace Float.xAPI.Tests
@@ -15,8 +16,8 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestValidInit()
         {
-            var name = new LanguageMap("en-US", "Name");
-            var description = new LanguageMap("en-US", "Description");
+            var name = new LanguageMap(LanguageTag.EnglishUS, "Name");
+            var description = new LanguageMap(LanguageTag.EnglishUS, "Description");
             var uri = new Uri("http://example.com");
             var moreInfo = new Uri("http://example.com/more");
             var extensions = new Dictionary<Uri, string>
@@ -33,8 +34,8 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInvalidInit()
         {
-            var name = new LanguageMap("en-US", "Name");
-            var desc = new LanguageMap("en-US", "Description");
+            var name = new LanguageMap(LanguageTag.EnglishUS, "Name");
+            var desc = new LanguageMap(LanguageTag.EnglishUS, "Description");
             Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(null, null, null));
             Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(name, null, null));
             Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(null, desc, null));
@@ -45,8 +46,8 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestToString()
         {
-            var name = new LanguageMap("en-US", "Name");
-            var description = new LanguageMap("en-US", "Description");
+            var name = new LanguageMap(LanguageTag.EnglishUS, "Name");
+            var description = new LanguageMap(LanguageTag.EnglishUS, "Description");
             var uri = new Uri("http://example.com");
             var ad1 = new ActivityDefinition(name, description, uri);
             // todo: need a good dict to string method

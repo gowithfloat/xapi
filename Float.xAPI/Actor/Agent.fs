@@ -14,15 +14,7 @@ open Float.xAPI.Interop
 /// An Agent (an individual) is a persona or system.
 /// </summary>
 type public IAgent =
-    /// <summary>
-    /// An Inverse Functional Identifier unique to the Agent.
-    /// </summary>
-    abstract member IFI: IInverseFunctionalIdentifier // todo: IFI values should be properties directly on agent
-
-    /// <summary>
-    /// An agent is a type of actor.
-    /// </summary>
-    inherit IActor
+    inherit IIdentifiedActor
 
 [<CustomEquality;NoComparison>]
 type public Agent =

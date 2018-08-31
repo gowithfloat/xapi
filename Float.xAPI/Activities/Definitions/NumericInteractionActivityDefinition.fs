@@ -10,6 +10,7 @@ open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
 open Float.xAPI.Interop
+open Float.xAPI.Languages
 
 /// <summary>
 /// Any interaction which requires a numeric response from the learner.

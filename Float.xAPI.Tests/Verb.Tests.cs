@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Float.xAPI.Languages;
 using Xunit;
 
 namespace Float.xAPI.Tests
@@ -16,7 +17,7 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             var uri = new Uri("http://www.gowithfloat.com");
-            var map = new LanguageMap("en-US", "floated");
+            var map = new LanguageMap(LanguageTag.EnglishUS, "floated");
             var map2 = new LanguageMap();
 
             Assert.Throws<ArgumentNullException>(() => new Verb(null, map));
@@ -27,7 +28,7 @@ namespace Float.xAPI.Tests
         public void TestValidInit()
         {
             var uri = new Uri("http://www.gowithfloat.com");
-            var map = new LanguageMap("en-US", "floated");
+            var map = new LanguageMap(LanguageTag.EnglishUS, "floated");
             var verb = new Verb(uri, map);
         }
 
@@ -53,13 +54,13 @@ namespace Float.xAPI.Tests
         public void TestExample()
         {
             var uri = new Uri("http://example.com/xapi/verbs#defenestrated");
-            var map = new Dictionary<CultureInfo, string>
+            var map = new Dictionary<ILanguageTag, string>
             {
                 {
-                    new CultureInfo("en-US"), "defenestrated"
+                    new LanguageTag(Language.English, Region.UnitedStates), "defenestrated"
                 },
                 {
-                    new CultureInfo("es"), "defenestrado"
+                    new LanguageTag(Language.Spanish, Region.Mexico), "defenestrado"
                 }
             };
 

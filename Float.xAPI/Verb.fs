@@ -6,6 +6,7 @@
 namespace Float.xAPI
 
 open System
+open Float.xAPI.Languages
 open Interop
 
 /// <summary>
@@ -67,5 +68,5 @@ type public Verb =
         /// This is called "voiding a Statement" and this reserved Verb is used for this purpose.
         /// </summary>
         static member public Voided =
-            Verb(Uri("http://adlnet.gov/expapi/verbs/voided"), LanguageMap("en-US", "voided"))
+            Verb(Uri("http://adlnet.gov/expapi/verbs/voided"), LanguageMap(LanguageTag.EnglishUS, "voided"))
     end

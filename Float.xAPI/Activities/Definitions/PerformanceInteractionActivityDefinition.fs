@@ -10,6 +10,7 @@ open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
 open Float.xAPI.Interop
+open Float.xAPI.Languages
 
 /// <summary>
 /// An interaction that requires the learner to perform a task that requires multiple steps.

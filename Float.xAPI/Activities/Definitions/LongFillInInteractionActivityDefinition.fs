@@ -10,6 +10,7 @@ open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
 open Float.xAPI.Interop
+open Float.xAPI.Languages
 
 /// <summary>
 /// An interaction which requires the learner to supply a response in the form of a long string of characters.

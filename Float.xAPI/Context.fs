@@ -6,11 +6,11 @@
 namespace Float.xAPI
 
 open System
-open System.Globalization
 open System.Runtime.InteropServices
 open Float.xAPI.Actor
 open Float.xAPI.Activities
 open Float.xAPI.Interop
+open Float.xAPI.Languages
 
 [<NoEquality;NoComparison>]
 type public Context =
@@ -34,7 +34,7 @@ type public Context =
         val Platform: option<string>
 
         /// <inheritdoc />
-        val Language: option<CultureInfo>
+        val Language: option<ILanguageTag>
 
         /// <inheritdoc />
         val Statement: option<IStatementReference>

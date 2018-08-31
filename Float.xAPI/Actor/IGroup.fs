@@ -14,7 +14,6 @@ namespace Float.xAPI.Actor
 type public IGroup<'T> =
     /// <summary>
     /// The members of this Group.
-    /// A Group MUST NOT contain Group Objects in the "member" identifiers.
     /// </summary>
     abstract member Member: 'T
 

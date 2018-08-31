@@ -9,23 +9,29 @@
     <Folder Include="Actor\Identifier\" />
     <Folder Include="Activities\Definitions\" />
     <Folder Include="Activities\" />
+    <Folder Include="Languages\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interop.fs" />
     <Compile Include="SHA1Hash.fs" />
     <Compile Include="IObject.fs" />
+    <Compile Include="Languages\Language.fs" />
+    <Compile Include="Languages\ExtendedLanguage.fs" />
+    <Compile Include="Languages\Region.fs" />
+    <Compile Include="Languages\LanguageTag.fs" />
+    <Compile Include="Languages\LanguageMap.fs" />
     <Compile Include="Actor\Identifier\IInverseFunctionalIdentifier.fs" />
     <Compile Include="Actor\Identifier\Mailbox.fs" />
     <Compile Include="Actor\Identifier\MailboxSha1Sum.fs" />
     <Compile Include="Actor\Identifier\OpenID.fs" />
     <Compile Include="Actor\Identifier\Account.fs" />
     <Compile Include="Actor\IActor.fs" />
+    <Compile Include="Actor\IIdentifiedActor.fs" />
     <Compile Include="Actor\Agent.fs" />
     <Compile Include="Actor\IGroup.fs" />
     <Compile Include="Actor\AnonymousGroup.fs" />
     <Compile Include="Actor\IdentifiedGroup.fs" />
     <Compile Include="IExtensions.fs" />
-    <Compile Include="LanguageMap.fs" />
     <Compile Include="Verb.fs" />
     <Compile Include="Version.fs" />
     <Compile Include="Score.fs" />
