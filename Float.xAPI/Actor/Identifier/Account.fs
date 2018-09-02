@@ -48,16 +48,20 @@ type public Account =
             nullArg homePage "homePage"
             { Name = name; HomePage = homePage }
 
+        /// <inheritdoc />
         override this.GetHashCode() = hash (this.Name, this.HomePage)
+
+        /// <inheritdoc />
         override this.ToString() = sprintf "<%O: Name %A HomePage %A>" (this.GetType().Name) this.Name this.HomePage
+
+        /// <inheritdoc />
         override this.Equals(other) = 
             match other with
             | :? IAccount as account -> (this.Name, this.HomePage) = (account.Name, account.HomePage)
             | _ -> false
 
         interface IEquatable<IAccount> with
-            member this.Equals other =
-                (this.Name, this.HomePage) = (other.Name, other.HomePage)
+            member this.Equals other = this.Equals other
 
         interface IAccount with
             member this.Name = this.Name

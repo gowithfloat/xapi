@@ -35,16 +35,20 @@ type public Mailbox =
             nullArg address "address"
             { Address = address }
 
+        /// <inheritdoc />
         override this.GetHashCode() = hash this.Address
+
+        /// <inheritdoc />
         override this.ToString() = sprintf "mailto:%s" this.Address.Address
+
+        /// <inheritdoc />
         override this.Equals(other) = 
             match other with
             | :? IMailbox as mailbox -> this.Address = mailbox.Address
             | _ -> false
 
         interface IEquatable<IMailbox> with
-            member this.Equals other =
-                this.Address = other.Address
+            member this.Equals other = this.Equals other
 
         interface IMailbox with
             member this.Address = this.Address

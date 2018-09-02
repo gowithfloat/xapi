@@ -33,8 +33,13 @@ type public OpenID =
             nullArg openID "openID"
             { OpenID = openID }
 
+        /// <inheritdoc />
         override this.GetHashCode() = hash this.OpenID
+
+        /// <inheritdoc />
         override this.ToString() = sprintf "<%O: %A>" (this.GetType().Name) this.OpenID
+
+        /// <inheritdoc />
         override this.Equals(other) = 
             match other with
             | :? IOpenID as mailbox -> this.OpenID = mailbox.OpenID

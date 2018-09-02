@@ -37,6 +37,7 @@ namespace Float.xAPI.Tests
             var account1 = new Account("unknown", new Uri("http://www.example.com"));
             var account2 = new Account("unknown", new Uri("http://www.example.com"));
             Assert.Equal(account1, account2);
+            Assert.Equal(account1.GetHashCode(), account2.GetHashCode());
         }
 
         [Fact]
@@ -45,6 +46,7 @@ namespace Float.xAPI.Tests
             var account1 = new Account("unknown", new Uri("http://www.example.com"));
             var account2 = new Account("known", new Uri("http://www.example.com"));
             Assert.NotEqual(account1, account2);
+            Assert.NotEqual(account1.GetHashCode(), account2.GetHashCode());
         }
 
         [Fact]

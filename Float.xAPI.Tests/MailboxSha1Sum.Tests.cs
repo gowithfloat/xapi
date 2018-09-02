@@ -30,6 +30,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(mailbox1, mailbox3);
             Assert.Equal(mailbox1.MboxSha1Sum, mailbox3.MboxSha1Sum);
             Assert.Equal(mailbox1.MboxSha1Sum.Encoded, mailbox3.MboxSha1Sum.Encoded);
+            Assert.Equal(mailbox1.GetHashCode(), mailbox3.GetHashCode());
         }
 
         [Fact]
@@ -40,6 +41,7 @@ namespace Float.xAPI.Tests
             Assert.NotEqual(mailbox1, mailbox2);
             Assert.NotEqual(mailbox1.MboxSha1Sum, mailbox2.MboxSha1Sum);
             Assert.NotEqual(mailbox1.MboxSha1Sum.Encoded, mailbox2.MboxSha1Sum.Encoded);
+            Assert.NotEqual(mailbox1.GetHashCode(), mailbox2.GetHashCode());
         }
 
         [Fact]

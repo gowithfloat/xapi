@@ -36,6 +36,8 @@ namespace Float.xAPI.Tests
             var mailbox2 = new Mailbox(new MailAddress("test@example.com"));
             var mailbox3 = new Mailbox(new MailAddress("notequal@example.com"));
             Assert.Equal(mailbox1, mailbox2);
+            Assert.True(mailbox1.Equals(mailbox2));
+            Assert.Equal(mailbox1.GetHashCode(), mailbox2.GetHashCode());
         }
 
         [Fact]
@@ -44,6 +46,8 @@ namespace Float.xAPI.Tests
             var mailbox1 = new Mailbox(new MailAddress("test@example.com"));
             var mailbox3 = new Mailbox(new MailAddress("notequal@example.com"));
             Assert.NotEqual(mailbox1, mailbox3);
+            Assert.False(mailbox1.Equals(mailbox3));
+            Assert.NotEqual(mailbox1.GetHashCode(), mailbox3.GetHashCode());
         }
 
         [Fact]
