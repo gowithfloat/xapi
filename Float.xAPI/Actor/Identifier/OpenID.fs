@@ -19,7 +19,7 @@ type public IOpenID =
 
     inherit IInverseFunctionalIdentifier
 
-[<CustomEquality;NoComparison>]
+[<StructuralEquality;NoComparison>]
 type public OpenID =
     struct
         /// <inheridoc />
@@ -34,19 +34,10 @@ type public OpenID =
             { OpenID = openID }
 
         /// <inheritdoc />
-        override this.GetHashCode() = hash this.OpenID
-
-        /// <inheritdoc />
         override this.ToString() = sprintf "<%O: %A>" (this.GetType().Name) this.OpenID
 
-        /// <inheritdoc />
-        override this.Equals(other) = 
-            match other with
-            | :? IOpenID as mailbox -> this.OpenID = mailbox.OpenID
-            | _ -> false
-
-        interface IEquatable<IOpenID> with
-            member this.Equals other = this.Equals other
+        static member op_Equality (lhs: OpenID, rhs: IOpenID) = lhs.Equals(rhs)
+        static member op_Inequality (lhs: OpenID, rhs: IOpenID) = not(lhs.Equals(rhs))
 
         interface IOpenID with
             member this.OpenID = this.OpenID

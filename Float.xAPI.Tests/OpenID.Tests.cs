@@ -32,7 +32,10 @@ namespace Float.xAPI.Tests
             var openid1 = new OpenID(new Uri("http://openid.com/sue-schmoe"));
             var openid3 = new OpenID(new Uri("http://openid.com/sue-schmoe"));
             Assert.Equal(openid1, openid3);
+            Assert.True(openid1 == openid3);
+            Assert.False(openid1 != openid3);
             Assert.Equal(openid1.GetHashCode(), openid3.GetHashCode());
+            Assert.Equal(openid1.OpenID, openid3.OpenID);
         }
 
         [Fact]
@@ -41,7 +44,10 @@ namespace Float.xAPI.Tests
             var openid1 = new OpenID(new Uri("http://openid.com/sue-schmoe"));
             var openid2 = new OpenID(new Uri("http://openid.com/jane-schmoe"));
             Assert.NotEqual(openid1, openid2);
+            Assert.True(openid1 != openid2);
+            Assert.False(openid1 == openid2);
             Assert.NotEqual(openid1.GetHashCode(), openid2.GetHashCode());
+            Assert.NotEqual(openid1.OpenID, openid2.OpenID);
         }
 
         [Fact]
