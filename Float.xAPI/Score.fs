@@ -5,6 +5,8 @@
 
 namespace Float.xAPI
 
+open System.Runtime.InteropServices
+
 /// <summary>
 /// Represents the outcome of a graded Activity achieved by an Agent.
 /// </summary>
@@ -52,10 +54,10 @@ type public Score =
         /// <param name="raw">The score achieved by the Actor in the experience described by the Statement.</param>
         /// <param name="min">The lowest possible score for the experience described by the Statement.</param>
         /// <param name="max">The highest possible score for the experience described by the Statement.</param>
-        new (scaled, ?raw, ?min, ?max) =
-            if raw.Value < 0.0 then invalidArg "raw" "Raw value must be positive"
-            if min.Value < 0.0 then invalidArg "min" "Minimum value must be positive"
-            if max.Value < 0.0 then invalidArg "max" "Maximum value must be positive"
+        new (scaled, [<Optional;DefaultParameterValue(null)>] ?raw, [<Optional;DefaultParameterValue(null)>] ?min, [<Optional;DefaultParameterValue(null)>] ?max) =
+            if raw.IsSome && raw.Value < 0.0 then invalidArg "raw" "Raw value must be positive"
+            if raw.IsSome && min.Value < 0.0 then invalidArg "min" "Minimum value must be positive"
+            if raw.IsSome && max.Value < 0.0 then invalidArg "max" "Maximum value must be positive"
             { Raw = raw; Min = min; Max = max; Scaled = scaled }
 
         override this.ToString() = sprintf "<%A: Raw %A Min %A Max %A Scaled %A>" (this.GetType().Name) this.Raw this.Min this.Max this.Scaled

@@ -9,6 +9,7 @@ open System
 open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Actor
+open Float.xAPI.Interop
 
 /// <summary>
 /// A SubStatement is like a StatementRef in that it is included as part of a containing Statement, but unlike a StatementRef, it does not represent an event that has occurred.
@@ -52,9 +53,13 @@ type public SubStatement =
         /// <param name="timestamp">Timestamp of when the events described within this Statement occurred.</param>
         new (actor, verb, object, [<Optional;DefaultParameterValue(null)>] ?result, [<Optional;DefaultParameterValue(null)>] ?context, [<Optional;DefaultParameterValue(null)>] ?timestamp) =
             if box object :? ISubStatement then invalidArg "object" "Substatements cannot contain substatements"
+            nullArg actor "actor"
+            nullArg verb "verb"
+            nullArg object "object"
             { Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = timestamp }
 
-        override this.ToString() = sprintf "<%O: Actor %A Verb %A Object %A Result %A Context %A Timestamp %A>" (this.GetType().Name) this.Actor this.Verb this.Object this.Result this.Context this.Timestamp
+        /// <inheritdoc />
+        override this.ToString() = sprintf "<%O: Actor %A Verb %A Object %A%O%O%O>" (this.GetType().Name) this.Actor this.Verb this.Object (toStringOrNone this.Result " Result") (toStringOrNone this.Context " Context") (toStringOrNone this.Timestamp " Timestamp")
 
         member this.ObjectType = (this :> IObject).ObjectType
 

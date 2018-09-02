@@ -103,8 +103,13 @@ type public Statement =
             nullArg object "object"
             { Id = (id |? Guid.NewGuid()); Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = Some (timestamp |? DateTime.Now); Stored = stored; Authority = authority; Version = version; Attachments = attachments }
 
+        /// <inheritdoc />
         override this.GetHashCode() = hash this.Id
-        override this.ToString() = sprintf "<%A: Id %A Actor %A Object %A Result %A Context %A Timestamp %A Stored %A Authority %A Version %A Attachments %A>" (this.GetType().Name) this.Id this.Actor this.Object this.Result this.Context this.Timestamp this.Stored this.Authority this.Version this.Attachments
+
+        /// <inheritdoc />
+        override this.ToString() = sprintf "<%O: Id %A Actor %A Verb %A Object %A%O%O%O%O%O%O%O>" (this.GetType().Name) this.Id this.Actor this.Verb this.Object (toStringOrNone this.Result " Result") (toStringOrNone this.Context " Context") (toStringOrNone this.Timestamp " Timestamp") (toStringOrNone this.Stored " Stored") (toStringOrNone this.Authority " Authority") (toStringOrNone this.Version " Version") (toStringOrNone this.Attachments " Attachments")
+
+        /// <inheritdoc />
         override this.Equals(other) =
             match other with
             | :? IStatement as statement -> this.Id = statement.Id

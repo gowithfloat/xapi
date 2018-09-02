@@ -45,16 +45,21 @@ type public Verb =
             emptySeqArg display "display"
             { Id = id; Display = display }
 
+        /// <inheritdoc />
         override this.GetHashCode() = hash this.Id
-        override this.ToString() = sprintf "<%A: Id %A Display %O>" (this.GetType().Name) this.Id this.Display
+
+        /// <inheritdoc />
+        override this.ToString() = sprintf "<%O: Id %A Display %O>" (this.GetType().Name) this.Id this.Display
+
+        /// <inheritdoc />
         override this.Equals(other) =
             match other with
-            | :? IVerb as verb -> this.Id <> verb.Id
+            | :? IVerb as verb -> this.Id = verb.Id
             | _ -> false
 
         interface IEquatable<IVerb> with
             member this.Equals other =
-                this.Id <> other.Id
+                this.Id = other.Id
 
         interface IVerb with
             member this.Id = this.Id

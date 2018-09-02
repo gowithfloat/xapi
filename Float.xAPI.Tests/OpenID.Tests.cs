@@ -30,9 +30,6 @@ namespace Float.xAPI.Tests
         public void TestEquality()
         {
             var openid1 = new OpenID(new Uri("http://openid.com/sue-schmoe"));
-            var openid2 = new OpenID(new Uri("http://openid.com/jane-schmoe"));
-            Assert.NotEqual(openid1, openid2);
-
             var openid3 = new OpenID(new Uri("http://openid.com/sue-schmoe"));
             Assert.Equal(openid1, openid3);
         }
@@ -40,7 +37,9 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInequality()
         {
-
+            var openid1 = new OpenID(new Uri("http://openid.com/sue-schmoe"));
+            var openid2 = new OpenID(new Uri("http://openid.com/jane-schmoe"));
+            Assert.NotEqual(openid1, openid2);
         }
 
         [Fact]

@@ -34,19 +34,36 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestEquality()
         {
-
+            var verb1 = new Verb(new Uri("https://w3id.org/xapi/adl/verbs/abandoned"), LanguageMap.EnglishUS("abandoned"));
+            var verb2 = new Verb(new Uri("https://w3id.org/xapi/dod-isd/verbs/accessed"), LanguageMap.EnglishUS("accessed"));
+            var verb3 = new Verb(new Uri("https://w3id.org/xapi/dod-isd/verbs/accessed"), 
+                                 new LanguageMap(new LanguageTag(Language.Spanish, Region.Mexico), "acceso"));
+            Assert.Equal(verb2, verb3);
+            Assert.Equal(verb2.Id, verb3.Id);
         }
 
         [Fact]
         public void TestInequality()
         {
-
+            var verb1 = new Verb(new Uri("https://w3id.org/xapi/adl/verbs/abandoned"), LanguageMap.EnglishUS("abandoned"));
+            var verb2 = new Verb(new Uri("https://w3id.org/xapi/dod-isd/verbs/accessed"), LanguageMap.EnglishUS("accessed"));
+            Assert.NotEqual(verb1, verb2);
         }
 
         [Fact]
         public void TestToString()
         {
-
+            var verb3 = new Verb(new Uri("https://w3id.org/xapi/dod-isd/verbs/accessed"),
+                                 new LanguageMap(new Dictionary<ILanguageTag, string>
+            {
+                {
+                    new LanguageTag(Language.Spanish, Region.Mexico), "acceso"
+                },
+                {
+                    new LanguageTag(Language.English, Region.UnitedStates), "accessed"
+                }
+            }));
+            Assert.Equal($"<Verb: Id https://w3id.org/xapi/dod-isd/verbs/accessed Display {verb3.Display}>", verb3.ToString());
         }
 
         [Fact]

@@ -19,18 +19,13 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInvalidInit()
         {
-
+            // since MailboxSha1Sum takes a struct, there's not really a way to pass it a null value
         }
 
         [Fact]
         public void TestEquality()
         {
             var mailbox1 = new MailboxSha1Sum(new SHA1Hash("person1@example.com"));
-            var mailbox2 = new MailboxSha1Sum(new SHA1Hash("person2@example.com"));
-            Assert.NotEqual(mailbox1, mailbox2);
-            Assert.NotEqual(mailbox1.MboxSha1Sum, mailbox2.MboxSha1Sum);
-            Assert.NotEqual(mailbox1.MboxSha1Sum.Encoded, mailbox2.MboxSha1Sum.Encoded);
-
             var mailbox3 = new MailboxSha1Sum(new SHA1Hash("person1@example.com"));
             Assert.Equal(mailbox1, mailbox3);
             Assert.Equal(mailbox1.MboxSha1Sum, mailbox3.MboxSha1Sum);
@@ -40,7 +35,11 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInequality()
         {
-
+            var mailbox1 = new MailboxSha1Sum(new SHA1Hash("person1@example.com"));
+            var mailbox2 = new MailboxSha1Sum(new SHA1Hash("person2@example.com"));
+            Assert.NotEqual(mailbox1, mailbox2);
+            Assert.NotEqual(mailbox1.MboxSha1Sum, mailbox2.MboxSha1Sum);
+            Assert.NotEqual(mailbox1.MboxSha1Sum.Encoded, mailbox2.MboxSha1Sum.Encoded);
         }
 
         [Fact]

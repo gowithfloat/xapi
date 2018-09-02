@@ -31,9 +31,6 @@ namespace Float.xAPI.Tests
         public void TestEquality()
         {
             var hash1 = new SHA1Hash("verb");
-            var hash2 = new SHA1Hash("statement");
-            Assert.NotEqual(hash1, hash2);
-
             var hash3 = new SHA1Hash("verb");
             Assert.Equal(hash1, hash3);
         }
@@ -41,13 +38,16 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInequality()
         {
-
+            var hash1 = new SHA1Hash("verb");
+            var hash2 = new SHA1Hash("statement");
+            Assert.NotEqual(hash1, hash2);
         }
 
         [Fact]
         public void TestToString()
         {
-
+            var hash = new SHA1Hash("verb");
+            Assert.Equal("aca6ddc032a17d3f70acf3e02835f5a02faf8de4", hash.ToString());
         }
 
         [Fact]

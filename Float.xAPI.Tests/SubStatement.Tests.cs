@@ -14,36 +14,51 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class SubStatementTests : IInitializationTests, IEqualityTests, IToStringTests, ISpecExampleTests
+    public class SubStatementTests : IInitializationTests, IToStringTests, ISpecExampleTests
     {
         [Fact]
         public void TestValidInit()
         {
+            var actor = new Agent(new Mailbox(new MailAddress("test@example.com")));
+            var verb = Verb.Voided;
+            var activity = new Activity(new Uri("http://example.com"));
+            var result = new Result();
+            var context = new Context();
+            var timestamp = DateTime.Now;
 
+            var substatement1 = new SubStatement(actor, verb, activity);
+            var substatement2 = new SubStatement(actor, verb, activity, result);
+            var substatement3 = new SubStatement(actor, verb, activity, result, context);
+            var substatement4 = new SubStatement(actor, verb, activity, result, context, timestamp);
         }
 
         [Fact]
         public void TestInvalidInit()
         {
+            var actor = new Agent(new Mailbox(new MailAddress("test@example.com")));
+            var verb = Verb.Voided;
+            var activity = new Activity(new Uri("http://example.com"));
 
-        }
+            Assert.Throws<ArgumentNullException>(() => new SubStatement(null, null, null));
+            Assert.Throws<ArgumentNullException>(() => new SubStatement(actor, null, null));
+            Assert.Throws<ArgumentNullException>(() => new SubStatement(null, verb, null));
+            Assert.Throws<ArgumentNullException>(() => new SubStatement(null, null, activity));
+            Assert.Throws<ArgumentNullException>(() => new SubStatement(actor, verb, null));
+            Assert.Throws<ArgumentNullException>(() => new SubStatement(actor, null, activity));
+            Assert.Throws<ArgumentNullException>(() => new SubStatement(null, verb, activity));
 
-        [Fact]
-        public void TestEquality()
-        {
-
-        }
-
-        [Fact]
-        public void TestInequality()
-        {
-
+            var substatement = new SubStatement(actor, verb, activity);
+            Assert.Throws<ArgumentException>(() => new SubStatement(actor, verb, substatement));
         }
 
         [Fact]
         public void TestToString()
         {
-
+            var actor = new Agent(new Mailbox(new MailAddress("test@example.com")));
+            var verb = new Verb(new Uri("http://example.com/sent"), LanguageMap.EnglishUS("sent"));
+            var activity = new Activity(new Uri("http://example.com"));
+            var substatement = new SubStatement(actor, verb, activity);
+            Assert.Equal($"<SubStatement: Actor {actor} Verb {verb} Object {activity}>", substatement.ToString());
         }
 
         [Fact]

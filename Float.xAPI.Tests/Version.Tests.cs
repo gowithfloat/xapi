@@ -13,13 +13,13 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestValidInit()
         {
-
+            var version = new Version(1, 0, 0);
         }
 
         [Fact]
         public void TestInvalidInit()
         {
-
+            // not possible
         }
 
         [Fact]

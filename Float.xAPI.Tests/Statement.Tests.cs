@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Security.Cryptography;
@@ -38,25 +37,64 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInvalidInit()
         {
+            var actor = new Agent(new OpenID(new Uri("http://example.com")));
+            var verb = new Verb(new Uri("http://example.com"), LanguageMap.EnglishUS("test"));
+            var activity = new Activity(new Uri("http://example.com"));
 
+            Assert.Throws<ArgumentNullException>(() => new Statement(null, null, null));
+            Assert.Throws<ArgumentNullException>(() => new Statement(actor, null, null));
+            Assert.Throws<ArgumentNullException>(() => new Statement(null, verb, null));
+            Assert.Throws<ArgumentNullException>(() => new Statement(null, null, activity));
+            Assert.Throws<ArgumentNullException>(() => new Statement(actor, verb, null));
+            Assert.Throws<ArgumentNullException>(() => new Statement(actor, null, activity));
+            Assert.Throws<ArgumentNullException>(() => new Statement(null, verb, activity));
         }
 
         [Fact]
         public void TestEquality()
         {
-
+            var actor1 = new Agent(new Account("agent", new Uri("http://example.com/account")));
+            var verb1 = new Verb(new Uri("http://example.com/verb"), LanguageMap.EnglishUS("verb"));
+            var activity1 = new Activity(new Uri("http://example.com/activity"));
+            var actor2 = new Agent(new Account("agent", new Uri("http://example.com/other-account")));
+            var verb2 = new Verb(new Uri("http://example.com/different-verb"), LanguageMap.EnglishUS("verbed"));
+            var activity2 = new Activity(new Uri("http://example.com/another-activity"));
+            var id = Guid.NewGuid();
+            var statement1 = new Statement(actor1, verb1, activity1, id);
+            var statement2 = new Statement(actor1, verb1, activity1, id);
+            var statement3 = new Statement(actor2, verb2, activity2, id);
+            Assert.Equal(statement1, statement2);
+            Assert.Equal(statement1, statement3);
+            Assert.Equal(statement2, statement3);
         }
 
         [Fact]
         public void TestInequality()
         {
-
+            var actor1 = new Agent(new Account("agent", new Uri("http://example.com/account")));
+            var verb1 = new Verb(new Uri("http://example.com/verb"), LanguageMap.EnglishUS("verb"));
+            var activity1 = new Activity(new Uri("http://example.com/activity"));
+            var actor2 = new Agent(new Account("agent", new Uri("http://example.com/other-account")));
+            var verb2 = new Verb(new Uri("http://example.com/different-verb"), LanguageMap.EnglishUS("verbed"));
+            var activity2 = new Activity(new Uri("http://example.com/another-activity"));
+            var statement1 = new Statement(actor1, verb1, activity1);
+            var statement2 = new Statement(actor1, verb1, activity1);
+            var statement3 = new Statement(actor2, verb2, activity2, Guid.NewGuid());
+            Assert.NotEqual(statement1, statement2);
+            Assert.NotEqual(statement1, statement3);
+            Assert.NotEqual(statement2, statement3);
         }
 
         [Fact]
         public void TestToString()
         {
-
+            var id = Guid.NewGuid();
+            var timestamp = DateTime.Now;
+            var actor1 = new Agent(new Account("agent", new Uri("http://example.com/account")));
+            var verb1 = new Verb(new Uri("http://example.com/verb"), LanguageMap.EnglishUS("verb"));
+            var activity1 = new Activity(new Uri("http://example.com/activity"));
+            var statement1 = new Statement(actor1, verb1, activity1, id, timestamp: timestamp);
+            Assert.Equal($"<Statement: Id {id} Actor {actor1.ToString()} Verb {verb1.ToString()} Object {activity1.ToString()} Timestamp {timestamp}>", statement1.ToString());
         }
 
         [Fact]
@@ -123,9 +161,9 @@ namespace Float.xAPI.Tests
             var thetype = new Uri("http://adlnet.gov/expapi/activities/media");
             var definition = new ActivityDefinition(name, description, thetype, FSharpOption<Uri>.None, FSharpOption<IDictionary<Uri, string>>.None);
             var activity = new Activity(id2, definition);
-            //var result = new Result(new Score(0.95, 0.0, 1.0, 1.0), true, true, new TimeSpan(0, 0, 1234),);
+            var result = new Result(new Score(0.95, 0.0, 1.0, 1.0), true, true, duration: new TimeSpan(0, 0, 1234));
 
-            //var statement = new Statement(id, actor, verb, activity, result, null, timestamp, null, null, null);
+            var statement = new Statement( actor, verb, activity, id, result, timestamp: timestamp);
         }
 
         [Fact]
@@ -153,8 +191,7 @@ namespace Float.xAPI.Tests
                                           verb,
                                           activity,
                                           Guid.NewGuid(),
-                                          null, null, null, null, null, null,
-                                          new IAttachment[] { attachment });
+                                          attachments: new IAttachment[] { attachment });
         }
 
         [Fact]
@@ -165,7 +202,7 @@ namespace Float.xAPI.Tests
             var statement = new Statement(actor, Verb.Voided, obj);
 
             Assert.Equal(actor, statement.Actor);
-            //Assert.Equal(Verb.Voided, statement.Verb);
+            Assert.Equal(Verb.Voided, statement.Verb);
             Assert.Equal(obj, statement.Object);
             Assert.Equal("Statement", statement.ObjectType);
             Assert.Equal("StatementRef", statement.Object.ObjectType);
