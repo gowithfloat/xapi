@@ -10,6 +10,7 @@
     <Folder Include="Activities\Definitions\" />
     <Folder Include="Activities\" />
     <Folder Include="Languages\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interop.fs" />
@@ -60,5 +61,6 @@
     <Compile Include="IGenericStatement.fs" />
     <Compile Include="SubStatement.fs" />
     <Compile Include="Statement.fs" />
+    <Compile Include="Properties\AssemblyInfo.fs" />
   </ItemGroup>
 </Project>
