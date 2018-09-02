@@ -31,6 +31,11 @@ namespace Float.xAPI.Tests
             Assert.Equal(mailbox1.MboxSha1Sum, mailbox3.MboxSha1Sum);
             Assert.Equal(mailbox1.MboxSha1Sum.Encoded, mailbox3.MboxSha1Sum.Encoded);
             Assert.Equal(mailbox1.GetHashCode(), mailbox3.GetHashCode());
+            Assert.True(mailbox1 == mailbox3);
+
+            var imail1 = mailbox1 as IMailboxSha1Sum;
+            var imail3 = mailbox3 as IMailboxSha1Sum;
+            Assert.Equal(imail1.MboxSha1Sum, imail3.MboxSha1Sum);
         }
 
         [Fact]
@@ -42,6 +47,11 @@ namespace Float.xAPI.Tests
             Assert.NotEqual(mailbox1.MboxSha1Sum, mailbox2.MboxSha1Sum);
             Assert.NotEqual(mailbox1.MboxSha1Sum.Encoded, mailbox2.MboxSha1Sum.Encoded);
             Assert.NotEqual(mailbox1.GetHashCode(), mailbox2.GetHashCode());
+            Assert.True(mailbox1 != mailbox2);
+
+            var imail1 = mailbox1 as IMailboxSha1Sum;
+            var imail2 = mailbox2 as IMailboxSha1Sum;
+            Assert.NotEqual(imail1.MboxSha1Sum, imail2.MboxSha1Sum);
         }
 
         [Fact]
