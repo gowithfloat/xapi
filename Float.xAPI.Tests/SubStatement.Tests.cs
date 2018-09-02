@@ -14,10 +14,10 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class SubStatementTests : IInitializationTests, IToStringTests, ISpecExampleTests
+    public class SubStatementTests : IInitializationTests<SubStatement>, IToStringTests, ISpecExampleTests
     {
         [Fact]
-        public void TestValidInit()
+        public SubStatement TestValidInit()
         {
             var actor = new Agent(new Mailbox(new MailAddress("test@example.com")));
             var verb = Verb.Voided;
@@ -29,7 +29,7 @@ namespace Float.xAPI.Tests
             var substatement1 = new SubStatement(actor, verb, activity);
             var substatement2 = new SubStatement(actor, verb, activity, result);
             var substatement3 = new SubStatement(actor, verb, activity, result, context);
-            var substatement4 = new SubStatement(actor, verb, activity, result, context, timestamp);
+            return new SubStatement(actor, verb, activity, result, context, timestamp);
         }
 
         [Fact]

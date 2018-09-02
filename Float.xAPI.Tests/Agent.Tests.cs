@@ -12,18 +12,10 @@ using static Float.xAPI.Tests.TestHelpers;
 
 namespace Float.xAPI.Tests
 {
-    public class AgentTests : IInitializationTests, IEqualityTests, IToStringTests, ISerializationTests
+    public class AgentTests : IInitializationTests<Agent>, IEqualityTests, IToStringTests, ISerializationTests
     {
         [Fact]
-        public void TestInvalidInit()
-        {
-            Assert.Throws<ArgumentNullException>(() => new Agent(null));
-            Assert.Throws<ArgumentNullException>(() => new Agent(null, null));
-            Assert.Throws<ArgumentNullException>(() => new Agent(null, "Name"));
-        }
-
-        [Fact]
-        public void TestValidInit()
+        public Agent TestValidInit()
         {
             var ifi1 = new Mailbox(new MailAddress("test@example.com"));
             var ifi2 = new MailboxSha1Sum(new SHA1Hash("test@example.com"));
@@ -33,6 +25,15 @@ namespace Float.xAPI.Tests
             var agent2 = new Agent(ifi2, "example");
             var agent3 = new Agent(ifi3, "example");
             var agent4 = new Agent(ifi4, "example");
+            return agent1;
+        }
+
+        [Fact]
+        public void TestInvalidInit()
+        {
+            Assert.Throws<ArgumentNullException>(() => new Agent(null));
+            Assert.Throws<ArgumentNullException>(() => new Agent(null, null));
+            Assert.Throws<ArgumentNullException>(() => new Agent(null, "Name"));
         }
 
         [Fact]
@@ -54,6 +55,10 @@ namespace Float.xAPI.Tests
             Assert.Equal(agent2a, agent2b);
             Assert.Equal(agent3a, agent3b);
             Assert.Equal(agent4a, agent4b);
+            Assert.True(agent1a == agent1b);
+            Assert.True(agent2a == agent2b);
+            Assert.True(agent3a == agent3b);
+            Assert.True(agent4a == agent4b);
         }
 
         [Fact]
@@ -74,6 +79,9 @@ namespace Float.xAPI.Tests
             Assert.NotEqual(agent1a, agent2a);
             Assert.NotEqual(agent2a, agent3a);
             Assert.NotEqual(agent3a, agent4a);
+            Assert.True(agent1a != agent2a);
+            Assert.True(agent2a != agent3a);
+            Assert.True(agent3a != agent4a);
         }
 
         [Fact]

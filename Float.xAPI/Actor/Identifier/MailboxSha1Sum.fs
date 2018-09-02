@@ -19,40 +19,26 @@ type public IMailboxSha1Sum =
     /// </summary>
     abstract member MboxSha1Sum: SHA1Hash
 
-    /// <summary>
-    /// A mailbox SHA1 sum is a type of inverse functional identifier.
-    /// </summary>
     inherit IInverseFunctionalIdentifier
 
-[<CustomEquality;NoComparison>]
+[<StructuralEquality;NoComparison;Struct>]
 type public MailboxSha1Sum =
-    struct
-        /// <inheritdoc />
-        val MboxSha1Sum: SHA1Hash
+    /// <inheritdoc />
+    val MboxSha1Sum: SHA1Hash
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.MailboxSha1Sum"/> struct.
-        /// </summary>
-        /// <param name="mboxSha1Sum">The hex-encoded SHA1 hash of a mailto IRI.</param>
-        new (mboxSha1Sum) =
-            nullArg mboxSha1Sum "mboxSha1Sum"
-            { MboxSha1Sum = mboxSha1Sum }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.MailboxSha1Sum"/> struct.
+    /// </summary>
+    /// <param name="mboxSha1Sum">The hex-encoded SHA1 hash of a mailto IRI.</param>
+    new (mboxSha1Sum) =
+        nullArg mboxSha1Sum "mboxSha1Sum"
+        { MboxSha1Sum = mboxSha1Sum }
 
-        /// <inheritdoc />
-        override this.GetHashCode() = hash this.MboxSha1Sum
+    /// <inheritdoc />
+    override this.ToString() = sprintf "mbox_sha1sum: %A" this.MboxSha1Sum
 
-        /// <inheritdoc />
-        override this.ToString() = sprintf "mbox_sha1sum: %A" this.MboxSha1Sum
+    static member op_Equality (lhs: MailboxSha1Sum, rhs: IMailboxSha1Sum) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: MailboxSha1Sum, rhs: IMailboxSha1Sum) = not(lhs.Equals(rhs))
 
-        /// <inheritdoc />
-        override this.Equals(other) = 
-            match other with
-            | :? IMailboxSha1Sum as sha -> this.MboxSha1Sum = sha.MboxSha1Sum
-            | _ -> false
-
-        interface IEquatable<IMailboxSha1Sum> with
-            member this.Equals other = this.Equals other
-
-        interface IMailboxSha1Sum with
-            member this.MboxSha1Sum = this.MboxSha1Sum
-    end
+    interface IMailboxSha1Sum with
+        member this.MboxSha1Sum = this.MboxSha1Sum

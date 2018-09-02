@@ -19,26 +19,24 @@ type public IOpenID =
 
     inherit IInverseFunctionalIdentifier
 
-[<StructuralEquality;NoComparison>]
-type public OpenID =
-    struct
-        /// <inheridoc />
-        val OpenID: Uri
+[<StructuralEquality;NoComparison;Struct>]
+type OpenID =
+    /// <inheridoc />
+    val OpenID: Uri
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.OpenID"/> class.
-        /// </summary>
-        /// <param name="openID">An openID that uniquely identifies the Agent.</param>
-        new (openID) =
-            nullArg openID "openID"
-            { OpenID = openID }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.OpenID"/> class.
+    /// </summary>
+    /// <param name="openID">An openID that uniquely identifies the Agent.</param>
+    new (openID) =
+        nullArg openID "openID"
+        { OpenID = openID }
 
-        /// <inheritdoc />
-        override this.ToString() = sprintf "<%O: %A>" (this.GetType().Name) this.OpenID
+    /// <inheritdoc />
+    override this.ToString() = sprintf "<%O: %A>" (typeName this) this.OpenID
 
-        static member op_Equality (lhs: OpenID, rhs: IOpenID) = lhs.Equals(rhs)
-        static member op_Inequality (lhs: OpenID, rhs: IOpenID) = not(lhs.Equals(rhs))
+    static member op_Equality (lhs: OpenID, rhs: IOpenID) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: OpenID, rhs: IOpenID) = not(lhs.Equals(rhs))
 
-        interface IOpenID with
-            member this.OpenID = this.OpenID
-    end
+    interface IOpenID with
+        member this.OpenID = this.OpenID

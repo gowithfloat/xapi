@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class AccountTests : IInitializationTests, IEqualityTests, IToStringTests
+    public class AccountTests : IInitializationTests<Account>, IEqualityTests, IToStringTests
     {
         [Fact]
         public void TestInvalidInit()
@@ -26,9 +26,9 @@ namespace Float.xAPI.Tests
         }
 
         [Fact]
-        public void TestValidInit()
+        public Account TestValidInit()
         {
-            var account1 = new Account("unknown", new Uri("http://www.example.com"));
+            return new Account("unknown", new Uri("http://www.example.com"));
         }
 
         [Fact]

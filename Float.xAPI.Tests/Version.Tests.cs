@@ -3,17 +3,16 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-using System;
 using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class VersionTests : IInitializationTests, IEqualityTests, IToStringTests, IComparisonTests
+    public class VersionTests : IInitializationTests<Version>, IEqualityTests, IToStringTests, IComparisonTests
     {
         [Fact]
-        public void TestValidInit()
+        public Version TestValidInit()
         {
-            var version = new Version(1, 0, 0);
+            return new Version(1, 0, 0);
         }
 
         [Fact]

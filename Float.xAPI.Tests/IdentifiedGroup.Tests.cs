@@ -11,10 +11,10 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class IdentifiedGroupTests : IInitializationTests, IEqualityTests, IToStringTests
+    public class IdentifiedGroupTests : IInitializationTests<IdentifiedGroup>, IEqualityTests, IToStringTests
     {
         [Fact]
-        public void TestValidInit()
+        public IdentifiedGroup TestValidInit()
         {
             var ifi = new OpenID(new Uri("https://www.gowithfloat.com"));
             var group1 = new IdentifiedGroup(ifi);
@@ -27,7 +27,7 @@ namespace Float.xAPI.Tests
             };
 
             var group2 = new IdentifiedGroup(ifi, members);
-            var group3 = new IdentifiedGroup(ifi, members, "Identified Group");
+            return new IdentifiedGroup(ifi, members, "Identified Group");
         }
 
         [Fact]

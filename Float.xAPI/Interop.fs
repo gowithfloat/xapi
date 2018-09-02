@@ -45,7 +45,7 @@ module Interop =
     /// <summary>
     /// Return the type name of the given object.
     /// </summary>
-    let inline typeName x =
+    let inline typeName(x: obj): string =
         x.GetType().Name
 
     /// <summary>

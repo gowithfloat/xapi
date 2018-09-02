@@ -18,10 +18,10 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class StatementTests : IInitializationTests, IEqualityTests, IToStringTests
+    public class StatementTests : IInitializationTests<Statement>, IEqualityTests, IToStringTests
     {
         [Fact]
-        public void TestValidInit()
+        public Statement TestValidInit()
         {
             var actor = new Agent(new Mailbox(new MailAddress("xapi@adlnet.gov")));
             var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/created"), new LanguageMap(LanguageTag.EnglishUS, "created"));
@@ -32,6 +32,7 @@ namespace Float.xAPI.Tests
             Assert.Equal("Statement", statement.ObjectType);
             Assert.Null(statement.Actor.Name);
             Assert.Equal("xapi@adlnet.gov", ((statement.Actor as IAgent).IFI as IMailbox).Address.Address);
+            return statement;
         }
 
         [Fact]
@@ -161,7 +162,7 @@ namespace Float.xAPI.Tests
             var thetype = new Uri("http://adlnet.gov/expapi/activities/media");
             var definition = new ActivityDefinition(name, description, thetype, FSharpOption<Uri>.None, FSharpOption<IDictionary<Uri, string>>.None);
             var activity = new Activity(id2, definition);
-            var result = new Result(new Score(0.95, 0.0, 1.0, 1.0), true, true, duration: new TimeSpan(0, 0, 1234));
+            var result = new Result(new Score(0.95), true, true, duration: new TimeSpan(0, 0, 1234));
 
             var statement = new Statement( actor, verb, activity, id, result, timestamp: timestamp);
         }

@@ -7,19 +7,16 @@ using System;
 using System.Collections.Generic;
 using Float.xAPI.Activities;
 using Xunit;
-using Microsoft.FSharp.Core;
 
 namespace Float.xAPI.Tests
 {
-    public class ContextActivitiesTests : IInitializationTests, IToStringTests, ISpecExampleTests
+    public class ContextActivitiesTests : IInitializationTests<ContextActivities>, IToStringTests, ISpecExampleTests
     {
         [Fact]
-        public void TestValidInit()
+        public ContextActivities TestValidInit()
         {
-            var ca1 = new ContextActivities(FSharpOption<IEnumerable<IActivity>>.None,
-                                           FSharpOption<IEnumerable<IActivity>>.None,
-                                           FSharpOption<IEnumerable<IActivity>>.None,
-                                           FSharpOption<IEnumerable<IActivity>>.None);
+            var ca1 = new ContextActivities();
+            Assert.Null(ca1.Category);
 
             var parent = new List<IActivity>
             {
@@ -41,7 +38,7 @@ namespace Float.xAPI.Tests
                 new Activity(new Uri("a://b.c"))
             };
 
-            var ca2 = new ContextActivities(parent, grouping, category, other);
+            return new ContextActivities(parent, grouping, category, other);
         }
 
         [Fact]

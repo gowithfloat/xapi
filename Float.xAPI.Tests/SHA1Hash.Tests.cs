@@ -8,13 +8,13 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class SHA1HashTests : IInitializationTests, IEqualityTests, IToStringTests
+    public class SHA1HashTests : IInitializationTests<SHA1Hash>, IEqualityTests, IToStringTests
     {
         [Fact]
-        public void TestValidInit()
+        public SHA1Hash TestValidInit()
         {
             var hash1 = new SHA1Hash("arbitrary data");
-            var hash2 = new SHA1Hash(new byte[] { 0x8b, 0xad, 0xf0, 0x0d });
+            return new SHA1Hash(new byte[] { 0x8b, 0xad, 0xf0, 0x0d });
         }
 
         [Fact]

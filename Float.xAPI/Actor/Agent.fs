@@ -6,7 +6,6 @@
 namespace Float.xAPI.Actor
 
 open System.Runtime.InteropServices
-open Float.xAPI
 open Float.xAPI.Actor.Identifier
 open Float.xAPI.Interop
 
@@ -16,42 +15,48 @@ open Float.xAPI.Interop
 type public IAgent =
     inherit IIdentifiedActor
 
-[<CustomEquality;NoComparison>]
+[<CustomEquality;NoComparison;Struct>]
 type public Agent =
-    struct
-        /// <inheritdoc />
-        val Name: option<string>
+    /// <inheritdoc />
+    val Name: option<string>
 
-        /// <inheritdoc />
-        val IFI: IInverseFunctionalIdentifier
+    /// <inheritdoc />
+    val IFI: IInverseFunctionalIdentifier
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.IdentifiedGroup"/> class.
-        /// </summary>
-        /// <param name="ifi">An Inverse Functional Identifier unique to the Agent. Required.</param>
-        /// <param name="display">Name of the Agent. Optional.</param>
-        new (ifi, [<Optional;DefaultParameterValue(null)>] ?name) =
-            nullArg ifi "ifi"
-            { Name = name; IFI = ifi }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.IdentifiedGroup"/> class.
+    /// </summary>
+    /// <param name="ifi">An Inverse Functional Identifier unique to the Agent. Required.</param>
+    /// <param name="display">Name of the Agent. Optional.</param>
+    new (ifi, [<Optional;DefaultParameterValue(null)>] ?name) =
+        nullArg ifi "ifi"
+        { Name = name; IFI = ifi }
 
-        override this.GetHashCode() = hash this.IFI
-        override this.ToString() =
-            match this.Name with
-            | Some name -> sprintf "<%O: Name %A IFI %A>" (this.GetType().Name) name this.IFI
-            | None -> sprintf "<%O: IFI %A>" (typeName this) this.IFI
-        override this.Equals(other) = 
-            match other with
-            | :? IAgent as agent -> this.IFI = agent.IFI
-            | _ -> false
+    /// <inheritdoc />
+    member this.ObjectType = typeName this
 
-        member this.ObjectType = (this :> IObject).ObjectType
+    /// <inheritdoc />
+    override this.GetHashCode() = hash this.IFI
 
-        interface System.IEquatable<IAgent> with
-            member this.Equals other =
-                this.IFI = other.IFI
+    /// <inheritdoc />
+    override this.ToString() =
+        match this.Name with
+        | Some name -> sprintf "<%O: Name %A IFI %A>" (this.GetType().Name) name this.IFI
+        | None -> sprintf "<%O: IFI %A>" (typeName this) this.IFI
 
-        interface IAgent with
-            member this.ObjectType = this.GetType().Name
-            member this.Name = this.Name
-            member this.IFI = this.IFI
-    end
+    /// <inheritdoc />
+    override this.Equals(other) = 
+        match other with
+        | :? IAgent as agent -> this.IFI = agent.IFI
+        | _ -> false
+
+    static member op_Equality (lhs: Agent, rhs: IAgent) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: Agent, rhs: IAgent) = not(lhs.Equals(rhs))
+
+    interface System.IEquatable<IAgent> with
+        member this.Equals other = this.Equals other
+
+    interface IAgent with
+        member this.ObjectType = this.ObjectType
+        member this.Name = this.Name
+        member this.IFI = this.IFI

@@ -9,12 +9,15 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class OpenIDTests : IInitializationTests, IEqualityTests, IToStringTests
+    public class OpenIDTests : IInitializationTests<OpenID>, IEqualityTests, IToStringTests
     {
         [Fact]
-        public void TestValidInit()
+        public OpenID TestValidInit()
         {
             var openid = new OpenID(new Uri("http://openid.com/jane-schmoe"));
+            Assert.Equal("http://openid.com/jane-schmoe", openid.OpenID.AbsoluteUri);
+            Assert.Equal(new Uri("http://openid.com/jane-schmoe"), (openid as IOpenID).OpenID);
+            return openid;
         }
 
         [Fact]

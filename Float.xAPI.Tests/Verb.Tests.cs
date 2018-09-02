@@ -11,8 +11,16 @@ using static Float.xAPI.Tests.TestHelpers;
 
 namespace Float.xAPI.Tests
 {
-    public class VerbTests : IInitializationTests, IEqualityTests, IToStringTests, ISpecExampleTests, ISerializationTests
+    public class VerbTests : IInitializationTests<Verb>, IEqualityTests, IToStringTests, ISpecExampleTests, ISerializationTests
     {
+        [Fact]
+        public Verb TestValidInit()
+        {
+            var uri = new Uri("http://www.gowithfloat.com");
+            var map = new LanguageMap(LanguageTag.EnglishUS, "floated");
+            return new Verb(uri, map);
+        }
+
         [Fact]
         public void TestInvalidInit()
         {
@@ -21,14 +29,6 @@ namespace Float.xAPI.Tests
 
             Assert.Throws<ArgumentNullException>(() => new Verb(null, map));
             Assert.Throws<ArgumentNullException>(() => new Verb(uri, null));
-        }
-
-        [Fact]
-        public void TestValidInit()
-        {
-            var uri = new Uri("http://www.gowithfloat.com");
-            var map = new LanguageMap(LanguageTag.EnglishUS, "floated");
-            var verb = new Verb(uri, map);
         }
 
         [Fact]

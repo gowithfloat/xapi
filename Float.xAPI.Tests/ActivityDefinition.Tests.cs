@@ -11,10 +11,10 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ActivityDefinitionTests : IInitializationTests, IToStringTests
+    public class ActivityDefinitionTests : IInitializationTests<ActivityDefinition>, IToStringTests
     {
         [Fact]
-        public void TestValidInit()
+        public ActivityDefinition TestValidInit()
         {
             var name = new LanguageMap(LanguageTag.EnglishUS, "Name");
             var description = new LanguageMap(LanguageTag.EnglishUS, "Description");
@@ -29,6 +29,8 @@ namespace Float.xAPI.Tests
             var ad2 = new ActivityDefinition(name, description, uri, moreInfo);
             var ad3 = new ActivityDefinition(name, description, uri, extensions: extensions);
             var ad4 = new ActivityDefinition(name, description, uri, moreInfo, extensions);
+
+            return ad4;
         }
 
         [Fact]

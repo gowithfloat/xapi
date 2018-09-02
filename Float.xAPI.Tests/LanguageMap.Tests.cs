@@ -10,10 +10,10 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class LanguageMapTests : IInitializationTests, IEqualityTests, IToStringTests, ISerializationTests
+    public class LanguageMapTests : IInitializationTests<LanguageMap>, IEqualityTests, IToStringTests, ISerializationTests
     {
         [Fact]
-        public void TestValidInit()
+        public LanguageMap TestValidInit()
         {
             var map1 = new LanguageMap(LanguageTag.EnglishUS, "completed");
             var map2 = new LanguageMap(Language.Abkhazian, Region.Antarctica, "sent");
@@ -52,7 +52,7 @@ namespace Float.xAPI.Tests
                     "example8"
                 )
             });
-            var map6 = LanguageMap.EnglishUS("example9");
+            return LanguageMap.EnglishUS("example9");
         }
 
         [Fact]

@@ -26,32 +26,30 @@ type public IAccount =
 
     inherit IInverseFunctionalIdentifier
 
-[<StructuralEquality;NoComparison>]
+[<StructuralEquality;NoComparison;Struct>]
 type public Account =
-    struct
-        /// <inheritdoc />
-        val Name: string
+    /// <inheritdoc />
+    val Name: string
 
-        /// <inheritdoc />
-        val HomePage: Uri
+    /// <inheritdoc />
+    val HomePage: Uri
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.Account"/> class.
-        /// </summary>
-        /// <param name="name">The unique id or name used to log in to this account.</param>
-        /// <param name="homePage">The canonical home page for the system the account is on.</param>
-        new (name, homePage) =
-            invalidStringArg name "name"
-            nullArg homePage "homePage"
-            { Name = name; HomePage = homePage }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.Account"/> class.
+    /// </summary>
+    /// <param name="name">The unique id or name used to log in to this account.</param>
+    /// <param name="homePage">The canonical home page for the system the account is on.</param>
+    new (name, homePage) =
+        invalidStringArg name "name"
+        nullArg homePage "homePage"
+        { Name = name; HomePage = homePage }
 
-        /// <inheritdoc />
-        override this.ToString() = sprintf "<%O: Name %A HomePage %A>" (this.GetType().Name) this.Name this.HomePage
+    /// <inheritdoc />
+    override this.ToString() = sprintf "<%O: Name %A HomePage %A>" (this.GetType().Name) this.Name this.HomePage
 
-        static member op_Equality (lhs: Account, rhs: IAccount) = lhs.Equals(rhs)
-        static member op_Inequality (lhs: Account, rhs: IAccount) = not(lhs.Equals(rhs))
+    static member op_Equality (lhs: Account, rhs: IAccount) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: Account, rhs: IAccount) = not(lhs.Equals(rhs))
 
-        interface IAccount with
-            member this.Name = this.Name
-            member this.HomePage = this.HomePage
-    end
+    interface IAccount with
+        member this.Name = this.Name
+        member this.HomePage = this.HomePage

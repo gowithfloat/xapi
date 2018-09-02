@@ -21,35 +21,24 @@ type public IMailbox =
 
     inherit IInverseFunctionalIdentifier
 
-[<CustomEquality;NoComparison>]
+[<StructuralEquality;NoComparison;Struct>]
 type public Mailbox =
-    struct
-        /// <inheritdoc />
-        val Address: MailAddress
+    /// <inheritdoc />
+    val Address: MailAddress
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.Mailbox"/> class.
-        /// </summary>
-        /// <param name="address">The address associated with this mailbox.</param>
-        new (address) =
-            nullArg address "address"
-            { Address = address }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.Mailbox"/> class.
+    /// </summary>
+    /// <param name="address">The address associated with this mailbox.</param>
+    new (address) =
+        nullArg address "address"
+        { Address = address }
 
-        /// <inheritdoc />
-        override this.GetHashCode() = hash this.Address
+    /// <inheritdoc />
+    override this.ToString() = sprintf "mailto:%s" this.Address.Address
 
-        /// <inheritdoc />
-        override this.ToString() = sprintf "mailto:%s" this.Address.Address
+    static member op_Equality (lhs: Mailbox, rhs: IMailbox) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: Mailbox, rhs: IMailbox) = not(lhs.Equals(rhs))
 
-        /// <inheritdoc />
-        override this.Equals(other) = 
-            match other with
-            | :? IMailbox as mailbox -> this.Address = mailbox.Address
-            | _ -> false
-
-        interface IEquatable<IMailbox> with
-            member this.Equals other = this.Equals other
-
-        interface IMailbox with
-            member this.Address = this.Address
-    end
+    interface IMailbox with
+        member this.Address = this.Address

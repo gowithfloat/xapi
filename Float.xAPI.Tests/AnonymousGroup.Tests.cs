@@ -11,10 +11,10 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class AnonymousGroupTests : IInitializationTests, IToStringTests
+    public class AnonymousGroupTests : IInitializationTests<AnonymousGroup>, IToStringTests
     {
         [Fact]
-        public void TestValidInit()
+        public AnonymousGroup TestValidInit()
         {
             var ifi = new OpenID(new Uri("a://b.c"));
             var members = new List<IAgent>
@@ -22,7 +22,7 @@ namespace Float.xAPI.Tests
                 new Agent(ifi, "Agent Name")
             };
 
-            var group = new AnonymousGroup(members, "Group Name");
+            return new AnonymousGroup(members, "Group Name");
         }
 
         [Fact]

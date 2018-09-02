@@ -17,7 +17,4 @@ type public IGroup<'T> =
     /// </summary>
     abstract member Member: 'T
 
-    /// <summary>
-    /// A group is a type of actor.
-    /// </summary>
     inherit IActor

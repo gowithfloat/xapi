@@ -7,8 +7,6 @@ namespace Float.xAPI.Actor
 
 open Float.xAPI.Actor.Identifier
 
-// todo: IFI values should be properties directly on the actor
-
 /// <summary>
 /// Agents and identified groups have unique identifiers.
 /// </summary>

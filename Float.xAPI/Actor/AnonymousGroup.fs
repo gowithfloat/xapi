@@ -15,35 +15,35 @@ open Float.xAPI.Interop
 type public IAnonymousGroup =
     inherit IGroup<seq<IAgent>>
 
-[<NoEquality;NoComparison>]
+[<NoEquality;NoComparison;Struct>]
 type public AnonymousGroup =
-    struct
-        /// <inheritdoc />
-        val Name: option<string>
+    /// <inheritdoc />
+    val Name: option<string>
 
-        /// <inheritdoc />
-        val Member: seq<IAgent>
+    /// <inheritdoc />
+    val Member: seq<IAgent>
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.AnonymousGroup"/> class.
-        /// </summary>
-        /// <param name="members">The members of this Group. Required.</param>
-        /// <param name="display">Name of the Group. Optional.</param>
-        new (members, [<Optional;DefaultParameterValue(null)>] ?name) =
-            nullArg members "members"
-            emptySeqArg members "members"
-            invalidOptionalStringArg name "name"
-            { Name = name; Member = members }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.AnonymousGroup"/> class.
+    /// </summary>
+    /// <param name="members">The members of this Group. Required.</param>
+    /// <param name="display">Name of the Group. Optional.</param>
+    new (members, [<Optional;DefaultParameterValue(null)>] ?name) =
+        nullArg members "members"
+        emptySeqArg members "members"
+        invalidOptionalStringArg name "name"
+        { Name = name; Member = members }
 
-        override this.ToString() =
-            match this.Name with
-            | Some name -> sprintf "<%O: Name %A Member %O>" (typeName this) name (seqToString this.Member)
-            | None -> sprintf "<%O: Member %O>" (typeName this) (seqToString this.Member)
+    /// <inheritdoc />
+    member this.ObjectType = (this :> IObject).ObjectType
 
-        member this.ObjectType = (this :> IObject).ObjectType
+    /// <inheritdoc />
+    override this.ToString() =
+        match this.Name with
+        | Some name -> sprintf "<%O: Name %A Member %O>" (typeName this) name (seqToString this.Member)
+        | None -> sprintf "<%O: Member %O>" (typeName this) (seqToString this.Member)
 
-        interface IAnonymousGroup with
-            member this.ObjectType = "Group"
-            member this.Member = this.Member
-            member this.Name = this.Name
-    end
+    interface IAnonymousGroup with
+        member this.ObjectType = "Group"
+        member this.Member = this.Member
+        member this.Name = this.Name

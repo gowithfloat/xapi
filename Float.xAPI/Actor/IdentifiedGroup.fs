@@ -5,8 +5,8 @@
 
 namespace Float.xAPI.Actor
 
+open System
 open System.Runtime.InteropServices
-open Float.xAPI
 open Float.xAPI.Actor.Identifier
 open Float.xAPI.Interop
 
@@ -17,50 +17,53 @@ type public IIdentifiedGroup =
     inherit IGroup<option<seq<IAgent>>>
     inherit IIdentifiedActor
 
-[<CustomEquality;NoComparison>]
+[<CustomEquality;NoComparison;Struct>]
 type public IdentifiedGroup =
-    struct
-        /// <inheritdoc />
-        val Name: option<string>
+    /// <inheritdoc />
+    val Name: option<string>
 
-        /// <inheritdoc />
-        val Member: option<seq<IAgent>>
+    /// <inheritdoc />
+    val Member: option<seq<IAgent>>
 
-        /// <inheritdoc />
-        val IFI: IInverseFunctionalIdentifier
+    /// <inheritdoc />
+    val IFI: IInverseFunctionalIdentifier
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.IdentifiedGroup"/> class.
-        /// </summary>
-        /// <param name="ifi">An Inverse Functional Identifier unique to the Group. Required.</param>
-        /// <param name="members">The members of this Group. Optional.</param>
-        /// <param name="display">Name of the Group. Optional.</param>
-        new (ifi, [<Optional;DefaultParameterValue(null)>] ?members, [<Optional;DefaultParameterValue(null)>] ?name) =
-            nullArg ifi "ifi"
-            emptyOptionalSeqArg members "members"
-            invalidOptionalStringArg name "name"
-            { Name = name; IFI = ifi; Member = members }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.IdentifiedGroup"/> class.
+    /// </summary>
+    /// <param name="ifi">An Inverse Functional Identifier unique to the Group. Required.</param>
+    /// <param name="members">The members of this Group. Optional.</param>
+    /// <param name="display">Name of the Group. Optional.</param>
+    new (ifi, [<Optional;DefaultParameterValue(null)>] ?members, [<Optional;DefaultParameterValue(null)>] ?name) =
+        nullArg ifi "ifi"
+        emptyOptionalSeqArg members "members"
+        invalidOptionalStringArg name "name"
+        { Name = name; IFI = ifi; Member = members }
 
-        override this.GetHashCode() = 
-            hash this.IFI
+    /// <inheritdoc />
+    member this.ObjectType = "Group"
 
-        override this.ToString() = 
-            sprintf "<%O: %O %O IFI %O>" (typeName this) (toStringOrNone this.Name "Name") (seqToStringOrNone this.Member "Member") this.IFI
+    /// <inheritdoc />
+    override this.GetHashCode() = hash this.IFI
 
-        override this.Equals(other) =
-            match other with
-            | :? IIdentifiedGroup as group -> this.IFI = group.IFI
-            | _ -> false
+    /// <inheritdoc />
+    override this.ToString() = 
+        sprintf "<%O: %O %O IFI %O>" (typeName this) (toStringOrNone this.Name "Name") (seqToStringOrNone this.Member "Member") this.IFI
 
-        member this.ObjectType = (this :> IObject).ObjectType
+    /// <inheritdoc />
+    override this.Equals(other) =
+        match other with
+        | :? IIdentifiedGroup as group -> this.IFI = group.IFI
+        | _ -> false
 
-        interface System.IEquatable<IIdentifiedGroup> with
-            member this.Equals other =
-                this.IFI = other.IFI
+    static member op_Equality (lhs: IdentifiedGroup, rhs: IIdentifiedGroup) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IdentifiedGroup, rhs: IIdentifiedGroup) = not(lhs.Equals(rhs))
 
-        interface IIdentifiedGroup with
-            member this.ObjectType = "Group"
-            member this.Member = this.Member
-            member this.Name = this.Name
-            member this.IFI = this.IFI
-    end
+    interface IEquatable<IIdentifiedGroup> with
+        member this.Equals other = this.Equals other
+
+    interface IIdentifiedGroup with
+        member this.ObjectType = this.ObjectType
+        member this.Member = this.Member
+        member this.Name = this.Name
+        member this.IFI = this.IFI

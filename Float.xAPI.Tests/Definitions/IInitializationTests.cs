@@ -8,16 +8,16 @@ namespace Float.xAPI.Tests
     /// <summary>
     /// Defines common initialization tests.
     /// </summary>
-    public interface IInitializationTests
+    public interface IInitializationTests<T>
     {
+        /// <summary>
+        /// Verify that initialization that has all data succeeds.
+        /// </summary>
+        T TestValidInit();
+
         /// <summary>
         /// Verify that initialization that is missing data throw an exception.
         /// </summary>
         void TestInvalidInit();
-
-        /// <summary>
-        /// Verify that initialization that has all data succeeds.
-        /// </summary>
-        void TestValidInit();
     }
 }

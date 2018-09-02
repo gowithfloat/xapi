@@ -10,14 +10,14 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class LanguageTagTests : IEqualityTests, IInitializationTests, IToStringTests
+    public class LanguageTagTests : IInitializationTests<LanguageTag>, IEqualityTests, IToStringTests
     {
         [Fact]
-        public void TestValidInit()
+        public LanguageTag TestValidInit()
         {
             var tag1 = new LanguageTag(Language.Abkhazian, Region.Afghanistan);
             var tag2 = new LanguageTag(Language.Samoan, Region.Pitcairn);
-            var tag3 = new LanguageTag(Language.Sindhi, Region.VirginIslandsBritish);
+            return new LanguageTag(Language.Sindhi, Region.VirginIslandsBritish);
         }
 
         [Fact]
