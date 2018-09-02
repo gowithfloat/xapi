@@ -26,7 +26,7 @@ type public IAccount =
 
     inherit IInverseFunctionalIdentifier
 
-[<CustomEquality;NoComparison>]
+[<StructuralEquality;NoComparison>]
 type public Account =
     struct
         /// <inheritdoc />
@@ -44,15 +44,6 @@ type public Account =
             invalidStringArg name "name"
             nullArg homePage "homePage"
             { Name = name; HomePage = homePage }
-
-        /// <inheritdoc />
-        override this.GetHashCode() = hash (this.Name, this.HomePage)
-
-        /// <inheritdoc />
-        override this.Equals(other) = 
-            match other with
-            | :? IAccount as account -> (this.Name, this.HomePage) = (account.Name, account.HomePage)
-            | _ -> false
 
         /// <inheritdoc />
         override this.ToString() = sprintf "<%O: Name %A HomePage %A>" (this.GetType().Name) this.Name this.HomePage
