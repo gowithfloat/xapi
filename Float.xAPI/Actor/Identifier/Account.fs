@@ -63,6 +63,7 @@ type public Account =
         interface IEquatable<IAccount> with
             member this.Equals other = this.Equals other
 
+        static member op_Equality (lhs: Account, rhs: IAccount) = lhs.Equals(rhs)
         interface IAccount with
             member this.Name = this.Name
             member this.HomePage = this.HomePage
