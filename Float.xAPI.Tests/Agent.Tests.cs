@@ -8,19 +8,16 @@ using System.Net.Mail;
 using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
 using Xunit;
+using static Float.xAPI.Tests.TestHelpers;
 
 namespace Float.xAPI.Tests
 {
-    public class AgentTests : IInitializationTests, IEqualityTests, IToStringTests
+    public class AgentTests : IInitializationTests, IEqualityTests, IToStringTests, ISerializationTests
     {
         [Fact]
         public void TestInvalidInit()
         {
-            var ifi1 = new Mailbox(new MailAddress("test@example.com"));
-            var ifi2 = new MailboxSha1Sum(new SHA1Hash("test@example.com"));
-            var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
-            var ifi4 = new Account("test", new Uri("http://example.com"));
-
+            Assert.Throws<ArgumentNullException>(() => new Agent(null));
             Assert.Throws<ArgumentNullException>(() => new Agent(null, null));
             Assert.Throws<ArgumentNullException>(() => new Agent(null, "Name"));
         }
@@ -94,6 +91,25 @@ namespace Float.xAPI.Tests
             Assert.Equal("<Agent: Name \"Sue Schmoe\" IFI mbox_sha1sum: 0e3372390b51c30c2fa4d2e0fd7b2b2009fc5692>", agent2a.ToString());
             Assert.Equal("<Agent: Name \"Learner, Example\" IFI <OpenID: https://www.gowithfloat.com/>>", agent3a.ToString());
             Assert.Equal("<Agent: Name \"Student\" IFI <Account: Name \"test\" HomePage http://example.com/>>", agent4a.ToString());
+        }
+
+        [Fact]
+        public void TestSerialize()
+        {
+            var ifi1 = new Mailbox(new MailAddress("jdoe@example.com"));
+            var ifi2 = new MailboxSha1Sum(new SHA1Hash("sschmoe@example.com"));
+            var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
+            var ifi4 = new Account("test", new Uri("http://example.com"));
+            var agent1 = new Agent(ifi1, "Jane Doe");
+            var agent2 = new Agent(ifi2, "Sue Schmoe");
+            var agent3 = new Agent(ifi3, "Learner, Example");
+            var agent4 = new Agent(ifi4, "Student");
+        }
+
+        [Fact]
+        public void TestDeserialize()
+        {
+            var json = ReadFile("data-agent-account-example.json");
         }
     }
 }

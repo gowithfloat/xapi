@@ -5,23 +5,22 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Float.xAPI.Languages;
 using Xunit;
+using static Float.xAPI.Tests.TestHelpers;
 
 namespace Float.xAPI.Tests
 {
-    public class VerbTests : IInitializationTests, IEqualityTests, IToStringTests, ISpecExampleTests
+    public class VerbTests : IInitializationTests, IEqualityTests, IToStringTests, ISpecExampleTests, ISerializationTests
     {
         [Fact]
         public void TestInvalidInit()
         {
             var uri = new Uri("http://www.gowithfloat.com");
             var map = new LanguageMap(LanguageTag.EnglishUS, "floated");
-            var map2 = new LanguageMap();
 
             Assert.Throws<ArgumentNullException>(() => new Verb(null, map));
-            Assert.Throws<ArgumentException>(() => new Verb(uri, map2));
+            Assert.Throws<ArgumentNullException>(() => new Verb(uri, null));
         }
 
         [Fact]
@@ -68,6 +67,18 @@ namespace Float.xAPI.Tests
 
             Assert.Equal(uri, verb.Id);
             Assert.Equal(map, verb.Display);
+        }
+
+        [Fact]
+        public void TestSerialize()
+        {
+            var verb = new Verb(new Uri("http://example.com"), new LanguageMap(LanguageTag.EnglishUS, "example"));
+        }
+
+        [Fact]
+        public void TestDeserialize()
+        {
+            var json = ReadFile("data-verb-example.json");
         }
     }
 }

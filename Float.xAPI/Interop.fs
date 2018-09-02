@@ -19,6 +19,9 @@ module Interop =
     let inline private ifRaise x name =
         if x then raise (ArgumentException name)
 
+    let inline notImplemented message =
+        raise (NotImplementedException message)
+
     /// <summary>
     /// Raise an argument null exception if the given value is null.
     /// </summary>
@@ -113,3 +116,18 @@ module Interop =
         match seq with
         | Some s -> sprintf "%O %O" name (seqToString s)
         | _ -> ""
+
+    /// <summary>
+    /// Swap values in a tuple,
+    /// </summary>
+    let swap (x, y) = y, x
+
+    /// <summary>
+    /// Swap all tuples in a list.
+    /// </summary>
+    let swapAll tuples = List.map swap tuples
+
+    /// <summary>
+    /// Swap all keys and values in a list.
+    /// </summary>
+    let invert map = map |> Map.toList |> swapAll |> Map.ofList

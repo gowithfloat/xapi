@@ -45,8 +45,11 @@ type public ILanguageTag =
     /// Convert this language tag to a system culture info object.
     /// </summary>
     abstract member ToCultureInfo: CultureInfo
-    
-[<CustomEquality;NoComparison>]
+
+    inherit IEquatable<ILanguageTag>
+    inherit IComparable
+
+[<CustomEquality;CustomComparison>]
 type public LanguageTag =
     struct
         /// <inheritdoc />
@@ -97,6 +100,13 @@ type public LanguageTag =
             member this.ExtendedLanguage = this.ExtendedLanguage
             member this.Region = this.Region
             member this.ToCultureInfo = this.ToCultureInfo()
+
+        interface IComparable with
+            member this.CompareTo other =
+                match other with
+                | null -> 1
+                | :? ILanguageTag as tag -> this.ToString().CompareTo(tag.ToString())
+                | _ -> invalidArg "other" "Not a language tag"
 
         /// <summary>
         /// As United States English is the most common language tag in examples, it is provided here for convenience.
