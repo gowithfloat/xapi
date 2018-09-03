@@ -13,7 +13,7 @@ namespace Float.xAPI.Tests
         [Fact]
 		public MailboxSha1Sum TestValidInit()
 		{
-            return new MailboxSha1Sum(new SHA1Hash("test"));
+            return new MailboxSha1Sum(new SHAHash("test"));
 		}
 
         [Fact]
@@ -25,8 +25,8 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestEquality()
         {
-            var mailbox1 = new MailboxSha1Sum(new SHA1Hash("person1@example.com"));
-            var mailbox3 = new MailboxSha1Sum(new SHA1Hash("person1@example.com"));
+            var mailbox1 = new MailboxSha1Sum(new SHAHash("person1@example.com"));
+            var mailbox3 = new MailboxSha1Sum(new SHAHash("person1@example.com"));
             Assert.Equal(mailbox1, mailbox3);
             Assert.Equal(mailbox1.MboxSha1Sum, mailbox3.MboxSha1Sum);
             Assert.Equal(mailbox1.MboxSha1Sum.Encoded, mailbox3.MboxSha1Sum.Encoded);
@@ -41,8 +41,8 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInequality()
         {
-            var mailbox1 = new MailboxSha1Sum(new SHA1Hash("person1@example.com"));
-            var mailbox2 = new MailboxSha1Sum(new SHA1Hash("person2@example.com"));
+            var mailbox1 = new MailboxSha1Sum(new SHAHash("person1@example.com"));
+            var mailbox2 = new MailboxSha1Sum(new SHAHash("person2@example.com"));
             Assert.NotEqual(mailbox1, mailbox2);
             Assert.NotEqual(mailbox1.MboxSha1Sum, mailbox2.MboxSha1Sum);
             Assert.NotEqual(mailbox1.MboxSha1Sum.Encoded, mailbox2.MboxSha1Sum.Encoded);
@@ -57,7 +57,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestToString()
         {
-            var mailbox = new MailboxSha1Sum(new SHA1Hash("person@example.com"));
+            var mailbox = new MailboxSha1Sum(new SHAHash("person@example.com"));
             Assert.Equal("mbox_sha1sum: 371ab9ac0b1ab6d871f7a4c6e8823579e979eb90", mailbox.ToString());
         }
     }

@@ -17,14 +17,14 @@ type public IMailboxSha1Sum =
     /// The hex-encoded SHA1 hash of a mailto IRI (i.e. the value of an mbox property).
     /// An LRS MAY include Agents with a matching hash when a request is based on an mbox.
     /// </summary>
-    abstract member MboxSha1Sum: SHA1Hash
+    abstract member MboxSha1Sum: ISHAHash
 
     inherit IInverseFunctionalIdentifier
 
 [<StructuralEquality;NoComparison;Struct>]
 type public MailboxSha1Sum =
     /// <inheritdoc />
-    val MboxSha1Sum: SHA1Hash
+    val MboxSha1Sum: ISHAHash
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.MailboxSha1Sum"/> struct.

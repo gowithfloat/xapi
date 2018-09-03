@@ -90,14 +90,14 @@ module Interop =
     /// <summary>
     /// Returns a string from the given bytes with standard formatting.
     /// </summary>
-    let inline stringFrom bytes =
-        BitConverter.ToString(bytes).Replace("-", String.Empty).ToLower()
+    let inline stringFrom(bytes: seq<byte>) =
+        BitConverter.ToString(bytes |> Seq.toArray).Replace("-", String.Empty).ToLower()
 
     /// <summary>
     /// Computes the SHA1 hash of the given string.
     /// </summary>
-    let inline computeSha x =
-        SHA1.Create().ComputeHash(bytesFrom(x))
+    let inline computeSha<'T when 'T :> HashAlgorithm>(x: string, algorithm: 'T) =
+        algorithm.ComputeHash(bytesFrom(x))
         
     /// <summary>
     /// Null coalescing operator for F#.

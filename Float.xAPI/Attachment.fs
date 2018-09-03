@@ -8,7 +8,6 @@ namespace Float.xAPI
 open System
 open System.Net.Mime
 open System.Runtime.InteropServices
-open System.Security.Cryptography
 open Float.xAPI.Languages
 open Interop
 
@@ -49,7 +48,7 @@ type public IAttachment =
     /// <summary>
     /// The SHA-2 hash of the Attachment data.
     /// </summary>
-    abstract member Sha2: SHA256
+    abstract member Sha2: ISHAHash
 
     /// <summary>
     /// An IRL at which the Attachment data can be retrieved, or from which it used to be retrievable.
@@ -75,7 +74,7 @@ type public Attachment =
         val Length: uint
 
         /// <inheritdoc />
-        val Sha2: SHA256
+        val Sha2: ISHAHash
 
         /// <inheritdoc />
         val FileUrl: option<Uri>

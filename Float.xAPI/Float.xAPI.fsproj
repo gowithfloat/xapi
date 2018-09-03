@@ -14,7 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interop.fs" />
-    <Compile Include="SHA1Hash.fs" />
+    <Compile Include="SHAHash.fs" />
     <Compile Include="IObject.fs" />
     <Compile Include="Languages\Language.fs" />
     <Compile Include="Languages\ExtendedLanguage.fs" />

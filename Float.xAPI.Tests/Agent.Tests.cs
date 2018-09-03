@@ -18,7 +18,7 @@ namespace Float.xAPI.Tests
         public Agent TestValidInit()
         {
             var ifi1 = new Mailbox(new MailAddress("test@example.com"));
-            var ifi2 = new MailboxSha1Sum(new SHA1Hash("test@example.com"));
+            var ifi2 = new MailboxSha1Sum(new SHAHash("test@example.com"));
             var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
             var ifi4 = new Account("test", new Uri("http://example.com"));
             var agent1 = new Agent(ifi1, "example");
@@ -40,7 +40,7 @@ namespace Float.xAPI.Tests
         public void TestEquality()
         {
             var ifi1 = new Mailbox(new MailAddress("test@example.com"));
-            var ifi2 = new MailboxSha1Sum(new SHA1Hash("test@example.com"));
+            var ifi2 = new MailboxSha1Sum(new SHAHash("test@example.com"));
             var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
             var ifi4 = new Account("test", new Uri("http://example.com"));
             var agent1a = new Agent(ifi1, "Example Learner");
@@ -66,7 +66,7 @@ namespace Float.xAPI.Tests
         public void TestInequality()
         {
             var ifi1 = new Mailbox(new MailAddress("test@example.com"));
-            var ifi2 = new MailboxSha1Sum(new SHA1Hash("test@example.com"));
+            var ifi2 = new MailboxSha1Sum(new SHAHash("test@example.com"));
             var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
             var ifi4 = new Account("test", new Uri("http://example.com"));
             var agent1a = new Agent(ifi1, "Jane Doe");
@@ -90,7 +90,7 @@ namespace Float.xAPI.Tests
         public void TestToString()
         {
             var ifi1 = new Mailbox(new MailAddress("jdoe@example.com"));
-            var ifi2 = new MailboxSha1Sum(new SHA1Hash("sschmoe@example.com"));
+            var ifi2 = new MailboxSha1Sum(new SHAHash("sschmoe@example.com"));
             var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
             var ifi4 = new Account("test", new Uri("http://example.com"));
             var agent1a = new Agent(ifi1, "Jane Doe");
@@ -107,7 +107,7 @@ namespace Float.xAPI.Tests
         public void TestSerialize()
         {
             var ifi1 = new Mailbox(new MailAddress("jdoe@example.com"));
-            var ifi2 = new MailboxSha1Sum(new SHA1Hash("sschmoe@example.com"));
+            var ifi2 = new MailboxSha1Sum(new SHAHash("sschmoe@example.com"));
             var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
             var ifi4 = new Account("test", new Uri("http://example.com"));
             var agent1 = new Agent(ifi1, "Jane Doe");

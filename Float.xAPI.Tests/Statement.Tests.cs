@@ -183,7 +183,7 @@ namespace Float.xAPI.Tests
                 new LanguageMap(LanguageTag.EnglishUS, "A test attachment"),
                 new ContentType("text/plan; charset=ascii"),
                 27,
-                SHA256.Create(),
+                new SHAHash("text", SHA256.Create()),
                 new LanguageMap(LanguageTag.EnglishUS, "A test attachment (description)"),
                 null
             );
