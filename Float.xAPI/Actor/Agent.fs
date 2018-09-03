@@ -24,7 +24,7 @@ type public Agent =
     val IFI: IInverseFunctionalIdentifier
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.IdentifiedGroup"/> class.
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Agent"/> class.
     /// </summary>
     /// <param name="ifi">An Inverse Functional Identifier unique to the Agent. Required.</param>
     /// <param name="display">Name of the Agent. Optional.</param>
@@ -52,9 +52,6 @@ type public Agent =
 
     static member op_Equality (lhs: Agent, rhs: IAgent) = lhs.Equals(rhs)
     static member op_Inequality (lhs: Agent, rhs: IAgent) = not(lhs.Equals(rhs))
-
-    interface System.IEquatable<IAgent> with
-        member this.Equals other = this.Equals other
 
     interface IAgent with
         member this.ObjectType = this.ObjectType

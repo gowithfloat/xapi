@@ -5,7 +5,6 @@
 
 namespace Float.xAPI.Actor
 
-open System
 open System.Runtime.InteropServices
 open Float.xAPI.Actor.Identifier
 open Float.xAPI.Interop
@@ -58,9 +57,6 @@ type public IdentifiedGroup =
 
     static member op_Equality (lhs: IdentifiedGroup, rhs: IIdentifiedGroup) = lhs.Equals(rhs)
     static member op_Inequality (lhs: IdentifiedGroup, rhs: IIdentifiedGroup) = not(lhs.Equals(rhs))
-
-    interface IEquatable<IIdentifiedGroup> with
-        member this.Equals other = this.Equals other
 
     interface IIdentifiedGroup with
         member this.ObjectType = this.ObjectType

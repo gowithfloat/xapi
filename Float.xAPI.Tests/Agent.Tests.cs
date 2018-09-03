@@ -55,6 +55,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(agent2a, agent2b);
             Assert.Equal(agent3a, agent3b);
             Assert.Equal(agent4a, agent4b);
+            Assert.Equal(agent1a.GetHashCode(), agent1b.GetHashCode());
             Assert.True(agent1a == agent1b);
             Assert.True(agent2a == agent2b);
             Assert.True(agent3a == agent3b);
@@ -79,6 +80,7 @@ namespace Float.xAPI.Tests
             Assert.NotEqual(agent1a, agent2a);
             Assert.NotEqual(agent2a, agent3a);
             Assert.NotEqual(agent3a, agent4a);
+            Assert.NotEqual(agent1a.GetHashCode(), agent2a.GetHashCode());
             Assert.True(agent1a != agent2a);
             Assert.True(agent2a != agent3a);
             Assert.True(agent3a != agent4a);

@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
 using Xunit;
@@ -51,6 +52,8 @@ namespace Float.xAPI.Tests
             };
             var group3 = new IdentifiedGroup(new OpenID(new Uri("http://example.com")), members);
             Assert.Equal(group2, group3);
+            Assert.Equal(group2.GetHashCode(), group3.GetHashCode());
+            Assert.True(group2 == group3);
         }
 
         [Fact]
@@ -59,6 +62,24 @@ namespace Float.xAPI.Tests
             var group1 = new IdentifiedGroup(new OpenID(new Uri("http://gowithfloat.com")));
             var group2 = new IdentifiedGroup(new OpenID(new Uri("http://example.com")));
             Assert.NotEqual(group1, group2);
+            Assert.NotEqual(group1.GetHashCode(), group2.GetHashCode());
+            Assert.True(group1 != group2);
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var group = new IdentifiedGroup(new OpenID(new Uri("http://example.com")), new List<IAgent>
+            {
+                new Agent(new Account("learner", new Uri("http://example.com"))),
+                new Agent(new Account("learner", new Uri("http://example.com")))
+            }, "group");
+            Assert.Equal("Group", group.ObjectType);
+
+            var igroup = group as IIdentifiedGroup;
+            Assert.Equal("Group", igroup.ObjectType);
+            Assert.Equal(2, igroup.Member.Value.Count());
+            Assert.Equal("group", igroup.Name);
         }
 
         [Fact]

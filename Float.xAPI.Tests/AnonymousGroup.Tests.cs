@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
 using Xunit;
@@ -39,6 +40,23 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentException>(() => new AnonymousGroup(members1, "Group Name"));
             Assert.Throws<ArgumentException>(() => new AnonymousGroup(members2, string.Empty));
             Assert.Throws<ArgumentException>(() => new AnonymousGroup(members2, " "));
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var group = new AnonymousGroup(new List<IAgent>
+            {
+                new Agent(new OpenID(new Uri("http://example.com/1"))),
+                new Agent(new OpenID(new Uri("http://example.com/2")))
+            }, "test name");
+
+            Assert.Equal("Group", group.ObjectType);
+
+            var igroup = group as IAnonymousGroup;
+            Assert.Equal("Group", igroup.ObjectType);
+            Assert.Equal(2, igroup.Member.Count());
+            Assert.Equal("test name", igroup.Name);
         }
 
         [Fact]
