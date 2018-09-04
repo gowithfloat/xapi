@@ -1,5 +1,5 @@
-﻿// <copyright file="InteractionComponent.fs" company="(c) Float">
-// Copyright (c) 2018 (c) Float, LLC, All rights reserved.
+﻿// <copyright file="InteractionComponent.fs" company="Float">
+// Copyright (c) 2018 Float, All rights reserved.
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 

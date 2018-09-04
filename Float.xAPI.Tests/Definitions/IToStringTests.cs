@@ -1,5 +1,5 @@
-﻿// <copyright file="IToStringTests.cs" company="">
-// Copyright (c) 2018 , All rights reserved.
+﻿// <copyright file="IToStringTests.cs" company="Float">
+// Copyright (c) 2018 Float, All rights reserved.
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
