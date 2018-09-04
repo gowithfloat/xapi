@@ -18,39 +18,39 @@ type public IStatementReference =
     /// </summary>
     abstract member Id: Guid
 
-    /// <summary>
-    /// A statement reference is a type of object.
-    /// </summary>
     inherit IObject
 
-[<NoComparison;CustomEquality>]
+[<NoComparison;CustomEquality;Struct>]
 type public StatementReference =
-    struct
-        /// <inheritdoc />
-        val Id: Guid
+    /// <inheritdoc />
+    val Id: Guid
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.StatementReference"/> struct.
-        /// </summary>
-        /// <param name="id">The UUID of a Statement. Required.</param>
-        new (id) =
-            nullArg id "id"
-            { Id = id }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.StatementReference"/> struct.
+    /// </summary>
+    /// <param name="id">The UUID of a Statement. Required.</param>
+    new (id) =
+        nullArg id "id"
+        { Id = id }
+        
+    /// <inheritdoc />
+    override this.GetHashCode() = hash this.Id
 
-        override this.GetHashCode() = hash this.Id
-        override this.ToString() = sprintf "<%A: Id %A>" (this.GetType().Name) this.Id
-        override this.Equals(other) =
-            match other with
-            | :? IStatementReference as ref -> this.Id = ref.Id
-            | _ -> false
+    /// <inheritdoc />
+    override this.ToString() = sprintf "<%A: Id %A>" (this.GetType().Name) this.Id
 
-        interface IEquatable<IStatementReference> with
-            member this.Equals other =
-                this.Id = other.Id
+    /// <inheritdoc />
+    override this.Equals(other) =
+        match other with
+        | :? IStatementReference as ref -> this.Id = ref.Id
+        | _ -> false
 
-        member this.ObjectType = (this :> IObject).ObjectType
+    /// <inheritdoc />
+    member this.ObjectType = "StatementRef"
 
-        interface IStatementReference with
-            member this.ObjectType = "StatementRef"
-            member this.Id = this.Id
-    end
+    interface IEquatable<IStatementReference> with
+        member this.Equals other = this.Id = other.Id
+
+    interface IStatementReference with
+        member this.ObjectType = this.ObjectType
+        member this.Id = this.Id

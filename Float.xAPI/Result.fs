@@ -43,48 +43,47 @@ type public IResult =
     /// </summary>
     abstract member Extensions: option<IExtensions>
 
-[<NoComparison;NoEquality>]
+[<NoComparison;NoEquality;Struct>]
 type public Result =
-    struct
-        /// <inheritdoc />
-        val Score: option<IScore>
+    /// <inheritdoc />
+    val Score: option<IScore>
 
-        /// <inheritdoc />
-        val Success: option<bool>
+    /// <inheritdoc />
+    val Success: option<bool>
 
-        /// <inheritdoc />
-        val Completion: option<bool>
+    /// <inheritdoc />
+    val Completion: option<bool>
 
-        /// <inheritdoc />
-        val Response: option<string>
+    /// <inheritdoc />
+    val Response: option<string>
 
-        /// <inheritdoc />
-        val Duration: option<TimeSpan>
+    /// <inheritdoc />
+    val Duration: option<TimeSpan>
 
-        /// <inheritdoc />
-        val Extensions: option<IExtensions>
+    /// <inheritdoc />
+    val Extensions: option<IExtensions>
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Result"/> struct.
-        /// </summary>
-        /// <param name="score">The score of the Agent in relation to the success or quality of the experience.</param>
-        /// <param name="success">Indicates whether or not the attempt on the Activity was successful.</param>
-        /// <param name="completion">Indicates whether or not the Activity was completed.</param>
-        /// <param name="response">A response appropriately formatted for the given Activity.</param>
-        /// <param name="duration">Period of time over which the Statement occurred.</param>
-        /// <param name="extensions">A map of other properties as needed.</param>
-        new ([<Optional;DefaultParameterValue(null)>] ?score, [<Optional;DefaultParameterValue(null)>] ?success, [<Optional;DefaultParameterValue(null)>] ?completion, [<Optional;DefaultParameterValue(null)>] ?response, [<Optional;DefaultParameterValue(null)>] ?duration, [<Optional;DefaultParameterValue(null)>] ?extensions) =
-            invalidOptionalStringArg response "response"
-            emptyOptionalSeqArg extensions "extensions"
-            { Score = score; Success = success; Completion = completion ; Response = response; Duration = duration; Extensions = extensions }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Result"/> struct.
+    /// </summary>
+    /// <param name="score">The score of the Agent in relation to the success or quality of the experience.</param>
+    /// <param name="success">Indicates whether or not the attempt on the Activity was successful.</param>
+    /// <param name="completion">Indicates whether or not the Activity was completed.</param>
+    /// <param name="response">A response appropriately formatted for the given Activity.</param>
+    /// <param name="duration">Period of time over which the Statement occurred.</param>
+    /// <param name="extensions">A map of other properties as needed.</param>
+    new ([<Optional;DefaultParameterValue(null)>] ?score, [<Optional;DefaultParameterValue(null)>] ?success, [<Optional;DefaultParameterValue(null)>] ?completion, [<Optional;DefaultParameterValue(null)>] ?response, [<Optional;DefaultParameterValue(null)>] ?duration, [<Optional;DefaultParameterValue(null)>] ?extensions) =
+        invalidOptionalStringArg response "response"
+        emptyOptionalSeqArg extensions "extensions"
+        { Score = score; Success = success; Completion = completion ; Response = response; Duration = duration; Extensions = extensions }
 
-        override this.ToString() = sprintf "<%A: Score %A Success %A Completion %A Response %A Duration %A Extensions %A>" (this.GetType().Name) this.Score this.Success this.Completion this.Response this.Duration this.Extensions
+    /// <inheritdoc />
+    override this.ToString() = sprintf "<%A: Score %A Success %A Completion %A Response %A Duration %A Extensions %A>" (this.GetType().Name) this.Score this.Success this.Completion this.Response this.Duration this.Extensions
 
-        interface IResult with
-            member this.Score = this.Score
-            member this.Success = this.Success
-            member this.Completion = this.Completion
-            member this.Response = this.Response
-            member this.Duration = this.Duration
-            member this.Extensions = this.Extensions
-    end
+    interface IResult with
+        member this.Score = this.Score
+        member this.Success = this.Success
+        member this.Completion = this.Completion
+        member this.Response = this.Response
+        member this.Duration = this.Duration
+        member this.Extensions = this.Extensions

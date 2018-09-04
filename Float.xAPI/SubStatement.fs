@@ -21,54 +21,52 @@ type public ISubStatement =
     /// </summary>
     inherit IGenericStatement
 
-[<NoComparison;NoEquality>]
+[<NoComparison;NoEquality;Struct>]
 type public SubStatement =
-    struct
-        /// <inheritdoc />
-        val Actor: IActor
+    /// <inheritdoc />
+    val Actor: IActor
 
-        /// <inheritdoc />
-        val Verb: IVerb
+    /// <inheritdoc />
+    val Verb: IVerb
 
-        /// <inheritdoc />
-        val Object: IObject
+    /// <inheritdoc />
+    val Object: IObject
 
-        /// <inheritdoc />
-        val Result: option<IResult>
+    /// <inheritdoc />
+    val Result: option<IResult>
 
-        /// <inheritdoc />
-        val Context: option<IContext>
+    /// <inheritdoc />
+    val Context: option<IContext>
 
-        /// <inheritdoc />
-        val Timestamp: option<DateTime>
+    /// <inheritdoc />
+    val Timestamp: option<DateTime>
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.SubStatement"/> struct.
-        /// </summary>
-        /// <param name="actor">Whom the Statement is about, as an Agent or Group Object.</param>
-        /// <param name="verb">Action taken by the Actor.</param>
-        /// <param name="object">Activity, Agent, or another Statement that is the Object of the Statement.</param>
-        /// <param name="result">Result Object, further details representing a measured outcome.</param>
-        /// <param name="context">Context that gives the Statement more meaning.</param>
-        /// <param name="timestamp">Timestamp of when the events described within this Statement occurred.</param>
-        new (actor, verb, object, [<Optional;DefaultParameterValue(null)>] ?result, [<Optional;DefaultParameterValue(null)>] ?context, [<Optional;DefaultParameterValue(null)>] ?timestamp) =
-            if box object :? ISubStatement then invalidArg "object" "Substatements cannot contain substatements"
-            nullArg actor "actor"
-            nullArg verb "verb"
-            nullArg object "object"
-            { Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = timestamp }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.SubStatement"/> struct.
+    /// </summary>
+    /// <param name="actor">Whom the Statement is about, as an Agent or Group Object.</param>
+    /// <param name="verb">Action taken by the Actor.</param>
+    /// <param name="object">Activity, Agent, or another Statement that is the Object of the Statement.</param>
+    /// <param name="result">Result Object, further details representing a measured outcome.</param>
+    /// <param name="context">Context that gives the Statement more meaning.</param>
+    /// <param name="timestamp">Timestamp of when the events described within this Statement occurred.</param>
+    new (actor, verb, object, [<Optional;DefaultParameterValue(null)>] ?result, [<Optional;DefaultParameterValue(null)>] ?context, [<Optional;DefaultParameterValue(null)>] ?timestamp) =
+        if box object :? ISubStatement then invalidArg "object" "Substatements cannot contain substatements"
+        nullArg actor "actor"
+        nullArg verb "verb"
+        nullArg object "object"
+        { Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = timestamp }
 
-        /// <inheritdoc />
-        override this.ToString() = sprintf "<%O: Actor %A Verb %A Object %A%O%O%O>" (this.GetType().Name) this.Actor this.Verb this.Object (toStringOrNone this.Result " Result") (toStringOrNone this.Context " Context") (toStringOrNone this.Timestamp " Timestamp")
+    /// <inheritdoc />
+    override this.ToString() = sprintf "<%O: Actor %A Verb %A Object %A%O%O%O>" (this.GetType().Name) this.Actor this.Verb this.Object (toStringOrNone this.Result " Result") (toStringOrNone this.Context " Context") (toStringOrNone this.Timestamp " Timestamp")
 
-        member this.ObjectType = (this :> IObject).ObjectType
+    member this.ObjectType = (this :> IObject).ObjectType
 
-        interface ISubStatement with
-            member this.ObjectType = this.GetType().Name
-            member this.Actor = this.Actor
-            member this.Verb = this.Verb
-            member this.Object = this.Object
-            member this.Result = this.Result
-            member this.Context = this.Context
-            member this.Timestamp = this.Timestamp
-    end
+    interface ISubStatement with
+        member this.ObjectType = this.GetType().Name
+        member this.Actor = this.Actor
+        member this.Verb = this.Verb
+        member this.Object = this.Object
+        member this.Result = this.Result
+        member this.Context = this.Context
+        member this.Timestamp = this.Timestamp
