@@ -38,41 +38,39 @@ type public IContextActivities =
     /// </summary>
     abstract member Other: option<seq<IActivity>>
 
-[<NoEquality;NoComparison>]
+[<NoEquality;NoComparison;Struct>]
 type public ContextActivities =
-    struct
-        /// <inheritdoc />
-        val Parent: option<seq<IActivity>> // todo: provide a constructor with one parent
+    /// <inheritdoc />
+    val Parent: option<seq<IActivity>> // todo: provide a constructor with one parent
 
-        /// <inheritdoc />
-        val Grouping: option<seq<IActivity>>
+    /// <inheritdoc />
+    val Grouping: option<seq<IActivity>>
 
-        /// <inheritdoc />
-        val Category: option<seq<IActivity>>
+    /// <inheritdoc />
+    val Category: option<seq<IActivity>>
 
-        /// <inheritdoc />
-        val Other: option<seq<IActivity>>
+    /// <inheritdoc />
+    val Other: option<seq<IActivity>>
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Activity.ContextActivities"/> struct.
-        /// </summary>
-        /// <param name="parent">An Activity with a direct relation to the Activity which is the Object of the Statement.</param>
-        /// <param name="grouping">An Activity with an indirect relation to the Activity which is the Object of the Statement.</param>
-        /// <param name="category">An Activity used to categorize the Statement.</param>
-        /// <param name="other">A contextActivity that doesn't fit one of the other properties.</param>
-        new ([<Optional;DefaultParameterValue(null)>] ?parent, [<Optional;DefaultParameterValue(null)>] ?grouping, [<Optional;DefaultParameterValue(null)>] ?category, [<Optional;DefaultParameterValue(null)>] ?other) =
-            emptyOptionalSeqArg parent "parent"
-            emptyOptionalSeqArg grouping "grouping"
-            emptyOptionalSeqArg category "category"
-            emptyOptionalSeqArg other "other"
-            { Parent = parent; Grouping = grouping; Category = category; Other = other }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Activity.ContextActivities"/> struct.
+    /// </summary>
+    /// <param name="parent">An Activity with a direct relation to the Activity which is the Object of the Statement.</param>
+    /// <param name="grouping">An Activity with an indirect relation to the Activity which is the Object of the Statement.</param>
+    /// <param name="category">An Activity used to categorize the Statement.</param>
+    /// <param name="other">A contextActivity that doesn't fit one of the other properties.</param>
+    new ([<Optional;DefaultParameterValue(null)>] ?parent, [<Optional;DefaultParameterValue(null)>] ?grouping, [<Optional;DefaultParameterValue(null)>] ?category, [<Optional;DefaultParameterValue(null)>] ?other) =
+        emptyOptionalSeqArg parent "parent"
+        emptyOptionalSeqArg grouping "grouping"
+        emptyOptionalSeqArg category "category"
+        emptyOptionalSeqArg other "other"
+        { Parent = parent; Grouping = grouping; Category = category; Other = other }
 
-        override this.ToString() = 
-            sprintf "<%O: %O %O %O %O>" (typeName this) (seqToStringOrNone this.Parent "Parent") (seqToStringOrNone this.Grouping "Grouping") (seqToStringOrNone this.Category "Category") (seqToStringOrNone this.Other "Other")
+    override this.ToString() = 
+        sprintf "<%O: %O %O %O %O>" (typeName this) (seqToStringOrNone this.Parent "Parent") (seqToStringOrNone this.Grouping "Grouping") (seqToStringOrNone this.Category "Category") (seqToStringOrNone this.Other "Other")
 
-        interface IContextActivities with
-            member this.Parent = this.Parent
-            member this.Grouping = this.Grouping
-            member this.Category = this.Category
-            member this.Other = this.Other
-    end
+    interface IContextActivities with
+        member this.Parent = this.Parent
+        member this.Grouping = this.Grouping
+        member this.Category = this.Category
+        member this.Other = this.Other

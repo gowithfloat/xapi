@@ -40,49 +40,47 @@ type public IActivityDefinition =
     /// </summary>
     abstract member Extensions: option<IExtensions>
 
-[<NoEquality;NoComparison>]
+[<NoEquality;NoComparison;Struct>]
 type public ActivityDefinition =
-    struct
-        /// <inheritdoc />
-        val Name: ILanguageMap
+    /// <inheritdoc />
+    val Name: ILanguageMap
 
-        /// <inheritdoc />
-        val Description: ILanguageMap
+    /// <inheritdoc />
+    val Description: ILanguageMap
 
-        /// <inheritdoc />
-        val Type: Uri
+    /// <inheritdoc />
+    val Type: Uri
 
-        /// <inheritdoc />
-        val MoreInfo: option<Uri>
+    /// <inheritdoc />
+    val MoreInfo: option<Uri>
 
-        /// <inheritdoc />
-        val Extensions: option<IExtensions>
+    /// <inheritdoc />
+    val Extensions: option<IExtensions>
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.ActivityDefinition"/> struct.
-        /// </summary>
-        /// <param name="name">The human readable/visual name of the Activity.</param>
-        /// <param name="description"A description of the Activity.</param>
-        /// <param name="thetype">The type of Activity.</param>
-        /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
-        /// <param name="extensions">A map of other properties as needed.</param>
-        new(name, description, thetype, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
-            nullArg name "name"
-            emptySeqArg name "name"
-            nullArg description "description"
-            emptySeqArg description "description"
-            nullArg thetype "thetype"
-            invalidIRIArg thetype "thetype"
-            { Name = name; Description = description; Type = thetype; MoreInfo = moreInfo; Extensions = extensions }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.ActivityDefinition"/> struct.
+    /// </summary>
+    /// <param name="name">The human readable/visual name of the Activity.</param>
+    /// <param name="description"A description of the Activity.</param>
+    /// <param name="thetype">The type of Activity.</param>
+    /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
+    /// <param name="extensions">A map of other properties as needed.</param>
+    new(name, description, thetype, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
+        nullArg name "name"
+        emptySeqArg name "name"
+        nullArg description "description"
+        emptySeqArg description "description"
+        nullArg thetype "thetype"
+        invalidIRIArg thetype "thetype"
+        { Name = name; Description = description; Type = thetype; MoreInfo = moreInfo; Extensions = extensions }
 
-        override this.ToString() = 
-            sprintf "<%O: Name %A Description %A Type %A MoreInfo %A Extensions %A>" (typeName this) (seqToString this.Name) (seqToString this.Description) this.Type this.MoreInfo this.Extensions
+    override this.ToString() = 
+        sprintf "<%O: Name %A Description %A Type %A MoreInfo %A Extensions %A>" (typeName this) (seqToString this.Name) (seqToString this.Description) this.Type this.MoreInfo this.Extensions
 
-        interface IActivityDefinition with
-            member this.Name = this.Name
-            member this.Description = this.Description
-            member this.Type = this.Type
-            member this.MoreInfo = this.MoreInfo
-            member this.Extensions = this.Extensions
-    end
+    interface IActivityDefinition with
+        member this.Name = this.Name
+        member this.Description = this.Description
+        member this.Type = this.Type
+        member this.MoreInfo = this.MoreInfo
+        member this.Extensions = this.Extensions
     

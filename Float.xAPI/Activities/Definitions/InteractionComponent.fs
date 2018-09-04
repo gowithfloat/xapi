@@ -24,37 +24,39 @@ type public IInteractionComponent =
     /// </summary>
     abstract member Description: option<ILanguageMap>
 
-[<CustomEquality;NoComparison>]
+[<CustomEquality;NoComparison;Struct>]
 type public InteractionComponent =
-    struct
-        /// <inheritdoc />
-        val Id: string
+    /// <inheritdoc />
+    val Id: string
 
-        /// <inheritdoc />
-        val Description: option<ILanguageMap>
+    /// <inheritdoc />
+    val Description: option<ILanguageMap>
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.Choice"/> struct.
-        /// </summary>
-        /// <param name="id">Identifies the interaction component within the list.</param>
-        /// <param name="description">A description of the interaction component.</param>
-        new (id, description) =
-            nullArg id "id"
-            emptyOptionalSeqArg description "description"
-            { Id = id; Description = description }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.Choice"/> struct.
+    /// </summary>
+    /// <param name="id">Identifies the interaction component within the list.</param>
+    /// <param name="description">A description of the interaction component.</param>
+    new (id, description) =
+        nullArg id "id"
+        emptyOptionalSeqArg description "description"
+        { Id = id; Description = description }
+        
+    /// <inheritdoc />
+    override this.GetHashCode() = hash this.Id
 
-        override this.GetHashCode() = hash this.Id
-        override this.ToString() = sprintf "<%A: Id %A Description %A>" (this.GetType().Name) this.Id this.Description
-        override this.Equals(other) =
-            match other with
-            | :? IInteractionComponent as interaction -> (this.Id, this.Description) <> (interaction.Id, interaction.Description)
-            | _ -> false
+    /// <inheritdoc />
+    override this.ToString() = sprintf "<%A: Id %A Description %A>" (this.GetType().Name) this.Id this.Description
 
-        interface IEquatable<IInteractionComponent> with
-            member this.Equals other =
-                this.Id <> other.Id
+    /// <inheritdoc />
+    override this.Equals(other) =
+        match other with
+        | :? IInteractionComponent as interaction -> (this.Id, this.Description) <> (interaction.Id, interaction.Description)
+        | _ -> false
 
-        interface IInteractionComponent with
-            member this.Id = this.Id
-            member this.Description = this.Description
-    end
+    interface IEquatable<IInteractionComponent> with
+        member this.Equals other = this.Id = other.Id
+
+    interface IInteractionComponent with
+        member this.Id = this.Id
+        member this.Description = this.Description

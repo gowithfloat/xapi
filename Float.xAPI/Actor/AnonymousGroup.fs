@@ -6,7 +6,6 @@
 namespace Float.xAPI.Actor
 
 open System.Runtime.InteropServices
-open Float.xAPI
 open Float.xAPI.Interop
 
 /// <summary>

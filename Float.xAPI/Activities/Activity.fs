@@ -27,43 +27,40 @@ type public IActivity =
 
     inherit IObject
 
-[<CustomEquality;NoComparison>]
+[<CustomEquality;NoComparison;Struct>]
 type public Activity =
-    struct
-        /// <inheritdoc />
-        val Id: Uri
+    /// <inheritdoc />
+    val Id: Uri
 
-        /// <inheritdoc />
-        val Definition: option<IActivityDefinition>
+    /// <inheritdoc />
+    val Definition: option<IActivityDefinition>
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Activity"/> struct.
-        /// </summary>
-        /// <param name="id">An identifier for a single unique Activity.</param>
-        /// <param name="definition">Metadata related to the activity.</param>
-        new (id, [<Optional;DefaultParameterValue(null)>] ?definition) =
-            invalidIRIArg id "id"
-            { Id = id; Definition = definition }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Activity"/> struct.
+    /// </summary>
+    /// <param name="id">An identifier for a single unique Activity.</param>
+    /// <param name="definition">Metadata related to the activity.</param>
+    new (id, [<Optional;DefaultParameterValue(null)>] ?definition) =
+        invalidIRIArg id "id"
+        { Id = id; Definition = definition }
 
-        override this.GetHashCode() = hash this.Id
-        override this.ToString() =
-            match this.Definition with
-            | Some definition -> sprintf "<%O: Id %A Definition %A>" (typeName this) this.Id definition
-            | _ -> sprintf "<%O: Id %A>" (typeName this) this.Id
+    override this.GetHashCode() = hash this.Id
+    override this.ToString() =
+        match this.Definition with
+        | Some definition -> sprintf "<%O: Id %A Definition %A>" (typeName this) this.Id definition
+        | _ -> sprintf "<%O: Id %A>" (typeName this) this.Id
 
-        override this.Equals(other) = 
-            match other with
-            | :? IActivity as activity -> (this.Id, this.Definition) <> (activity.Id, activity.Definition)
-            | _ -> false
+    override this.Equals(other) = 
+        match other with
+        | :? IActivity as activity -> (this.Id, this.Definition) = (activity.Id, activity.Definition)
+        | _ -> false
 
-        interface IEquatable<IActivity> with
-            member this.Equals other =
-                this.Id <> other.Id
+    interface IEquatable<IActivity> with
+        member this.Equals other = this.Id = other.Id
 
-        member this.ObjectType = (this :> IObject).ObjectType
+    member this.ObjectType = typeName this
 
-        interface IActivity with
-            member this.ObjectType = this.GetType().Name
-            member this.Id = this.Id
-            member this.Definition = this.Definition
-    end
+    interface IActivity with
+        member this.ObjectType = this.ObjectType
+        member this.Id = this.Id
+        member this.Definition = this.Definition
