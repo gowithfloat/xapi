@@ -10,9 +10,11 @@ This library is currently in a pre-release state. Feedback is welcome but active
 
 To craft a simple statement, you first need an actor:
 
-    var address = new MailAddress("example@gowithfloat.com");
-    var mailbox = new Mailbox(address);
-    var actor = new Agent(mailbox, "Example Learner");
+```C#
+var address = new MailAddress("example@gowithfloat.com");
+var mailbox = new Mailbox(address);
+var actor = new Agent(mailbox, "Example Learner");
+```
 
 A verb is a URI paired with a language map:
 
