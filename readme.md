@@ -63,7 +63,7 @@ This implementation is influenced by the existing [TinCan.NET](https://github.co
 
 ## Notes
 
-* C# [does not allow](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-structs) structs to have a [parameterless default constructor](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-constructors) defined, and auto-generates one for all structs. As a result, all struct types can be instantiated with a parameterless constructor, which for most of this library, will create an invalid instance. Note that this may conflict with the CLI [specification](https://www.ecma-international.org/publications/standards/Ecma-335.htm) and could be revised in future versions of C#.
+* C# [does not allow](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-structs) structs to have a [parameterless default constructor](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-constructors) defined, and auto-generates one for all structs. As a result, all struct types can be instantiated with a parameterless constructor, which for most of this library, will create an invalid instance. Note that this may conflict with the CLI [specification](https://www.ecma-international.org/publications/standards/Ecma-335.htm) and could be revised in future versions of C#. This is generally not an issue in F# as that language prevents initialization via default constructor when properties don't also support default constructors.
 
 ## License
 
