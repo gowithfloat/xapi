@@ -34,7 +34,7 @@ type IStatementResource =
     /// <param name="statementId">ID of statement to fetch.</param>
     /// <param name="format">The statement formatting to use for the returned object.</param>
     /// <param name="attachments">If true, the LRS uses the multipart response format and includes all attachments as described previously. If false, the LRS sends the prescribed response with Content-Type application/json and does not send attachment data.</param>
-    abstract member GetStatement: Guid -> [<Optional;DefaultParameterValue(0)>] format: StatementResultFormat option -> [<Optional;DefaultParameterValue(false)>] attachments: bool option -> IStatement
+    abstract member GetStatement: Guid * [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat * [<Optional;DefaultParameterValue(false)>] attachments: bool -> IStatement
 
     /// <summary>
     /// Get only voided statement that matches the given statement ID.
@@ -43,7 +43,7 @@ type IStatementResource =
     /// <param name="voidedStatementId">ID of voided statement to fetch.</param>
     /// <param name="format">The statement formatting to use for the returned object.</param>
     /// <param name="attachments">If true, the LRS uses the multipart response format and includes all attachments as described previously. If false, the LRS sends the prescribed response with Content-Type application/json and does not send attachment data.</param>
-    abstract member GetVoidedStatement: Guid -> [<Optional;DefaultParameterValue(0)>] format: StatementResultFormat option -> [<Optional;DefaultParameterValue(false)>] attachments: bool option -> IStatement
+    abstract member GetVoidedStatement: Guid * [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat * [<Optional;DefaultParameterValue(false)>] attachments: bool -> IStatement
     
     /// <summary>
     /// This method is called to fetch a single Statement or multiple Statements.
@@ -61,4 +61,4 @@ type IStatementResource =
     /// <param name="format">Statement result format option.</param>
     /// <param name="attachments">If true, the LRS uses the multipart response format and includes all attachments as described previously. If false, the LRS sends the prescribed response with Content-Type application/json and does not send attachment data.</param>
     /// <param name="ascending">If true, return results in ascending order of stored time.</param>
-    abstract member GetStatements: option<IIdentifiedActor> -> Uri option -> Uri option -> Guid option -> bool option -> bool option -> DateTime option -> DateTime option -> uint option -> StatementResultFormat option -> bool option -> bool option -> IStatementResult
+    abstract member GetStatements: IIdentifiedActor option * Uri option * Uri option * Guid option * bool option * bool option * DateTime option * DateTime option * uint option * StatementResultFormat option * bool option * bool option -> IStatementResult

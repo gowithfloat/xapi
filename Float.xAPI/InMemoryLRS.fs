@@ -7,13 +7,8 @@ namespace Float.xAPI
 
 open System
 open System.Collections.Generic
-open Float.xAPI.Activities
-open Float.xAPI.Activities.Definitions
 open Float.xAPI.Actor
-open Float.xAPI.Actor.Identifier
-open Float.xAPI.Languages
 open Float.xAPI.Resources
-open Float.xAPI.Resources.Documents
 
 module internal Util =
     let inline mapStatementToId(statement: IStatement) =
@@ -41,19 +36,19 @@ type InMemoryLRS =
             |> Seq.map Util.mapStatementToId
 
     /// <inheritdoc />
-    member this.GetStatement statementId format attachments =
+    member this.GetStatement(statementId: Guid, format: StatementResultFormat, attachments: bool) =
         this.Statements
             |> List.ofSeq 
             |> List.find (Filters.statementIdMatch statementId)
 
     /// <inheritdoc />
-    member this.GetVoidedStatement voidedStatementId format attachments =
+    member this.GetVoidedStatement(voidedStatementId: Guid, format: StatementResultFormat, attachments: bool) =
         this.Statements 
             |> List.ofSeq 
             |> List.find (Filters.statementIdMatch voidedStatementId)
 
     /// <inheritdoc />
-    member this.GetStatements agent verb activity registration relatedActivities relatedAgents since until limit format attachments ascending =
+    member this.GetStatements(agent: IIdentifiedActor option, verb: Uri option, activity: Uri option, registration: Guid option, relatedActivities: bool option, relatedAgents: bool option, since: DateTime option, until: DateTime option, limit: uint option, format: StatementResultFormat option, attachments: bool option, ascending: bool option) =
         this.Statements 
             |> List.ofSeq 
             |> List.where (Filters.statementPropertyMatch agent verb activity registration relatedActivities relatedAgents since until limit format attachments ascending) 
@@ -63,6 +58,7 @@ type InMemoryLRS =
     interface IStatementResource with
         member this.PutStatement statement = this.PutStatement statement
         member this.PostStatements statements = this.PostStatements statements
-        member this.GetStatement statementId format attachments = this.GetStatement statementId format attachments
-        member this.GetVoidedStatement voidedStatementId format attachments = this.GetVoidedStatement voidedStatementId format attachments
-        member this.GetStatements agent verb activity registration relatedActivities relatedAgents since until limit format attachments ascending = this.GetStatements agent verb activity registration relatedActivities relatedAgents since until limit format attachments ascending
+        member this.GetStatement(statementId, format, attachments) = this.GetStatement(statementId, format, attachments)
+        member this.GetVoidedStatement(voidedStatementId, format, attachments) = this.GetVoidedStatement(voidedStatementId, format, attachments)
+        member this.GetStatements(agent, verb, activity, registration, relatedActivities, relatedAgents, since, until, limit, format, attachments, ascending) = 
+            this.GetStatements(agent, verb, activity, registration, relatedActivities, relatedAgents, since, until, limit, format, attachments, ascending)
