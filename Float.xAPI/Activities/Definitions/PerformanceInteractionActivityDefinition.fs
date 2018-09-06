@@ -19,7 +19,7 @@ type public IPerformanceInteractionActivityDefinition =
     /// <summary>
     /// Steps within the task.
     /// </summary>
-    abstract member Steps: seq<IInteractionComponent>
+    abstract member Steps: IInteractionComponent seq
 
     inherit IInteractionActivityDefinition
 
@@ -32,20 +32,20 @@ type public PerformanceInteractionActivityDefinition =
     val Description: ILanguageMap
 
     /// <inheritdoc />
-    val MoreInfo: option<Uri>
+    val MoreInfo: Uri option
 
     /// <inheritdoc />
-    val Extensions: option<IExtensions>
+    val Extensions: IExtensions option
 
     /// <summary>
     /// A list of steps containing a step ids and the response to that step.
     /// Step ids are separated from responses by [.]. Steps are delimited by [,].
     /// The response can be a String as in a fill-in interaction or a number range as in a numeric interaction.
     /// </summary>
-    val CorrectResponsesPattern: seq<string>
+    val CorrectResponsesPattern: string seq
 
     /// <inheritdoc />
-    val Steps: seq<IInteractionComponent>
+    val Steps: IInteractionComponent seq
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.PerformanceInteractionActivityDefinition"/> struct.

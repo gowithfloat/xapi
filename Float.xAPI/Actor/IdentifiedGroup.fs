@@ -13,16 +13,16 @@ open Float.xAPI.Interop
 /// An Identified Group is used to uniquely identify a cluster of Agents.
 /// </summary>
 type public IIdentifiedGroup =
-    inherit IGroup<option<seq<IAgent>>>
+    inherit IGroup<IAgent seq option>
     inherit IIdentifiedActor
 
 [<CustomEquality;NoComparison;Struct>]
 type public IdentifiedGroup =
     /// <inheritdoc />
-    val Name: option<string>
+    val Name: string option
 
     /// <inheritdoc />
-    val Member: option<seq<IAgent>>
+    val Member: IAgent seq option
 
     /// <inheritdoc />
     val IFI: IInverseFunctionalIdentifier

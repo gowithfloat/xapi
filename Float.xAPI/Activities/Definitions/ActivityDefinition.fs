@@ -33,12 +33,12 @@ type public IActivityDefinition =
     /// <summary>
     /// Resolves to a document with human-readable information about the Activity, which could include a way to launch the activity. 
     /// </summary>
-    abstract member MoreInfo: option<Uri>
+    abstract member MoreInfo: Uri option
 
     /// <summary>
     /// A map of other properties as needed.
     /// </summary>
-    abstract member Extensions: option<IExtensions>
+    abstract member Extensions: IExtensions option
 
 [<NoEquality;NoComparison;Struct>]
 type public ActivityDefinition =
@@ -52,10 +52,10 @@ type public ActivityDefinition =
     val Type: Uri
 
     /// <inheritdoc />
-    val MoreInfo: option<Uri>
+    val MoreInfo: Uri option
 
     /// <inheritdoc />
-    val Extensions: option<IExtensions>
+    val Extensions: IExtensions option
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.ActivityDefinition"/> struct.
@@ -74,6 +74,7 @@ type public ActivityDefinition =
         invalidIRIArg thetype "thetype"
         { Name = name; Description = description; Type = thetype; MoreInfo = moreInfo; Extensions = extensions }
 
+    /// <inheritdoc />
     override this.ToString() = 
         sprintf "<%O: Name %A Description %A Type %A MoreInfo %A Extensions %A>" (typeName this) (seqToString this.Name) (seqToString this.Description) this.Type this.MoreInfo this.Extensions
 

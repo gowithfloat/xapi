@@ -24,15 +24,15 @@ type public TrueFalseInteractionActivityDefinition =
     val Description: ILanguageMap
 
     /// <inheritdoc />
-    val MoreInfo: option<Uri>
+    val MoreInfo: Uri option
 
     /// <inheritdoc />
-    val Extensions: option<IExtensions>
+    val Extensions: IExtensions option
     
     /// <summary>
     /// Either true or false.
     /// </summary>
-    val CorrectResponsesPattern: seq<string>
+    val CorrectResponsesPattern: string seq
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.TrueFalseInteractionActivityDefinition"/> struct.

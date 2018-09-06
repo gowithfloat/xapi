@@ -18,7 +18,7 @@ type public IAgent =
 [<CustomEquality;NoComparison;Struct>]
 type public Agent =
     /// <inheritdoc />
-    val Name: option<string>
+    val Name: string option
 
     /// <inheritdoc />
     val IFI: IInverseFunctionalIdentifier

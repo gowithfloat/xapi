@@ -33,7 +33,7 @@ type public IAttachment =
     /// <summary>
     /// A description of the Attachment.
     /// </summary>
-    abstract member Description: option<ILanguageMap>
+    abstract member Description: ILanguageMap option
 
     /// <summary>
     /// The content type of the Attachment.
@@ -53,7 +53,7 @@ type public IAttachment =
     /// <summary>
     /// An IRL at which the Attachment data can be retrieved, or from which it used to be retrievable.
     /// </summary>
-    abstract member FileUrl: option<Uri>
+    abstract member FileUrl: Uri option
 
 [<NoComparison;NoEquality;Struct>]
 type public Attachment =
@@ -64,7 +64,7 @@ type public Attachment =
     val Display: ILanguageMap
 
     /// <inheritdoc />
-    val Description: option<ILanguageMap>
+    val Description: ILanguageMap option
 
     /// <inheritdoc />
     val ContentType: ContentType
@@ -76,7 +76,7 @@ type public Attachment =
     val Sha2: ISHAHash
 
     /// <inheritdoc />
-    val FileUrl: option<Uri>
+    val FileUrl: Uri option
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Attachment"/> struct.

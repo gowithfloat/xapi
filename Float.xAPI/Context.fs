@@ -15,31 +15,31 @@ open Float.xAPI.Languages
 [<NoEquality;NoComparison;Struct>]
 type public Context =
     /// <inheritdoc />
-    val Registration: option<Guid>
+    val Registration: Guid option
 
     /// <inheritdoc />
-    val Instructor: option<IActor>
+    val Instructor: IActor option
 
     /// <inheritdoc />
-    val Team: option<IGroup<obj>>
+    val Team: IGroup<obj> option
 
     /// <inheritdoc />
-    val ContextActivities: option<IContextActivities>
+    val ContextActivities: IContextActivities option
 
     /// <inheritdoc />
-    val Revision: option<string>
+    val Revision: string option
 
     /// <inheritdoc />
-    val Platform: option<string>
+    val Platform: string option
 
     /// <inheritdoc />
-    val Language: option<ILanguageTag>
+    val Language: ILanguageTag option
 
     /// <inheritdoc />
-    val Statement: option<IStatementReference>
+    val Statement: IStatementReference option
 
     /// <inheritdoc />
-    val Extensions: option<IExtensions>
+    val Extensions: IExtensions option
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Context"/> struct.
@@ -58,6 +58,7 @@ type public Context =
         invalidOptionalStringArg platform "platform"
         { Registration = registration; Instructor = instructor; Team = team; ContextActivities = contextActivities; Revision = revision; Platform = platform; Language = language; Statement = statement; Extensions = extensions }
 
+    /// <inheritdoc />
     override this.ToString() = sprintf "<%A: Registration %A Instructor %A Team %A ContextActivities %A Revision %A Platform %A Language %A Statement %A Extensions %A>" (this.GetType().Name) this.Registration this.Instructor this.Team this.ContextActivities this.Revision this.Platform this.Language this.Statement this.Extensions
 
     interface IContext with

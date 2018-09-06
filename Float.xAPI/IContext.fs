@@ -17,44 +17,44 @@ type public IContext =
     /// <summary>
     /// The registration that the Statement is associated with.
     /// </summary>
-    abstract member Registration: option<Guid>
+    abstract member Registration: Guid option
 
     /// <summary>
     /// Instructor that the Statement relates to, if not included as the Actor of the Statement.
     /// </summary>
-    abstract member Instructor: option<IActor>
+    abstract member Instructor: IActor option
 
     /// <summary>
     /// Team that this Statement relates to, if not included as the Actor of the Statement.
     /// </summary>
-    abstract member Team: option<IGroup<obj>> // todo: use a more specific type here
+    abstract member Team: IGroup<obj> option // todo: use a more specific type here
 
     /// <summary>
     /// A map of the types of learning activity context that this Statement is related to.
     /// </summary>
-    abstract member ContextActivities: option<IContextActivities>
+    abstract member ContextActivities: IContextActivities option
 
     /// <summary>
     /// Revision of the learning activity associated with this Statement. Format is free.
     /// </summary>
-    abstract member Revision: option<string>
+    abstract member Revision: string option
 
     /// <summary>
     /// Platform used in the experience of this learning activity.
     /// </summary>
-    abstract member Platform: option<string>
+    abstract member Platform: string option
 
     /// <summary>
     /// Code representing the language in which the experience being recorded in this Statement (mainly) occurred in, if applicable and known.
     /// </summary>
-    abstract member Language: option<ILanguageTag>
+    abstract member Language: ILanguageTag option
 
     /// <summary>
     /// Another Statement to be considered as context for this Statement.
     /// </summary>
-    abstract member Statement: option<IStatementReference>
+    abstract member Statement: IStatementReference option
 
     /// <summary>
     /// A map of any other domain-specific context relevant to this Statement.
     /// </summary>
-    abstract member Extensions: option<IExtensions>
+    abstract member Extensions: IExtensions option

@@ -26,15 +26,15 @@ type public FillInInteractionActivityDefinition =
     val Description: ILanguageMap
 
     /// <inheritdoc />
-    val MoreInfo: option<Uri>
+    val MoreInfo: Uri option
 
     /// <inheritdoc />
-    val Extensions: option<IExtensions>
+    val Extensions: IExtensions option
 
     /// <summary>
     /// A list of responses delimited by [,]. If the response contains only one item, the delimiter MUST not be used.
     /// </summary>
-    val CorrectResponsesPattern: seq<string>
+    val CorrectResponsesPattern: string seq
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.FillInInteractionActivityDefinition"/> struct.

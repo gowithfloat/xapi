@@ -19,7 +19,7 @@ type public ISequencingInteractionActivityDefinition =
     /// <summary>
     /// Items in a set that must be ordered.
     /// </summary>
-    abstract member Choices: seq<IInteractionComponent>
+    abstract member Choices: IInteractionComponent seq
 
     inherit IInteractionActivityDefinition
 
@@ -31,18 +31,18 @@ type public SequencingInteractionActivityDefinition =
     val Description: ILanguageMap
 
     /// <inheritdoc />
-    val MoreInfo: option<Uri>
+    val MoreInfo: Uri option
 
     /// <inheritdoc />
-    val Extensions: option<IExtensions>
+    val Extensions: IExtensions option
 
     /// <summary>
     /// An ordered list of item ids delimited by [,].
     /// </summary>
-    val CorrectResponsesPattern: seq<string>
+    val CorrectResponsesPattern: string seq
 
     /// <inheritdoc />
-    val Choices: seq<IInteractionComponent>
+    val Choices: IInteractionComponent seq
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.SequencingInteractionActivityDefinition"/> struct.

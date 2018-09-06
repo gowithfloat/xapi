@@ -33,13 +33,13 @@ type public SubStatement =
     val Object: IObject
 
     /// <inheritdoc />
-    val Result: option<IResult>
+    val Result: IResult option
 
     /// <inheritdoc />
-    val Context: option<IContext>
+    val Context: IContext option
 
     /// <inheritdoc />
-    val Timestamp: option<DateTime>
+    val Timestamp: DateTime option
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.SubStatement"/> struct.
@@ -60,10 +60,11 @@ type public SubStatement =
     /// <inheritdoc />
     override this.ToString() = sprintf "<%O: Actor %A Verb %A Object %A%O%O%O>" (this.GetType().Name) this.Actor this.Verb this.Object (toStringOrNone this.Result " Result") (toStringOrNone this.Context " Context") (toStringOrNone this.Timestamp " Timestamp")
 
-    member this.ObjectType = (this :> IObject).ObjectType
+    /// <inheritdoc />
+    member this.ObjectType = typeName this
 
     interface ISubStatement with
-        member this.ObjectType = this.GetType().Name
+        member this.ObjectType = this.ObjectType
         member this.Actor = this.Actor
         member this.Verb = this.Verb
         member this.Object = this.Object

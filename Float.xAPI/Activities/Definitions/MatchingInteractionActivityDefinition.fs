@@ -20,12 +20,12 @@ type public IMatchingInteractionActivityDefinition =
     /// <summary>
     /// Items in the first set to match.
     /// </summary>
-    abstract member Source: seq<IInteractionComponent>
+    abstract member Source: IInteractionComponent seq
 
     /// <summary>
     /// Items in the second set to match.
     /// </summary>
-    abstract member Target: seq<IInteractionComponent>
+    abstract member Target: IInteractionComponent seq
 
     inherit IInteractionActivityDefinition
 
@@ -38,23 +38,23 @@ type public MatchingInteractionActivityDefinition =
     val Description: ILanguageMap
 
     /// <inheritdoc />
-    val MoreInfo: option<Uri>
+    val MoreInfo: Uri option
 
     /// <inheritdoc />
-    val Extensions: option<IExtensions>
+    val Extensions: IExtensions option
 
     /// <summary>
     /// A list of matching pairs, where each pair consists of a source item id followed by a target item id.
     /// Items can appear in multiple (or zero) pairs. Items within a pair are delimited by [.].
-    /// Pairs are delimited by [,]. 
+    /// Pairs are delimited by [,].
     /// </summary>
-    val CorrectResponsesPattern: seq<string>
+    val CorrectResponsesPattern: string seq
 
     /// <inheritdoc />
-    val Source: seq<IInteractionComponent>
+    val Source: IInteractionComponent seq
 
     /// <inheritdoc />
-    val Target: seq<IInteractionComponent>
+    val Target: IInteractionComponent seq
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.MatchingInteractionActivityDefinition"/> struct.

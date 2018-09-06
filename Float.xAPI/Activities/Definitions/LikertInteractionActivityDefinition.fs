@@ -19,7 +19,7 @@ type public ILikertInteractionActivityDefinition =
     /// <summary>
     /// A list of discrete choices on a scale.
     /// </summary>
-    abstract member Responses: seq<IInteractionComponent>
+    abstract member Responses: IInteractionComponent seq
 
     inherit IInteractionActivityDefinition
 
@@ -32,18 +32,18 @@ type public LikertInteractionActivityDefinition =
     val Description: ILanguageMap
 
     /// <inheritdoc />
-    val MoreInfo: option<Uri>
+    val MoreInfo: Uri option
 
     /// <inheritdoc />
-    val Extensions: option<IExtensions>
+    val Extensions: IExtensions option
 
     /// <summary>
     /// A single item id.
     /// </summary>
-    val CorrectResponsesPattern: seq<string>
+    val CorrectResponsesPattern: string seq
 
     /// <inheritdoc />
-    val Responses: seq<IInteractionComponent>
+    val Responses: IInteractionComponent seq
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.LikertInteractionActivityDefinition"/> struct.

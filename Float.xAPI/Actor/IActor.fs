@@ -14,7 +14,7 @@ type public IActor =
     /// <summary>
     /// Name of the actor.
     /// </summary>
-    abstract member Name: option<string>
+    abstract member Name: string option
 
     /// <summary>
     /// Actors can be the target of a statement.

@@ -17,40 +17,40 @@ type public IContextActivities =
     /// In almost all cases there is only one sensible parent or none, not multiple.
     /// For example: a Statement about a quiz question would have the quiz as its parent Activity.
     /// </summary>
-    abstract member Parent: option<seq<IActivity>>
+    abstract member Parent: IActivity seq option
 
     /// <summary>
     /// An Activity with an indirect relation to the Activity which is the Object of the Statement.
     /// For example: a course that is part of a qualification. The course has several classes. The course relates to a class as the parent, the qualification relates to the class as the grouping.
     /// </summary>
-    abstract member Grouping: option<seq<IActivity>>
+    abstract member Grouping: IActivity seq option
 
     /// <summary>
     /// An Activity used to categorize the Statement. "Tags" would be a synonym. 
     /// Category SHOULD be used to indicate a profile of xAPI behaviors, as well as other categorizations.
     /// For example: Anna attempts a biology exam, and the Statement is tracked using the cmi5 profile. The Statement's Activity refers to the exam, and the category is the cmi5 profile.
     /// </summary>
-    abstract member Category: option<seq<IActivity>>
+    abstract member Category: IActivity seq option
 
     /// <summary>
     /// A contextActivity that doesn't fit one of the other properties.
     /// For example: Anna studies a textbook for a biology exam. The Statement's Activity refers to the textbook, and the exam is a contextActivity of type other.
     /// </summary>
-    abstract member Other: option<seq<IActivity>>
+    abstract member Other: IActivity seq option
 
 [<NoEquality;NoComparison;Struct>]
 type public ContextActivities =
     /// <inheritdoc />
-    val Parent: option<seq<IActivity>> // todo: provide a constructor with one parent
+    val Parent: IActivity seq option // todo: provide a constructor with one parent
 
     /// <inheritdoc />
-    val Grouping: option<seq<IActivity>>
+    val Grouping: IActivity seq option
 
     /// <inheritdoc />
-    val Category: option<seq<IActivity>>
+    val Category: IActivity seq option
 
     /// <inheritdoc />
-    val Other: option<seq<IActivity>>
+    val Other: IActivity seq option
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activity.ContextActivities"/> struct.

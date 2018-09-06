@@ -26,112 +26,109 @@ type public IStatement =
     /// <summary>
     /// Timestamp of when this Statement was recorded. Set by LRS.
     /// </summary>
-    abstract member Stored: option<DateTime>
+    abstract member Stored: DateTime option
 
     /// <summary>
     /// Agent or Group who is asserting this Statement is true.
     /// Verified by the LRS based on authentication.
     /// Set by LRS if not provided or if a strong trust relationship between the Learning Record Provider and LRS has not been established.
     /// </summary>
-    abstract member Authority: option<IActor>
+    abstract member Authority: IActor option
 
     /// <summary>
     /// The Statement’s associated xAPI version, formatted according to Semantic Versioning 1.0.0.
     /// </summary>
-    abstract member Version: option<IVersion>
+    abstract member Version: IVersion option
 
     /// <summary>
     /// Attachments to this statement.
     /// </summary>
-    abstract member Attachments: option<seq<IAttachment>>
+    abstract member Attachments: IAttachment seq option
 
     inherit IGenericStatement
 
-[<NoComparison;CustomEquality>]
+[<NoComparison;CustomEquality;Struct>]
 type public Statement = 
-    struct
-        /// <inheritdoc />
-        val Id: Guid
+    /// <inheritdoc />
+    val Id: Guid
 
-        /// <inheritdoc />
-        val Actor: IActor
+    /// <inheritdoc />
+    val Actor: IActor
 
-        /// <inheritdoc />
-        val Verb: IVerb
+    /// <inheritdoc />
+    val Verb: IVerb
 
-        /// <inheritdoc />
-        val Object: IObject
+    /// <inheritdoc />
+    val Object: IObject
 
-        /// <inheritdoc />
-        val Result: option<IResult>
+    /// <inheritdoc />
+    val Result: IResult option
 
-        /// <inheritdoc />
-        val Context: option<IContext>
+    /// <inheritdoc />
+    val Context: IContext option
 
-        /// <inheritdoc />
-        val Timestamp: option<DateTime>
+    /// <inheritdoc />
+    val Timestamp: DateTime option
 
-        /// <inheritdoc />
-        val Stored: option<DateTime>
+    /// <inheritdoc />
+    val Stored: DateTime option
 
-        /// <inheritdoc />
-        val Authority: option<IActor>
+    /// <inheritdoc />
+    val Authority: IActor option
 
-        /// <inheritdoc />
-        val Version: option<IVersion>
+    /// <inheritdoc />
+    val Version: IVersion option
 
-        /// <inheritdoc />
-        val Attachments: option<seq<IAttachment>>
+    /// <inheritdoc />
+    val Attachments: IAttachment seq option
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Float.xAPI.Statement"/> struct.
-        /// </summary>
-        /// <param name="actor">Whom the Statement is about, as an Agent or Group Object.</param>
-        /// <param name="verb">Action taken by the Actor.</param>
-        /// <param name="object">Activity, Agent, or another Statement that is the Object of the Statement.</param>
-        /// <param name="id">UUID assigned by LRS if not set by the Learning Record Provider.</param>
-        /// <param name="result">Result Object, further details representing a measured outcome.</param>
-        /// <param name="context">Context that gives the Statement more meaning.</param>
-        /// <param name="timestamp">Timestamp of when the events described within this Statement occurred.</param>
-        /// <param name="stored">Timestamp of when this Statement was recorded. Set by LRS.</param>
-        /// <param name="authority">Agent or Group who is asserting this Statement is true.</param>
-        /// <param name="version">The Statement’s associated xAPI version.</param>
-        /// <param name="attachments">Attachments to this statement.</param>
-        new(actor, verb, object, [<Optional;DefaultParameterValue(null)>] ?id, [<Optional;DefaultParameterValue(null)>] ?result, [<Optional;DefaultParameterValue(null)>] ?context, [<Optional;DefaultParameterValue(null)>] ?timestamp, [<Optional;DefaultParameterValue(null)>] ?stored, [<Optional;DefaultParameterValue(null)>] ?authority, [<Optional;DefaultParameterValue(null)>] ?version, [<Optional;DefaultParameterValue(null)>] ?attachments) =
-            nullArg actor "actor"
-            nullArg verb "verb"
-            nullArg object "object"
-            { Id = (id |? Guid.NewGuid()); Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = Some (timestamp |? DateTime.Now); Stored = stored; Authority = authority; Version = version; Attachments = attachments }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Statement"/> struct.
+    /// </summary>
+    /// <param name="actor">Whom the Statement is about, as an Agent or Group Object.</param>
+    /// <param name="verb">Action taken by the Actor.</param>
+    /// <param name="object">Activity, Agent, or another Statement that is the Object of the Statement.</param>
+    /// <param name="id">UUID assigned by LRS if not set by the Learning Record Provider.</param>
+    /// <param name="result">Result Object, further details representing a measured outcome.</param>
+    /// <param name="context">Context that gives the Statement more meaning.</param>
+    /// <param name="timestamp">Timestamp of when the events described within this Statement occurred.</param>
+    /// <param name="stored">Timestamp of when this Statement was recorded. Set by LRS.</param>
+    /// <param name="authority">Agent or Group who is asserting this Statement is true.</param>
+    /// <param name="version">The Statement’s associated xAPI version.</param>
+    /// <param name="attachments">Attachments to this statement.</param>
+    new(actor, verb, object, [<Optional;DefaultParameterValue(null)>] ?id, [<Optional;DefaultParameterValue(null)>] ?result, [<Optional;DefaultParameterValue(null)>] ?context, [<Optional;DefaultParameterValue(null)>] ?timestamp, [<Optional;DefaultParameterValue(null)>] ?stored, [<Optional;DefaultParameterValue(null)>] ?authority, [<Optional;DefaultParameterValue(null)>] ?version, [<Optional;DefaultParameterValue(null)>] ?attachments) =
+        nullArg actor "actor"
+        nullArg verb "verb"
+        nullArg object "object"
+        { Id = (id |? Guid.NewGuid()); Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = Some (timestamp |? DateTime.Now); Stored = stored; Authority = authority; Version = version; Attachments = attachments }
 
-        /// <inheritdoc />
-        override this.GetHashCode() = hash this.Id
+    /// <inheritdoc />
+    override this.GetHashCode() = hash this.Id
 
-        /// <inheritdoc />
-        override this.ToString() = sprintf "<%O: Id %A Actor %A Verb %A Object %A%O%O%O%O%O%O%O>" (this.GetType().Name) this.Id this.Actor this.Verb this.Object (toStringOrNone this.Result " Result") (toStringOrNone this.Context " Context") (toStringOrNone this.Timestamp " Timestamp") (toStringOrNone this.Stored " Stored") (toStringOrNone this.Authority " Authority") (toStringOrNone this.Version " Version") (toStringOrNone this.Attachments " Attachments")
+    /// <inheritdoc />
+    override this.ToString() = sprintf "<%O: Id %A Actor %A Verb %A Object %A%O%O%O%O%O%O%O>" (this.GetType().Name) this.Id this.Actor this.Verb this.Object (toStringOrNone this.Result " Result") (toStringOrNone this.Context " Context") (toStringOrNone this.Timestamp " Timestamp") (toStringOrNone this.Stored " Stored") (toStringOrNone this.Authority " Authority") (toStringOrNone this.Version " Version") (toStringOrNone this.Attachments " Attachments")
 
-        /// <inheritdoc />
-        override this.Equals(other) =
-            match other with
-            | :? IStatement as statement -> this.Id = statement.Id
-            | _ -> false
+    /// <inheritdoc />
+    override this.Equals(other) =
+        match other with
+        | :? IStatement as statement -> this.Id = statement.Id
+        | _ -> false
 
-        interface IEquatable<Statement> with
-            member this.Equals other =
-                this.Id = other.Id
+    interface IEquatable<Statement> with
+        member this.Equals other = this.Equals other
 
-        member this.ObjectType = (this :> IObject).ObjectType
+    member this.ObjectType = typeName this
 
-        interface IStatement with
-            member this.ObjectType = this.GetType().Name
-            member this.Id = this.Id
-            member this.Stored = this.Stored
-            member this.Authority = this.Authority
-            member this.Version = this.Version
-            member this.Actor = this.Actor
-            member this.Verb = this.Verb
-            member this.Object = this.Object
-            member this.Result = this.Result
-            member this.Context = this.Context
-            member this.Timestamp = this.Timestamp
-            member this.Attachments = this.Attachments
-    end
+    interface IStatement with
+        member this.ObjectType = this.ObjectType
+        member this.Id = this.Id
+        member this.Stored = this.Stored
+        member this.Authority = this.Authority
+        member this.Version = this.Version
+        member this.Actor = this.Actor
+        member this.Verb = this.Verb
+        member this.Object = this.Object
+        member this.Result = this.Result
+        member this.Context = this.Context
+        member this.Timestamp = this.Timestamp
+        member this.Attachments = this.Attachments

@@ -12,15 +12,15 @@ open Float.xAPI.Interop
 /// An Anonymous Group is used to describe a cluster of people where there is no ready identifier for this cluster, e.g. an ad hoc team.
 /// </summary>
 type public IAnonymousGroup =
-    inherit IGroup<seq<IAgent>>
+    inherit IGroup<IAgent seq>
 
 [<NoEquality;NoComparison;Struct>]
 type public AnonymousGroup =
     /// <inheritdoc />
-    val Name: option<string>
+    val Name: string option
 
     /// <inheritdoc />
-    val Member: seq<IAgent>
+    val Member: IAgent seq
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.AnonymousGroup"/> class.

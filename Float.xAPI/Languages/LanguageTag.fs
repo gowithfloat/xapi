@@ -26,7 +26,7 @@ type public ILanguageTag =
     /// Extended language subtags are always used with their enclosing primary language subtag (indicated with a 'Prefix' field in the registry) when used to form the language tag.
     /// All languages that have an extended language subtag in the registry also have an identical primary language subtag record in the registry.
     /// </summary>
-    abstract member ExtendedLanguage: option<ExtendedLanguage>
+    abstract member ExtendedLanguage: ExtendedLanguage option
 
     // todo: abstract member Script: option<Script>
 
@@ -56,7 +56,7 @@ type public LanguageTag =
         val PrimaryLanguage: Language
 
         /// <inheritdoc />
-        val ExtendedLanguage: option<ExtendedLanguage>
+        val ExtendedLanguage: ExtendedLanguage option
 
         /// <inheritdoc />
         val Region: Region

@@ -23,7 +23,7 @@ type public IActivity =
     /// <summary>
     /// Metadata related to this activity.
     /// </summary>
-    abstract member Definition: option<IActivityDefinition>
+    abstract member Definition: IActivityDefinition option
 
     inherit IObject
 
@@ -33,7 +33,7 @@ type public Activity =
     val Id: Uri
 
     /// <inheritdoc />
-    val Definition: option<IActivityDefinition>
+    val Definition: IActivityDefinition option
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Activity"/> struct.
@@ -44,21 +44,26 @@ type public Activity =
         invalidIRIArg id "id"
         { Id = id; Definition = definition }
 
+    /// <inheritdoc />
+    member this.ObjectType = typeName this
+
+    /// <inheritdoc />
     override this.GetHashCode() = hash this.Id
+
+    /// <inheritdoc />
     override this.ToString() =
         match this.Definition with
         | Some definition -> sprintf "<%O: Id %A Definition %A>" (typeName this) this.Id definition
         | _ -> sprintf "<%O: Id %A>" (typeName this) this.Id
 
+    /// <inheritdoc />
     override this.Equals(other) = 
         match other with
         | :? IActivity as activity -> (this.Id, this.Definition) = (activity.Id, activity.Definition)
         | _ -> false
 
     interface IEquatable<IActivity> with
-        member this.Equals other = this.Id = other.Id
-
-    member this.ObjectType = typeName this
+        member this.Equals other = this.Equals other
 
     interface IActivity with
         member this.ObjectType = this.ObjectType

@@ -16,12 +16,12 @@ type public ISHAHash =
     /// <summary>
     /// The encoded data.
     /// </summary>
-    abstract member Encoded: seq<byte>
+    abstract member Encoded: byte seq
 
 [<StructuralEquality;NoComparison;Struct>]
 type public SHAHash =
     /// <inhaeritdoc />
-    val Encoded: seq<byte>
+    val Encoded: byte seq
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.SHA1Hash"/> struct.

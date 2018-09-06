@@ -22,7 +22,7 @@ type public IInteractionComponent =
     /// <summary>
     /// A description of the interaction component (for example, the text for a given choice in a multiple-choice interaction).
     /// </summary>
-    abstract member Description: option<ILanguageMap>
+    abstract member Description: ILanguageMap option
 
 [<CustomEquality;NoComparison;Struct>]
 type public InteractionComponent =
@@ -30,7 +30,7 @@ type public InteractionComponent =
     val Id: string
 
     /// <inheritdoc />
-    val Description: option<ILanguageMap>
+    val Description: ILanguageMap option
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.Choice"/> struct.

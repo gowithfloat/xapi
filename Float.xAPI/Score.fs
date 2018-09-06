@@ -16,17 +16,17 @@ type public IScore =
     /// The score achieved by the Actor in the experience described by the Statement.
     /// This is not modified by any scaling or normalization.
     /// </summary>
-    abstract member Raw: option<float>
+    abstract member Raw: float option
 
     /// <summary>
     /// The lowest possible score for the experience described by the Statement.
     /// </summary>
-    abstract member Min: option<float>
+    abstract member Min: float option
 
     /// <summary>
     /// The highest possible score for the experience described by the Statement.
     /// </summary>
-    abstract member Max: option<float>
+    abstract member Max: float option
 
     /// <summary>
     /// The score related to the experience as modified by scaling and/or normalization.
@@ -36,13 +36,13 @@ type public IScore =
 [<CustomEquality;CustomComparison;Struct>]
 type public Score =
     /// <inheritdoc />
-    val Raw: option<float>
+    val Raw: float option
 
     /// <inheritdoc />
-    val Min: option<float>
+    val Min: float option
 
     /// <inheritdoc />
-    val Max: option<float>
+    val Max: float option
 
     /// <inheritdoc />
     val Scaled: float

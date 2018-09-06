@@ -31,17 +31,17 @@ type public IGenericStatement =
     /// <summary>
     /// Result Object, further details representing a measured outcome.
     /// </summary>
-    abstract member Result: option<IResult>
+    abstract member Result: IResult option
 
     /// <summary>
     /// Context that gives the Statement more meaning.
     /// </summary>
-    abstract member Context: option<IContext>
+    abstract member Context: IContext option
 
     /// <summary>
     /// Timestamp of when the events described within this Statement occurred.
     /// </summary>
-    abstract member Timestamp: option<DateTime>
+    abstract member Timestamp: DateTime option
 
     /// <summary>
     /// A statement is an object.

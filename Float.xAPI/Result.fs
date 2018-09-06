@@ -16,52 +16,52 @@ type public IResult =
     /// <summary>
     /// The score of the Agent in relation to the success or quality of the experience. 
     /// </summary>
-    abstract member Score: option<IScore>
+    abstract member Score: IScore option
 
     /// <summary>
     /// Indicates whether or not the attempt on the Activity was successful.
     /// </summary>
-    abstract member Success: option<bool>
+    abstract member Success: bool option
 
     /// <summary>
     /// Indicates whether or not the Activity was completed.
     /// </summary>
-    abstract member Completion: option<bool>
+    abstract member Completion: bool option
 
     /// <summary>
     /// A response appropriately formatted for the given Activity.
     /// </summary>
-    abstract member Response: option<string>
+    abstract member Response: string option
 
     /// <summary>
     /// Period of time over which the Statement occurred.
     /// </summary>
-    abstract member Duration: option<TimeSpan>
+    abstract member Duration: TimeSpan option
 
     /// <summary>
     /// A map of other properties as needed.
     /// </summary>
-    abstract member Extensions: option<IExtensions>
+    abstract member Extensions: IExtensions option
 
 [<NoComparison;NoEquality;Struct>]
 type public Result =
     /// <inheritdoc />
-    val Score: option<IScore>
+    val Score: IScore option
 
     /// <inheritdoc />
-    val Success: option<bool>
+    val Success: bool option
 
     /// <inheritdoc />
-    val Completion: option<bool>
+    val Completion: bool option
 
     /// <inheritdoc />
-    val Response: option<string>
+    val Response: string option
 
     /// <inheritdoc />
-    val Duration: option<TimeSpan>
+    val Duration: TimeSpan option
 
     /// <inheritdoc />
-    val Extensions: option<IExtensions>
+    val Extensions: IExtensions option
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Result"/> struct.

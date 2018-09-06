@@ -24,10 +24,10 @@ type public NumericInteractionActivityDefinition =
     val Description: ILanguageMap
 
     /// <inheritdoc />
-    val MoreInfo: option<Uri>
+    val MoreInfo: Uri option
 
     /// <inheritdoc />
-    val Extensions: option<IExtensions>
+    val Extensions: IExtensions option
 
     /// <summary>
     /// A range of numbers represented by a minimum and a maximum delimited by [:].
@@ -35,7 +35,7 @@ type public NumericInteractionActivityDefinition =
     /// E.g. [:]4 indicates a maximum for 4 and no minimum.
     /// Where the correct response or learner's response is a single number rather than a range, the single number with no delimiter MAY be used. 
     /// </summary>
-    val CorrectResponsesPattern: seq<string>
+    val CorrectResponsesPattern: string seq
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions."/> struct.
