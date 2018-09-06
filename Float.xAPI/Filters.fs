@@ -88,7 +88,7 @@ module internal Filters =
     /// <summary>
     /// An overly complicated filter method to return true if the given statement matches the given properties.
     /// </summary>
-    let inline statementPropertyMatch (agent: IIdentifiedActor option) (verb: Uri option) (activity: Uri option) (registration: Guid option) (relatedActivities: bool option) (relatedAgents: bool option) (since: DateTime option) (until: DateTime option) (limit: uint option) (format: StatementResultFormat option) (attachments: bool option) (ascending: bool option) (statement: IStatement) =
+    let inline statementPropertyMatch (agent: IIdentifiedActor option) (verb: Uri option) (activity: Uri option) (registration: Guid option) (since: DateTime option) (until: DateTime option) (statement: IStatement) =
         match statementActorMatch agent statement with
         | false -> false
         | true ->

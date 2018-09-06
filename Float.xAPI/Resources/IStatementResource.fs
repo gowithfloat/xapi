@@ -34,7 +34,10 @@ type IStatementResource =
     /// <param name="statementId">ID of statement to fetch.</param>
     /// <param name="format">The statement formatting to use for the returned object.</param>
     /// <param name="attachments">If true, the LRS uses the multipart response format and includes all attachments as described previously. If false, the LRS sends the prescribed response with Content-Type application/json and does not send attachment data.</param>
-    abstract member GetStatement: Guid * [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat * [<Optional;DefaultParameterValue(false)>] attachments: bool -> IStatement
+    abstract member GetStatement: 
+        statementId: Guid * 
+        [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat * 
+        [<Optional;DefaultParameterValue(false)>] attachments: bool -> IStatement
 
     /// <summary>
     /// Get only voided statement that matches the given statement ID.
@@ -43,13 +46,16 @@ type IStatementResource =
     /// <param name="voidedStatementId">ID of voided statement to fetch.</param>
     /// <param name="format">The statement formatting to use for the returned object.</param>
     /// <param name="attachments">If true, the LRS uses the multipart response format and includes all attachments as described previously. If false, the LRS sends the prescribed response with Content-Type application/json and does not send attachment data.</param>
-    abstract member GetVoidedStatement: Guid * [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat * [<Optional;DefaultParameterValue(false)>] attachments: bool -> IStatement
+    abstract member GetVoidedStatement: 
+        voidedStatementId: Guid * 
+        [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat * 
+        [<Optional;DefaultParameterValue(false)>] attachments: bool -> IStatement
     
     /// <summary>
     /// This method is called to fetch a single Statement or multiple Statements.
     /// </summary>
     /// <returns>A statement result.</returns>
-    /// <param name="agent">Filter, only return Statements for which the specified Agent or Group is the Actor or Object of the Statement.</param>
+    /// <param name="actor">Filter, only return Statements for which the specified Agent or Group is the Actor or Object of the Statement.</param>
     /// <param name="verb">Filter, only return Statements matching the specified Verb id.</param>
     /// <param name="activity">Filter, only return Statements for which the Object of the Statement is an Activity with the specified id.</param>
     /// <param name="registration">Filter, only return Statements matching the specified registration id. Note that although frequently a unique registration will be used for one Actor assigned to one Activity, this cannot be assumed. If only Statements for a certain Actor or Activity are required, those parameters also need to be specified.</param>
@@ -61,4 +67,16 @@ type IStatementResource =
     /// <param name="format">Statement result format option.</param>
     /// <param name="attachments">If true, the LRS uses the multipart response format and includes all attachments as described previously. If false, the LRS sends the prescribed response with Content-Type application/json and does not send attachment data.</param>
     /// <param name="ascending">If true, return results in ascending order of stored time.</param>
-    abstract member GetStatements: IIdentifiedActor option * Uri option * Uri option * Guid option * bool option * bool option * DateTime option * DateTime option * uint option * StatementResultFormat option * bool option * bool option -> IStatementResult
+    abstract member GetStatements: 
+        actor: IIdentifiedActor option * 
+        verb: Uri option * 
+        activityId: Uri option * 
+        registration: Guid option * 
+        [<Optional;DefaultParameterValue(false)>] relatedActivities: bool * 
+        [<Optional;DefaultParameterValue(false)>] relatedAgents: bool * 
+        since: DateTime option * 
+        until: DateTime option * 
+        [<Optional;DefaultParameterValue(0)>] limit: int * 
+        [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat * 
+        [<Optional;DefaultParameterValue(false)>] attachments: bool * 
+        [<Optional;DefaultParameterValue(false)>] ascending: bool -> IStatementResult

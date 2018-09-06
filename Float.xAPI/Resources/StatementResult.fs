@@ -41,7 +41,6 @@ type public StatementResult =
     /// <param name="statements">List of statements.</param>
     /// <param name="more">Relative IRL that can be used to fetch more results.</param>
     new (statements, [<Optional;DefaultParameterValue(null)>] ?more) =
-        emptySeqArg statements "statements"
         { Statements = statements; More = more }
 
     /// <inheritdoc />

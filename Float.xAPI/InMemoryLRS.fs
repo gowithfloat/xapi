@@ -7,8 +7,12 @@ namespace Float.xAPI
 
 open System
 open System.Collections.Generic
+open System.Runtime.InteropServices
 open Float.xAPI.Actor
 open Float.xAPI.Resources
+
+// todo: remove this (F# seems to think null is not valid as a default parameter below)
+#nowarn "3211"
 
 module internal Util =
     let inline mapStatementToId(statement: IStatement) =
@@ -48,10 +52,21 @@ type InMemoryLRS =
             |> List.find (Filters.statementIdMatch voidedStatementId)
 
     /// <inheritdoc />
-    member this.GetStatements(agent: IIdentifiedActor option, verb: Uri option, activity: Uri option, registration: Guid option, relatedActivities: bool option, relatedAgents: bool option, since: DateTime option, until: DateTime option, limit: uint option, format: StatementResultFormat option, attachments: bool option, ascending: bool option) =
+    member this.GetStatements([<Optional;DefaultParameterValue(null)>] agent: IIdentifiedActor option, 
+                              [<Optional;DefaultParameterValue(null)>] verb: Uri option, 
+                              [<Optional;DefaultParameterValue(null)>] activity: Uri option, 
+                              [<Optional;DefaultParameterValue(null)>] registration: Guid option, 
+                              [<Optional;DefaultParameterValue(null)>] relatedActivities: bool, 
+                              [<Optional;DefaultParameterValue(null)>] relatedAgents: bool, 
+                              [<Optional;DefaultParameterValue(null)>] since: DateTime option, 
+                              [<Optional;DefaultParameterValue(null)>] until: DateTime option, 
+                              [<Optional;DefaultParameterValue(0)>] limit: int,
+                              [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat, 
+                              [<Optional;DefaultParameterValue(false)>] attachments: bool, 
+                              [<Optional;DefaultParameterValue(false)>] ascending: bool) =
         this.Statements 
             |> List.ofSeq 
-            |> List.where (Filters.statementPropertyMatch agent verb activity registration relatedActivities relatedAgents since until limit format attachments ascending) 
+            |> List.where (Filters.statementPropertyMatch agent verb activity registration since until) 
             |> StatementResult
             :> IStatementResult
 

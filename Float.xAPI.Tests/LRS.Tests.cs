@@ -24,6 +24,9 @@ namespace Float.xAPI.Tests
 
             var retrieved = lrs.GetStatement(statement.Id, StatementResultFormat.Exact, false);
             Assert.Equal(statement.Id, retrieved.Id);
+
+            var retrieved2 = lrs.GetStatements(verb: new Uri("http://example.com/verb"));
+            Assert.Single(retrieved2.Statements);
         }
 
         IStatement GetStatement()
