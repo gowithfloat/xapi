@@ -4,13 +4,14 @@
     <ReleaseVersion>0.0.1</ReleaseVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Documents\" />
     <Folder Include="Actor\" />
     <Folder Include="Actor\Identifier\" />
     <Folder Include="Activities\Definitions\" />
     <Folder Include="Activities\" />
     <Folder Include="Languages\" />
     <Folder Include="Properties\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Documents\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interop.fs" />
@@ -37,7 +38,6 @@
     <Compile Include="Version.fs" />
     <Compile Include="Score.fs" />
     <Compile Include="Result.fs" />
-    <Compile Include="Documents\Document.fs" />
     <Compile Include="Activities\Interaction.fs" />
     <Compile Include="Activities\Definitions\ActivityDefinition.fs" />
     <Compile Include="Activities\Definitions\IInteractionActivityDefinition.fs" />
@@ -62,5 +62,20 @@
     <Compile Include="SubStatement.fs" />
     <Compile Include="Statement.fs" />
     <Compile Include="Properties\AssemblyInfo.fs" />
+    <Compile Include="Resources\Person.fs" />
+    <Compile Include="Resources\StatementResultFormat.fs" />
+    <Compile Include="Resources\StatementResult.fs" />
+    <Compile Include="Resources\IStatementResource.fs" />
+    <Compile Include="Resources\IActivitiesResource.fs" />
+    <Compile Include="Resources\Documents\StateId.fs" />
+    <Compile Include="Resources\Documents\ActivityId.fs" />
+    <Compile Include="Resources\Documents\ProfileId.fs" />
+    <Compile Include="Resources\Documents\Document.fs" />
+    <Compile Include="Resources\Documents\IStateResource.fs" />
+    <Compile Include="Resources\Documents\IActivityProfileResource.fs" />
+    <Compile Include="Resources\Documents\IAgentProfileResource.fs" />
+    <Compile Include="Resources\IAgentsResource.fs" />
+    <Compile Include="Filters.fs" />
+    <Compile Include="InMemoryLRS.fs" />
   </ItemGroup>
 </Project>
