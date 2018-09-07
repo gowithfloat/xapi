@@ -58,9 +58,9 @@ type InMemoryLRS =
             |> List.tryFind (Filters.statementIdMatch voidedStatementId)
 
     /// <inheritdoc />
-    member this.GetStatements([<Optional;DefaultParameterValue(null)>] agent: IIdentifiedActor option, 
-                              [<Optional;DefaultParameterValue(null)>] verb: Uri option, 
-                              [<Optional;DefaultParameterValue(null)>] activity: Uri option, 
+    member this.GetStatements([<Optional;DefaultParameterValue(null)>] actor: IIdentifiedActor option, 
+                              [<Optional;DefaultParameterValue(null)>] verbId: Uri option, 
+                              [<Optional;DefaultParameterValue(null)>] activityId: Uri option, 
                               [<Optional;DefaultParameterValue(null)>] registration: Guid option, 
                               [<Optional;DefaultParameterValue(null)>] relatedActivities: bool, 
                               [<Optional;DefaultParameterValue(null)>] relatedAgents: bool, 
@@ -72,7 +72,7 @@ type InMemoryLRS =
                               [<Optional;DefaultParameterValue(false)>] ascending: bool) =
         this.Statements 
             |> List.ofSeq 
-            |> List.where (Filters.statementPropertyMatch agent verb activity registration since until) 
+            |> List.where (Filters.statementPropertyMatch actor verbId activityId registration since until) 
             |> StatementResult
             :> IStatementResult
 
