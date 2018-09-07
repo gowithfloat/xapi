@@ -51,8 +51,11 @@ namespace Float.xAPI.Tests
             var lrs = new InMemoryLRS();
             lrs.PutStatement(GenerateStatement());
 
-            var retrieved = lrs.GetStatements(verbId: new Uri("http://example.com/verb"));
-            Assert.Single(retrieved.Statements);
+            var retrieved1 = lrs.GetStatements(verbId: new Uri("http://example.com/verb"));
+            Assert.Single(retrieved1.Statements);
+
+            var retrieved2 = lrs.GetStatements(verbId: new Uri("http://example.com/sent"));
+            Assert.Empty(retrieved2.Statements);
         }
 
         [Fact]
@@ -61,8 +64,11 @@ namespace Float.xAPI.Tests
             var lrs = new InMemoryLRS();
             lrs.PutStatement(GenerateStatement());
 
-            var retrieved = lrs.GetStatements(actor: new Agent(new OpenID(new Uri("http://example.com/agent"))));
-            Assert.Single(retrieved.Statements);
+            var retrieved1 = lrs.GetStatements(actor: new Agent(new OpenID(new Uri("http://example.com/agent"))));
+            Assert.Single(retrieved1.Statements);
+
+            var retrieved2 = lrs.GetStatements(actor: new Agent(new OpenID(new Uri("http://example.com/agent/2"))));
+            Assert.Empty(retrieved2.Statements);
         }
 
         [Fact]
@@ -71,8 +77,11 @@ namespace Float.xAPI.Tests
             var lrs = new InMemoryLRS();
             lrs.PutStatement(GenerateStatement());
 
-            var retrieved = lrs.GetStatements(activityId: new Uri("http://example.com/activity"));
-            Assert.Single(retrieved.Statements);
+            var retrieved1 = lrs.GetStatements(activityId: new Uri("http://example.com/activity"));
+            Assert.Single(retrieved1.Statements);
+
+            var retrieved2 = lrs.GetStatements(activityId: new Uri("http://example.com/activity/2"));
+            Assert.Empty(retrieved2.Statements);
         }
 
         [Fact]
@@ -81,8 +90,12 @@ namespace Float.xAPI.Tests
             var lrs = new InMemoryLRS();
             lrs.PutStatement(GenerateStatement());
 
-            var retrieved = lrs.GetStatements(registration: Registration);
-            Assert.Single(retrieved.Statements);
+            var retrieved1 = lrs.GetStatements(registration: Registration);
+            Assert.Single(retrieved1.Statements);
+
+            // todo: fix this
+            //var retrieved2 = lrs.GetStatements(registration: Guid.NewGuid());
+            //Assert.Empty(retrieved2.Statements);
         }
 
         IStatement GenerateVoidingStatement()
