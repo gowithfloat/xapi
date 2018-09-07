@@ -40,16 +40,20 @@ type InMemoryLRS =
             |> Seq.map Util.mapStatementToId
 
     /// <inheritdoc />
-    member this.GetStatement(statementId: Guid, format: StatementResultFormat, attachments: bool) =
+    member this.GetStatement(statementId: Guid, 
+                             [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat, 
+                             [<Optional;DefaultParameterValue(false)>] attachments: bool) =
         this.Statements
             |> List.ofSeq 
-            |> List.find (Filters.statementIdMatch statementId)
+            |> List.tryFind (Filters.statementIdMatch statementId)
 
     /// <inheritdoc />
-    member this.GetVoidedStatement(voidedStatementId: Guid, format: StatementResultFormat, attachments: bool) =
+    member this.GetVoidedStatement(voidedStatementId: Guid, 
+                                   [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat, 
+                                   [<Optional;DefaultParameterValue(false)>] attachments: bool) =
         this.Statements 
             |> List.ofSeq 
-            |> List.find (Filters.statementIdMatch voidedStatementId)
+            |> List.tryFind (Filters.statementIdMatch voidedStatementId)
 
     /// <inheritdoc />
     member this.GetStatements([<Optional;DefaultParameterValue(null)>] agent: IIdentifiedActor option, 

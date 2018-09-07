@@ -37,7 +37,7 @@ type IStatementResource =
     abstract member GetStatement: 
         statementId: Guid * 
         [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat * 
-        [<Optional;DefaultParameterValue(false)>] attachments: bool -> IStatement
+        [<Optional;DefaultParameterValue(false)>] attachments: bool -> IStatement option
 
     /// <summary>
     /// Get only voided statement that matches the given statement ID.
@@ -49,7 +49,7 @@ type IStatementResource =
     abstract member GetVoidedStatement: 
         voidedStatementId: Guid * 
         [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat * 
-        [<Optional;DefaultParameterValue(false)>] attachments: bool -> IStatement
+        [<Optional;DefaultParameterValue(false)>] attachments: bool -> IStatement option
     
     /// <summary>
     /// This method is called to fetch a single Statement or multiple Statements.
@@ -69,7 +69,7 @@ type IStatementResource =
     /// <param name="ascending">If true, return results in ascending order of stored time.</param>
     abstract member GetStatements: 
         actor: IIdentifiedActor option * 
-        verb: Uri option * 
+        verbId: Uri option * 
         activityId: Uri option * 
         registration: Guid option * 
         [<Optional;DefaultParameterValue(false)>] relatedActivities: bool * 
