@@ -39,6 +39,14 @@ module internal Filters =
         | None -> true
 
     /// <summary>
+    /// Returns true if the statement's verb ID doesn't match the given verb ID.
+    /// </summary>
+    let statementVerbMismatch (verbId: Uri option) (statement: IStatement) =
+        match verbId with
+        | Some id -> statement.Verb.Id <> id
+        | None -> false
+
+    /// <summary>
     /// Returns false if the statement has an activity as the object, and the activity ID doesn't match the given ID.
     /// </summary>
     let statementActivityMatch (activityId: Uri option) (statement: IStatement) =

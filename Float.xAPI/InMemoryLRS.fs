@@ -45,6 +45,7 @@ type InMemoryLRS =
                              [<Optional;DefaultParameterValue(false)>] attachments: bool) =
         this.Statements
             |> List.ofSeq 
+            |> List.where (Filters.statementVerbMismatch (Some(Verb.Voided.Id)))
             |> List.tryFind (Filters.statementIdMatch statementId)
 
     /// <inheritdoc />
@@ -53,6 +54,7 @@ type InMemoryLRS =
                                    [<Optional;DefaultParameterValue(false)>] attachments: bool) =
         this.Statements 
             |> List.ofSeq 
+            |> List.where (Filters.statementVerbMatch (Some(Verb.Voided.Id)))
             |> List.tryFind (Filters.statementIdMatch voidedStatementId)
 
     /// <inheritdoc />
