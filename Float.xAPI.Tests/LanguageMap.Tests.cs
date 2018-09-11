@@ -26,31 +26,25 @@ namespace Float.xAPI.Tests
             {
                 new KeyValuePair<ILanguageTag, string>(
                     new LanguageTag(Language.Limburgish, Region.Liechtenstein),
-                    "example3"
-                ),
+                    "example3"),
                 new KeyValuePair<ILanguageTag, string>(
                     new LanguageTag(Language.Limburger, Region.Lebanon),
-                    "example4"
-                ),
+                    "example4"),
                 new KeyValuePair<ILanguageTag, string>(
                     new LanguageTag(Language.Limburgan, Region.LaoPeoplesDemocraticRepublic),
-                    "example5"
-                )
+                    "example5")
             });
             var map5 = new LanguageMap(new KeyValuePair<ILanguageTag, string>[]
             {
                 new KeyValuePair<ILanguageTag, string>(
                     new LanguageTag(Language.Cree, Region.Qatar),
-                    "example6"
-                ),
+                    "example6"),
                 new KeyValuePair<ILanguageTag, string>(
                     new LanguageTag(Language.Chewa, Region.Yemen),
-                    "example7"
-                ),
+                    "example7"),
                 new KeyValuePair<ILanguageTag, string>(
                     new LanguageTag(Language.Cornish, Region.RussianFederation),
-                    "example8"
-                )
+                    "example8")
             });
             return LanguageMap.EnglishUS("example9");
         }
@@ -67,7 +61,7 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentException>(() => new LanguageMap(Language.Pali, Region.Algeria, null));
             Assert.Throws<ArgumentException>(() => new LanguageMap(new Dictionary<ILanguageTag, string>()));
             Assert.Throws<ArgumentException>(() => new LanguageMap(new List<KeyValuePair<ILanguageTag, string>>()));
-            Assert.Throws<ArgumentException>(() => new LanguageMap(new KeyValuePair<ILanguageTag, string>[] {}));
+            Assert.Throws<ArgumentException>(() => new LanguageMap(Array.Empty<KeyValuePair<ILanguageTag, string>>()));
         }
 
         [Fact]

@@ -45,7 +45,8 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestProperties()
         {
-            var group = new AnonymousGroup(new List<IAgent>
+            var group = new AnonymousGroup(
+                new List<IAgent>
             {
                 new Agent(new OpenID(new Uri("http://example.com/1"))),
                 new Agent(new OpenID(new Uri("http://example.com/2")))

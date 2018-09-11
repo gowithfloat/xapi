@@ -14,8 +14,8 @@ namespace Float.xAPI.Tests
 {
     public class LRSTests
     {
-        readonly Guid Registration = Guid.NewGuid();
-        readonly Guid StatementId = Guid.NewGuid();
+        readonly Guid registration = Guid.NewGuid();
+        readonly Guid statementId = Guid.NewGuid();
 
         [Fact]
         public void TestGetStatement()
@@ -90,77 +90,59 @@ namespace Float.xAPI.Tests
             var lrs = new InMemoryLRS();
             lrs.PutStatement(GenerateStatement());
 
-            var retrieved1 = lrs.GetStatements(registration: Registration);
+            var retrieved1 = lrs.GetStatements(registration: registration);
             Assert.Single(retrieved1.Statements);
 
             // todo: fix this
-            //var retrieved2 = lrs.GetStatements(registration: Guid.NewGuid());
-            //Assert.Empty(retrieved2.Statements);
+            // var retrieved2 = lrs.GetStatements(registration: Guid.NewGuid());
+            // Assert.Empty(retrieved2.Statements);
         }
 
-        IStatement GenerateVoidingStatement()
+        static IStatement GenerateVoidingStatement()
         {
-            return new Statement
-            (
+            return new Statement(
                 GenerateActor(),
                 Verb.Voided,
-                GenerateStatementRef()
-            );
+                GenerateStatementRef());
+        }
+
+        static IStatementReference GenerateStatementRef()
+        {
+            return new StatementReference(Guid.NewGuid());
+        }
+
+        static IIdentifiedActor GenerateActor()
+        {
+            return new Agent(
+                new OpenID(
+                    new Uri("http://example.com/agent")));
+        }
+
+        static IVerb GenerateVerb()
+        {
+            return new Verb(
+                new Uri("http://example.com/verb"),
+                LanguageMap.EnglishUS("verb"));
+        }
+
+        static IActivity GenerateActivity()
+        {
+            return new Activity(
+                new Uri("http://example.com/activity"));
         }
 
         IStatement GenerateStatement()
         {
-            return new Statement
-            (
+            return new Statement(
                 GenerateActor(),
                 GenerateVerb(),
                 GenerateActivity(),
-                StatementId
-            );
-        }
-
-        IStatementReference GenerateStatementRef()
-        {
-            return new StatementReference
-            (
-                Guid.NewGuid()
-            );
-        }
-
-        IIdentifiedActor GenerateActor()
-        {
-            return new Agent
-            (
-                new OpenID
-                (
-                    new Uri("http://example.com/agent")
-                )
-            );
-        }
-
-        IVerb GenerateVerb()
-        {
-            return new Verb
-            (
-                new Uri("http://example.com/verb"),
-                LanguageMap.EnglishUS("verb")
-            );
-        }
-
-        IActivity GenerateActivity()
-        {
-            return new Activity
-            (
-                new Uri("http://example.com/activity")
-            );
+                statementId);
         }
 
         IContext GenerateContext()
         {
-            return new Context
-            (
-                Registration
-            );
+            return new Context(registration);
         }
     }
 }

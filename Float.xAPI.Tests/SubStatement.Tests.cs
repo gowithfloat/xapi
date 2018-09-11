@@ -67,12 +67,13 @@ namespace Float.xAPI.Tests
             var actor = new Agent(new Mailbox(new MailAddress("test@example.com")), "Agent");
             var verb1 = new Verb(new Uri("http://example.com/planned"), new LanguageMap(LanguageTag.EnglishUS, "planned"));
             var verb2 = new Verb(new Uri("http://example.com/planned"), new LanguageMap(LanguageTag.EnglishUS, "will visit"));
+            var definition = new ActivityDefinition(
+                    new LanguageMap(LanguageTag.EnglishUS, "Some Awesome Website"),
+                    new LanguageMap(LanguageTag.EnglishUS, "This is an awesome website"),
+                new Uri("http://adlnet.gov/expapi/activities/media"));
             var activity = new Activity(
-                new Uri("http://example.com/website"), 
-                new ActivityDefinition(new LanguageMap(LanguageTag.EnglishUS, "Some Awesome Website"), 
-                                       new LanguageMap(LanguageTag.EnglishUS, "This is an awesome website"),
-                                       new Uri("http://adlnet.gov/expapi/activities/media"))
-            );
+                new Uri("http://example.com/website"),
+                definition);
             var substatement = new SubStatement(actor, verb2, activity, null, null, null);
             var statement = new Statement(actor, verb1, substatement);
         }

@@ -42,7 +42,7 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(name, null, null));
             Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(null, desc, null));
             Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(name, desc, null));
-            Assert.Throws<UriFormatException>(() => new ActivityDefinition(name, desc, new Uri("")));
+            Assert.Throws<UriFormatException>(() => new ActivityDefinition(name, desc, new Uri(string.Empty)));
         }
 
         [Fact]
@@ -52,8 +52,9 @@ namespace Float.xAPI.Tests
             var description = new LanguageMap(LanguageTag.EnglishUS, "Description");
             var uri = new Uri("http://example.com");
             var ad1 = new ActivityDefinition(name, description, uri);
+
             // todo: need a good dict to string method
-            //Assert.Equal("<ActivityDefinition: Name Description Type>", ad1.ToString());
+            // Assert.Equal("<ActivityDefinition: Name Description Type>", ad1.ToString());
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Account.Tests.cs" company="Float">
-// Copyright (c) 2018 Float, LLC, All rights reserved.
+// Copyright (c) 2018 Float, All rights reserved.
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
@@ -22,7 +22,7 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentException>(() => new Account(string.Empty, uri));
             Assert.Throws<ArgumentException>(() => new Account(" ", uri));
             Assert.Throws<ArgumentNullException>(() => new Account(name, null));
-            Assert.Throws<UriFormatException>(() => new Account(name, new Uri("")));
+            Assert.Throws<UriFormatException>(() => new Account(name, new Uri(string.Empty)));
         }
 
         [Fact]

@@ -8,13 +8,13 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-	public class MailboxSha1SumTests : IInitializationTests<MailboxSha1Sum>, IEqualityTests, IToStringTests
+    public class MailboxSha1SumTests : IInitializationTests<MailboxSha1Sum>, IEqualityTests, IToStringTests
     {
         [Fact]
-		public MailboxSha1Sum TestValidInit()
-		{
+        public MailboxSha1Sum TestValidInit()
+        {
             return new MailboxSha1Sum(new SHAHash("test"));
-		}
+        }
 
         [Fact]
         public void TestInvalidInit()

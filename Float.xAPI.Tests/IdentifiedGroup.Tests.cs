@@ -69,11 +69,16 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestProperties()
         {
-            var group = new IdentifiedGroup(new OpenID(new Uri("http://example.com")), new List<IAgent>
+            var members = new List<IAgent>
             {
                 new Agent(new Account("learner", new Uri("http://example.com"))),
                 new Agent(new Account("learner", new Uri("http://example.com")))
-            }, "group");
+            };
+            var group = new IdentifiedGroup(
+                new OpenID(
+                    new Uri("http://example.com")),
+                    members,
+                    "group");
             Assert.Equal("Group", group.ObjectType);
 
             var igroup = group as IIdentifiedGroup;
@@ -85,11 +90,17 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestToString()
         {
-            var group1 = new IdentifiedGroup(new OpenID(new Uri("http://example.com/group")), new List<IAgent>
+            var members = new List<IAgent>
             {
                 new Agent(new OpenID(new Uri("http://example.com/agent1"))),
                 new Agent(new OpenID(new Uri("http://example.com/agent2")))
-            }, "Example Group");
+            };
+
+            var group1 = new IdentifiedGroup(
+                new OpenID(new Uri("http://example.com/group")),
+                members,
+                "Example Group");
+
             Assert.Equal("<IdentifiedGroup: Name Example Group Member <Agent: IFI <OpenID: http://example.com/agent1>>, <Agent: IFI <OpenID: http://example.com/agent2>> IFI <OpenID: http://example.com/group>>", group1.ToString());
         }
     }

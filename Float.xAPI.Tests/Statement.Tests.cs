@@ -121,7 +121,7 @@ namespace Float.xAPI.Tests
         public void TestExample()
         {
             var id = new Guid("fd41c918-b88b-4b20-a0a5-a4c32391aaa0");
-            var timestamp = DateTime.Parse("2015-11-18T12:17:00+00:00");
+            var timestamp = new DateTime(2015, 11, 18, 12, 17, 0);
             var address = new MailAddress("user@example.com");
             var mailbox = new Mailbox(address);
             var actor = new Agent(mailbox, "Project Tin Can API");
@@ -150,7 +150,7 @@ namespace Float.xAPI.Tests
         public void TestExampleStatement2()
         {
             var id = new Guid("7ccd3322-e1a5-411a-a67d-6a735c76f119");
-            var timestamp = DateTime.Parse("2015-12-18T12:17:00+00:00");
+            var timestamp = new DateTime(2015, 12, 18, 12, 17, 0);
             var mbox = new Mailbox(new MailAddress("example.learner@adlnet.gov"));
             var actor = new Agent(mbox, "Example Learner");
             var display = new LanguageMap(LanguageTag.EnglishUS, "attempted");
@@ -164,20 +164,23 @@ namespace Float.xAPI.Tests
             var activity = new Activity(id2, definition);
             var result = new Result(new Score(0.95), true, true, duration: new TimeSpan(0, 0, 1234));
 
-            var statement = new Statement( actor, verb, activity, id, result, timestamp: timestamp);
+            var statement = new Statement(actor, verb, activity, id, result, timestamp: timestamp);
         }
 
         [Fact]
         public void TestStatementWithAttachments()
         {
             var actor = new Agent(new Mailbox(new MailAddress("sample.agent@example.com")), "Sample Agent");
-            var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/answered"), 
-                                new LanguageMap(LanguageTag.EnglishUS, "answered"));
+            var verb = new Verb(
+                new Uri("http://adlnet.gov/expapi/verbs/answered"),
+                new LanguageMap(LanguageTag.EnglishUS, "answered"));
+            var definition = new ActivityDefinition(
+                new LanguageMap(LanguageTag.EnglishUS, "Multi Part Activity"),
+                new LanguageMap(LanguageTag.EnglishUS, "Multi Part Activity Description"),
+                new Uri("http://www.example.com/tincan/activities/multipart"));
             var activity = new Activity(
-                new Uri("http://www.example.com/tincan/activities/multipart"), 
-                new ActivityDefinition(new LanguageMap(LanguageTag.EnglishUS, "Multi Part Activity"), 
-                                       new LanguageMap(LanguageTag.EnglishUS, "Multi Part Activity Description"),
-                                       new Uri("http://www.example.com/tincan/activities/multipart")));
+                new Uri("http://www.example.com/tincan/activities/multipart"),
+                definition);
             var attachment = new Attachment(
                 new Uri("http://example.com/attachment-usage/test"),
                 new LanguageMap(LanguageTag.EnglishUS, "A test attachment"),
@@ -185,14 +188,14 @@ namespace Float.xAPI.Tests
                 27,
                 new SHAHash("text", SHA256.Create()),
                 new LanguageMap(LanguageTag.EnglishUS, "A test attachment (description)"),
-                null
-            );
+                null);
 
-            var statement = new Statement(actor,
-                                          verb,
-                                          activity,
-                                          Guid.NewGuid(),
-                                          attachments: new IAttachment[] { attachment });
+            var statement = new Statement(
+                actor,
+                verb,
+                activity,
+                Guid.NewGuid(),
+                attachments: new IAttachment[] { attachment });
         }
 
         [Fact]
@@ -234,7 +237,6 @@ namespace Float.xAPI.Tests
             {
                 {
                     new Uri("https://w3id.org/xapi/cmi5/result/extensions/progress"), "100"
-
                 }
             };
             var timespan = new TimeSpan(0, 30, 0);
@@ -252,7 +254,7 @@ namespace Float.xAPI.Tests
                 }
             };
             var context = new Context(new Guid("ec231277-b27b-4c15-8291-d29225b2b8f7"), contextActivities: contextActivities, extensions: ctxExtensions);
-            var timestamp = DateTime.Parse("2012-06-01T19:09:13.245+00:00");
+            var timestamp = new DateTime(2012, 6, 1, 19, 13, 24);
             var statement = new Statement(agent, verb, activity, id, result, context, timestamp);
         }
     }

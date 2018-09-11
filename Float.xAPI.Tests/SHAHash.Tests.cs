@@ -24,9 +24,9 @@ namespace Float.xAPI.Tests
         {
             Assert.Throws<ArgumentException>(() => new SHAHash(null as string));
             Assert.Throws<ArgumentNullException>(() => new SHAHash(null as byte[]));
-            Assert.Throws<ArgumentException>(() => new SHAHash(String.Empty));
+            Assert.Throws<ArgumentException>(() => new SHAHash(string.Empty));
             Assert.Throws<ArgumentException>(() => new SHAHash(" "));
-            Assert.Throws<ArgumentException>(() => new SHAHash(new byte[] { }));
+            Assert.Throws<ArgumentException>(() => new SHAHash(Array.Empty<byte>()));
         }
 
         [Fact]
