@@ -27,8 +27,8 @@ var verb = new Verb(id, definition);
 An activity requires a definition and identifier; the definition needs a name, description, and type:
 
 ```C#
-var name = new LanguageMap("en-US", "Example Activity");
-var description = new LanguageMap("en-US", "An example activity.");
+var name = LanguageMap.EnglishUS("Example Activity");
+var description = LanguageMap.EnglishUS("An example activity.");
 var theType = new Uri("http://adlnet.gov/expapi/activities/course");
 var definition = new ActivityDefinition(name, description, theType);
 var activityId = new Uri("http://www.example.com/example-activity");
