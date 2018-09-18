@@ -83,8 +83,11 @@ type public LanguageMap =
         /// <inheritdoc />
         override this.Equals(other) =
             match other with
-            | :? ILanguageMap as map -> this.GetHashCode() <> map.GetHashCode()
+            | :? ILanguageMap as map -> this.GetHashCode() = map.GetHashCode()
             | _ -> false
+
+        static member op_Equality (lhs: LanguageMap, rhs: ILanguageMap) = lhs.Equals(rhs)
+        static member op_Inequality (lhs: LanguageMap, rhs: ILanguageMap) = not(lhs.Equals(rhs))
 
         member this.Add(item) = this.map.Add(item) |> ignore
         member this.Add(key, value) = this.map.Add(key, value) |> ignore

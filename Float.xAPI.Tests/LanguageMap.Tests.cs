@@ -82,6 +82,12 @@ namespace Float.xAPI.Tests
                 { new LanguageTag(Language.Ido, Region.Panama), "example" }
             });
             Assert.Equal(map3, map4);
+            Assert.True(map1 == map2);
+            Assert.True(map3 == map4);
+            Assert.False(map1 != map2);
+            Assert.False(map3 != map4);
+            Assert.True(map1.GetHashCode() == map2.GetHashCode());
+            Assert.False(map3.GetHashCode() != map4.GetHashCode());
         }
 
         [Fact]
@@ -102,6 +108,12 @@ namespace Float.xAPI.Tests
                 { new LanguageTag(Language.Ido, Region.Panama), "example2" }
             });
             Assert.NotEqual(map3, map4);
+            Assert.False(map1 == map2);
+            Assert.False(map3 == map4);
+            Assert.True(map1 != map2);
+            Assert.True(map3 != map4);
+            Assert.False(map1.GetHashCode() == map2.GetHashCode());
+            Assert.True(map3.GetHashCode() != map4.GetHashCode());
         }
 
         [Fact]
@@ -159,6 +171,21 @@ namespace Float.xAPI.Tests
         {
             var json1 = "{\"en-US\":\"launched\"}";
             Assert.NotNull(json1);
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var map1 = LanguageMap.EnglishUS("sent");
+            map1.Add(new Tuple<ILanguageTag, string>(new LanguageTag(Language.Spanish, Region.Mexico), "expedido"));
+            Assert.True(map1.IsReadOnly);
+            Assert.True(map1.Contains(LanguageTag.EnglishUS));
+
+            // todo: adding doesn't seem to do anything?
+            // Assert.True(map1.ContainsKey(new LanguageTag(Language.Spanish, Region.Mexico)));
+            // Assert.Equal(2, map1.Values.Count);
+            // Assert.Equal(2, map1.Keys.Count);
+            // Assert.Equal("sent", map1.Item(LanguageTag.EnglishUS));
         }
     }
 }

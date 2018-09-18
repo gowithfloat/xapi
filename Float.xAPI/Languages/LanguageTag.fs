@@ -84,6 +84,9 @@ type public LanguageTag =
             | :? ILanguageTag as tag -> (this.PrimaryLanguage, this.Region) = (tag.PrimaryLanguage, tag.Region)
             | _ -> false
 
+        static member op_Equality (lhs: LanguageTag, rhs: ILanguageTag) = lhs.Equals(rhs)
+        static member op_Inequality (lhs: LanguageTag, rhs: ILanguageTag) = not(lhs.Equals(rhs))
+
         /// <inheritdoc />
         override this.ToString() = 
             // see https://www.w3.org/International/articles/language-tags/
