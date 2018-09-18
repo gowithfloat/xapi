@@ -20,7 +20,7 @@ A verb is a URI paired with a language map:
 
 ```C#
 var id = new Uri("http://adlnet.gov/expapi/verbs/completed");
-var definition = LanguageMap.EnglishUS("completed");
+var definition = new LanguageMap(new LanguageTag(Language.English, Region.UnitedStates), "completed");
 var verb = new Verb(id, definition);
 ```
 
