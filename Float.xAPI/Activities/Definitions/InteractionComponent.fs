@@ -6,6 +6,7 @@
 namespace Float.xAPI.Activities.Definitions
 
 open System
+open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Languages
 open Interop
@@ -37,8 +38,8 @@ type public InteractionComponent =
     /// </summary>
     /// <param name="id">Identifies the interaction component within the list.</param>
     /// <param name="description">A description of the interaction component.</param>
-    new (id, description) =
-        nullArg id "id"
+    new (id, [<Optional;DefaultParameterValue(null)>] ?description) =
+        invalidStringArg id "id"
         emptyOptionalSeqArg description "description"
         { Id = id; Description = description }
         
