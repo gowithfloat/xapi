@@ -57,7 +57,7 @@ type public Version =
     override this.ToString() = sprintf "%d.%d.%d" this.Major this.Minor this.Patch
 
     /// <inheritdoc />
-    override this.Equals(other) =
+    override this.Equals other =
         match other with
         | :? IVersion as version -> (this.Major, this.Minor, this.Patch) = (version.Major, version.Minor, version.Patch)
         | _ -> false
@@ -69,8 +69,7 @@ type public Version =
     static member op_Inquality (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) <> 0
 
     interface IEquatable<IVersion> with
-       member this.Equals other =
-         (this.Major, this.Minor, this.Patch) = (other.Major, other.Minor, other.Patch)
+       member this.Equals other = this.Equals other
 
     interface IComparable<IVersion> with
       member this.CompareTo other =

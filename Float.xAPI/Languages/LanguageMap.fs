@@ -81,7 +81,7 @@ type public LanguageMap =
         override this.ToString() = sprintf "<%O: Map %O>" (this.GetType().Name) (seqToString this.map)
 
         /// <inheritdoc />
-        override this.Equals(other) =
+        override this.Equals other =
             match other with
             | :? ILanguageMap as map -> this.GetHashCode() = map.GetHashCode()
             | _ -> false
@@ -108,8 +108,7 @@ type public LanguageMap =
         member this.GetEnumerator<'T>() = (this.map |> Map.toSeq |> Seq.map(fun (a,b) -> LanguagePair(a, b))).GetEnumerator()
 
         interface IEquatable<ILanguageMap> with
-            member this.Equals other =
-                hash this = hash other
+            member this.Equals other = this.Equals other
 
         interface ILanguageMap with
             member this.Add item = this.Add(item.Key, item.Value)

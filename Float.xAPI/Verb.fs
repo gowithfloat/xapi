@@ -52,14 +52,13 @@ type public Verb =
         override this.ToString() = sprintf "<%O: Id %A Display %O>" (this.GetType().Name) this.Id this.Display
 
         /// <inheritdoc />
-        override this.Equals(other) =
+        override this.Equals other =
             match other with
             | :? IVerb as verb -> this.Id = verb.Id
             | _ -> false
 
         interface IEquatable<IVerb> with
-            member this.Equals other =
-                this.Id = other.Id
+            member this.Equals other = this.Equals other
 
         interface IVerb with
             member this.Id = this.Id

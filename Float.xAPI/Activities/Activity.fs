@@ -57,7 +57,7 @@ type public Activity =
         | _ -> sprintf "<%O: Id %A>" (typeName this) this.Id
 
     /// <inheritdoc />
-    override this.Equals(other) = 
+    override this.Equals other = 
         match other with
         | :? IActivity as activity -> (this.Id, this.Definition) = (activity.Id, activity.Definition)
         | _ -> false

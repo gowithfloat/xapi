@@ -84,7 +84,7 @@ type public Score =
         | None -> sprintf "<%O: Scaled %A>" (typeName this) this.Scaled
     
     /// <inheritdoc />
-    override this.Equals(other) = 
+    override this.Equals other = 
         match other with
         | :? IScore as score -> this.Scaled = score.Scaled
         | _ -> false

@@ -50,7 +50,7 @@ type public IdentifiedGroup =
         sprintf "<%O: %O %O IFI %O>" (typeName this) (toStringOrNone this.Name "Name") (seqToStringOrNone this.Member "Member") this.IFI
 
     /// <inheritdoc />
-    override this.Equals(other) =
+    override this.Equals other =
         match other with
         | :? IIdentifiedGroup as group -> this.IFI = group.IFI
         | _ -> false

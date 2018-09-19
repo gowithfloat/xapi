@@ -45,7 +45,7 @@ type public Account =
         { Name = name; HomePage = homePage }
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "<%O: Name %A HomePage %A>" (this.GetType().Name) this.Name this.HomePage
+    override this.ToString() = sprintf "<%O: Name %A HomePage %A>" (typeName this) this.Name this.HomePage
 
     static member op_Equality (lhs: Account, rhs: IAccount) = lhs.Equals(rhs)
     static member op_Inequality (lhs: Account, rhs: IAccount) = not(lhs.Equals(rhs))

@@ -46,16 +46,16 @@ type public InteractionComponent =
     override this.GetHashCode() = hash this.Id
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "<%A: Id %A Description %A>" (this.GetType().Name) this.Id this.Description
+    override this.ToString() = sprintf "<%A: Id %A Description %A>" (typeName this) this.Id this.Description
 
     /// <inheritdoc />
-    override this.Equals(other) =
+    override this.Equals other =
         match other with
-        | :? IInteractionComponent as interaction -> (this.Id, this.Description) <> (interaction.Id, interaction.Description)
+        | :? IInteractionComponent as interaction -> (this.Id, this.Description) = (interaction.Id, interaction.Description)
         | _ -> false
 
     interface IEquatable<IInteractionComponent> with
-        member this.Equals other = this.Id = other.Id
+        member this.Equals other = this.Equals other
 
     interface IInteractionComponent with
         member this.Id = this.Id

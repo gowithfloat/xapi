@@ -79,7 +79,7 @@ type public LanguageTag =
         override this.GetHashCode() = hash (this.PrimaryLanguage, this.Region)
 
         /// <inheritdoc />
-        override this.Equals(other) =
+        override this.Equals other =
             match other with
             | :? ILanguageTag as tag -> (this.PrimaryLanguage, this.Region) = (tag.PrimaryLanguage, tag.Region)
             | _ -> false

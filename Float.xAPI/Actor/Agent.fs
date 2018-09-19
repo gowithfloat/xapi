@@ -41,11 +41,11 @@ type public Agent =
     /// <inheritdoc />
     override this.ToString() =
         match this.Name with
-        | Some name -> sprintf "<%O: Name %A IFI %A>" (this.GetType().Name) name this.IFI
+        | Some name -> sprintf "<%O: Name %A IFI %A>" (typeName this) name this.IFI
         | None -> sprintf "<%O: IFI %A>" (typeName this) this.IFI
 
     /// <inheritdoc />
-    override this.Equals(other) = 
+    override this.Equals other = 
         match other with
         | :? IAgent as agent -> this.IFI = agent.IFI
         | _ -> false

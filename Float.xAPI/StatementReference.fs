@@ -40,7 +40,7 @@ type public StatementReference =
     override this.ToString() = sprintf "<%A: Id %A>" (this.GetType().Name) this.Id
 
     /// <inheritdoc />
-    override this.Equals(other) =
+    override this.Equals other =
         match other with
         | :? IStatementReference as ref -> this.Id = ref.Id
         | _ -> false
@@ -49,7 +49,7 @@ type public StatementReference =
     member this.ObjectType = "StatementRef"
 
     interface IEquatable<IStatementReference> with
-        member this.Equals other = this.Id = other.Id
+        member this.Equals other = this.Equals other
 
     interface IStatementReference with
         member this.ObjectType = this.ObjectType
