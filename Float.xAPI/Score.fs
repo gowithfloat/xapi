@@ -75,7 +75,7 @@ type public Score =
         { Raw = Some raw; Min = Some min; Max = Some max; Scaled = (raw - min) / (max - min) }
         
     /// <inheritdoc />
-    override this.GetHashCode() = hash (this.Raw, this.Min, this.Max, this.Scaled)
+    override this.GetHashCode() = hash this.Scaled
 
     /// <inheritdoc />
     override this.ToString() = 
