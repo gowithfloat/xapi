@@ -44,7 +44,7 @@ type public ILanguageTag =
     /// <summary>
     /// Convert this language tag to a system culture info object.
     /// </summary>
-    abstract member ToCultureInfo: CultureInfo
+    abstract member ToCultureInfo: unit -> CultureInfo
 
     inherit IEquatable<ILanguageTag>
     inherit IComparable
@@ -102,7 +102,7 @@ type public LanguageTag =
             member this.PrimaryLanguage = this.PrimaryLanguage
             member this.ExtendedLanguage = this.ExtendedLanguage
             member this.Region = this.Region
-            member this.ToCultureInfo = this.ToCultureInfo()
+            member this.ToCultureInfo() = this.ToCultureInfo()
 
         interface IComparable with
             member this.CompareTo other =

@@ -41,6 +41,17 @@ namespace Float.xAPI.Tests
             Assert.Equal(tag1, tag2);
             Assert.True(tag1 == tag2);
             Assert.False(tag1 != tag2);
+            Assert.True(tag1.Equals(tag2));
+
+            var itag1 = tag1 as ILanguageTag;
+            var itag2 = tag2 as ILanguageTag;
+            Assert.Equal(itag1, itag2);
+            Assert.True(tag1.Equals(itag2));
+            Assert.True(tag1.Equals(tag2));
+            Assert.True(itag1.Equals(itag2));
+            Assert.True(itag1.Equals(tag2));
+            Assert.True(itag2.Equals(itag1));
+            Assert.True(itag2.Equals(tag1));
 
             var tag3 = new LanguageTag(Language.English, Region.UnitedStates);
             var tag4 = LanguageTag.EnglishUS;
@@ -73,6 +84,7 @@ namespace Float.xAPI.Tests
             Assert.False(tag1 == tag2);
             Assert.False(tag1 == tag3);
             Assert.True(tag1 != tag4);
+            Assert.False(tag1.Equals(tag2));
         }
 
         [Fact]
@@ -105,6 +117,11 @@ namespace Float.xAPI.Tests
             Assert.Equal(new CultureInfo("zh-yue-CN"), tag4.ToCultureInfo());
             Assert.Equal(new CultureInfo("zh-gan-CN"), tag5.ToCultureInfo());
             Assert.Equal(new CultureInfo("zh-cmn-CN"), tag6.ToCultureInfo());
+
+            var itag1 = tag1 as ILanguageTag;
+            var itag2 = tag2 as ILanguageTag;
+            Assert.Equal(new CultureInfo("mg-TD"), itag1.ToCultureInfo());
+            Assert.Equal(new CultureInfo("nl-AO"), itag2.ToCultureInfo());
         }
     }
 }
