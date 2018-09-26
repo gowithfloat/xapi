@@ -66,7 +66,7 @@ type public Version =
     static member op_LessThan (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) < 0
     static member op_GreaterThan (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) > 0
     static member op_Equality (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) = 0
-    static member op_Inquality (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) <> 0
+    static member op_Inequality (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) <> 0
 
     interface IEquatable<IVersion> with
        member this.Equals other = this.Equals other

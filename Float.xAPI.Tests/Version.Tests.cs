@@ -3,6 +3,7 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
+using System;
 using Xunit;
 
 namespace Float.xAPI.Tests
@@ -37,6 +38,13 @@ namespace Float.xAPI.Tests
             var version1 = new Version(1, 2, 3);
             var version2 = new Version(1, 2, 3);
             Assert.Equal(version1, version2);
+            Assert.Equal(version1.GetHashCode(), version2.GetHashCode());
+            Assert.True(version1 == version2);
+            Assert.False(version1 != version2);
+
+            var version1eq = version1 as IEquatable<IVersion>;
+            var version2eq = version2 as IEquatable<IVersion>;
+            Assert.True(version1eq.Equals(version2eq));
         }
 
         [Fact]
@@ -45,6 +53,13 @@ namespace Float.xAPI.Tests
             var version2 = new Version(1, 2, 3);
             var version3 = new Version(33, 22, 11);
             Assert.NotEqual(version2, version3);
+            Assert.NotEqual(version2.GetHashCode(), version3.GetHashCode());
+            Assert.False(version2 == version3);
+            Assert.True(version2 != version3);
+
+            var version2eq = version2 as IEquatable<IVersion>;
+            var version3eq = version3 as IEquatable<IVersion>;
+            Assert.False(version2eq.Equals(version3eq));
 
             var version4 = new Version(1, 1, 0);
             Assert.NotEqual(version3, version4);
