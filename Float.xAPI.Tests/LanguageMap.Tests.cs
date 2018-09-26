@@ -88,6 +88,10 @@ namespace Float.xAPI.Tests
             Assert.False(map3 != map4);
             Assert.True(map1.GetHashCode() == map2.GetHashCode());
             Assert.False(map3.GetHashCode() != map4.GetHashCode());
+
+            var imap1 = map1 as IEquatable<IReadOnlyDictionary<ILanguageTag, string>>;
+            var imap2 = map2 as IEquatable<IReadOnlyDictionary<ILanguageTag, string>>;
+            Assert.True(imap1.Equals(imap2));
         }
 
         [Fact]
@@ -201,6 +205,12 @@ namespace Float.xAPI.Tests
             var success = map1.TryGetValue(LanguageTag.EnglishUS, out outstring);
             Assert.True(success);
             //// todo: Assert.Equal("sent", outstring);
+
+            var imap = new LanguageMap(new LanguageTag(Language.HaitianCreole, Region.PuertoRico), "completed") as IReadOnlyDictionary<ILanguageTag, string>;
+            Assert.Equal(1, imap.Count);
+
+            var result = imap.ContainsKey(LanguageTag.EnglishUS);
+            Assert.False(result);
         }
     }
 }
