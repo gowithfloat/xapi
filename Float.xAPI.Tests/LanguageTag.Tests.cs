@@ -85,6 +85,16 @@ namespace Float.xAPI.Tests
             Assert.False(tag1 == tag3);
             Assert.True(tag1 != tag4);
             Assert.False(tag1.Equals(tag2));
+
+            var itag1 = tag1 as ILanguageTag;
+            var itag2 = tag2 as ILanguageTag;
+            Assert.NotEqual(itag1, itag2);
+            Assert.False(tag1.Equals(itag2));
+            Assert.False(tag1.Equals(tag2));
+            Assert.False(itag1.Equals(itag2));
+            Assert.False(itag1.Equals(tag2));
+            Assert.False(itag2.Equals(itag1));
+            Assert.False(itag2.Equals(tag1));
         }
 
         [Fact]
@@ -122,6 +132,17 @@ namespace Float.xAPI.Tests
             var itag2 = tag2 as ILanguageTag;
             Assert.Equal(new CultureInfo("mg-TD"), itag1.ToCultureInfo());
             Assert.Equal(new CultureInfo("nl-AO"), itag2.ToCultureInfo());
+        }
+
+        [Fact]
+        public void TestExtendedLanguage()
+        {
+            var tag1 = new LanguageTag(Language.Flemish, Region.Niue, ExtendedLanguage.OmaniArabic);
+            var tag2 = new LanguageTag(Language.Flemish, Region.Niue, ExtendedLanguage.OmaniArabic);
+            Assert.Equal(ExtendedLanguage.OmaniArabic, tag1.ExtendedLanguage);
+
+            var itag1 = tag1 as ILanguageTag;
+            Assert.Equal(ExtendedLanguage.OmaniArabic, itag1.ExtendedLanguage);
         }
     }
 }
