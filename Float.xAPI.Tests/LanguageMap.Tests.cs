@@ -177,15 +177,30 @@ namespace Float.xAPI.Tests
         public void TestProperties()
         {
             var map1 = LanguageMap.EnglishUS("sent");
-            map1.Add(new Tuple<ILanguageTag, string>(new LanguageTag(Language.Spanish, Region.Mexico), "expedido"));
-            Assert.True(map1.IsReadOnly);
-            Assert.True(map1.Contains(LanguageTag.EnglishUS));
+            Assert.True(map1.ContainsKey(LanguageTag.EnglishUS));
+            Assert.Equal(1, map1.Count);
+            Assert.NotNull(map1.GetEnumerator());
+            Assert.Equal("LanguageMap", map1.GetType().Name);
 
-            // todo: adding doesn't seem to do anything?
-            // Assert.True(map1.ContainsKey(new LanguageTag(Language.Spanish, Region.Mexico)));
-            // Assert.Equal(2, map1.Values.Count);
-            // Assert.Equal(2, map1.Keys.Count);
-            // Assert.Equal("sent", map1.Item(LanguageTag.EnglishUS));
+            var value = map1.GetValueOrDefault(LanguageTag.EnglishUS);
+            //// todo: Assert.Equal("sent", value);
+
+            var value2 = map1.GetValueOrDefault(new LanguageTag(Language.Kyrgyz, Region.CapeVerde));
+            Assert.Null(value2);
+
+            var value3 = map1.get_Item(LanguageTag.EnglishUS);
+            //// todo: Assert.Equal("sent", value3);
+
+            var keys = map1.get_Keys();
+            Assert.NotNull(keys);
+
+            var values = map1.get_Values();
+            Assert.NotNull(values);
+
+            string outstring;
+            var success = map1.TryGetValue(LanguageTag.EnglishUS, out outstring);
+            Assert.True(success);
+            //// todo: Assert.Equal("sent", outstring);
         }
     }
 }

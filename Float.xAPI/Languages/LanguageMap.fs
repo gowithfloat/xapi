@@ -6,14 +6,16 @@
 namespace Float.xAPI.Languages
 
 open System
+open System.Collections
 open System.Collections.Generic
+open System.Runtime.InteropServices
 open Float.xAPI.Interop
 
 /// <summary>
 /// A language map is a dictionary where the key is a RFC 5646 Language Tag, and the value is a string in the language specified in the tag.
 /// This map SHOULD be populated as fully as possible based on the knowledge of the string in question in different languages.
 /// </summary>
-type ILanguageMap = IDictionary<ILanguageTag, string>
+type ILanguageMap = IReadOnlyDictionary<ILanguageTag, string>
 
 /// <summary>
 /// A shorthand type for one element of a language map.
@@ -34,6 +36,7 @@ type public LanguageMap =
         /// </summary>
         /// <param name="pairs">The language tag and value pairs.</param>
         public new(pairs) =
+            nullArg pairs "pairs"
             emptySeqArg pairs "pairs"
             { map = pairs }
 
@@ -89,54 +92,27 @@ type public LanguageMap =
         static member op_Equality (lhs: LanguageMap, rhs: ILanguageMap) = lhs.Equals(rhs)
         static member op_Inequality (lhs: LanguageMap, rhs: ILanguageMap) = not(lhs.Equals(rhs))
 
-        member this.Add(item) = this.map.Add(item) |> ignore
-        member this.Add(key, value) = this.map.Add(key, value) |> ignore
-        member this.Contains(item) = this.map.ContainsKey(item)
-        member this.ContainsKey key = this.map.ContainsKey key
-        member this.Remove(key: LanguagePair) = this.map.Remove(key.Key)
-        member this.Remove(key: ILanguageTag) = this.map.Remove(key)
-        member this.TryGetValue(key, value) =
-            match this.map.TryFind key with
-            | Some value -> value
-            | None -> null
-        member this.Item(key) = this.map.Item(key)
-        member this.Item(key, value) = this.Add(key, value)
-        member this.Keys = this.map |> Map.toSeq |> Seq.map fst |> Seq.toArray :> ICollection<_>
-        member this.Values = this.map |> Map.toSeq |> Seq.map snd |> Seq.toArray :> ICollection<_>
+        member private this.Dict = (this.map :> IReadOnlyDictionary<ILanguageTag, string>)
         member this.Count = this.map.Count
-        member this.IsReadOnly = true
-        member this.GetEnumerator<'T>() = (this.map |> Map.toSeq |> Seq.map(fun (a,b) -> LanguagePair(a, b))).GetEnumerator()
+        member this.ContainsKey key = this.map.ContainsKey key
+        member this.GetEnumerator() = this.Dict.GetEnumerator()
+        member this.get_Keys() = this.Dict.get_Keys()
+        member this.get_Values() = this.Dict.get_Values()
+        member this.get_Item key = this.Dict.get_Item key
+        member this.TryGetValue(key: ILanguageTag, [<Out>] value: string byref) = this.Dict.TryGetValue(key, ref value)
 
         interface IEquatable<ILanguageMap> with
             member this.Equals other = this.Equals other
 
         interface ILanguageMap with
-            member this.Add item = this.Add(item.Key, item.Value)
-            member this.Add(key, value) = this.Add(key, value)
-            member this.Contains item = this.ContainsKey(item.Key)
+            member this.Count = this.Count
             member this.ContainsKey key = this.ContainsKey key
-            member this.Remove(item: LanguagePair): bool =
-                let count = this.get_Count()
-                this.Remove(item) |> ignore
-                count = this.get_Count()
-            member this.Remove(key: ILanguageTag): bool =
-                let count = this.get_Count()
-                this.Remove(key) |> ignore
-                count = this.get_Count()
-            member this.TryGetValue(key, value) =
-                match this.TryGetValue(key, value) with
-                | null -> false
-                | _ -> true
-            member this.get_Item key = this.Item(key)
-            member this.set_Item(key, value) = this.Item(key, value)
-            member this.get_Keys() = this.Keys
-            member this.get_Values() = this.Values
-            member this.get_Count() = this.Count
-            member this.get_IsReadOnly() = this.IsReadOnly
-            member this.Clear() = notImplemented "Clear"
-            member this.CopyTo(array, index) = notImplemented "CopyTo"
-            member this.GetEnumerator(): IEnumerator<LanguagePair> = this.GetEnumerator()
-            member this.GetEnumerator(): Collections.IEnumerator = this.GetEnumerator() :> Collections.IEnumerator
+            member this.GetEnumerator() = this.GetEnumerator()
+            member this.GetEnumerator() = this.GetEnumerator() :> IEnumerator
+            member this.get_Keys() = this.get_Keys()
+            member this.get_Values() = this.get_Values()
+            member this.get_Item key = this.get_Item key
+            member this.TryGetValue(key: ILanguageTag, [<Out>] value: string byref) = this.TryGetValue(key, ref value)
 
         static member EnglishUS value =
             LanguageMap(LanguageTag.EnglishUS, value)
