@@ -41,6 +41,9 @@ namespace Float.xAPI.Tests
             var score1eq = new Score(0.5) as IEquatable<IScore>;
             var score2eq = new Score(0.5) as IEquatable<IScore>;
             Assert.True(score1eq.Equals(score2eq));
+            Assert.True(score1eq.Equals(score2));
+            Assert.True(score2eq.Equals(score1));
+            Assert.True(score2eq.Equals(score1eq));
         }
 
         [Fact]
