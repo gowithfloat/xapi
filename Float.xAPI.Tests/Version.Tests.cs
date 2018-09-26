@@ -60,6 +60,9 @@ namespace Float.xAPI.Tests
             var version2eq = version2 as IEquatable<IVersion>;
             var version3eq = version3 as IEquatable<IVersion>;
             Assert.False(version2eq.Equals(version3eq));
+            Assert.False(version2eq.Equals(version3));
+            Assert.False(version3eq.Equals(version2eq));
+            Assert.False(version3eq.Equals(version2eq));
 
             var version4 = new Version(1, 1, 0);
             Assert.NotEqual(version3, version4);
