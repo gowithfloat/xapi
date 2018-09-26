@@ -57,6 +57,9 @@ type public Verb =
             | :? IVerb as verb -> this.Id = verb.Id
             | _ -> false
 
+        static member op_Equality (lhs: Verb, rhs: IVerb) = lhs.Equals(rhs)
+        static member op_Inequality (lhs: Verb, rhs: IVerb) = not(lhs.Equals(rhs))
+
         interface IEquatable<IVerb> with
             member this.Equals other = this.Equals other
 

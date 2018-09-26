@@ -41,6 +41,9 @@ namespace Float.xAPI.Tests
                 new LanguageMap(new LanguageTag(Language.Spanish, Region.Mexico), "acceso"));
             Assert.Equal(verb2, verb3);
             Assert.Equal(verb2.Id, verb3.Id);
+            Assert.Equal(verb2.GetHashCode(), verb3.GetHashCode());
+            Assert.True(verb2 == verb3);
+            Assert.False(verb2 != verb3);
         }
 
         [Fact]
@@ -49,6 +52,9 @@ namespace Float.xAPI.Tests
             var verb1 = new Verb(new Uri("https://w3id.org/xapi/adl/verbs/abandoned"), LanguageMap.EnglishUS("abandoned"));
             var verb2 = new Verb(new Uri("https://w3id.org/xapi/dod-isd/verbs/accessed"), LanguageMap.EnglishUS("accessed"));
             Assert.NotEqual(verb1, verb2);
+            Assert.NotEqual(verb1.GetHashCode(), verb2.GetHashCode());
+            Assert.False(verb1 == verb2);
+            Assert.True(verb1 != verb2);
         }
 
         [Fact]
@@ -87,6 +93,10 @@ namespace Float.xAPI.Tests
 
             Assert.Equal(uri, verb.Id);
             Assert.Equal(map, verb.Display);
+
+            var iverb = verb as IVerb;
+            Assert.Equal(uri, iverb.Id);
+            Assert.Equal(map, iverb.Display);
         }
 
         [Fact]
