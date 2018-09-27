@@ -230,7 +230,7 @@ namespace Float.xAPI.Tests
             var value2 = map1.GetValueOrDefault(new LanguageTag(Language.Kyrgyz, Region.CapeVerde));
             Assert.Null(value2);
 
-            var value3 = map1.Item(LanguageTag.EnglishUS); // todo: this should use []
+            var value3 = map1[LanguageTag.EnglishUS];
             //// todo: Assert.Throws<KeyNotFoundException>(() => map1[new LanguageTag(Language.Hindi, Region.Mali)]);
             //// todo: Assert.Equal("sent", value3);
 
