@@ -22,6 +22,11 @@ type public ILanguageMap = IReadOnlyDictionary<ILanguageTag, string>
 /// </summary>
 type LanguagePair = KeyValuePair<ILanguageTag, string>
 
+/// <summary>
+/// Another way of representing a tag and value as a tuple.
+/// </summary>
+type LanguageTuple = Tuple<ILanguageTag, string>
+
 [<CustomEquality;NoComparison;Struct>]
 type public LanguageMap =
     /// <summary>
@@ -31,7 +36,7 @@ type public LanguageMap =
     val private map: Map<ILanguageTag, string>
 
     /// <summary>
-    /// Construct a new language map with multiple key/value pairs.
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Languages.LanguageMap"/> struct with a map of tag/value pairs.
     /// </summary>
     /// <param name="pairs">The language tag and value pairs.</param>
     public new(pairs) =
@@ -40,24 +45,33 @@ type public LanguageMap =
         { map = pairs }
 
     /// <summary>
-    /// Construct a new language map from any list of tag/value pairs.
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Languages.LanguageMap"/> struct with an enumerable of tag/value tuples.
+    /// </summary>
+    /// <param name="tuples">The language tag and value tuples.</param>
+    public new(tuples: IEnumerable<LanguageTuple>) =
+        nullArg tuples "tuples"
+        emptySeqArg tuples "tuples"
+        { map = tuples |> Map.ofSeq }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Languages.LanguageMap"/> struct with an enumerable of tag/value pairs.
     /// </summary>
     /// <param name="dict">The dictionary from which to construct this map.</param>
-    public new(list: IList<LanguagePair>) =
+    public new(list: IEnumerable<LanguagePair>) =
         emptySeqArg list "list"
-        { map = list :> seq<_> |> Seq.map (|KeyValue|) |> Map.ofSeq}
+        { map = list |> Seq.map (|KeyValue|) |> Map.ofSeq}
 
     /// <summary>
-    /// Construct a new language map from any dictionary of tags and values.
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Languages.LanguageMap"/> struct with a readonly dictionary of tag/value pairs.
     /// </summary>
     /// <param name="dict">The dictionary from which to construct this map.</param>
-    public new (dict: ILanguageMap) =
-        nullArg dict "dict"
-        emptySeqArg dict "dict"
-        { map = dict :> seq<_> |> Seq.map (|KeyValue|) |> Map.ofSeq }
+    public new (map: ILanguageMap) =
+        nullArg map "map"
+        emptySeqArg map "map"
+        { map = map |> Seq.map (|KeyValue|) |> Map.ofSeq }
 
     /// <summary>
-    /// Construct a new language map with only one key/value pair.
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Languages.LanguageMap"/> struct with one tag/value pair.
     /// </summary>
     /// <param name="languageTag">The language tag for the given value.</param>
     /// <param name="value">The value for the given tag.</param>
@@ -67,7 +81,7 @@ type public LanguageMap =
         { map = Map[languageTag, value] }
 
     /// <summary>
-    /// Construct a new language map with only one key/value pair.
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Languages.LanguageMap"/> struct with one language, region, and value.
     /// </summary>
     /// <param name="language">The language for the given value. Will be used to construct a LanguageTag object.</param>
     /// <param name="region">The region for the given value. Will be used to construct a LanguageTag object.</param>

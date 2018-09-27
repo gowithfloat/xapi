@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using Float.xAPI.Languages;
+using Microsoft.FSharp.Collections;
 using Xunit;
 
 namespace Float.xAPI.Tests
@@ -15,13 +16,20 @@ namespace Float.xAPI.Tests
         [Fact]
         public LanguageMap TestValidInit()
         {
+            // you can construct a language map from a single tag and value
             var map1 = new LanguageMap(LanguageTag.EnglishUS, "completed");
+
+            // or provide a language, region and value and have the tag made for you
             var map2 = new LanguageMap(Language.Abkhazian, Region.Antarctica, "sent");
+
+            // or provide a dictionary of tags and values
             var map3 = new LanguageMap(new Dictionary<ILanguageTag, string>
             {
                 { new LanguageTag(Language.Kyrgyz, Region.Jamaica), "example1" },
                 { new LanguageTag(Language.Sango, Region.Mauritius), "example2" }
             });
+
+            // or provide a list of key-value pairs with tags and values
             var map4 = new LanguageMap(new List<KeyValuePair<ILanguageTag, string>>
             {
                 new KeyValuePair<ILanguageTag, string>(
@@ -34,6 +42,8 @@ namespace Float.xAPI.Tests
                     new LanguageTag(Language.Limburgan, Region.LaoPeoplesDemocraticRepublic),
                     "example5")
             });
+
+            // or provide an array of key-value pairs with tags and values
             var map5 = new LanguageMap(new KeyValuePair<ILanguageTag, string>[]
             {
                 new KeyValuePair<ILanguageTag, string>(
@@ -46,7 +56,26 @@ namespace Float.xAPI.Tests
                     new LanguageTag(Language.Cornish, Region.RussianFederation),
                     "example8")
             });
-            return LanguageMap.EnglishUS("example9");
+
+            // or just make a copy from another, since a language map is a read-only dictionary
+            var map6 = new LanguageMap(map5);
+
+            // or you can build an enumerable of tuples...
+            var elements = new List<Tuple<ILanguageTag, string>>
+            {
+                new Tuple<ILanguageTag, string>(
+                    new LanguageTag(Language.Navaho, Region.UnitedStatesMinorOutlyingIslands),
+                    "example9")
+            };
+
+            // ...and wrap that in an F# map...
+            var map7 = new LanguageMap(new FSharpMap<ILanguageTag, string>(elements));
+
+            // ...or provide the enumerable of tuples directly to the language map
+            var map8 = new LanguageMap(elements);
+
+            // finally, since "en-US" is very common, a static method provides that type of map. whew!
+            return LanguageMap.EnglishUS("example10");
         }
 
         [Fact]
@@ -62,6 +91,8 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentException>(() => new LanguageMap(new Dictionary<ILanguageTag, string>()));
             Assert.Throws<ArgumentException>(() => new LanguageMap(new List<KeyValuePair<ILanguageTag, string>>()));
             Assert.Throws<ArgumentException>(() => new LanguageMap(Array.Empty<KeyValuePair<ILanguageTag, string>>()));
+            Assert.Throws<ArgumentException>(() => new LanguageMap(new List<Tuple<ILanguageTag, string>>()));
+            Assert.Throws<ArgumentException>(() => new LanguageMap(new FSharpMap<ILanguageTag, string>(new List<Tuple<ILanguageTag, string>>())));
         }
 
         [Fact]
