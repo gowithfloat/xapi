@@ -112,6 +112,11 @@ module Interop =
         | Some ob -> sprintf "%O %O" name (ob.ToString())
         | _ -> ""
 
+    let inline stringToStringOrNone obj name =
+        match obj with
+        | Some ob -> sprintf "%O %A" name (ob.ToString())
+        | _ -> ""
+
     let inline seqToStringOrNone seq name =
         match seq with
         | Some s -> sprintf "%O %O" name (seqToString s)
