@@ -89,13 +89,16 @@ type public Attachment =
     /// <param name="description">A description of the Attachment.</param>
     /// <param name="fileUrl">An IRL at which the Attachment data can be retrieved, or from which it used to be retrievable.</param>
     public new (usageType, display, contentType, length, sha, [<Optional;DefaultParameterValue(null)>] ?description, [<Optional;DefaultParameterValue(null)>] ?fileUrl) =
+        nullArg usageType "usageType"
         invalidIRIArg usageType "usageType"
         nullArg display "display"
         emptySeqArg display "display"
         nullArg contentType "contentType"
+        nullArg sha "sha"
         { UsageType = usageType; Display = display; ContentType = contentType; Length = length; Sha2 = sha; Description = description; FileUrl = fileUrl }
 
-    override this.ToString() = sprintf "<%A: UsageType %A Display %A Description %A ContentType %A Length %A Sha2 %A FileUrl %A>" (this.GetType().Name) this.UsageType this.Display this.Description this.ContentType this.Length this.Sha2 this.FileUrl
+    /// <inheritdoc />
+    override this.ToString() = sprintf "<%O: UsageType %A Display %A ContentType %A Length %O Sha2 %A%O%O>" (typeName this) this.UsageType this.Display this.ContentType (this.Length) this.Sha2 (toStringOrNone this.Description " Description") (toStringOrNone this.FileUrl " FileUrl")
 
     interface IAttachment with
         member this.UsageType = this.UsageType
