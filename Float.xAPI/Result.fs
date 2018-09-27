@@ -78,7 +78,7 @@ type public Result =
         { Score = score; Success = success; Completion = completion ; Response = response; Duration = duration; Extensions = extensions }
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "<%A: Score %A Success %A Completion %A Response %A Duration %A Extensions %A>" (this.GetType().Name) this.Score this.Success this.Completion this.Response this.Duration this.Extensions
+    override this.ToString() = sprintf "<%O:%O%O%O%O%O%O>" (typeName this) (toStringOrNone this.Score " Score") (toStringOrNone this.Success " Success") (toStringOrNone this.Completion " Completion") (stringToStringOrNone this.Response " Response") (toStringOrNone this.Duration " Duration") (toStringOrNone this.Extensions " Extensions")
 
     interface IResult with
         member this.Score = this.Score
