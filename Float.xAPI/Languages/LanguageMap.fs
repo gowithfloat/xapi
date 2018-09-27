@@ -95,9 +95,9 @@ type public LanguageMap =
     member this.Count = this.map.Count
     member this.ContainsKey key = this.map.ContainsKey key
     member this.GetEnumerator() = this.Dict.GetEnumerator()
-    member this.get_Keys() = this.Dict.get_Keys()
-    member this.get_Values() = this.Dict.get_Values()
-    member this.get_Item key = this.Dict.get_Item key
+    member this.Keys = this.Dict.Keys
+    member this.Values = this.Dict.Values
+    member this.Item key = this.Dict.Item key // todo: this should use []
     member this.TryGetValue(key: ILanguageTag, [<Out>] value: string byref) = this.Dict.TryGetValue(key, ref value)
 
     interface IEquatable<ILanguageMap> with
@@ -108,9 +108,9 @@ type public LanguageMap =
         member this.ContainsKey key = this.ContainsKey key
         member this.GetEnumerator() = this.GetEnumerator()
         member this.GetEnumerator() = this.GetEnumerator() :> IEnumerator
-        member this.get_Keys() = this.get_Keys()
-        member this.get_Values() = this.get_Values()
-        member this.get_Item key = this.get_Item key
+        member this.Keys = this.Keys
+        member this.Values = this.Values
+        member this.get_Item key = this.Item key // todo: this should use []
         member this.TryGetValue(key: ILanguageTag, [<Out>] value: string byref) = this.TryGetValue(key, ref value)
 
     static member EnglishUS value =
