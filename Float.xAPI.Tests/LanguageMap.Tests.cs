@@ -225,14 +225,14 @@ namespace Float.xAPI.Tests
             Assert.Equal("LanguageMap", map1.GetType().Name);
 
             var value = map1.GetValueOrDefault(LanguageTag.EnglishUS);
-            //// todo: Assert.Equal("sent", value);
+            Assert.Equal("sent", value);
 
             var value2 = map1.GetValueOrDefault(new LanguageTag(Language.Kyrgyz, Region.CapeVerde));
             Assert.Null(value2);
 
             var value3 = map1[LanguageTag.EnglishUS];
-            //// todo: Assert.Throws<KeyNotFoundException>(() => map1[new LanguageTag(Language.Hindi, Region.Mali)]);
-            //// todo: Assert.Equal("sent", value3);
+            Assert.Equal("sent", value3);
+            Assert.Throws<KeyNotFoundException>(() => map1[new LanguageTag(Language.Hindi, Region.Mali)]);
 
             var keys = map1.Keys;
             Assert.NotNull(keys);
@@ -243,23 +243,29 @@ namespace Float.xAPI.Tests
             string outstring;
             var success = map1.TryGetValue(LanguageTag.EnglishUS, out outstring);
             Assert.True(success);
-            //// todo: Assert.Equal("sent", outstring);
+            Assert.Equal("sent", outstring);
+
+            var success2 = map1.TryGetValue(new LanguageTag(Language.Xhosa, Region.Qatar), out string outstring2);
+            Assert.False(success2);
+            Assert.Null(outstring2);
 
             var imap = new LanguageMap(new LanguageTag(Language.HaitianCreole, Region.PuertoRico), "completed") as IReadOnlyDictionary<ILanguageTag, string>;
             Assert.Equal(1, imap.Count);
             Assert.True(imap.ContainsKey(new LanguageTag(Language.HaitianCreole, Region.PuertoRico)));
-            Assert.Equal(1, imap.Count);
             Assert.NotNull(imap.GetEnumerator());
             Assert.Equal("LanguageMap", imap.GetType().Name);
 
-            var value4 = imap.GetValueOrDefault(LanguageTag.EnglishUS);
-            //// todo: Assert.Equal("completed", value4);
+            var value4a = imap.GetValueOrDefault(LanguageTag.EnglishUS);
+            Assert.Null(value4a);
+
+            var value4b = imap.GetValueOrDefault(new LanguageTag(Language.HaitianCreole, Region.PuertoRico));
+            Assert.Equal("completed", value4b);
 
             var value5 = imap.GetValueOrDefault(new LanguageTag(Language.Kyrgyz, Region.CapeVerde));
             Assert.Null(value5);
 
             var value6 = imap[new LanguageTag(Language.HaitianCreole, Region.PuertoRico)];
-            //// todo: Assert.Equal("completed", value6);
+            Assert.Equal("completed", value6);
             Assert.Throws<KeyNotFoundException>(() => imap[LanguageTag.EnglishUS]);
 
             var keys2 = imap.Keys;
@@ -268,10 +274,10 @@ namespace Float.xAPI.Tests
             var values2 = imap.Values;
             Assert.NotNull(values2);
 
-            string outstring2;
-            var success2 = imap.TryGetValue(new LanguageTag(Language.HaitianCreole, Region.PuertoRico), out outstring2);
-            Assert.True(success2);
-            //// todo: Assert.Equal("completed", outstring2);
+            string outstring3;
+            var success3 = imap.TryGetValue(new LanguageTag(Language.HaitianCreole, Region.PuertoRico), out outstring3);
+            Assert.True(success3);
+            Assert.Equal("completed", outstring3);
         }
     }
 }

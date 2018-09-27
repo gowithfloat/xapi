@@ -113,7 +113,7 @@ type public LanguageMap =
     member this.Values = this.Dict.Values
     member this.Item
         with get(key) = this.Dict.[key]
-    member this.TryGetValue(key: ILanguageTag, [<Out>] value: string byref) = this.Dict.TryGetValue(key, ref value)
+    member this.TryGetValue(key: ILanguageTag, [<Out>] value: string byref) = this.Dict.TryGetValue(key, &value)
 
     interface IEquatable<ILanguageMap> with
         member this.Equals other = this.Equals other
@@ -127,7 +127,7 @@ type public LanguageMap =
         member this.Values = this.Values
         member this.Item
             with get(key) = this.[key]
-        member this.TryGetValue(key: ILanguageTag, [<Out>] value: string byref) = this.TryGetValue(key, ref value)
+        member this.TryGetValue(key: ILanguageTag, [<Out>] value: string byref) = this.TryGetValue(key, &value)
 
     static member EnglishUS value =
         LanguageMap(LanguageTag.EnglishUS, value)
