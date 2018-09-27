@@ -134,7 +134,7 @@ namespace Float.xAPI.Tests
 
             var activityId = new Uri("http://example.com/xapi/activity/simplestatement");
             var thetype = new Uri("http://adlnet.gov/expapi/activities/media");
-            var definition = new ActivityDefinition(nameMap, descriptionMap, thetype, FSharpOption<Uri>.None, FSharpOption<IDictionary<Uri, string>>.None);
+            var definition = new ActivityDefinition(nameMap, descriptionMap, thetype, FSharpOption<Uri>.None);
             var activity = new Activity(activityId, definition);
 
             var statement = new Statement(actor, verb, activity, id, timestamp: timestamp);
@@ -160,7 +160,7 @@ namespace Float.xAPI.Tests
             var name = new LanguageMap(LanguageTag.EnglishUS, "simple CBT course");
             var description = new LanguageMap(LanguageTag.EnglishUS, "A fictitious example CBT course.");
             var thetype = new Uri("http://adlnet.gov/expapi/activities/media");
-            var definition = new ActivityDefinition(name, description, thetype, FSharpOption<Uri>.None, FSharpOption<IDictionary<Uri, string>>.None);
+            var definition = new ActivityDefinition(name, description, thetype, FSharpOption<Uri>.None);
             var activity = new Activity(id2, definition);
             var result = new Result(new Score(0.95), true, true, duration: new TimeSpan(0, 0, 1234));
 
