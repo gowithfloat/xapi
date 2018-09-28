@@ -3,6 +3,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ReleaseVersion>0.0.1</ReleaseVersion>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>bin\Debug\netstandard2.0\Float.xAPI.XML</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <Folder Include="Actor\" />
     <Folder Include="Actor\Identifier\" />
