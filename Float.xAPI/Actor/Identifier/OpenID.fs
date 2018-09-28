@@ -19,7 +19,7 @@ type public IOpenID =
 
     inherit IInverseFunctionalIdentifier
 
-[<StructuralEquality;NoComparison;Struct>]
+[<CustomEquality;NoComparison;Struct>]
 type OpenID =
     /// <inheridoc />
     val OpenID: Uri
@@ -35,8 +35,18 @@ type OpenID =
     /// <inheritdoc />
     override this.ToString() = sprintf "<%O: %A>" (typeName this) this.OpenID
 
-    static member op_Equality (lhs: OpenID, rhs: IOpenID) = lhs.Equals(rhs)
-    static member op_Inequality (lhs: OpenID, rhs: IOpenID) = not(lhs.Equals(rhs))
+    /// <inheritdoc />
+    override this.GetHashCode() = hash this.OpenID
+
+    /// <inheritdoc />
+    override this.Equals other = 
+        match other with
+        | :? IOpenID as openid -> this.OpenID = openid.OpenID
+        | _ -> false
+
+    static member op_Equality (lhs: IOpenID, rhs: IOpenID) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IOpenID, rhs: IOpenID) = not(lhs.Equals(rhs))
 
     interface IOpenID with
         member this.OpenID = this.OpenID
+        member this.Equals other = this.Equals other

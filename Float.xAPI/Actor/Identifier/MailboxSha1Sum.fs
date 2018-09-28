@@ -5,7 +5,6 @@
 
 namespace Float.xAPI.Actor.Identifier
 
-open System
 open Float.xAPI
 open Float.xAPI.Interop
 
@@ -21,7 +20,7 @@ type public IMailboxSha1Sum =
 
     inherit IInverseFunctionalIdentifier
 
-[<StructuralEquality;NoComparison;Struct>]
+[<CustomEquality;NoComparison;Struct>]
 type public MailboxSha1Sum =
     /// <inheritdoc />
     val MboxSha1Sum: ISHAHash
@@ -37,8 +36,18 @@ type public MailboxSha1Sum =
     /// <inheritdoc />
     override this.ToString() = sprintf "mbox_sha1sum: %A" this.MboxSha1Sum
 
-    static member op_Equality (lhs: MailboxSha1Sum, rhs: IMailboxSha1Sum) = lhs.Equals(rhs)
-    static member op_Inequality (lhs: MailboxSha1Sum, rhs: IMailboxSha1Sum) = not(lhs.Equals(rhs))
+    /// <inheritdoc />
+    override this.GetHashCode() = hash this.MboxSha1Sum
+
+    /// <inheritdoc />
+    override this.Equals other = 
+        match other with
+        | :? IMailboxSha1Sum as sum -> this.MboxSha1Sum = sum.MboxSha1Sum
+        | _ -> false
+
+    static member op_Equality (lhs: IMailboxSha1Sum, rhs: IMailboxSha1Sum) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IMailboxSha1Sum, rhs: IMailboxSha1Sum) = not(lhs.Equals(rhs))
 
     interface IMailboxSha1Sum with
         member this.MboxSha1Sum = this.MboxSha1Sum
+        member this.Equals(other: IInverseFunctionalIdentifier) = this.Equals other

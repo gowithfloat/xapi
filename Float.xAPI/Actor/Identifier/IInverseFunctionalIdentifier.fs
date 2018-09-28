@@ -5,8 +5,10 @@
 
 namespace Float.xAPI.Actor.Identifier
 
+open System
+
 /// <summary>
 /// An Inverse Functional Identifier (IFI) is a value of an Agent or Identified Group that is guaranteed to only ever refer to that Agent or Identified Group.
 /// </summary>
 type public IInverseFunctionalIdentifier =
-    interface end
+    inherit IEquatable<IInverseFunctionalIdentifier>

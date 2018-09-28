@@ -120,8 +120,8 @@ namespace Float.xAPI.Tests
             Assert.True(map1.GetHashCode() == map2.GetHashCode());
             Assert.False(map3.GetHashCode() != map4.GetHashCode());
 
-            var imap1 = map1 as IEquatable<IReadOnlyDictionary<ILanguageTag, string>>;
-            var imap2 = map2 as IEquatable<IReadOnlyDictionary<ILanguageTag, string>>;
+            var imap1 = map1 as IEquatable<ILanguageMap>;
+            var imap2 = map2 as IEquatable<ILanguageMap>;
             Assert.True(map1.Equals(imap2));
             Assert.True(map1.Equals(map2));
             Assert.True(imap1.Equals(imap2));

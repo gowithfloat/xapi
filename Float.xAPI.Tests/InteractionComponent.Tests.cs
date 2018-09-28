@@ -27,7 +27,7 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentException>(() => new InteractionComponent(null));
             Assert.Throws<ArgumentException>(() => new InteractionComponent(string.Empty));
             Assert.Throws<ArgumentException>(() => new InteractionComponent(" "));
-            Assert.Throws<ArgumentException>(() => new InteractionComponent("id", new Dictionary<ILanguageTag, string>()));
+            Assert.Throws<ArgumentException>(() => new InteractionComponent("id", new LanguageMap(new Dictionary<ILanguageTag, string>())));
         }
     }
 }

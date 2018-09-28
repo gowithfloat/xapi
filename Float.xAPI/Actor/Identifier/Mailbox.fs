@@ -5,7 +5,6 @@
 
 namespace Float.xAPI.Actor.Identifier
 
-open System
 open System.Net.Mail
 open Float.xAPI.Interop
 
@@ -21,7 +20,7 @@ type public IMailbox =
 
     inherit IInverseFunctionalIdentifier
 
-[<StructuralEquality;NoComparison;Struct>]
+[<CustomEquality;NoComparison;Struct>]
 type public Mailbox =
     /// <inheritdoc />
     val Address: MailAddress
@@ -37,8 +36,18 @@ type public Mailbox =
     /// <inheritdoc />
     override this.ToString() = sprintf "mailto:%s" this.Address.Address
 
-    static member op_Equality (lhs: Mailbox, rhs: IMailbox) = lhs.Equals(rhs)
-    static member op_Inequality (lhs: Mailbox, rhs: IMailbox) = not(lhs.Equals(rhs))
+    /// <inheritdoc />
+    override this.GetHashCode() = hash this.Address
+
+    /// <inheritdoc />
+    override this.Equals other = 
+        match other with
+        | :? IMailbox as mailbox -> this.Address = mailbox.Address
+        | _ -> false
+
+    static member op_Equality (lhs: IMailbox, rhs: IMailbox) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IMailbox, rhs: IMailbox) = not(lhs.Equals(rhs))
 
     interface IMailbox with
         member this.Address = this.Address
+        member this.Equals(other: IInverseFunctionalIdentifier) = this.Equals other

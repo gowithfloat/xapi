@@ -34,10 +34,7 @@ namespace Float.xAPI.Tests
         {
             var mailbox1 = new Mailbox(new MailAddress("test@example.com"));
             var mailbox2 = new Mailbox(new MailAddress("test@example.com"));
-            Assert.Equal(mailbox1, mailbox2);
-            Assert.True(mailbox1.Equals(mailbox2));
-            Assert.True(mailbox1 == mailbox2);
-            Assert.Equal(mailbox1.GetHashCode(), mailbox2.GetHashCode());
+            AssertHelper.Equality<Mailbox, IMailbox, IInverseFunctionalIdentifier>(mailbox1, mailbox2, (a, b) => a == b);
         }
 
         [Fact]

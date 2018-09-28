@@ -12,6 +12,12 @@ namespace Float.xAPI.Tests
     public class AccountTests : IInitializationTests<Account>, IEqualityTests, IToStringTests
     {
         [Fact]
+        public Account TestValidInit()
+        {
+            return new Account("unknown", new Uri("http://www.example.com"));
+        }
+
+        [Fact]
         public void TestInvalidInit()
         {
             var name = "Example Student";
@@ -26,30 +32,11 @@ namespace Float.xAPI.Tests
         }
 
         [Fact]
-        public Account TestValidInit()
-        {
-            return new Account("unknown", new Uri("http://www.example.com"));
-        }
-
-        [Fact]
         public void TestEquality()
         {
             var account1 = new Account("unknown", new Uri("http://www.example.com/unknown"));
             var account2 = new Account("unknown", new Uri("http://www.example.com/unknown"));
-            Assert.Equal(account1, account2);
-            Assert.True(account1 == account2);
-            Assert.True(account1.Equals(account2));
-            Assert.False(account1 != account2);
-            Assert.Equal(account1.GetHashCode(), account2.GetHashCode());
-            Assert.Equal(account1.Name, account2.Name);
-            Assert.Equal(account1.HomePage, account2.HomePage);
-
-            var iaccount1 = account1 as IAccount;
-            var iaccount2 = account2 as IAccount;
-            Assert.Equal(iaccount1, iaccount2);
-            Assert.Equal(iaccount1.GetHashCode(), iaccount2.GetHashCode());
-            Assert.Equal(iaccount1.Name, iaccount2.Name);
-            Assert.Equal(iaccount1.HomePage, iaccount2.HomePage);
+            AssertHelper.Equality<Account, IAccount, IInverseFunctionalIdentifier>(account1, account2, (a, b) => a == b);
         }
 
         [Fact]

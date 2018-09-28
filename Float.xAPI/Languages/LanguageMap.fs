@@ -15,7 +15,9 @@ open Float.xAPI.Interop
 /// A language map is a dictionary where the key is a RFC 5646 Language Tag, and the value is a string in the language specified in the tag.
 /// This map SHOULD be populated as fully as possible based on the knowledge of the string in question in different languages.
 /// </summary>
-type public ILanguageMap = IReadOnlyDictionary<ILanguageTag, string>
+type public ILanguageMap =
+    inherit IReadOnlyDictionary<ILanguageTag, string>
+    inherit IEquatable<ILanguageMap>
 
 /// <summary>
 /// A shorthand type for one element of a language map.
@@ -115,9 +117,6 @@ type public LanguageMap =
         with get(key) = this.Dict.[key]
     member this.TryGetValue(key: ILanguageTag, [<Out>] value: string byref) = this.Dict.TryGetValue(key, &value)
 
-    interface IEquatable<ILanguageMap> with
-        member this.Equals other = this.Equals other
-
     interface ILanguageMap with
         member this.Count = this.Count
         member this.ContainsKey key = this.ContainsKey key
@@ -128,6 +127,7 @@ type public LanguageMap =
         member this.Item
             with get(key) = this.[key]
         member this.TryGetValue(key: ILanguageTag, [<Out>] value: string byref) = this.TryGetValue(key, &value)
+        member this.Equals other = this.Equals other
 
     static member EnglishUS value =
         LanguageMap(LanguageTag.EnglishUS, value)

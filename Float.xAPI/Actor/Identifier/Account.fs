@@ -26,7 +26,7 @@ type public IAccount =
 
     inherit IInverseFunctionalIdentifier
 
-[<StructuralEquality;NoComparison;Struct>]
+[<CustomEquality;NoComparison;Struct>]
 type public Account =
     /// <inheritdoc />
     val Name: string
@@ -47,9 +47,19 @@ type public Account =
     /// <inheritdoc />
     override this.ToString() = sprintf "<%O: Name %A HomePage %A>" (typeName this) this.Name this.HomePage
 
-    static member op_Equality (lhs: Account, rhs: IAccount) = lhs.Equals(rhs)
-    static member op_Inequality (lhs: Account, rhs: IAccount) = not(lhs.Equals(rhs))
+    /// <inheritdoc />
+    override this.GetHashCode() = hash (this.Name, this.HomePage)
+
+    /// <inheritdoc />
+    override this.Equals other = 
+        match other with
+        | :? IAccount as account -> (this.Name, this.HomePage) = (account.Name, account.HomePage)
+        | _ -> false
+
+    static member op_Equality (lhs: IAccount, rhs: IAccount) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IAccount, rhs: IAccount) = not(lhs.Equals(rhs))
 
     interface IAccount with
         member this.Name = this.Name
         member this.HomePage = this.HomePage
+        member this.Equals other = this.Equals other

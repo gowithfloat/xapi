@@ -34,11 +34,7 @@ namespace Float.xAPI.Tests
         {
             var openid1 = new OpenID(new Uri("http://openid.com/sue-schmoe"));
             var openid3 = new OpenID(new Uri("http://openid.com/sue-schmoe"));
-            Assert.Equal(openid1, openid3);
-            Assert.True(openid1 == openid3);
-            Assert.False(openid1 != openid3);
-            Assert.Equal(openid1.GetHashCode(), openid3.GetHashCode());
-            Assert.Equal(openid1.OpenID, openid3.OpenID);
+            AssertHelper.Equality<OpenID, IOpenID, IInverseFunctionalIdentifier>(openid1, openid3, (a, b) => a == b);
         }
 
         [Fact]

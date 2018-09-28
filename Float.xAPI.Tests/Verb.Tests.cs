@@ -79,7 +79,7 @@ namespace Float.xAPI.Tests
         public void TestExample()
         {
             var uri = new Uri("http://example.com/xapi/verbs#defenestrated");
-            var map = new Dictionary<ILanguageTag, string>
+            var map = new LanguageMap(new Dictionary<ILanguageTag, string>
             {
                 {
                     new LanguageTag(Language.English, Region.UnitedStates), "defenestrated"
@@ -87,7 +87,7 @@ namespace Float.xAPI.Tests
                 {
                     new LanguageTag(Language.Spanish, Region.Mexico), "defenestrado"
                 }
-            };
+            });
 
             var verb = new Verb(uri, map);
 

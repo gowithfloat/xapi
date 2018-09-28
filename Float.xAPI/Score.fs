@@ -33,6 +33,9 @@ type public IScore =
     /// </summary>
     abstract member Scaled: float
 
+    inherit IEquatable<IScore>
+    inherit IComparable<IScore>
+
 [<CustomEquality;CustomComparison;Struct>]
 type public Score =
     /// <inheritdoc />
@@ -95,14 +98,10 @@ type public Score =
     static member op_Equality (lhs: Score, rhs: IScore) = lhs.Equals(rhs)
     static member op_Inequality (lhs: Score, rhs: IScore) = not(lhs.Equals(rhs))
 
-    interface IComparable<IScore> with
-      member this.CompareTo other = this.Scaled.CompareTo(other.Scaled)
-
-    interface IEquatable<IScore> with
-        member this.Equals other = this.Equals other
-
     interface IScore with
         member this.Raw = this.Raw
         member this.Min = this.Min
         member this.Max = this.Max
         member this.Scaled = this.Scaled
+        member this.CompareTo other = this.Scaled.CompareTo(other.Scaled)
+        member this.Equals other = this.Equals other
