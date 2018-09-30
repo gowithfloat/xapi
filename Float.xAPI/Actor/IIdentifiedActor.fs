@@ -5,10 +5,11 @@
 
 namespace Float.xAPI.Actor
 
+open System
 open Float.xAPI.Actor.Identifier
 
 /// <summary>
-/// Agents and identified groups have unique identifiers.
+/// Agents and identified groups have unique identifiers and can be checked for equality.
 /// </summary>
 type public IIdentifiedActor =
     /// <summary>
@@ -16,4 +17,5 @@ type public IIdentifiedActor =
     /// </summary>
     abstract member IFI: IInverseFunctionalIdentifier
 
+    inherit IEquatable<IIdentifiedActor>
     inherit IActor

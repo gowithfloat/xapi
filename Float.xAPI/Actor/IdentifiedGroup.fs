@@ -13,7 +13,7 @@ open Float.xAPI.Interop
 /// An Identified Group is used to uniquely identify a cluster of Agents.
 /// </summary>
 type public IIdentifiedGroup =
-    inherit IGroup<IAgent seq option>
+    inherit IGroup
     inherit IIdentifiedActor
 
 [<CustomEquality;NoComparison;Struct>]
@@ -22,7 +22,7 @@ type public IdentifiedGroup =
     val Name: string option
 
     /// <inheritdoc />
-    val Member: IAgent seq option
+    val Member: IAgent seq
 
     /// <inheritdoc />
     val IFI: IInverseFunctionalIdentifier
@@ -37,7 +37,7 @@ type public IdentifiedGroup =
         nullArg ifi "ifi"
         emptyOptionalSeqArg members "members"
         invalidOptionalStringArg name "name"
-        { Name = name; IFI = ifi; Member = members }
+        { Name = name; IFI = ifi; Member = members |? Seq.empty }
 
     /// <inheritdoc />
     member this.ObjectType = "Group"
@@ -47,7 +47,7 @@ type public IdentifiedGroup =
 
     /// <inheritdoc />
     override this.ToString() = 
-        sprintf "<%O: %O %O IFI %O>" (typeName this) (toStringOrNone this.Name "Name") (seqToStringOrNone this.Member "Member") this.IFI
+        sprintf "<%O: %O Member %O IFI %O>" (typeName this) (toStringOrNone this.Name "Name") (seqToString this.Member) this.IFI
 
     /// <inheritdoc />
     override this.Equals other =
@@ -55,11 +55,12 @@ type public IdentifiedGroup =
         | :? IIdentifiedGroup as group -> this.IFI = group.IFI
         | _ -> false
 
-    static member op_Equality (lhs: IdentifiedGroup, rhs: IIdentifiedGroup) = lhs.Equals(rhs)
-    static member op_Inequality (lhs: IdentifiedGroup, rhs: IIdentifiedGroup) = not(lhs.Equals(rhs))
+    static member op_Equality (lhs: IIdentifiedGroup, rhs: IIdentifiedGroup) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IIdentifiedGroup, rhs: IIdentifiedGroup) = not(lhs.Equals(rhs))
 
     interface IIdentifiedGroup with
         member this.ObjectType = this.ObjectType
         member this.Member = this.Member
         member this.Name = this.Name
         member this.IFI = this.IFI
+        member this.Equals other = this.Equals other

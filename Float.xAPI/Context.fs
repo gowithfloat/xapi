@@ -21,7 +21,7 @@ type public Context =
     val Instructor: IActor option
 
     /// <inheritdoc />
-    val Team: IGroup<obj> option
+    val Team: IGroup option
 
     /// <inheritdoc />
     val ContextActivities: IContextActivities option

@@ -83,7 +83,7 @@ namespace Float.xAPI.Tests
 
             var igroup = group as IIdentifiedGroup;
             Assert.Equal("Group", igroup.ObjectType);
-            Assert.Equal(2, igroup.Member.Value.Count());
+            Assert.Equal(2, igroup.Member.Count());
             Assert.Equal("group", igroup.Name);
         }
 

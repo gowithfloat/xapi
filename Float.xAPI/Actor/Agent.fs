@@ -36,13 +36,13 @@ type public Agent =
     member this.ObjectType = typeName this
 
     /// <inheritdoc />
-    override this.GetHashCode() = hash this.IFI
-
-    /// <inheritdoc />
     override this.ToString() =
         match this.Name with
         | Some name -> sprintf "<%O: Name %A IFI %A>" (typeName this) name this.IFI
         | None -> sprintf "<%O: IFI %A>" (typeName this) this.IFI
+
+    /// <inheritdoc />
+    override this.GetHashCode() = hash this.IFI
 
     /// <inheritdoc />
     override this.Equals other = 
@@ -50,10 +50,11 @@ type public Agent =
         | :? IAgent as agent -> this.IFI = agent.IFI
         | _ -> false
 
-    static member op_Equality (lhs: Agent, rhs: IAgent) = lhs.Equals(rhs)
-    static member op_Inequality (lhs: Agent, rhs: IAgent) = not(lhs.Equals(rhs))
+    static member op_Equality (lhs: IAgent, rhs: IAgent) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IAgent, rhs: IAgent) = not(lhs.Equals(rhs))
 
     interface IAgent with
         member this.ObjectType = this.ObjectType
         member this.Name = this.Name
         member this.IFI = this.IFI
+        member this.Equals other = this.Equals other

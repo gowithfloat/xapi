@@ -12,7 +12,7 @@ open Float.xAPI.Interop
 /// An Anonymous Group is used to describe a cluster of people where there is no ready identifier for this cluster, e.g. an ad hoc team.
 /// </summary>
 type public IAnonymousGroup =
-    inherit IGroup<IAgent seq>
+    inherit IGroup
 
 [<NoEquality;NoComparison;Struct>]
 type public AnonymousGroup =

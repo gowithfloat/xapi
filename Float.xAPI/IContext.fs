@@ -27,7 +27,7 @@ type public IContext =
     /// <summary>
     /// Team that this Statement relates to, if not included as the Actor of the Statement.
     /// </summary>
-    abstract member Team: IGroup<obj> option // todo: use a more specific type here
+    abstract member Team: IGroup option
 
     /// <summary>
     /// A map of the types of learning activity context that this Statement is related to.
