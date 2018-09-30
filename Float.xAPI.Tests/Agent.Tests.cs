@@ -51,15 +51,10 @@ namespace Float.xAPI.Tests
             var agent3b = new Agent(ifi3, "xAPI Example");
             var agent4a = new Agent(ifi4, "Virtual Instructor");
             var agent4b = new Agent(ifi4, "Student");
-            Assert.Equal(agent1a, agent1b);
-            Assert.Equal(agent2a, agent2b);
-            Assert.Equal(agent3a, agent3b);
-            Assert.Equal(agent4a, agent4b);
-            Assert.Equal(agent1a.GetHashCode(), agent1b.GetHashCode());
-            Assert.True(agent1a == agent1b);
-            Assert.True(agent2a == agent2b);
-            Assert.True(agent3a == agent3b);
-            Assert.True(agent4a == agent4b);
+            AssertHelper.Equality<Agent, IAgent, IIdentifiedActor>(agent1a, agent1b, (a, b) => a == b);
+            AssertHelper.Equality<Agent, IAgent, IIdentifiedActor>(agent2a, agent2b, (a, b) => a == b);
+            AssertHelper.Equality<Agent, IAgent, IIdentifiedActor>(agent3a, agent3b, (a, b) => a == b);
+            AssertHelper.Equality<Agent, IAgent, IIdentifiedActor>(agent4a, agent4b, (a, b) => a == b);
         }
 
         [Fact]
