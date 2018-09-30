@@ -76,7 +76,7 @@ type public ActivityDefinition =
 
     /// <inheritdoc />
     override this.ToString() = 
-        sprintf "<%O: Name %A Description %A Type %A MoreInfo %A Extensions %A>" (typeName this) (seqToString this.Name) (seqToString this.Description) this.Type this.MoreInfo this.Extensions
+        sprintf "<%O: Name %O Description %O Type %O%O%O>" (typeName this) (seqToString this.Name) (seqToString this.Description) this.Type (toStringOrNone this.MoreInfo " MoreInfo") (toStringOrNone this.Extensions " Extensions")
 
     interface IActivityDefinition with
         member this.Name = this.Name

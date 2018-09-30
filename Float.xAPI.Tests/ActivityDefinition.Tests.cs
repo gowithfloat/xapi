@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Float.xAPI.Activities.Definitions;
 using Float.xAPI.Languages;
 using Xunit;
@@ -52,9 +53,30 @@ namespace Float.xAPI.Tests
             var description = new LanguageMap(LanguageTag.EnglishUS, "Description");
             var uri = new Uri("http://example.com");
             var ad1 = new ActivityDefinition(name, description, uri);
+            Assert.Equal("<ActivityDefinition: Name [en-US, Name] Description [en-US, Description] Type http://example.com/>", ad1.ToString());
+        }
 
-            // todo: need a good dict to string method
-            // Assert.Equal("<ActivityDefinition: Name Description Type>", ad1.ToString());
+        [Fact]
+        public void TestProperties()
+        {
+            var activityDefinition = new ActivityDefinition(
+                LanguageMap.EnglishUS("name"),
+                LanguageMap.EnglishUS("description"),
+                new Uri("http://example.com/type"),
+                new Uri("http://example.com/more"),
+                new Dictionary<Uri, string> { { new Uri("http://example.com/ext"), "extension" } });
+            Assert.Equal(LanguageMap.EnglishUS("description"), activityDefinition.Description);
+            Assert.Equal("extension", activityDefinition.Extensions.Value.Values.First());
+            Assert.Equal(new Uri("http://example.com/more"), activityDefinition.MoreInfo);
+            Assert.Equal(new Uri("http://example.com/type"), activityDefinition.Type);
+            Assert.Equal(LanguageMap.EnglishUS("name"), activityDefinition.Name);
+
+            var iactivityDefinition = activityDefinition as IActivityDefinition;
+            Assert.Equal(LanguageMap.EnglishUS("description").ToString(), iactivityDefinition.Description.ToString());
+            Assert.Equal(new Uri("http://example.com/ext"), iactivityDefinition.Extensions.Value.Keys.First());
+            Assert.Equal("http://example.com/more", iactivityDefinition.MoreInfo.Value.ToString());
+            Assert.Equal("http://example.com/type", iactivityDefinition.Type.ToString());
+            Assert.Equal(LanguageMap.EnglishUS("name").ToString(), iactivityDefinition.Name.ToString());
         }
     }
 }
