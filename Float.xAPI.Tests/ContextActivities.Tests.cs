@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Float.xAPI.Activities;
 using Xunit;
 
@@ -88,6 +89,30 @@ namespace Float.xAPI.Tests
             var grouping = new Activity(new Uri("http://example.adlnet.gov/xapi/example/Algebra1"));
             var groupingList = new List<IActivity> { grouping };
             var contextActivities = new ContextActivities(parentList, groupingList, null, null);
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var parent = new Activity(new Uri("http://example/com/parent"));
+            var parentList = new List<IActivity> { parent };
+            var grouping = new Activity(new Uri("http://example/com/grouping"));
+            var groupingList = new List<IActivity> { grouping };
+            var category = new Activity(new Uri("http://example/com/category"));
+            var categoryList = new List<IActivity> { category };
+            var other = new Activity(new Uri("http://example/com/other"));
+            var otherList = new List<IActivity> { other };
+            var contextActivities = new ContextActivities(parentList, groupingList, categoryList, otherList);
+            Assert.Equal(parent, contextActivities.Parent.Value.First());
+            Assert.Equal(grouping, contextActivities.Grouping.Value.First());
+            Assert.Equal(category, contextActivities.Category.Value.First());
+            Assert.Equal(other, contextActivities.Other.Value.First());
+
+            var icontextActivities = contextActivities as IContextActivities;
+            Assert.Equal(parent, icontextActivities.Parent.Value.First());
+            Assert.Equal(grouping, icontextActivities.Grouping.Value.First());
+            Assert.Equal(category, icontextActivities.Category.Value.First());
+            Assert.Equal(other, icontextActivities.Other.Value.First());
         }
     }
 }
