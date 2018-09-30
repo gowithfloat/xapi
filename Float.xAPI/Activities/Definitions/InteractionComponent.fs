@@ -25,6 +25,8 @@ type public IInteractionComponent =
     /// </summary>
     abstract member Description: ILanguageMap option
 
+    inherit IEquatable<IInteractionComponent>
+
 [<CustomEquality;NoComparison;Struct>]
 type public InteractionComponent =
     /// <inheritdoc />
@@ -52,12 +54,13 @@ type public InteractionComponent =
     /// <inheritdoc />
     override this.Equals other =
         match other with
-        | :? IInteractionComponent as interaction -> (this.Id, this.Description) = (interaction.Id, interaction.Description)
+        | :? IInteractionComponent as interaction -> this.Id = interaction.Id
         | _ -> false
 
-    interface IEquatable<IInteractionComponent> with
-        member this.Equals other = this.Equals other
+    static member op_Equality (lhs: IInteractionComponent, rhs: IInteractionComponent) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IInteractionComponent, rhs: IInteractionComponent) = not(lhs.Equals(rhs))
 
     interface IInteractionComponent with
         member this.Id = this.Id
         member this.Description = this.Description
+        member this.Equals other = this.Equals other

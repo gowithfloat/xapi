@@ -25,6 +25,7 @@ type public IActivity =
     /// </summary>
     abstract member Definition: IActivityDefinition option
 
+    inherit IEquatable<IActivity>
     inherit IObject
 
 [<CustomEquality;NoComparison;Struct>]
@@ -41,6 +42,7 @@ type public Activity =
     /// <param name="id">An identifier for a single unique Activity.</param>
     /// <param name="definition">Metadata related to the activity.</param>
     new (id, [<Optional;DefaultParameterValue(null)>] ?definition) =
+        nullArg id "id"
         invalidIRIArg id "id"
         { Id = id; Definition = definition }
 
@@ -59,13 +61,14 @@ type public Activity =
     /// <inheritdoc />
     override this.Equals other = 
         match other with
-        | :? IActivity as activity -> (this.Id, this.Definition) = (activity.Id, activity.Definition)
+        | :? IActivity as activity -> this.Id = activity.Id
         | _ -> false
-
-    interface IEquatable<IActivity> with
-        member this.Equals other = this.Equals other
+        
+    static member op_Equality (lhs: IActivity, rhs: IActivity) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IActivity, rhs: IActivity) = not(lhs.Equals(rhs))
 
     interface IActivity with
         member this.ObjectType = this.ObjectType
         member this.Id = this.Id
         member this.Definition = this.Definition
+        member this.Equals other = this.Equals other
