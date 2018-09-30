@@ -72,7 +72,12 @@ type InMemoryLRS =
                               [<Optional;DefaultParameterValue(false)>] ascending: bool) =
         this.Statements 
             |> List.ofSeq 
-            |> List.where (Filters.statementPropertyMatch actor verbId activityId registration since until) 
+            |> List.where (Filters.statementActorMatch actor)
+            |> List.where (Filters.statementVerbMatch verbId)
+            |> List.where (Filters.statementActivityMatch activityId)
+            |> List.where (Filters.statementRegistrationMatch registration)
+            |> List.where (Filters.statementSinceMatch since)
+            |> List.where (Filters.statementUntilMatch until)
             |> StatementResult
             :> IStatementResult
 

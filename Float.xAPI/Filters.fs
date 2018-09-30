@@ -92,26 +92,3 @@ module internal Filters =
             | Some unti -> timestamp < unti
             | None -> true
         | None -> true
-
-    /// <summary>
-    /// An overly complicated filter method to return true if the given statement matches the given properties.
-    /// </summary>
-    let inline statementPropertyMatch (agent: IIdentifiedActor option) (verb: Uri option) (activity: Uri option) (registration: Guid option) (since: DateTime option) (until: DateTime option) (statement: IStatement) =
-        match statementActorMatch agent statement with
-        | false -> false
-        | true ->
-            match statementVerbMatch verb statement with
-            | false -> false
-            | true ->
-                match statementActivityMatch activity statement with
-                | false -> false
-                | true ->
-                    match statementRegistrationMatch registration statement with
-                    | false -> false
-                    | true -> 
-                        match statementSinceMatch since statement with
-                        | false -> false
-                        | true ->
-                            match statementUntilMatch until statement with
-                            | false -> false
-                            | true -> true
