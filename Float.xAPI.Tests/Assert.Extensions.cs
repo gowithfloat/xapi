@@ -14,7 +14,7 @@ namespace Float.xAPI.Tests
     public static class AssertHelper
     {
         /// <summary>
-        /// An extremely explicit method of checking equality of two types and throwing an assertion error if it fails.
+        /// An extremely explicit method of checking equality of two types and throwing an assertion error if an equality check fails.
         /// </summary>
         /// <param name="first">The first object to compare.</param>
         /// <param name="second">The second object to compare.</param>
@@ -64,6 +64,87 @@ namespace Float.xAPI.Tests
             Assert.True(eqsecond.Equals(first));
             Assert.True(eqsecond.Equals(ifirst));
             Assert.True(eqsecond.Equals(eqfirst));
+        }
+
+        /// <summary>
+        /// An extremely explicit method of checking equality of two types and throwing an assertion error if an equality check fails.
+        /// Use this when the equatable type is the same as the interface type.
+        /// </summary>
+        /// <param name="first">The first object to compare.</param>
+        /// <param name="second">The second object to compare.</param>
+        /// <param name="equalityOp">A means to compare the two; often used to use equality operators.</param>
+        /// <typeparam name="Concrete">The concrete type of the given parameters.</typeparam>
+        /// <typeparam name="Interface">The interface type of the given parameters.</typeparam>
+        public static void Equality<Concrete, Interface>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> equalityOp) where Concrete : Interface
+        {
+            Equality<Concrete, Interface, Interface>(first, second, equalityOp);
+        }
+
+        /// <summary>
+        /// An extremely explicit method of checking inequality of two types and throwing an assertion error if an inequality check fails.
+        /// </summary>
+        /// <param name="first">The first object to compare.</param>
+        /// <param name="second">The second object to compare.</param>
+        /// <param name="inequalityOp">A means to compare the two; often used to use equality operators.</param>
+        /// <typeparam name="Concrete">The concrete type of the given parameters.</typeparam>
+        /// <typeparam name="Interface">The interface type of the given parameters.</typeparam>
+        /// <typeparam name="Equatable">The type for which the concrete type is equatable.</typeparam>
+        public static void Inequality<Concrete, Interface, Equatable>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> inequalityOp) where Concrete : Interface where Interface : Equatable
+        {
+            Assert.True(inequalityOp(first, second));
+            Assert.True(inequalityOp(second, first));
+            Assert.NotEqual(first, second);
+            Assert.NotEqual(first.GetHashCode(), second.GetHashCode());
+
+            // cast to interface types
+            var ifirst = (Interface)first;
+            var isecond = (Interface)second;
+            Assert.NotNull(ifirst);
+            Assert.NotNull(isecond);
+            Assert.NotEqual(ifirst, isecond);
+            Assert.NotEqual(isecond, ifirst);
+            Assert.NotEqual(ifirst.GetHashCode(), isecond.GetHashCode());
+
+            // cast to equatable types
+            var eqfirst = first as IEquatable<Equatable>;
+            var eqsecond = second as IEquatable<Equatable>;
+            Assert.NotNull(eqfirst);
+            Assert.NotNull(eqsecond);
+            Assert.NotEqual(eqfirst, eqsecond);
+
+            // check that the right equals operator is used
+            Assert.False(first.Equals(second));
+            Assert.False(first.Equals(isecond));
+            Assert.False(first.Equals(eqsecond));
+            Assert.False(ifirst.Equals(second));
+            Assert.False(ifirst.Equals(isecond));
+            Assert.False(ifirst.Equals(eqsecond));
+            Assert.False(eqfirst.Equals(second));
+            Assert.False(eqfirst.Equals(isecond));
+            Assert.False(eqfirst.Equals(eqsecond));
+            Assert.False(second.Equals(first));
+            Assert.False(second.Equals(ifirst));
+            Assert.False(second.Equals(eqfirst));
+            Assert.False(isecond.Equals(first));
+            Assert.False(isecond.Equals(ifirst));
+            Assert.False(isecond.Equals(eqfirst));
+            Assert.False(eqsecond.Equals(first));
+            Assert.False(eqsecond.Equals(ifirst));
+            Assert.False(eqsecond.Equals(eqfirst));
+        }
+
+        /// <summary>
+        /// An extremely explicit method of checking inequality of two types and throwing an assertion error if an inequality check fails.
+        /// Use this when the equatable type is the same as the interface type.
+        /// </summary>
+        /// <param name="first">The first object to compare.</param>
+        /// <param name="second">The second object to compare.</param>
+        /// <param name="inequalityOp">A means to compare the two; often used to use equality operators.</param>
+        /// <typeparam name="Concrete">The concrete type of the given parameters.</typeparam>
+        /// <typeparam name="Interface">The interface type of the given parameters.</typeparam>
+        public static void Inequality<Concrete, Interface>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> inequalityOp) where Concrete : Interface
+        {
+            Inequality<Concrete, Interface, Interface>(first, second, inequalityOp);
         }
     }
 }

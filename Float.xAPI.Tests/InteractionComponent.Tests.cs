@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class InteractionComponentTests : IInitializationTests<InteractionComponent>
+    public class InteractionComponentTests : IInitializationTests<InteractionComponent>, IEqualityTests
     {
         [Fact]
         public InteractionComponent TestValidInit()
@@ -28,6 +28,34 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentException>(() => new InteractionComponent(string.Empty));
             Assert.Throws<ArgumentException>(() => new InteractionComponent(" "));
             Assert.Throws<ArgumentException>(() => new InteractionComponent("id", new LanguageMap(new Dictionary<ILanguageTag, string>())));
+        }
+
+        [Fact]
+        public void TestEquality()
+        {
+            var comp1 = new InteractionComponent("id1");
+            var comp2 = new InteractionComponent("id1");
+            AssertHelper.Equality<InteractionComponent, IInteractionComponent>(comp1, comp1, (a, b) => a == b);
+        }
+
+        [Fact]
+        public void TestInequality()
+        {
+            var comp1 = new InteractionComponent("id1");
+            var comp2 = new InteractionComponent("id2");
+            AssertHelper.Inequality<InteractionComponent, IInteractionComponent>(comp1, comp2, (a, b) => a != b);
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var comp = new InteractionComponent("likert_0", LanguageMap.EnglishUS("It's OK"));
+            Assert.Equal("likert_0", comp.Id);
+            Assert.Equal(new LanguageMap(new LanguageTag(Language.English, Region.UnitedStates), "It's OK"), comp.Description);
+
+            var icomp = comp as IInteractionComponent;
+            Assert.Equal("likert_0", icomp.Id);
+            Assert.Equal(new LanguageMap(new LanguageTag(Language.English, Region.UnitedStates), "It's OK"), icomp.Description);
         }
     }
 }
