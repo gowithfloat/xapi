@@ -56,14 +56,14 @@ namespace Float.xAPI.Tests
                 new Uri("http://example.com/more"),
                 new Dictionary<Uri, string> { { new Uri("http://example.com/ext"), "extension" } });
             Assert.Equal(LanguageMap.EnglishUS("description"), activityDefinition.Description);
-            Assert.Equal("extension", activityDefinition.Extensions.Value.Values.First());
+            Assert.Equal("extension", activityDefinition.Extensions.Value.First().Value);
             Assert.Equal(new Uri("http://example.com/more"), activityDefinition.MoreInfo);
             Assert.Equal(new Uri("http://example.com/type"), activityDefinition.Type);
             Assert.Equal(LanguageMap.EnglishUS("name"), activityDefinition.Name);
 
             var iactivityDefinition = activityDefinition as IActivityDefinition;
             Assert.Equal(LanguageMap.EnglishUS("description").ToString(), iactivityDefinition.Description.ToString());
-            Assert.Equal(new Uri("http://example.com/ext"), iactivityDefinition.Extensions.Value.Keys.First());
+            Assert.Equal(new Uri("http://example.com/ext"), iactivityDefinition.Extensions.Value.First().Key);
             Assert.Equal("http://example.com/more", iactivityDefinition.MoreInfo.Value.ToString());
             Assert.Equal("http://example.com/type", iactivityDefinition.Type.ToString());
             Assert.Equal(LanguageMap.EnglishUS("name").ToString(), iactivityDefinition.Name.ToString());

@@ -13,4 +13,4 @@ open System.Collections.Generic
 /// In each case, extensions are intended to provide a natural way to extend those properties for some specialized use.
 /// The contents of these extensions might be something valuable to just one application, or it might be a convention used by an entire Community of Practice.
 /// </summary>
-type public IExtensions = IReadOnlyDictionary<Uri, string>
+type public IExtensions = IEnumerable<KeyValuePair<Uri, string>>
