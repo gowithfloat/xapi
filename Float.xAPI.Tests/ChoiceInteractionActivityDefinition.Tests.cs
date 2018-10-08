@@ -5,9 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using Float.xAPI.Activities;
 using Float.xAPI.Activities.Definitions;
 using Float.xAPI.Languages;
-using Float.xAPI.Activities;
 using Xunit;
 
 namespace Float.xAPI.Tests
