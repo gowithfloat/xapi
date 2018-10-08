@@ -19,7 +19,7 @@ type public ILikertInteractionActivityDefinition =
     /// <summary>
     /// A list of discrete choices on a scale.
     /// </summary>
-    abstract member Responses: IInteractionComponent seq
+    abstract member Scale: IInteractionComponent seq
 
     inherit IInteractionActivityDefinition
 
@@ -43,7 +43,7 @@ type public LikertInteractionActivityDefinition =
     val CorrectResponsesPattern: string seq
 
     /// <inheritdoc />
-    val Responses: IInteractionComponent seq
+    val Scale: IInteractionComponent seq
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.LikertInteractionActivityDefinition"/> struct.
@@ -51,15 +51,20 @@ type public LikertInteractionActivityDefinition =
     /// <param name="name">The human readable/visual name of the Activity.</param>
     /// <param name="description"A description of the Activity.</param>
     /// <param name="correctResponsesPattern">A pattern representing the correct response to the interaction.</param>
-    /// <param name="responses">A list of discrete choices on a scale.</param>
+    /// <param name="scale">A list of discrete choices on a scale.</param>
     /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
     /// <param name="extensions">A map of other properties as needed.</param>
-    new(name, description, correctResponsesPattern, responses, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
+    new(name, description, correctResponsesPattern, scale, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
         nullArg name "name"
         emptySeqArg name "name"
         nullArg description "description"
         emptySeqArg description "description"
-        { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Responses = responses; MoreInfo = moreInfo; Extensions = extensions }
+        nullArg correctResponsesPattern "correctResponsesPattern"
+        emptySeqArg correctResponsesPattern "correctResponsesPattern"
+        nullArg scale "scale"
+        emptySeqArg scale "scale"
+        emptyOptionalSeqArg extensions "extensions"
+        { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Scale = scale; MoreInfo = moreInfo; Extensions = extensions }
 
     /// <inheritdoc />
     member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
@@ -75,4 +80,4 @@ type public LikertInteractionActivityDefinition =
         member this.Extensions = this.Extensions
         member this.InteractionType = this.InteractionType
         member this.CorrectResponsesPattern = this.CorrectResponsesPattern
-        member this.Responses = this.Responses
+        member this.Scale = this.Scale
