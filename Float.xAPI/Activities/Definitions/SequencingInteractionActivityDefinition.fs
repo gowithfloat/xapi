@@ -64,10 +64,7 @@ type public SequencingInteractionActivityDefinition =
     member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
 
     /// <inheritdoc />
-    member this.InteractionType = Interaction.Sequencing
-
-    /// <inheritdoc />
-    override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A Choices %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Choices
+    member this.InteractionType = Sequencing
 
     interface IInteractionActivityDefinition with
         member this.Name = this.Name

@@ -49,16 +49,15 @@ type public FillInInteractionActivityDefinition =
         emptySeqArg name "name"
         nullArg description "description"
         emptySeqArg description "description"
+        nullArg correctResponsesPattern "correctResponsesPattern"
+        emptySeqArg correctResponsesPattern "correctResponsesPattern"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; MoreInfo = moreInfo; Extensions = extensions }
         
     /// <inheritdoc />
     member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
 
     /// <inheritdoc />
-    member this.InteractionType = Interaction.FillIn
-
-    /// <inheritdoc />
-    override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern
+    member this.InteractionType = FillIn
 
     interface IInteractionActivityDefinition with
         member this.Name = this.Name

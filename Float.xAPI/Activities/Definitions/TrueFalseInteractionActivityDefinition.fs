@@ -53,10 +53,7 @@ type public TrueFalseInteractionActivityDefinition =
     member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
 
     /// <inheritdoc />
-    member this.InteractionType = Interaction.TrueFalse
-
-    /// <inheritdoc />
-    override this.ToString() = sprintf "<%O: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern
+    member this.InteractionType = TrueFalse
 
     interface IInteractionActivityDefinition with
         member this.Name = this.Name

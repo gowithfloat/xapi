@@ -67,10 +67,7 @@ type public PerformanceInteractionActivityDefinition =
     member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
 
     /// <inheritdoc />
-    member this.InteractionType = Interaction.Performance
-
-    /// <inheritdoc />
-    override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A Steps %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Steps
+    member this.InteractionType = Performance
 
     interface IPerformanceInteractionActivityDefinition with
         member this.Name = this.Name

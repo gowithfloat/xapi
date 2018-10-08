@@ -49,9 +49,6 @@ type public InteractionComponent =
     override this.GetHashCode() = hash this.Id
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "<%A: Id %A Description %A>" (typeName this) this.Id this.Description
-
-    /// <inheritdoc />
     override this.Equals other =
         match other with
         | :? IInteractionComponent as interaction -> this.Id = interaction.Id

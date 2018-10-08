@@ -77,10 +77,7 @@ type public MatchingInteractionActivityDefinition =
     member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
 
     /// <inheritdoc />
-    member this.InteractionType = Interaction.Matching
-
-    /// <inheritdoc />
-    override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A Source %A Target %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Source this.Target
+    member this.InteractionType = Matching
 
     interface IMatchingInteractionActivityDefinition with
         member this.Name = this.Name

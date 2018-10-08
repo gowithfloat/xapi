@@ -74,10 +74,6 @@ type public ActivityDefinition =
         invalidIRIArg thetype "thetype"
         { Name = name; Description = description; Type = thetype; MoreInfo = moreInfo; Extensions = extensions }
 
-    /// <inheritdoc />
-    override this.ToString() = 
-        sprintf "<%O: Name %O Description %O Type %O%O%O>" (typeName this) (seqToString this.Name) (seqToString this.Description) this.Type (toStringOrNone this.MoreInfo " MoreInfo") (toStringOrNone this.Extensions " Extensions")
-
     interface IActivityDefinition with
         member this.Name = this.Name
         member this.Description = this.Description

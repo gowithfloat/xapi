@@ -60,16 +60,17 @@ type public ChoiceInteractionActivityDefinition =
         emptySeqArg name "name"
         nullArg description "description"
         emptySeqArg description "description"
+        nullArg correctResponsesPattern "correctResponsesPattern"
+        emptySeqArg correctResponsesPattern "correctResponsesPattern"
+        nullArg choices "choices"
+        emptySeqArg choices "choices"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Choices = choices; MoreInfo = moreInfo; Extensions = extensions }
         
     /// <inheritdoc />
     member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
     
     /// <inheritdoc />
-    member this.InteractionType = Interaction.Choice
-
-    /// <inheritdoc />
-    override this.ToString() = sprintf "<%A: Name %A Description %A Type %A MoreInfo %A Extensions %A CorrectResponsesPattern %A Choices %A>" (this.GetType().Name) this.Name this.Description this.Type this.MoreInfo this.Extensions this.CorrectResponsesPattern this.Choices
+    member this.InteractionType = Choice
 
     interface IChoiceInteractionActivityDefinition with
         member this.Name = this.Name

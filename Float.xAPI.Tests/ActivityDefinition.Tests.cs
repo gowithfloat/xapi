@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ActivityDefinitionTests : IInitializationTests<ActivityDefinition>, IToStringTests
+    public class ActivityDefinitionTests : IInitializationTests<ActivityDefinition>
     {
         [Fact]
         public ActivityDefinition TestValidInit()
@@ -44,16 +44,6 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(null, desc, null));
             Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(name, desc, null));
             Assert.Throws<UriFormatException>(() => new ActivityDefinition(name, desc, new Uri(string.Empty)));
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var name = new LanguageMap(LanguageTag.EnglishUS, "Name");
-            var description = new LanguageMap(LanguageTag.EnglishUS, "Description");
-            var uri = new Uri("http://example.com");
-            var ad1 = new ActivityDefinition(name, description, uri);
-            Assert.Equal("<ActivityDefinition: Name [en-US, Name] Description [en-US, Description] Type http://example.com/>", ad1.ToString());
         }
 
         [Fact]
