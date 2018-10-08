@@ -50,7 +50,7 @@ type public TrueFalseInteractionActivityDefinition =
         { Name = name; Description = description; CorrectResponsesPattern = Seq.singleton(correctAnswer.ToString()) ; MoreInfo = moreInfo; Extensions = extensions }
         
     /// <inheritdoc />
-    member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
+    member this.Type = Definition.InteractionUri
 
     /// <inheritdoc />
     member this.InteractionType = TrueFalse

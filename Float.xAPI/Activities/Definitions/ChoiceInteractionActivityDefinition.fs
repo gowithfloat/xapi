@@ -65,9 +65,9 @@ type public ChoiceInteractionActivityDefinition =
         nullArg choices "choices"
         emptySeqArg choices "choices"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Choices = choices; MoreInfo = moreInfo; Extensions = extensions }
-        
+
     /// <inheritdoc />
-    member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
+    member this.Type = Definition.InteractionUri
     
     /// <inheritdoc />
     member this.InteractionType = Choice

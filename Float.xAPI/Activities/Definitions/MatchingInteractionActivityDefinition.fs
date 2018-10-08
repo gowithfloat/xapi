@@ -72,9 +72,9 @@ type public MatchingInteractionActivityDefinition =
         nullArg description "description"
         emptySeqArg description "description"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Source = source; Target = target; MoreInfo = moreInfo; Extensions = extensions }
-        
+
     /// <inheritdoc />
-    member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
+    member this.Type = Definition.InteractionUri
 
     /// <inheritdoc />
     member this.InteractionType = Matching

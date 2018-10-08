@@ -62,9 +62,9 @@ type public PerformanceInteractionActivityDefinition =
         nullArg description "description"
         emptySeqArg description "description"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Steps = steps; MoreInfo = moreInfo; Extensions = extensions }
-        
+
     /// <inheritdoc />
-    member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
+    member this.Type = Definition.InteractionUri
 
     /// <inheritdoc />
     member this.InteractionType = Performance

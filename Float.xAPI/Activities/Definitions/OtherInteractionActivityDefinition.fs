@@ -50,7 +50,7 @@ type public OtherInteractionActivityDefinition =
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; MoreInfo = moreInfo; Extensions = extensions }
 
     /// <inheritdoc />
-    member this.Type = Uri("http://adlnet.gov/expapi/activities/cmi.interaction")
+    member this.Type = Definition.InteractionUri
 
     /// <inheritdoc />
     member this.InteractionType = Other
