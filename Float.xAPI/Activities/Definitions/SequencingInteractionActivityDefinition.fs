@@ -39,7 +39,7 @@ type public SequencingInteractionActivityDefinition =
     /// <summary>
     /// An ordered list of item ids delimited by [,].
     /// </summary>
-    val CorrectResponsesPattern: string seq
+    val CorrectResponsesPattern: IResponsePattern
 
     /// <inheritdoc />
     val Choices: IInteractionComponent seq
@@ -58,6 +58,9 @@ type public SequencingInteractionActivityDefinition =
         emptySeqArg name "name"
         nullArg description "description"
         emptySeqArg description "description"
+        nullArg correctResponsesPattern "correctResponsesPattern"
+        nullArg choices "choices"
+        emptySeqArg choices "choices"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Choices = choices; MoreInfo = moreInfo; Extensions = extensions }
 
     /// <inheritdoc />

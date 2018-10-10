@@ -19,7 +19,7 @@ namespace Float.xAPI.Tests
         {
             var name = LanguageMap.EnglishUS("name");
             var description = LanguageMap.EnglishUS("Ben is often heard saying: ");
-            var correctResponsesPattern = new string[] { "Bob's your uncle" };
+            var correctResponsesPattern = new ResponsePattern(new CharacterString("Bob's your uncle"));
             var moreInfo = new Uri("http://example.com/more");
             var extensions = new Dictionary<Uri, string>
             {
@@ -36,7 +36,7 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             var map = LanguageMap.EnglishUS("test");
-            var resp = new string[] { "test" };
+            var resp = new ResponsePattern(new CharacterString("test"));
             Assert.Throws<ArgumentNullException>(() => new FillInInteractionActivityDefinition(null, null, null));
             Assert.Throws<ArgumentNullException>(() => new FillInInteractionActivityDefinition(map, null, null));
             Assert.Throws<ArgumentNullException>(() => new FillInInteractionActivityDefinition(null, map, resp));
@@ -49,7 +49,7 @@ namespace Float.xAPI.Tests
         {
             var name = LanguageMap.EnglishUS("name");
             var description = LanguageMap.EnglishUS("Ben is often heard saying: ");
-            var correctResponsesPattern = new string[] { "Bob's your uncle" };
+            var correctResponsesPattern = new ResponsePattern(new CharacterString("Bob's your uncle"));
             var moreInfo = new Uri("http://example.com/more");
             var extensions = new Dictionary<Uri, string>
             {

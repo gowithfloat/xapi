@@ -97,9 +97,6 @@ type public Attachment =
         nullArg sha "sha"
         { UsageType = usageType; Display = display; ContentType = contentType; Length = length; Sha2 = sha; Description = description; FileUrl = fileUrl }
 
-    /// <inheritdoc />
-    override this.ToString() = sprintf "<%O: UsageType %A Display %A ContentType %A Length %O Sha2 %A%O%O>" (typeName this) this.UsageType this.Display this.ContentType (this.Length) this.Sha2 (toStringOrNone this.Description " Description") (toStringOrNone this.FileUrl " FileUrl")
-
     interface IAttachment with
         member this.UsageType = this.UsageType
         member this.Display = this.Display

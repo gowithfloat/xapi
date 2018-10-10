@@ -43,6 +43,8 @@
     <Compile Include="Result.fs" />
     <Compile Include="Activities\Interaction.fs" />
     <Compile Include="Activities\Definitions\Definition.fs" />
+    <Compile Include="Activities\Definitions\CharacterString.fs" />
+    <Compile Include="Activities\Definitions\ResponsePattern.fs" />
     <Compile Include="Activities\Definitions\ActivityDefinition.fs" />
     <Compile Include="Activities\Definitions\IInteractionActivityDefinition.fs" />
     <Compile Include="Activities\Definitions\InteractionComponent.fs" />

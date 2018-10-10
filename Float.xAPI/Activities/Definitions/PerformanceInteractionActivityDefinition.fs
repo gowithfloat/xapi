@@ -42,7 +42,7 @@ type public PerformanceInteractionActivityDefinition =
     /// Step ids are separated from responses by [.]. Steps are delimited by [,].
     /// The response can be a String as in a fill-in interaction or a number range as in a numeric interaction.
     /// </summary>
-    val CorrectResponsesPattern: string seq
+    val CorrectResponsesPattern: IResponsePattern
 
     /// <inheritdoc />
     val Steps: IInteractionComponent seq
@@ -61,6 +61,9 @@ type public PerformanceInteractionActivityDefinition =
         emptySeqArg name "name"
         nullArg description "description"
         emptySeqArg description "description"
+        nullArg correctResponsesPattern "correctResponsesPattern"
+        nullArg steps "steps"
+        emptySeqArg steps "steps"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Steps = steps; MoreInfo = moreInfo; Extensions = extensions }
 
     /// <inheritdoc />

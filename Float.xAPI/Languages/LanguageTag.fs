@@ -35,7 +35,7 @@ type public ILanguageTag =
     /// Typically, a region subtag is used to indicate variations such as regional dialects or usage, or region-specific spelling conventions.
     /// It can also be used to indicate that content is expressed in a way that is appropriate for use throughout a region, for instance, Spanish content tailored to be useful throughout Latin America.
     /// </summary>
-    abstract member Region: Region
+    abstract member Region: Region option
 
     // todo: abstract member Variant: option<Variant>
     // todo: abstract member Extension: Extension
@@ -59,7 +59,7 @@ type public LanguageTag =
         val ExtendedLanguage: ExtendedLanguage option
 
         /// <inheritdoc />
-        val Region: Region
+        val Region: Region option
         
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Float.xAPI.Languages.LanguageTag"/> struct.
@@ -67,9 +67,8 @@ type public LanguageTag =
         /// <param name="primary">The primary language associated with this tag.</param>
         /// <param name="region">The region associated with this tag.</param>
         /// <param name="extended">An optional extended language to disambiguate dialects.</param>
-        new (primary, region, [<Optional;DefaultParameterValue(null)>] ?extended) =
+        new (primary, [<Optional;DefaultParameterValue(null)>] ?region, [<Optional;DefaultParameterValue(null)>] ?extended) =
             nullArg primary "primary"
-            nullArg region "region"
             { PrimaryLanguage = primary; ExtendedLanguage = extended; Region = region }
 
         /// <inheritdoc />
@@ -91,18 +90,20 @@ type public LanguageTag =
         override this.ToString() = 
             // see https://www.w3.org/International/articles/language-tags/
             // language-extlang-script-region-variant-extension-privateuse
-            match this.ExtendedLanguage with
-            | Some extended -> sprintf "%O-%O-%O" this.PrimaryLanguage extended this.Region
-            | None -> sprintf "%O-%O" this.PrimaryLanguage this.Region
-
-        interface IEquatable<ILanguageTag> with
-            member this.Equals other = this.Equals other
+            let extPortion = match this.ExtendedLanguage with
+                             | Some ext -> sprintf "-%O" ext
+                             | None -> ""
+            let regPortion = match this.Region with
+                             | Some reg -> sprintf "-%O" reg
+                             | None -> ""
+            sprintf "%O%O%O" this.PrimaryLanguage extPortion regPortion
 
         interface ILanguageTag with
             member this.PrimaryLanguage = this.PrimaryLanguage
             member this.ExtendedLanguage = this.ExtendedLanguage
             member this.Region = this.Region
             member this.ToCultureInfo() = this.ToCultureInfo()
+            member this.Equals other = this.Equals other
 
         interface IComparable with
             member this.CompareTo other =
@@ -114,7 +115,6 @@ type public LanguageTag =
         /// <summary>
         /// As United States English is the most common language tag in examples, it is provided here for convenience.
         /// </summary>
-        static member public EnglishUS: ILanguageTag =
-            LanguageTag(Language.English, Region.UnitedStates) :> ILanguageTag
+        static member public EnglishUS = LanguageTag(Language.English, Region.UnitedStates)
     end
     

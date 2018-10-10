@@ -26,10 +26,8 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             Assert.Throws<ArgumentNullException>(() => new LanguageTag(null, null));
-            Assert.Throws<ArgumentNullException>(() => new LanguageTag(Language.Marathi, null));
             Assert.Throws<ArgumentNullException>(() => new LanguageTag(null, Region.Maldives));
             Assert.Throws<ArgumentNullException>(() => new LanguageTag(null, null));
-            Assert.Throws<ArgumentNullException>(() => new LanguageTag(Language.Romansh, null, ExtendedLanguage.NajdiArabic));
             Assert.Throws<ArgumentNullException>(() => new LanguageTag(null, Region.WallisAndFutuna, ExtendedLanguage.JambiMalay));
         }
 

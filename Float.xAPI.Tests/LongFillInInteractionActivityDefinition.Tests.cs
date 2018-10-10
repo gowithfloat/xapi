@@ -17,19 +17,24 @@ namespace Float.xAPI.Tests
         [Fact]
         public LongFillInInteractionActivityDefinition TestValidInit()
         {
+            var a = new CharacterString();
+            var b = new CharacterString("ah");
+            var c = new CharacterString(new string[] { "ah" });
+            var d = new CharacterString("ah", new LanguageTag(Language.English));
+            var e = new CharacterString(new string[] { "ah" }, new LanguageTag(Language.English));
             var definition1 = new LongFillInInteractionActivityDefinition(
                 LanguageMap.EnglishUS("Long Fill-in"),
                 LanguageMap.EnglishUS("What is the purpose of the xAPI?"),
-                new string[] { "{case_matters=false}{lang=en}To store and provide access to learning experiences." });
+                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", new LanguageTag(Language.English)), false));
             var definition2 = new LongFillInInteractionActivityDefinition(
                 LanguageMap.EnglishUS("Long Fill-in"),
                 LanguageMap.EnglishUS("What is the purpose of the xAPI?"),
-                new string[] { "{case_matters=false}{lang=en}To store and provide access to learning experiences." },
+                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", LanguageTag.EnglishUS), false),
                 new Uri("http://www.example.com/more"));
             return new LongFillInInteractionActivityDefinition(
                 LanguageMap.EnglishUS("Long Fill-in"),
                 LanguageMap.EnglishUS("What is the purpose of the xAPI?"),
-                new string[] { "{case_matters=false}{lang=en}To store and provide access to learning experiences." },
+                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", LanguageTag.EnglishUS), false),
                 new Uri("http://www.example.com/more"),
                 new Dictionary<Uri, string> { { new Uri("a://b.c"), "extension" } });
         }
@@ -40,8 +45,7 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentNullException>(() => new LongFillInInteractionActivityDefinition(null, null, null));
             Assert.Throws<ArgumentNullException>(() => new LongFillInInteractionActivityDefinition(LanguageMap.EnglishUS("a"), null, null));
             Assert.Throws<ArgumentNullException>(() => new LongFillInInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), null));
-            Assert.Throws<ArgumentException>(() => new LongFillInInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new string[] { }));
-            Assert.Throws<ArgumentException>(() => new LongFillInInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new string[] { "c" }, new Uri("a://b.c"), new Dictionary<Uri, string>()));
+            Assert.Throws<ArgumentException>(() => new LongFillInInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("c"), new Uri("a://b.c"), new Dictionary<Uri, string>()));
         }
 
         [Fact]
@@ -50,11 +54,11 @@ namespace Float.xAPI.Tests
             var definition = new LongFillInInteractionActivityDefinition(
                 LanguageMap.EnglishUS("Long Fill-in"),
                 LanguageMap.EnglishUS("What is the purpose of the xAPI?"),
-                new string[] { "{case_matters=false}{lang=en}To store and provide access to learning experiences." },
+                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", LanguageTag.EnglishUS), false),
                 new Uri("http://www.example.com/more"),
                 new Dictionary<Uri, string> { { new Uri("a://b.c"), "extension" } });
 
-            Assert.Equal(new List<string> { "{case_matters=false}{lang=en}To store and provide access to learning experiences." }, definition.CorrectResponsesPattern);
+            Assert.Equal(new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", LanguageTag.EnglishUS), false), definition.CorrectResponsesPattern);
             Assert.Equal(LanguageMap.EnglishUS("What is the purpose of the xAPI?"), definition.Description);
             Assert.Equal(new Dictionary<Uri, string> { { new Uri("a://b.c"), "extension" } }, definition.Extensions.Value);
             Assert.Equal(Interaction.LongFillIn, definition.InteractionType);
@@ -63,7 +67,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(new Uri("http://adlnet.gov/expapi/activities/cmi.interaction"), definition.Type);
 
             var idefinition = definition as IInteractionActivityDefinition;
-            Assert.Equal(new List<string> { "{case_matters=false}{lang=en}To store and provide access to learning experiences." }, idefinition.CorrectResponsesPattern);
+            Assert.Equal(new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", LanguageTag.EnglishUS), false), idefinition.CorrectResponsesPattern);
             Assert.Equal(LanguageMap.EnglishUS("What is the purpose of the xAPI?"), idefinition.Description);
             Assert.Equal(new Dictionary<Uri, string> { { new Uri("a://b.c"), "extension" } }, idefinition.Extensions.Value);
             Assert.Equal(Interaction.LongFillIn, idefinition.InteractionType);

@@ -33,7 +33,7 @@ type public LongFillInInteractionActivityDefinition =
     /// <summary>
     /// A list of responses delimited by [,]. If the response contains only one item, the delimiter MUST not be used.
     /// </summary>
-    val CorrectResponsesPattern: string seq
+    val CorrectResponsesPattern: IResponsePattern
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.LongFillInInteractionActivityDefinition"/> struct.
@@ -49,7 +49,6 @@ type public LongFillInInteractionActivityDefinition =
         nullArg description "description"
         emptySeqArg description "description"
         nullArg correctResponsesPattern "correctResponsesPattern"
-        emptySeqArg correctResponsesPattern "correctResponsesPattern"
         emptyOptionalSeqArg extensions "extensions"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; MoreInfo = moreInfo; Extensions = extensions }
 

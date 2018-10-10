@@ -32,7 +32,7 @@ type public OtherInteractionActivityDefinition =
     /// <summary>
     /// Any format is valid within this string as appropriate for the type of interaction.
     /// </summary>
-    val CorrectResponsesPattern: string seq
+    val CorrectResponsesPattern: IResponsePattern
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.OtherInteractionActivityDefinition"/> struct.
@@ -47,6 +47,7 @@ type public OtherInteractionActivityDefinition =
         emptySeqArg name "name"
         nullArg description "description"
         emptySeqArg description "description"
+        nullArg correctResponsesPattern "correctResponsesPattern"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; MoreInfo = moreInfo; Extensions = extensions }
 
     /// <inheritdoc />

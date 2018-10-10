@@ -48,18 +48,30 @@ module Interop =
     let inline typeName(x: obj): string =
         x.GetType().Name
 
+    let toString x =
+        x.ToString()
+
+    let toLowerString(x: string) =
+        x.ToLower()
+
     /// <summary>
     /// Fold a sequence down to a string, with comma delineation.
     /// </summary>
     let seqToString x =
         (Seq.fold (fun (sb:StringBuilder) element -> if sb.Length = 0 then sb.Append(element.ToString()) else sb.Append(", ").Append(element.ToString())) (StringBuilder()) x).ToString()
-
-
+        
     /// <summary>
     /// Throw an argument exception if the given string is null or whitespace.
     /// </summary>
     let inline invalidStringArg x name =
         ifRaise (String.IsNullOrWhiteSpace x) name
+
+    /// <summary>
+    /// Throw an argument exception if any given string in a list is null or whitespace.
+    /// </summary>
+    let inline invalidStringSeqArg x name =
+        for y in x do
+            invalidStringArg y name
         
     /// <summary>
     /// Throw an argument exception if the given optional string exists and is null or whitespace.

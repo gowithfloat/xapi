@@ -35,7 +35,7 @@ type public NumericInteractionActivityDefinition =
     /// E.g. [:]4 indicates a maximum for 4 and no minimum.
     /// Where the correct response or learner's response is a single number rather than a range, the single number with no delimiter MAY be used. 
     /// </summary>
-    val CorrectResponsesPattern: string seq
+    val CorrectResponsesPattern: IResponsePattern
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions."/> struct.

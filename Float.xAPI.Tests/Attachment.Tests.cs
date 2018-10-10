@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class AttachmentTests : IInitializationTests<Attachment>, IToStringTests
+    public class AttachmentTests : IInitializationTests<Attachment>
     {
         [Fact]
         public Attachment TestValidInit()
@@ -46,18 +46,6 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentNullException>(() => new Attachment(new Uri("http://example.com"), LanguageMap.EnglishUS("test"), null, 0, null));
             Assert.Throws<ArgumentNullException>(() => new Attachment(new Uri("http://example.com"), LanguageMap.EnglishUS("test"), new ContentType("appliction/json"), 0, null));
             Assert.Throws<ArgumentNullException>(() => new Attachment(new Uri("http://example.com"), LanguageMap.EnglishUS("test"), new ContentType("appliction/json"), 1024, null));
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var attachment1 = new Attachment(
-                new Uri("https://www.gowithfloat.com"),
-                LanguageMap.EnglishUS("attachment"),
-                new ContentType("text/plain"),
-                100,
-                new SHAHash("example"));
-            Assert.Equal($"<Attachment: UsageType https://www.gowithfloat.com/ Display seq [[en-US, attachment]] ContentType text/plain Length 100 Sha2 {new SHAHash("example").ToString()}>", attachment1.ToString());
         }
 
         [Fact]

@@ -96,9 +96,6 @@ type public LanguageMap =
     override this.GetHashCode() = hash this.map
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "<%O: Map %O>" (this.GetType().Name) (seqToString this.map)
-
-    /// <inheritdoc />
     override this.Equals other =
         match other with
         | :? ILanguageMap as map -> this.GetHashCode() = map.GetHashCode()

@@ -19,10 +19,7 @@ namespace Float.xAPI.Tests
         {
             var name = LanguageMap.EnglishUS("name");
             var description = LanguageMap.EnglishUS("Which of these prototypes are available at the beta site?");
-            var correctResponsesPattern = new List<string>
-            {
-                "golf[,]tetris"
-            };
+            var correctResponsesPattern = new ResponsePattern(new CharacterString(new string[] { "golf", "tetris" }));
             var choices = new List<IInteractionComponent>
             {
                 new InteractionComponent("golf", LanguageMap.EnglishUS("Golf Example")),
@@ -46,7 +43,7 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             var map = LanguageMap.EnglishUS("test");
-            var resp = new string[] { "test" };
+            var resp = new ResponsePattern(new CharacterString("test"));
             var choice = new IInteractionComponent[] { new InteractionComponent("test") };
             Assert.Throws<ArgumentNullException>(() => new ChoiceInteractionActivityDefinition(null, null, null, null));
             Assert.Throws<ArgumentNullException>(() => new ChoiceInteractionActivityDefinition(map, null, null, null));
@@ -61,10 +58,7 @@ namespace Float.xAPI.Tests
         {
             var name = LanguageMap.EnglishUS("name");
             var description = LanguageMap.EnglishUS("Which of these prototypes are available at the beta site?");
-            var correctResponsesPattern = new List<string>
-            {
-                "golf[,]tetris"
-            };
+            var correctResponsesPattern = new ResponsePattern(new CharacterString(new string[] { "golf", "tetris" }));
             var choices = new List<IInteractionComponent>
             {
                 new InteractionComponent("golf", LanguageMap.EnglishUS("Golf Example")),

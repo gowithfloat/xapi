@@ -22,6 +22,6 @@ type public IInteractionActivityDefinition =
     /// A pattern representing the correct response to the interaction.
     /// The structure of this pattern varies depending on the InteractionType.
     /// </summary>
-    abstract member CorrectResponsesPattern: string seq
+    abstract member CorrectResponsesPattern: IResponsePattern
 
     inherit IActivityDefinition

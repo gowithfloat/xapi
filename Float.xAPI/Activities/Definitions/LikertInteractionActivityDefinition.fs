@@ -40,7 +40,7 @@ type public LikertInteractionActivityDefinition =
     /// <summary>
     /// A single item id.
     /// </summary>
-    val CorrectResponsesPattern: string seq
+    val CorrectResponsesPattern: IResponsePattern
 
     /// <inheritdoc />
     val Scale: IInteractionComponent seq
@@ -60,7 +60,6 @@ type public LikertInteractionActivityDefinition =
         nullArg description "description"
         emptySeqArg description "description"
         nullArg correctResponsesPattern "correctResponsesPattern"
-        emptySeqArg correctResponsesPattern "correctResponsesPattern"
         nullArg scale "scale"
         emptySeqArg scale "scale"
         emptyOptionalSeqArg extensions "extensions"

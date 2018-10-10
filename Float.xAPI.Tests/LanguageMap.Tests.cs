@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class LanguageMapTests : IInitializationTests<LanguageMap>, IEqualityTests, IToStringTests, ISerializationTests
+    public class LanguageMapTests : IInitializationTests<LanguageMap>, IEqualityTests, ISerializationTests
     {
         [Fact]
         public LanguageMap TestValidInit()
@@ -86,7 +86,6 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentException>(() => new LanguageMap(LanguageTag.EnglishUS, string.Empty));
             Assert.Throws<ArgumentException>(() => new LanguageMap(LanguageTag.EnglishUS, " "));
             Assert.Throws<ArgumentNullException>(() => new LanguageMap(null, Region.Algeria, "test"));
-            Assert.Throws<ArgumentNullException>(() => new LanguageMap(Language.Pali, null, "test"));
             Assert.Throws<ArgumentException>(() => new LanguageMap(Language.Pali, Region.Algeria, null));
             Assert.Throws<ArgumentException>(() => new LanguageMap(new Dictionary<ILanguageTag, string>()));
             Assert.Throws<ArgumentException>(() => new LanguageMap(new List<KeyValuePair<ILanguageTag, string>>()));
@@ -156,26 +155,6 @@ namespace Float.xAPI.Tests
             Assert.True(map3 != map4);
             Assert.False(map1.GetHashCode() == map2.GetHashCode());
             Assert.True(map3.GetHashCode() != map4.GetHashCode());
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var map1 = LanguageMap.EnglishUS("attempted");
-            Assert.Equal("<LanguageMap: Map [en-US, attempted]>", map1.ToString());
-
-            var map2 = new LanguageMap(new Dictionary<ILanguageTag, string>
-            {
-                {
-                    new LanguageTag(Language.Latin, Region.Estonia),
-                    "tested"
-                },
-                {
-                    new LanguageTag(Language.Lingala, Region.Ethiopia),
-                    "examined"
-                }
-            });
-            Assert.Equal("<LanguageMap: Map [la-EE, tested], [ln-ET, examined]>", map2.ToString());
         }
 
         [Fact]

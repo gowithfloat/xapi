@@ -41,7 +41,7 @@ type public ChoiceInteractionActivityDefinition =
     /// <summary>
     /// A list of item ids delimited by [,]. If the response contains only one item, the delimiter MUST not be used.
     /// </summary>
-    val CorrectResponsesPattern: string seq
+    val CorrectResponsesPattern: IResponsePattern
 
     /// <inheritdoc />
     val Choices: IInteractionComponent seq
@@ -61,7 +61,6 @@ type public ChoiceInteractionActivityDefinition =
         nullArg description "description"
         emptySeqArg description "description"
         nullArg correctResponsesPattern "correctResponsesPattern"
-        emptySeqArg correctResponsesPattern "correctResponsesPattern"
         nullArg choices "choices"
         emptySeqArg choices "choices"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Choices = choices; MoreInfo = moreInfo; Extensions = extensions }

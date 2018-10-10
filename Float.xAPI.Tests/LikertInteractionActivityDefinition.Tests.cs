@@ -28,20 +28,20 @@ namespace Float.xAPI.Tests
             var definition1 = new LikertInteractionActivityDefinition(
                 LanguageMap.EnglishUS("Likert"),
                 LanguageMap.EnglishUS("How awesome is Experience API?"),
-                new string[] { "likert_3" },
+                new ResponsePattern(new CharacterString("likert_3")),
                 scale);
 
             var definition2 = new LikertInteractionActivityDefinition(
                 LanguageMap.EnglishUS("Likert"),
                 LanguageMap.EnglishUS("How awesome is Experience API?"),
-                new string[] { "likert_3" },
+                new ResponsePattern(new CharacterString("likert_3")),
                 scale,
                 new Uri("http://www.example.com/more"));
 
             return new LikertInteractionActivityDefinition(
                 LanguageMap.EnglishUS("Likert"),
                 LanguageMap.EnglishUS("How awesome is Experience API?"),
-                new string[] { "likert_3" },
+                new ResponsePattern(new CharacterString("likert_3")),
                 scale,
                 new Uri("http://www.example.com/more"),
                 new List<KeyValuePair<Uri, string>> { new KeyValuePair<Uri, string>(new Uri("http://www.example.com/ext"), "ext") });
@@ -60,9 +60,8 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentNullException>(() => new LikertInteractionActivityDefinition(null, null, null, null));
             Assert.Throws<ArgumentNullException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), null, null, null));
             Assert.Throws<ArgumentNullException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), null, null));
-            Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new string[] { }, scale1));
-            Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new string[] { }, scale2));
-            Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new string[] { "c" }, scale2, new Uri("a://b.c"), new Dictionary<Uri, string>()));
+            Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("c"), scale2));
+            Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("c"), scale2, new Uri("a://b.c"), new Dictionary<Uri, string>()));
         }
 
         [Fact]
@@ -81,12 +80,12 @@ namespace Float.xAPI.Tests
             var definition = new LikertInteractionActivityDefinition(
                 LanguageMap.EnglishUS("Likert"),
                 LanguageMap.EnglishUS("How awesome is Experience API?"),
-                new string[] { "likert_3" },
+                new ResponsePattern("likert_3"),
                 scale,
                 new Uri("http://www.example.com/more"),
                 new List<KeyValuePair<Uri, string>> { new KeyValuePair<Uri, string>(new Uri("http://www.example.com/ext"), "ext") });
 
-            Assert.Equal(new List<string> { "likert_3" }, definition.CorrectResponsesPattern);
+            Assert.Equal(new ResponsePattern("likert_3"), definition.CorrectResponsesPattern);
             Assert.Equal(LanguageMap.EnglishUS("How awesome is Experience API?"), definition.Description);
             Assert.Equal(ext, definition.Extensions.Value);
             Assert.Equal(Interaction.Likert, definition.InteractionType);
@@ -96,7 +95,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(new Uri("http://adlnet.gov/expapi/activities/cmi.interaction"), definition.Type);
 
             var idefinition = definition as ILikertInteractionActivityDefinition;
-            Assert.Equal(new List<string> { "likert_3" }, idefinition.CorrectResponsesPattern);
+            Assert.Equal(new ResponsePattern("likert_3"), idefinition.CorrectResponsesPattern);
             Assert.Equal(LanguageMap.EnglishUS("How awesome is Experience API?"), idefinition.Description);
             Assert.Equal(ext, idefinition.Extensions.Value);
             Assert.Equal(Interaction.Likert, idefinition.InteractionType);

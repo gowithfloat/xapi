@@ -48,7 +48,7 @@ type public MatchingInteractionActivityDefinition =
     /// Items can appear in multiple (or zero) pairs. Items within a pair are delimited by [.].
     /// Pairs are delimited by [,].
     /// </summary>
-    val CorrectResponsesPattern: string seq
+    val CorrectResponsesPattern: IResponsePattern
 
     /// <inheritdoc />
     val Source: IInteractionComponent seq
