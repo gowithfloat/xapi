@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class CharacterStringTests : IInitializationTests<CharacterString>, IToStringTests
+    public class CharacterStringSingleTests : IInitializationTests<CharacterString>, IToStringTests
     {
         [Fact]
         public CharacterString TestValidInit()
@@ -53,7 +53,7 @@ namespace Float.xAPI.Tests
         {
             var cs1 = new CharacterString("item", new LanguageTag(Language.Luxembourgish));
             Assert.Single(cs1.Items);
-            Assert.Equal(new List<string> { "item" }, cs1.Items);
+            Assert.Equal(new string[] { "item" }, cs1.Items);
             Assert.Equal(new LanguageTag(Language.Luxembourgish), cs1.Language);
         }
 
@@ -62,25 +62,6 @@ namespace Float.xAPI.Tests
         {
             var cs = new CharacterString(new string[] { "foo", "bar" });
             Assert.Equal("foo[,]bar", cs.ToString());
-
-            //// todo: this should work
-            ////var dict = new Dictionary<string, string>
-            ////{
-            ////    {
-            ////        "ben", "3"
-            ////    },
-            ////    {
-            ////        "chris", "2"
-            ////    },
-            ////    {
-            ////        "troy", "4"
-            ////    },
-            ////    {
-            ////        "freddie", "1"
-            ////    }
-            ////};
-            ////var cs2 = new CharacterString(dict);
-            ////Assert.Equal("ben[.]3[,]chris[.]2[,]troy[.]4[,]freddie[.]1", cs2.ToString());
         }
 
         [Fact]
@@ -90,6 +71,15 @@ namespace Float.xAPI.Tests
             Assert.False(cs1.Match("bar"));
             Assert.False(cs1.Match("foo"));
             Assert.True(cs1.Match(new string[] { "foo", "bar" }));
+            Assert.True(cs1.Match(new string[] { "bar", "foo" }));
+
+            var cs2 = new CharacterString("foo");
+            var ics2 = cs2 as ICharacterStringMatchString;
+            Assert.False(ics2.Match("bar"));
+
+            var cs3 = new CharacterString(new string[] { "bar", "foo" });
+            var ics3 = cs3 as ICharacterStringMatchSequence;
+            Assert.True(ics3.Match(new string[] { "foo", "bar" }));
         }
 
         [Fact]

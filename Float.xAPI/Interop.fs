@@ -88,6 +88,22 @@ module Interop =
         not x.IsAbsoluteUri
 
     /// <summary>
+    /// Returns the number as a string if given a value, or an empty string if not.
+    /// </summary>
+    let inline optIntToString(x: int option) =
+        match x with
+        | Some y -> y.ToString()
+        | None -> ""
+
+    /// <summary>
+    /// Returns the string as an optional integer; will be None if parsing fails.
+    /// </summary>
+    let parseInt str =
+      match Int32.TryParse(str) with
+      | (true, a) -> Some a
+      | (false, _) -> None
+
+    /// <summary>
     /// Throw an argument exception if the given URI is not absolute.
     /// </summary>
     let inline invalidIRIArg x name =

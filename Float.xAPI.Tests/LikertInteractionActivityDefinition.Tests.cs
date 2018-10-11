@@ -85,7 +85,7 @@ namespace Float.xAPI.Tests
                 new Uri("http://www.example.com/more"),
                 new List<KeyValuePair<Uri, string>> { new KeyValuePair<Uri, string>(new Uri("http://www.example.com/ext"), "ext") });
 
-            Assert.Equal(new ResponsePattern("likert_3"), definition.CorrectResponsesPattern);
+            Assert.Single(definition.CorrectResponsesPattern.CharacterStrings);
             Assert.Equal(LanguageMap.EnglishUS("How awesome is Experience API?"), definition.Description);
             Assert.Equal(ext, definition.Extensions.Value);
             Assert.Equal(Interaction.Likert, definition.InteractionType);
@@ -95,7 +95,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(new Uri("http://adlnet.gov/expapi/activities/cmi.interaction"), definition.Type);
 
             var idefinition = definition as ILikertInteractionActivityDefinition;
-            Assert.Equal(new ResponsePattern("likert_3"), idefinition.CorrectResponsesPattern);
+            Assert.Single(idefinition.CorrectResponsesPattern.CharacterStrings);
             Assert.Equal(LanguageMap.EnglishUS("How awesome is Experience API?"), idefinition.Description);
             Assert.Equal(ext, idefinition.Extensions.Value);
             Assert.Equal(Interaction.Likert, idefinition.InteractionType);

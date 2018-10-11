@@ -42,12 +42,12 @@ type public TrueFalseInteractionActivityDefinition =
     /// <param name="correctAnswer">The correct answer for this interaction.</param>
     /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
     /// <param name="extensions">A map of other properties as needed.</param>
-    new(name, description, correctAnswer, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
+    new(name, description, correctAnswer: string, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
         nullArg name "name"
         emptySeqArg name "name"
         nullArg description "description"
         emptySeqArg description "description"
-        { Name = name; Description = description; CorrectResponsesPattern = ResponsePattern(correctAnswer) ; MoreInfo = moreInfo; Extensions = extensions }
+        { Name = name; Description = description; CorrectResponsesPattern = ResponsePattern(CharacterString(correctAnswer)) ; MoreInfo = moreInfo; Extensions = extensions }
         
     /// <inheritdoc />
     member this.Type = Definition.InteractionUri
