@@ -9,7 +9,14 @@ open System.Collections.Generic
 open System.Runtime.InteropServices
 open Float.xAPI.Interop
 open Float.xAPI.Languages
-    
+
+// todo: the spec says responses can be a string or number range; should `Items` here be (string * ICharacterString) seq ?
+
+/// <summary>
+/// A list of matching pairs.
+/// For matching interaction types, each pair consists of a source item ID followed by a target item ID.
+/// For performance interaction types, this is a list of steps containing a step ID and the response to that step.
+/// </summary>
 [<NoEquality;NoComparison;Struct>]
 type CharacterStringPair =
     /// <inheritdoc />

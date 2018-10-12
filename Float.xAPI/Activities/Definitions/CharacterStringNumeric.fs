@@ -8,6 +8,11 @@ namespace Float.xAPI.Activities.Definitions
 open System.Runtime.InteropServices
 open Float.xAPI.Interop
 
+/// <summary>
+/// A range of numbers represented by a minimum and maximum.
+/// Where the range does not have a minimum or maximum, that number is omitted.
+/// </summary>
+[<NoEquality;NoComparison;Struct>]
 type CharacterStringNumeric =
     /// <inheritdoc />
     val Min: int option

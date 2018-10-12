@@ -9,6 +9,10 @@ open System.Runtime.InteropServices
 open Float.xAPI.Interop
 open Float.xAPI.Languages
 
+/// <summary>
+/// The basic character string is a list of item identifiers.
+/// This is used for true-false, choice, fill-in, long-fill-in, sequencing, likert, and "other" interaction types.
+/// </summary>
 [<NoEquality;NoComparison;Struct>]
 type CharacterString =
     /// <inheritdoc />
