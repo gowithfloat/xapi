@@ -61,7 +61,7 @@ type ICharacterStringMatchNumber =
 /// <summary>
 /// A character string that can look up a response for a given input.
 /// </summary>
-type ICharacterStringFindResponse =
+type ICharacterStringMatchResponse =
     /// <summary>
     /// Returns a value for a response, or None if not found.
     /// </summary>
@@ -105,7 +105,7 @@ type ICharacterStringPair =
     abstract member Items: (string * string) seq
 
     inherit ICharacterStringLanguage
-    inherit ICharacterStringFindResponse
+    inherit ICharacterStringMatchResponse
     inherit ICharacterStringMatchResponses
     
 /// <summary>

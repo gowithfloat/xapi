@@ -96,14 +96,54 @@ type ResponsePattern =
     member this.Match(str: string) =
         nullArg str "str"
         invalidStringArg str "str"
-        this.CharacterStrings |> Seq.cast<ICharacterStringMatchString> |> Seq.exists(fun x -> x.Match(str))
+        let filter(cs: ICharacterString): bool =
+            match cs with
+            | :? ICharacterStringMatchString -> true
+            | _ -> false
+        this.CharacterStrings 
+        |> Seq.filter filter
+        |> Seq.cast<ICharacterStringMatchString> 
+        |> Seq.exists(fun x -> x.Match(str))
 
     /// <inheritdoc />
     member this.Match(strseq: string seq) =
         nullArg strseq "strseq"
         emptySeqArg strseq "strseq"
         invalidStringSeqArg strseq "strseq"
-        this.CharacterStrings |> Seq.cast<ICharacterStringMatchSequence> |> Seq.exists(fun x -> x.Match(strseq))
+        let filter(cs: ICharacterString): bool =
+            match cs with
+            | :? ICharacterStringMatchSequence -> true
+            | _ -> false
+        this.CharacterStrings 
+        |> Seq.filter filter
+        |> Seq.cast<ICharacterStringMatchSequence>
+        |> Seq.exists(fun x -> x.Match(strseq))
+
+    member this.MatchNumeric(i: int) =
+        let filter(cs: ICharacterString): bool =
+            match cs with
+            | :? ICharacterStringMatchNumber -> true
+            | _ -> false
+        this.CharacterStrings
+        |> Seq.filter filter
+        |> Seq.cast<ICharacterStringMatchNumber> 
+        |> Seq.exists(fun x -> x.Match(i))
+
+    member this.MatchResponse(str: string): string seq =
+        let filter1(str: string option): bool =
+            match str with
+            | Some s -> true
+            | None -> false
+        let filter2(cs: ICharacterString): bool =
+            match cs with
+            | :? ICharacterStringMatchResponse -> true
+            | _ -> false
+        this.CharacterStrings 
+        |> Seq.filter filter2
+        |> Seq.cast<ICharacterStringMatchResponse> 
+        |> Seq.map(fun x -> x.Match(str)) 
+        |> Seq.filter filter1
+        |> Seq.map(fun x -> x.Value)
         
     /// <inheritdoc />
     override this.ToString() =
