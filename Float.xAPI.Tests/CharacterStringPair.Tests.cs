@@ -155,6 +155,31 @@ namespace Float.xAPI.Tests
             };
 
             Assert.False(cs2.Match(responses2));
+
+            var responses3 = new List<Tuple<string, string>>
+            {
+                new Tuple<string, string>("freddie", "1"),
+                new Tuple<string, string>("chris", "2"),
+                new Tuple<string, string>("ben", "3"),
+                new Tuple<string, string>("troy", "4")
+            };
+
+            Assert.True(cs2.Match(responses3));
+
+            var ics2 = cs2 as ICharacterStringPair;
+            Assert.True(ics2.Match(responses3));
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var cs = new CharacterStringPair(new Tuple<string, string>[] { new Tuple<string, string>("one", "two") }, new LanguageTag(Language.Malagasy));
+            Assert.Equal(new List<Tuple<string, string>> { new Tuple<string, string>("one", "two") }, cs.Items);
+            Assert.Equal(new LanguageTag(Language.Malagasy), cs.Language);
+
+            var ics = cs as ICharacterStringPair;
+            Assert.Equal(new List<Tuple<string, string>> { new Tuple<string, string>("one", "two") }, ics.Items);
+            Assert.Equal(new LanguageTag(Language.Malagasy), ics.Language);
         }
     }
 }

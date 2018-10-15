@@ -54,8 +54,8 @@ type CharacterStringPair =
         this.Items |> Map.ofSeq |> Map.tryFind str
 
     /// <inheritdoc />
-    member this.Match(pairs: (string * string) seq): bool =
-        this.Items.Equals pairs
+    member this.Match(pairs: (string * string) seq): bool = 
+        (Seq.sort this.Items, Seq.sort pairs) ||> Seq.forall2 (=)
 
     /// <inheritdoc />
     member this.Match(pairs: KeyValuePair<string, string> seq): bool =

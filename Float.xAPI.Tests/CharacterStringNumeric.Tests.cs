@@ -46,6 +46,10 @@ namespace Float.xAPI.Tests
             var cs6 = new CharacterStringNumeric(11, 43);
             Assert.Equal(11, cs6.Min);
             Assert.Equal(43, cs6.Max);
+
+            var ics6 = cs6 as ICharacterStringNumeric;
+            Assert.Equal(11, ics6.Min);
+            Assert.Equal(43, ics6.Max);
         }
 
         [Fact]
@@ -56,6 +60,9 @@ namespace Float.xAPI.Tests
             Assert.True(cs2.Match(18));
             Assert.True(cs2.Match(40));
             Assert.False(cs2.Match(43));
+
+            var ics2 = cs2 as ICharacterStringNumeric;
+            Assert.True(ics2.Match(18));
         }
     }
 }

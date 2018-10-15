@@ -55,6 +55,10 @@ namespace Float.xAPI.Tests
             Assert.Single(cs1.Items);
             Assert.Equal(new string[] { "item" }, cs1.Items);
             Assert.Equal(new LanguageTag(Language.Luxembourgish), cs1.Language);
+
+            var ics1 = cs1 as ICharacterStringSingle;
+            Assert.Equal(new string[] { "item" }, ics1.Items);
+            Assert.Equal(new LanguageTag(Language.Luxembourgish), ics1.Language);
         }
 
         [Fact]
