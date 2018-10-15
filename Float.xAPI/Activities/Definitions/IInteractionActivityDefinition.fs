@@ -18,6 +18,9 @@ type public IInteractionActivityDefinition =
     /// </summary>
     abstract member InteractionType: Interaction
 
+    // todo: each interaction definition should provide a type for character strings
+    // (otherwise, it's possible to provide a numeric character string for a matching definition, and so on)
+
     /// <summary>
     /// A pattern representing the correct response to the interaction.
     /// The structure of this pattern varies depending on the InteractionType.

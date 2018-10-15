@@ -71,6 +71,11 @@ type public MatchingInteractionActivityDefinition =
         emptySeqArg name "name"
         nullArg description "description"
         emptySeqArg description "description"
+        nullArg correctResponsesPattern "correctResponsesPattern"
+        nullArg source "source"
+        emptySeqArg source "source"
+        nullArg target "target"
+        emptySeqArg target "target"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Source = source; Target = target; MoreInfo = moreInfo; Extensions = extensions }
 
     /// <inheritdoc />
