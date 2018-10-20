@@ -25,6 +25,8 @@ type public IVerb =
     /// </summary>
     abstract member Display: ILanguageMap
 
+    inherit IEquatable<IVerb>
+
 [<CustomEquality;NoComparison>]
 type public Verb =
     struct
@@ -60,12 +62,10 @@ type public Verb =
         static member op_Equality (lhs: Verb, rhs: IVerb) = lhs.Equals(rhs)
         static member op_Inequality (lhs: Verb, rhs: IVerb) = not(lhs.Equals(rhs))
 
-        interface IEquatable<IVerb> with
-            member this.Equals other = this.Equals other
-
         interface IVerb with
             member this.Id = this.Id
             member this.Display = this.Display
+            member this.Equals other = this.Equals other
 
         /// <summary>
         /// The certainty that an LRS has an accurate and complete collection of data is guaranteed by the fact that Statements cannot be logically changed or deleted.
