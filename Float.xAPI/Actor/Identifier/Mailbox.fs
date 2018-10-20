@@ -50,4 +50,4 @@ type public Mailbox =
 
     interface IMailbox with
         member this.Address = this.Address
-        member this.Equals(other: IInverseFunctionalIdentifier) = this.Equals other
+        member this.Equals other = this.Equals other
