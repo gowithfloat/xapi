@@ -16,7 +16,4 @@ type public IActor =
     /// </summary>
     abstract member Name: string option
 
-    /// <summary>
-    /// Actors can be the target of a statement.
-    /// </summary>
     inherit IObject

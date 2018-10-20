@@ -8,6 +8,9 @@ namespace Float.xAPI
 open System
 open System.Collections.Generic
 
+// todo: in F#, this should just be (Uri * string) seq, but that prevents dictionary usage in C#
+// is there a way to use a simple F# tuple here but allow dictionary use in C#?
+
 /// <summary>
 /// Extensions are available as part of Activity Definitions, as part of a Statement's "context" property, or as part of a Statement's "result" property.
 /// In each case, extensions are intended to provide a natural way to extend those properties for some specialized use.

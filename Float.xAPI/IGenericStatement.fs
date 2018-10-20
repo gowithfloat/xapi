@@ -9,6 +9,8 @@ open System
 open Float.xAPI
 open Float.xAPI.Actor
 
+// todo: come up with a better name; IIRC TinCan.NET uses BaseStatement
+
 /// <summary>
 /// Both substatements and statements implement this base interface.
 /// </summary>

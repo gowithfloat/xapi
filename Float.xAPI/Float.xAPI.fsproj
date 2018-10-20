@@ -17,6 +17,7 @@
     <Folder Include="Resources\Documents\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDictionaryRepresentable.fs" />
     <Compile Include="Interop.fs" />
     <Compile Include="SHAHash.fs" />
     <Compile Include="IObject.fs" />

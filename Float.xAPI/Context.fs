@@ -58,9 +58,6 @@ type public Context =
         invalidOptionalStringArg platform "platform"
         { Registration = registration; Instructor = instructor; Team = team; ContextActivities = contextActivities; Revision = revision; Platform = platform; Language = language; Statement = statement; Extensions = extensions }
 
-    /// <inheritdoc />
-    override this.ToString() = sprintf "<%A: Registration %A Instructor %A Team %A ContextActivities %A Revision %A Platform %A Language %A Statement %A Extensions %A>" (this.GetType().Name) this.Registration this.Instructor this.Team this.ContextActivities this.Revision this.Platform this.Language this.Statement this.Extensions
-
     interface IContext with
         member this.Registration = this.Registration
         member this.Instructor = this.Instructor

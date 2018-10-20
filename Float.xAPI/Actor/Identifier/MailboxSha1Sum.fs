@@ -50,4 +50,4 @@ type public MailboxSha1Sum =
 
     interface IMailboxSha1Sum with
         member this.MboxSha1Sum = this.MboxSha1Sum
-        member this.Equals(other: IInverseFunctionalIdentifier) = this.Equals other
+        member this.Equals other = this.Equals other

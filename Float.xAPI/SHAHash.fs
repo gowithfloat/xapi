@@ -20,7 +20,7 @@ type public ISHAHash =
 
 [<StructuralEquality;NoComparison;Struct>]
 type public SHAHash =
-    /// <inhaeritdoc />
+    /// <inheritdoc />
     val Encoded: byte seq
 
     /// <summary>
