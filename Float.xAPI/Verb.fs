@@ -51,9 +51,6 @@ type public Verb =
         override this.GetHashCode() = hash this.Id
 
         /// <inheritdoc />
-        override this.ToString() = sprintf "<%O: Id %A Display %O>" (this.GetType().Name) this.Id this.Display
-
-        /// <inheritdoc />
         override this.Equals other =
             match other with
             | :? IVerb as verb -> this.Id = verb.Id

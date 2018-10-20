@@ -106,9 +106,6 @@ type public Statement =
     override this.GetHashCode() = hash this.Id
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "<%O: Id %A Actor %A Verb %A Object %A%O%O%O%O%O%O%O>" (this.GetType().Name) this.Id this.Actor this.Verb this.Object (toStringOrNone this.Result " Result") (toStringOrNone this.Context " Context") (toStringOrNone this.Timestamp " Timestamp") (toStringOrNone this.Stored " Stored") (toStringOrNone this.Authority " Authority") (toStringOrNone this.Version " Version") (toStringOrNone this.Attachments " Attachments")
-
-    /// <inheritdoc />
     override this.Equals other =
         match other with
         | :? IStatement as statement -> this.Id = statement.Id

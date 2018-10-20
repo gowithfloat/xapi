@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class OpenIDTests : IInitializationTests<OpenID>, IEqualityTests, IToStringTests
+    public class OpenIDTests : IInitializationTests<OpenID>, IEqualityTests
     {
         [Fact]
         public OpenID TestValidInit()
@@ -47,13 +47,6 @@ namespace Float.xAPI.Tests
             Assert.False(openid1 == openid2);
             Assert.NotEqual(openid1.GetHashCode(), openid2.GetHashCode());
             Assert.NotEqual(openid1.OpenID, openid2.OpenID);
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var openid = new OpenID(new Uri("http://openid.com/jane-doe"));
-            Assert.Equal("<OpenID: http://openid.com/jane-doe>", openid.ToString());
         }
     }
 }

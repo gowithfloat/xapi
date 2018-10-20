@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class IdentifiedGroupTests : IInitializationTests<IdentifiedGroup>, IEqualityTests, IToStringTests
+    public class IdentifiedGroupTests : IInitializationTests<IdentifiedGroup>, IEqualityTests
     {
         [Fact]
         public IdentifiedGroup TestValidInit()
@@ -85,23 +85,6 @@ namespace Float.xAPI.Tests
             Assert.Equal("Group", igroup.ObjectType);
             Assert.Equal(2, igroup.Member.Count());
             Assert.Equal("group", igroup.Name);
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var members = new List<IAgent>
-            {
-                new Agent(new OpenID(new Uri("http://example.com/agent1"))),
-                new Agent(new OpenID(new Uri("http://example.com/agent2")))
-            };
-
-            var group1 = new IdentifiedGroup(
-                new OpenID(new Uri("http://example.com/group")),
-                members,
-                "Example Group");
-
-            Assert.Equal("<IdentifiedGroup: Name Example Group Member <Agent: IFI <OpenID: http://example.com/agent1>>, <Agent: IFI <OpenID: http://example.com/agent2>> IFI <OpenID: http://example.com/group>>", group1.ToString());
         }
     }
 }

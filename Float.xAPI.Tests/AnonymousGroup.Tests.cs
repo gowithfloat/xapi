@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class AnonymousGroupTests : IInitializationTests<AnonymousGroup>, IToStringTests
+    public class AnonymousGroupTests : IInitializationTests<AnonymousGroup>
     {
         [Fact]
         public AnonymousGroup TestValidInit()
@@ -58,19 +58,6 @@ namespace Float.xAPI.Tests
             Assert.Equal("Group", igroup.ObjectType);
             Assert.Equal(2, igroup.Member.Count());
             Assert.Equal("test name", igroup.Name);
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var members = new List<IAgent>
-            {
-                new Agent(new OpenID(new Uri("http://www.example.com")), "Agent Name"),
-                new Agent(new OpenID(new Uri("http://www.example.com")), "Another Agent")
-            };
-
-            var group = new AnonymousGroup(members, "Sample Group");
-            Assert.Equal("<AnonymousGroup: Name \"Sample Group\" Member <Agent: Name \"Agent Name\" IFI <OpenID: http://www.example.com/>>, <Agent: Name \"Another Agent\" IFI <OpenID: http://www.example.com/>>>", group.ToString());
         }
     }
 }

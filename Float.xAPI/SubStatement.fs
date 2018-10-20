@@ -58,9 +58,6 @@ type public SubStatement =
         { Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = timestamp }
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "<%O: Actor %A Verb %A Object %A%O%O%O>" (this.GetType().Name) this.Actor this.Verb this.Object (toStringOrNone this.Result " Result") (toStringOrNone this.Context " Context") (toStringOrNone this.Timestamp " Timestamp")
-
-    /// <inheritdoc />
     member this.ObjectType = typeName this
 
     interface ISubStatement with

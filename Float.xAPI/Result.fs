@@ -77,9 +77,6 @@ type public Result =
         emptyOptionalSeqArg extensions "extensions"
         { Score = score; Success = success; Completion = completion ; Response = response; Duration = duration; Extensions = extensions }
 
-    /// <inheritdoc />
-    override this.ToString() = sprintf "<%O:%O%O%O%O%O%O>" (typeName this) (toStringOrNone this.Score " Score") (toStringOrNone this.Success " Success") (toStringOrNone this.Completion " Completion") (stringToStringOrNone this.Response " Response") (toStringOrNone this.Duration " Duration") (toStringOrNone this.Extensions " Extensions")
-
     interface IResult with
         member this.Score = this.Score
         member this.Success = this.Success

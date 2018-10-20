@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class SubStatementTests : IInitializationTests<SubStatement>, IToStringTests, ISpecExampleTests
+    public class SubStatementTests : IInitializationTests<SubStatement>, ISpecExampleTests
     {
         [Fact]
         public SubStatement TestValidInit()
@@ -49,16 +49,6 @@ namespace Float.xAPI.Tests
 
             var substatement = new SubStatement(actor, verb, activity);
             Assert.Throws<ArgumentException>(() => new SubStatement(actor, verb, substatement));
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var actor = new Agent(new Mailbox(new MailAddress("test@example.com")));
-            var verb = new Verb(new Uri("http://example.com/sent"), LanguageMap.EnglishUS("sent"));
-            var activity = new Activity(new Uri("http://example.com"));
-            var substatement = new SubStatement(actor, verb, activity);
-            Assert.Equal($"<SubStatement: Actor {actor} Verb {verb} Object {activity}>", substatement.ToString());
         }
 
         [Fact]

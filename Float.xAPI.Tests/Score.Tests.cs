@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ScoreTests : IInitializationTests<Score>, IEqualityTests, IComparisonTests, IToStringTests
+    public class ScoreTests : IInitializationTests<Score>, IEqualityTests, IComparisonTests
     {
         [Fact]
         public Score TestValidInit()
@@ -67,16 +67,6 @@ namespace Float.xAPI.Tests
             var score3 = new Score(3, 0, 10);
             Assert.True(score2 < score3);
             Assert.False(score2 > score3);
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var score1 = new Score(0.95);
-            Assert.Equal("<Score: Scaled 0.95>", score1.ToString());
-
-            var score2 = new Score(95, 0, 100);
-            Assert.Equal("<Score: Scaled 0.95 Raw 95.0 Min 0 Max 100>", score2.ToString());
         }
 
         [Fact]

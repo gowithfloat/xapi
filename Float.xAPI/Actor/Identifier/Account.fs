@@ -45,9 +45,6 @@ type public Account =
         { Name = name; HomePage = homePage }
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "<%O: Name %A HomePage %A>" (typeName this) this.Name this.HomePage
-
-    /// <inheritdoc />
     override this.GetHashCode() = hash (this.Name, this.HomePage)
 
     /// <inheritdoc />

@@ -66,10 +66,6 @@ type public ContextActivities =
         emptyOptionalSeqArg other "other"
         { Parent = parent; Grouping = grouping; Category = category; Other = other }
 
-    /// <inheritdoc />
-    override this.ToString() = 
-        sprintf "<%O: %O %O %O %O>" (typeName this) (seqToStringOrNone this.Parent "Parent") (seqToStringOrNone this.Grouping "Grouping") (seqToStringOrNone this.Category "Category") (seqToStringOrNone this.Other "Other")
-
     interface IContextActivities with
         member this.Parent = this.Parent
         member this.Grouping = this.Grouping

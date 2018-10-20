@@ -46,10 +46,6 @@ type public IdentifiedGroup =
     override this.GetHashCode() = hash this.IFI
 
     /// <inheritdoc />
-    override this.ToString() = 
-        sprintf "<%O: %O Member %O IFI %O>" (typeName this) (toStringOrNone this.Name "Name") (seqToString this.Member) this.IFI
-
-    /// <inheritdoc />
     override this.Equals other =
         match other with
         | :? IIdentifiedGroup as group -> this.IFI = group.IFI

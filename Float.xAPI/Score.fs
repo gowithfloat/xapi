@@ -81,12 +81,6 @@ type public Score =
     override this.GetHashCode() = hash this.Scaled
 
     /// <inheritdoc />
-    override this.ToString() = 
-        match this.Raw with
-        | Some raw -> sprintf "<%O: Scaled %A Raw %A%O%O>" (typeName this) this.Scaled raw (toStringOrNone this.Min " Min") (toStringOrNone this.Max " Max")
-        | None -> sprintf "<%O: Scaled %A>" (typeName this) this.Scaled
-    
-    /// <inheritdoc />
     override this.Equals other = 
         match other with
         | :? IScore as score -> this.Scaled = score.Scaled

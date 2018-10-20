@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ContextActivitiesTests : IInitializationTests<ContextActivities>, IToStringTests, ISpecExampleTests
+    public class ContextActivitiesTests : IInitializationTests<ContextActivities>, ISpecExampleTests
     {
         [Fact]
         public ContextActivities TestValidInit()
@@ -52,33 +52,6 @@ namespace Float.xAPI.Tests
             };
             Assert.Throws<ArgumentException>(() => new ContextActivities(empty, empty, empty, empty));
             Assert.Throws<ArgumentException>(() => new ContextActivities(empty, one, one, one));
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var parent = new List<IActivity>
-            {
-                new Activity(new Uri("http://example.com/parent"))
-            };
-
-            var grouping = new List<IActivity>
-            {
-                new Activity(new Uri("http://example.com/grouping"))
-            };
-
-            var category = new List<IActivity>
-            {
-                new Activity(new Uri("http://example.com/category"))
-            };
-
-            var other = new List<IActivity>
-            {
-                new Activity(new Uri("http://example.com/other"))
-            };
-
-            var ca2 = new ContextActivities(parent, grouping, category, other);
-            Assert.Equal("<ContextActivities: Parent <Activity: Id http://example.com/parent> Grouping <Activity: Id http://example.com/grouping> Category <Activity: Id http://example.com/category> Other <Activity: Id http://example.com/other>>", ca2.ToString());
         }
 
         [Fact]

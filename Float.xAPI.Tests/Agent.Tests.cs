@@ -12,7 +12,7 @@ using static Float.xAPI.Tests.TestHelpers;
 
 namespace Float.xAPI.Tests
 {
-    public class AgentTests : IInitializationTests<Agent>, IEqualityTests, IToStringTests, ISerializationTests
+    public class AgentTests : IInitializationTests<Agent>, IEqualityTests, ISerializationTests
     {
         [Fact]
         public Agent TestValidInit()
@@ -79,23 +79,6 @@ namespace Float.xAPI.Tests
             Assert.True(agent1a != agent2a);
             Assert.True(agent2a != agent3a);
             Assert.True(agent3a != agent4a);
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var ifi1 = new Mailbox(new MailAddress("jdoe@example.com"));
-            var ifi2 = new MailboxSha1Sum(new SHAHash("sschmoe@example.com"));
-            var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
-            var ifi4 = new Account("test", new Uri("http://example.com"));
-            var agent1a = new Agent(ifi1, "Jane Doe");
-            var agent2a = new Agent(ifi2, "Sue Schmoe");
-            var agent3a = new Agent(ifi3, "Learner, Example");
-            var agent4a = new Agent(ifi4, "Student");
-            Assert.Equal("<Agent: Name \"Jane Doe\" IFI mailto:jdoe@example.com>", agent1a.ToString());
-            Assert.Equal("<Agent: Name \"Sue Schmoe\" IFI mbox_sha1sum: 0e3372390b51c30c2fa4d2e0fd7b2b2009fc5692>", agent2a.ToString());
-            Assert.Equal("<Agent: Name \"Learner, Example\" IFI <OpenID: https://www.gowithfloat.com/>>", agent3a.ToString());
-            Assert.Equal("<Agent: Name \"Student\" IFI <Account: Name \"test\" HomePage http://example.com/>>", agent4a.ToString());
         }
 
         [Fact]

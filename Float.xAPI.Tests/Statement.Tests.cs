@@ -18,7 +18,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class StatementTests : IInitializationTests<Statement>, IEqualityTests, IToStringTests
+    public class StatementTests : IInitializationTests<Statement>, IEqualityTests
     {
         [Fact]
         public Statement TestValidInit()
@@ -84,18 +84,6 @@ namespace Float.xAPI.Tests
             Assert.NotEqual(statement1, statement2);
             Assert.NotEqual(statement1, statement3);
             Assert.NotEqual(statement2, statement3);
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var id = Guid.NewGuid();
-            var timestamp = DateTime.Now;
-            var actor1 = new Agent(new Account("agent", new Uri("http://example.com/account")));
-            var verb1 = new Verb(new Uri("http://example.com/verb"), LanguageMap.EnglishUS("verb"));
-            var activity1 = new Activity(new Uri("http://example.com/activity"));
-            var statement1 = new Statement(actor1, verb1, activity1, id, timestamp: timestamp);
-            Assert.Equal($"<Statement: Id {id} Actor {actor1.ToString()} Verb {verb1.ToString()} Object {activity1.ToString()} Timestamp {timestamp}>", statement1.ToString());
         }
 
         [Fact]

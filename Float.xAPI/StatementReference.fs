@@ -37,9 +37,6 @@ type public StatementReference =
     override this.GetHashCode() = hash this.Id
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "<%A: Id %A>" (this.GetType().Name) this.Id
-
-    /// <inheritdoc />
     override this.Equals other =
         match other with
         | :? IStatementReference as ref -> this.Id = ref.Id

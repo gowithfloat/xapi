@@ -53,12 +53,6 @@ type public Activity =
     override this.GetHashCode() = hash this.Id
 
     /// <inheritdoc />
-    override this.ToString() =
-        match this.Definition with
-        | Some definition -> sprintf "<%O: Id %A Definition %A>" (typeName this) this.Id definition
-        | _ -> sprintf "<%O: Id %A>" (typeName this) this.Id
-
-    /// <inheritdoc />
     override this.Equals other = 
         match other with
         | :? IActivity as activity -> this.Id = activity.Id

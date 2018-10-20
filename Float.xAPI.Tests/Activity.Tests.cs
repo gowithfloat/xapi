@@ -4,7 +4,6 @@
 // </copyright>
 
 using System;
-using System.Collections.Generic;
 using Float.xAPI.Activities;
 using Float.xAPI.Activities.Definitions;
 using Float.xAPI.Languages;
@@ -12,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ActivityTests : IInitializationTests<Activity>, IEqualityTests, IToStringTests
+    public class ActivityTests : IInitializationTests<Activity>, IEqualityTests
     {
         [Fact]
         public Activity TestValidInit()
@@ -49,13 +48,6 @@ namespace Float.xAPI.Tests
             Assert.False(activity1.Equals(activity2));
             Assert.True(activity1 != activity2);
             Assert.NotEqual(activity1.GetHashCode(), activity2.GetHashCode());
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var activity1 = new Activity(new Uri("http://example.com/activity1"));
-            Assert.Equal("<Activity: Id http://example.com/activity1>", activity1.ToString());
         }
 
         [Fact]

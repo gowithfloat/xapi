@@ -43,9 +43,6 @@ type public StatementResult =
     new (statements, [<Optional;DefaultParameterValue(null)>] ?more) =
         { Statements = statements; More = more }
 
-    /// <inheritdoc />
-    override this.ToString() = sprintf "<%O: Statements %O More %O>" (typeName this) this.Statements this.More
-
     interface IStatementResult with
         member this.Statements = this.Statements
         member this.More = this.More

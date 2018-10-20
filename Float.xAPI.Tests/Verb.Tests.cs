@@ -11,7 +11,7 @@ using static Float.xAPI.Tests.TestHelpers;
 
 namespace Float.xAPI.Tests
 {
-    public class VerbTests : IInitializationTests<Verb>, IEqualityTests, IToStringTests, ISpecExampleTests, ISerializationTests
+    public class VerbTests : IInitializationTests<Verb>, IEqualityTests, ISpecExampleTests, ISerializationTests
     {
         [Fact]
         public Verb TestValidInit()
@@ -55,24 +55,6 @@ namespace Float.xAPI.Tests
             Assert.NotEqual(verb1.GetHashCode(), verb2.GetHashCode());
             Assert.False(verb1 == verb2);
             Assert.True(verb1 != verb2);
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var display = new LanguageMap(new Dictionary<ILanguageTag, string>
-            {
-                {
-                    new LanguageTag(Language.Spanish, Region.Mexico), "acceso"
-                },
-                {
-                    new LanguageTag(Language.English, Region.UnitedStates), "accessed"
-                }
-            });
-            var verb3 = new Verb(
-                new Uri("https://w3id.org/xapi/dod-isd/verbs/accessed"),
-                display);
-            Assert.Equal($"<Verb: Id https://w3id.org/xapi/dod-isd/verbs/accessed Display {verb3.Display}>", verb3.ToString());
         }
 
         [Fact]

@@ -36,12 +36,6 @@ type public Agent =
     member this.ObjectType = typeName this
 
     /// <inheritdoc />
-    override this.ToString() =
-        match this.Name with
-        | Some name -> sprintf "<%O: Name %A IFI %A>" (typeName this) name this.IFI
-        | None -> sprintf "<%O: IFI %A>" (typeName this) this.IFI
-
-    /// <inheritdoc />
     override this.GetHashCode() = hash this.IFI
 
     /// <inheritdoc />

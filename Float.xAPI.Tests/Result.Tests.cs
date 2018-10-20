@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ResultTests : IInitializationTests<Result>, IToStringTests
+    public class ResultTests : IInitializationTests<Result>
     {
         [Fact]
         public Result TestValidInit()
@@ -34,25 +34,6 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             // all parameters are optional
-        }
-
-        [Fact]
-        public void TestToString()
-        {
-            var result1 = new Result();
-            Assert.Equal("<Result:>", result1.ToString());
-
-            var result2 = new Result(
-                new Score(0.25),
-                false,
-                true,
-                "example response",
-                new TimeSpan(2, 3, 4),
-                new Dictionary<Uri, string> { { new Uri("http://example.com"), "example" } });
-
-            // this mostly works, but extensions aren't great
-            // todo: Assert.Equal("<Result: Score <Score: Scaled 0.25> Success False Completion True Response \"example response\" Duration 02:03:04 Extensions >", result2.ToString());
-            Assert.NotNull(result2.ToString());
         }
 
         [Fact]

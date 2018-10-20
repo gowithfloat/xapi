@@ -33,9 +33,6 @@ type OpenID =
         { OpenID = openID }
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "<%O: %A>" (typeName this) this.OpenID
-
-    /// <inheritdoc />
     override this.GetHashCode() = hash this.OpenID
 
     /// <inheritdoc />

@@ -36,12 +36,6 @@ type public AnonymousGroup =
     /// <inheritdoc />
     member this.ObjectType = "Group"
 
-    /// <inheritdoc />
-    override this.ToString() =
-        match this.Name with
-        | Some name -> sprintf "<%O: Name %A Member %O>" (typeName this) name (seqToString this.Member)
-        | None -> sprintf "<%O: Member %O>" (typeName this) (seqToString this.Member)
-
     interface IAnonymousGroup with
         member this.ObjectType = this.ObjectType
         member this.Member = this.Member
