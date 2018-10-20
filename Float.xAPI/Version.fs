@@ -30,6 +30,9 @@ type public IVersion =
     /// </summary>
     abstract member Patch: uint
 
+    inherit IEquatable<IVersion>
+    inherit IComparable<IVersion>
+
 [<CustomComparison;CustomEquality;Struct>]
 type public Version =
     /// <inheritdoc />
@@ -62,28 +65,25 @@ type public Version =
         | :? IVersion as version -> (this.Major, this.Minor, this.Patch) = (version.Major, version.Minor, version.Patch)
         | _ -> false
 
-    member this.CompareTo = (this :> IComparable<IVersion>).CompareTo
-    static member op_LessThan (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) < 0
-    static member op_GreaterThan (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) > 0
-    static member op_Equality (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) = 0
-    static member op_Inequality (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) <> 0
-
-    interface IEquatable<IVersion> with
-       member this.Equals other = this.Equals other
-
-    interface IComparable<IVersion> with
-      member this.CompareTo other =
-          match compare this.Major other.Major with
-          | 1 -> 1
-          | -1 -> -1
-          | _ -> 
+    member this.CompareTo(other: IVersion) = 
+        match compare this.Major other.Major with
+        | 1 -> 1
+        | -1 -> -1
+        | _ -> 
             match compare this.Minor other.Minor with
             | 1 -> 1
             | -1 -> -1
             | _ -> compare this.Patch other.Patch
 
+    static member op_LessThan (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) < 0
+    static member op_GreaterThan (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) > 0
+    static member op_Equality (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) = 0
+    static member op_Inequality (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) <> 0
+
     interface IVersion with
         member this.Major = this.Major
         member this.Minor = this.Minor
         member this.Patch = this.Patch
+        member this.Equals other = this.Equals other
+        member this.CompareTo other = this.CompareTo other
         
