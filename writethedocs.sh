@@ -3,7 +3,7 @@
 set +euxr
 
 input_path="Float.xAPI/bin/Debug/netstandard2.0/Float.xAPI.XML"
-output_path="docs/readme.md"
+output_path="docs/index.md"
 
 if [ ! -f "${input_path}" ]; then
   echo "Build the xAPI project first to generate XML file."
