@@ -18,7 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDictionaryRepresentable.fs" />
-    <Compile Include="Interop.fs" />
     <Compile Include="SHAHash.fs" />
     <Compile Include="IObject.fs" />
     <Compile Include="Languages\Language.fs" />
@@ -87,5 +86,8 @@
     <Compile Include="Resources\IAgentsResource.fs" />
     <Compile Include="Filters.fs" />
     <Compile Include="InMemoryLRS.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Float.Common\Float.Common.fsproj" />
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@ namespace Float.xAPI.Activities.Definitions
 
 open System.Collections.Generic
 open System.Runtime.InteropServices
-open Float.xAPI.Interop
+open Float.Common.Interop
 open Float.xAPI.Languages
 
 // todo: the spec says responses can be a string or number range; should `Items` here be (string * ICharacterString) seq ?

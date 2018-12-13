@@ -6,7 +6,7 @@
 namespace Float.xAPI.Activities.Definitions
 
 open System.Runtime.InteropServices
-open Float.xAPI.Interop
+open Float.Common.Interop
 
 /// <summary>
 /// The Correct Responses Pattern contains an array of response patterns.
@@ -63,7 +63,7 @@ type ResponsePattern =
     /// Use this to create a response pattern with a single character string item.
     /// </summary>
     /// <param name="item">A single character string item.</param>
-    /// <param name="caseMatters>Whether or not the case of items in the list matters.</param>
+    /// <param name="caseMatters">Whether or not the case of items in the list matters.</param>
     /// <param name="orderMatters">Whether or not the order of items in the list matters.</param>
     new (item: string, [<Optional;DefaultParameterValue(null)>] ?caseMatters, [<Optional;DefaultParameterValue(null)>] ?orderMatters) =
         nullArg item "item"
@@ -74,7 +74,7 @@ type ResponsePattern =
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.ResponsePattern"/> struct.
     /// </summary>
     /// <param name="characterStrings">An exhaustive list of possible correct responses.</param>
-    /// <param name="caseMatters>Whether or not the case of items in the list matters.</param>
+    /// <param name="caseMatters">Whether or not the case of items in the list matters.</param>
     /// <param name="orderMatters">Whether or not the order of items in the list matters.</param>
     new (characterStrings, [<Optional;DefaultParameterValue(null)>] ?caseMatters: bool, [<Optional;DefaultParameterValue(null)>] ?orderMatters: bool) =
         nullArg characterStrings "characterStrings"
@@ -86,7 +86,7 @@ type ResponsePattern =
     /// Use this to create a simple true/false character string.
     /// </summary>
     /// <param name="characterString">A single correct response.</param>
-    /// <param name="caseMatters>Whether or not the case of items in the list matters.</param>
+    /// <param name="caseMatters">Whether or not the case of items in the list matters.</param>
     /// <param name="orderMatters">Whether or not the order of items in the list matters.</param>
     new (characterString, [<Optional;DefaultParameterValue(null)>] ?caseMatters: bool, [<Optional;DefaultParameterValue(null)>] ?orderMatters: bool) =
         nullArg characterString "characterString"

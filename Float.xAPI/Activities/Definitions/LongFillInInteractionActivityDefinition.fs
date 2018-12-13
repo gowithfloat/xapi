@@ -9,7 +9,7 @@ open System
 open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
-open Float.xAPI.Interop
+open Float.Common.Interop
 open Float.xAPI.Languages
 
 /// <summary>
@@ -39,7 +39,7 @@ type public LongFillInInteractionActivityDefinition =
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.LongFillInInteractionActivityDefinition"/> struct.
     /// </summary>
     /// <param name="name">The human readable/visual name of the Activity.</param>
-    /// <param name="description"A description of the Activity.</param>
+    /// <param name="description">A description of the Activity.</param>
     /// <param name="correctResponsesPattern">A pattern representing the correct response to the interaction.</param>
     /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
     /// <param name="extensions">A map of other properties as needed.</param>

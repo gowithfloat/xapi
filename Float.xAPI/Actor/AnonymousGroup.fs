@@ -6,7 +6,7 @@
 namespace Float.xAPI.Actor
 
 open System.Runtime.InteropServices
-open Float.xAPI.Interop
+open Float.Common.Interop
 
 /// <summary>
 /// An Anonymous Group is used to describe a cluster of people where there is no ready identifier for this cluster, e.g. an ad hoc team.

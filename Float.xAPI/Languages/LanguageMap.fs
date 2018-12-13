@@ -9,7 +9,7 @@ open System
 open System.Collections
 open System.Collections.Generic
 open System.Runtime.InteropServices
-open Float.xAPI.Interop
+open Float.Common.Interop
 
 /// <summary>
 /// A language map is a dictionary where the key is a RFC 5646 Language Tag, and the value is a string in the language specified in the tag.

@@ -6,7 +6,7 @@
 namespace Float.xAPI.Activities.Definitions
 
 open System.Runtime.InteropServices
-open Float.xAPI.Interop
+open Float.Common.Interop
 open Float.xAPI.Languages
 
 /// <summary>

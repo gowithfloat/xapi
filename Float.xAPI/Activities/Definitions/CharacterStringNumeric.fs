@@ -6,7 +6,7 @@
 namespace Float.xAPI.Activities.Definitions
 
 open System.Runtime.InteropServices
-open Float.xAPI.Interop
+open Float.Common.Interop
 
 /// <summary>
 /// A range of numbers represented by a minimum and maximum.

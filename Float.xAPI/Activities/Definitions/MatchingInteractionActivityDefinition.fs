@@ -9,7 +9,7 @@ open System
 open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
-open Float.xAPI.Interop
+open Float.Common.Interop
 open Float.xAPI.Languages
 
 /// <summary>
@@ -60,7 +60,7 @@ type public MatchingInteractionActivityDefinition =
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.MatchingInteractionActivityDefinition"/> struct.
     /// </summary>
     /// <param name="name">The human readable/visual name of the Activity.</param>
-    /// <param name="description"A description of the Activity.</param>
+    /// <param name="description">A description of the Activity.</param>
     /// <param name="correctResponsesPattern">A pattern representing the correct response to the interaction.</param>
     /// <param name="source">Items in the first set to match.</param>
     /// <param name="target">Items in the second set to match.</param>

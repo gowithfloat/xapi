@@ -5,7 +5,7 @@
 
 namespace Float.xAPI.Languages
 
-open Float.xAPI.Interop
+open Float.Common.Interop
 
 /// <summary>
 /// ISO 639-1 Language Codes

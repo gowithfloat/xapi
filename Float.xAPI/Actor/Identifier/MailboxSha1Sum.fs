@@ -6,7 +6,7 @@
 namespace Float.xAPI.Actor.Identifier
 
 open Float.xAPI
-open Float.xAPI.Interop
+open Float.Common.Interop
 
 /// <summary>
 /// The sha1sum of the URI of an Internet mailbox associated with exactly one owner, the first owner of the mailbox.

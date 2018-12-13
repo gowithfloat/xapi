@@ -9,7 +9,7 @@ open System
 open System.Runtime.InteropServices
 open Float.xAPI.Actor
 open Float.xAPI.Activities
-open Float.xAPI.Interop
+open Float.Common.Interop
 open Float.xAPI.Languages
 
 [<NoEquality;NoComparison;Struct>]

@@ -9,7 +9,7 @@ open System
 open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Languages
-open Interop
+open Float.Common.Interop
 
 /// <summary>
 /// A choice within an interaction component.

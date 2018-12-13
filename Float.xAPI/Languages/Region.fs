@@ -5,7 +5,7 @@
 
 namespace Float.xAPI.Languages
 
-open Float.xAPI.Interop
+open Float.Common.Interop
 
 /// <summary>
 /// ISO 3166-1 region codes.

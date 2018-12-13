@@ -7,7 +7,7 @@ namespace Float.xAPI
 
 open System.Runtime.InteropServices
 open System.Security.Cryptography
-open Interop
+open Float.Common.Interop
 
 /// <summary>
 /// Storage for data in SHA1 hash format.
@@ -34,6 +34,7 @@ type public SHAHash =
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.SHA1Hash"/> struct.
+    /// </summary>
     /// <param name="bytes">The encoded data.</param>
     new (bytes) =
         nullArg bytes "bytes"
