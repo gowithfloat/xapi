@@ -103,5 +103,5 @@ module Main =
             let doc = Doc.Parse(File.ReadAllText inputFilePath)
             let result = doc.Members |> Seq.map createMember
             let output = doc.Members |> Seq.map createMember |> Seq.map memberToString
-            File.WriteAllLines(outputFilePath, List.concat(seq [["# " + doc.Assembly.Name]; List.ofSeq output]))
+            File.WriteAllLines(outputFilePath, List.concat [["# " + doc.Assembly.Name]; List.ofSeq output])
             0 // return an integer exit code

@@ -14,3 +14,8 @@ type Param =
 
     new(name: string, description: string) =
         { Name = name; Description = description }
+
+    /// <inheritdoc />
+    override this.ToString() =
+        sprintf "#### %O\n%O" this.Name this.Description
+    

@@ -22,5 +22,19 @@ type Member =
 
     /// <inheritdoc />
     override this.ToString() =
-        sprintf "%O %O %O %O" this.Classifier this.Name this.Summary (seqToString(this.Params |? Seq.empty))
-    
+        let printSum(str: string option) =
+            match str with
+            | Some sum -> sum.Trim(' ', '\n', '\r')
+            | _ -> "No summary."
+
+        let printParam(par: Param option) =
+            match par with
+            | Some p -> p.ToString()
+            | _ -> ""
+
+        let printParams(par: Param seq option) =
+            match par with
+            | Some p ->"### Parameters\n"// + (par |> Seq.map printParam |> String.concat "\n")
+            | _ -> ""
+
+        sprintf "## %O\n%O\n%O" this.Name (printSum this.Summary) (printParams this.Params)
