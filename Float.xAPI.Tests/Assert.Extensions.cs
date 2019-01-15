@@ -24,6 +24,9 @@ namespace Float.xAPI.Tests
         /// <typeparam name="Equatable">The type for which the concrete type is equatable.</typeparam>
         public static void Equality<Concrete, Interface, Equatable>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> equalityOp) where Concrete : Interface where Interface : Equatable
         {
+            Assert.NotNull(first);
+            Assert.NotNull(second);
+
             Assert.True(equalityOp(first, second));
             Assert.True(equalityOp(second, first));
             Assert.Equal(first, second);
@@ -44,6 +47,8 @@ namespace Float.xAPI.Tests
             Assert.NotNull(eqfirst);
             Assert.NotNull(eqsecond);
             Assert.Equal(eqfirst, eqsecond);
+            Assert.Equal(eqsecond, eqfirst);
+            Assert.Equal(eqfirst.GetHashCode(), eqsecond.GetHashCode());
 
             // check that the right equals operator is used
             Assert.True(first.Equals(second));
@@ -91,9 +96,13 @@ namespace Float.xAPI.Tests
         /// <typeparam name="Equatable">The type for which the concrete type is equatable.</typeparam>
         public static void Inequality<Concrete, Interface, Equatable>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> inequalityOp) where Concrete : Interface where Interface : Equatable
         {
+            Assert.NotNull(first);
+            Assert.NotNull(second);
+
             Assert.True(inequalityOp(first, second));
             Assert.True(inequalityOp(second, first));
             Assert.NotEqual(first, second);
+            Assert.NotEqual(second, first);
             Assert.NotEqual(first.GetHashCode(), second.GetHashCode());
 
             // cast to interface types
@@ -111,8 +120,10 @@ namespace Float.xAPI.Tests
             Assert.NotNull(eqfirst);
             Assert.NotNull(eqsecond);
             Assert.NotEqual(eqfirst, eqsecond);
+            Assert.NotEqual(eqsecond, eqfirst);
+            Assert.NotEqual(eqfirst.GetHashCode(), eqsecond.GetHashCode());
 
-            // check that the right equals operator is used
+            // check that the correct equals operator is used
             Assert.False(first.Equals(second));
             Assert.False(first.Equals(isecond));
             Assert.False(first.Equals(eqsecond));

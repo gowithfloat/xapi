@@ -41,6 +41,7 @@ type public StatementResult =
     /// <param name="statements">List of statements.</param>
     /// <param name="more">Relative IRL that can be used to fetch more results.</param>
     new (statements, [<Optional;DefaultParameterValue(null)>] ?more) =
+        nullArg statements "statements"
         { Statements = statements; More = more }
 
     interface IStatementResult with

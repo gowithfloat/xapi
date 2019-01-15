@@ -9,7 +9,7 @@ namespace Float.VSDocGen
 /// Possible types of members in the parsed XML.
 /// </summary>
 type MemberCategory =
-    Method 
+    | Method 
     | Type 
     | Field 
     | Property

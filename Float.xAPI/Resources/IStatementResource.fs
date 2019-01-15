@@ -68,14 +68,14 @@ type IStatementResource =
     /// <param name="attachments">If true, the LRS uses the multipart response format and includes all attachments as described previously. If false, the LRS sends the prescribed response with Content-Type application/json and does not send attachment data.</param>
     /// <param name="ascending">If true, return results in ascending order of stored time.</param>
     abstract member GetStatements: 
-        actor: IIdentifiedActor option * 
-        verbId: Uri option * 
-        activityId: Uri option * 
-        registration: Guid option * 
+        [<Optional>] actor: IIdentifiedActor option * 
+        [<Optional>] verbId: Uri option * 
+        [<Optional>] activityId: Uri option * 
+        [<Optional>] registration: Guid option * 
         [<Optional;DefaultParameterValue(false)>] relatedActivities: bool * 
         [<Optional;DefaultParameterValue(false)>] relatedAgents: bool * 
-        since: DateTime option * 
-        until: DateTime option * 
+        [<Optional>] since: DateTime option * 
+        [<Optional>] until: DateTime option * 
         [<Optional;DefaultParameterValue(0)>] limit: int * 
         [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat * 
         [<Optional;DefaultParameterValue(false)>] attachments: bool * 

@@ -11,9 +11,6 @@ open System.Runtime.InteropServices
 open Float.xAPI.Actor
 open Float.xAPI.Resources
 
-// todo: remove this (F# seems to think null is not valid as a default parameter below)
-#nowarn "3211"
-
 module internal Util =
     let inline mapStatementToId(statement: IStatement) =
         statement.Id
@@ -58,14 +55,14 @@ type InMemoryLRS =
             |> List.tryFind (Filters.statementIdMatch voidedStatementId)
 
     /// <inheritdoc />
-    member this.GetStatements([<Optional;DefaultParameterValue(null)>] actor: IIdentifiedActor option, 
-                              [<Optional;DefaultParameterValue(null)>] verbId: Uri option, 
-                              [<Optional;DefaultParameterValue(null)>] activityId: Uri option, 
-                              [<Optional;DefaultParameterValue(null)>] registration: Guid option, 
-                              [<Optional;DefaultParameterValue(null)>] relatedActivities: bool, 
-                              [<Optional;DefaultParameterValue(null)>] relatedAgents: bool, 
-                              [<Optional;DefaultParameterValue(null)>] since: DateTime option, 
-                              [<Optional;DefaultParameterValue(null)>] until: DateTime option, 
+    member this.GetStatements([<Optional>] actor: IIdentifiedActor option, 
+                              [<Optional>] verbId: Uri option, 
+                              [<Optional>] activityId: Uri option, 
+                              [<Optional>] registration: Guid option, 
+                              [<Optional>] relatedActivities: bool, 
+                              [<Optional>] relatedAgents: bool, 
+                              [<Optional>] since: DateTime option, 
+                              [<Optional>] until: DateTime option, 
                               [<Optional;DefaultParameterValue(0)>] limit: int,
                               [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat, 
                               [<Optional;DefaultParameterValue(false)>] attachments: bool, 

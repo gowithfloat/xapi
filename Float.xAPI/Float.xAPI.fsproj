@@ -85,7 +85,9 @@
     <Compile Include="Resources\Documents\IAgentProfileResource.fs" />
     <Compile Include="Resources\IAgentsResource.fs" />
     <Compile Include="Filters.fs" />
+    <Compile Include="ILRS.fs" />
     <Compile Include="InMemoryLRS.fs" />
+    <Compile Include="NoopLRS.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Float.Common\Float.Common.fsproj" />

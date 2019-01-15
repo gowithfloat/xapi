@@ -6,6 +6,7 @@
 namespace Float.xAPI.Resources.Documents
 
 open System
+open System.Runtime.InteropServices
 open Float.xAPI.Actor
 
 /// <summary>
@@ -23,7 +24,7 @@ type IAgentProfileResource =
     /// </summary>
     /// <param name="agent">The Agent associated with this Profile document.</param>
     /// <param name="profileId">The profile id associated with this Profile document.</param>
-    abstract member DeleteProfileDocument: IAgent -> ProfileId -> unit
+    abstract member DeleteProfileDocument: IAgent * ProfileId -> unit
 
     /// <summary>
     /// Fetches the specified Profile document in the context of the specified Agent.
@@ -31,7 +32,7 @@ type IAgentProfileResource =
     /// <returns>The Profile document.</returns>
     /// <param name="agent">The Agent associated with this Profile document.</param>
     /// <param name="profileId">The profile id associated with this Profile document.</param>
-    abstract member GetProfileDocument: IAgent -> ProfileId -> IDocument
+    abstract member GetProfileDocument: IAgent * ProfileId -> IDocument
 
     /// <summary>
     /// Fetches Profile ids of all Profile documents for an Agent.
@@ -40,4 +41,4 @@ type IAgentProfileResource =
     /// <returns>Array of Profile id(s).</returns>
     /// <param name="agent">The Agent associated with these Profile documents.</param>
     /// <param name="since">Only ids of Profiles stored since the specified Timestamp (exclusive) are returned.</param>
-    abstract member GetProfileDocuments: IAgent -> DateTime option -> ProfileId seq
+    abstract member GetProfileDocuments: IAgent * [<Optional>] date: DateTime option -> ProfileId seq

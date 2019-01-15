@@ -46,6 +46,7 @@ type public IStatement =
     abstract member Attachments: IAttachment seq option
 
     inherit IGenericStatement
+    inherit IEquatable<IStatement>
 
 [<NoComparison;CustomEquality;Struct>]
 type public Statement = 
@@ -111,9 +112,7 @@ type public Statement =
         | :? IStatement as statement -> this.Id = statement.Id
         | _ -> false
 
-    interface IEquatable<Statement> with
-        member this.Equals other = this.Equals other
-
+    /// <inheritdoc />
     member this.ObjectType = typeName this
 
     interface IStatement with
@@ -129,3 +128,4 @@ type public Statement =
         member this.Context = this.Context
         member this.Timestamp = this.Timestamp
         member this.Attachments = this.Attachments
+        member this.Equals other = this.Equals other

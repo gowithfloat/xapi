@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Float.xAPI\Float.xAPI.fsproj" />
-    <ProjectReference Include="..\Float.xAPI.Json\Float.xAPI.Json.fsproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="coverage.json" />

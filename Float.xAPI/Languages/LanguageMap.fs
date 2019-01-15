@@ -35,7 +35,7 @@ type public LanguageMap =
     /// Internal storage of key/value pairs.
     /// Language maps could be a type abbreviation instead, but that prevents us from creating constructors or adding members.
     /// </summary>
-    val private map: Map<ILanguageTag, string>
+    val private map: Map<ILanguageTag, string> // todo: should this be (ILanguageTag * string) seq instead?
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Languages.LanguageMap"/> struct with a map of tag/value pairs.

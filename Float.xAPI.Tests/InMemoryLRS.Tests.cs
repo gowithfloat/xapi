@@ -1,14 +1,13 @@
-﻿// <copyright file="LRS.Tests.cs" company="Float">
+﻿// <copyright file="InMemoryLRS.Tests.cs" company="Float">
 // Copyright (c) 2018 Float, All rights reserved.
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
 using System;
-using Float.xAPI.Activities;
 using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
-using Float.xAPI.Languages;
 using Xunit;
+using static Float.xAPI.Tests.LRSTestHelper;
 
 namespace Float.xAPI.Tests
 {
@@ -21,7 +20,7 @@ namespace Float.xAPI.Tests
         public void TestGetStatement()
         {
             var lrs = new InMemoryLRS();
-            var statement = GenerateStatement();
+            var statement = GenerateStatement(statementId);
             lrs.PutStatement(statement);
 
             var retrieved1 = lrs.GetStatement(statement.Id);
@@ -49,7 +48,7 @@ namespace Float.xAPI.Tests
         public void TestGetStatementsByVerb()
         {
             var lrs = new InMemoryLRS();
-            lrs.PutStatement(GenerateStatement());
+            lrs.PutStatement(GenerateStatement(statementId));
 
             var retrieved1 = lrs.GetStatements(verbId: new Uri("http://example.com/verb"));
             Assert.Single(retrieved1.Statements);
@@ -62,7 +61,7 @@ namespace Float.xAPI.Tests
         public void TestGetStatementsByActor()
         {
             var lrs = new InMemoryLRS();
-            lrs.PutStatement(GenerateStatement());
+            lrs.PutStatement(GenerateStatement(statementId));
 
             var retrieved1 = lrs.GetStatements(actor: new Agent(new OpenID(new Uri("http://example.com/agent"))));
             Assert.Single(retrieved1.Statements);
@@ -75,7 +74,7 @@ namespace Float.xAPI.Tests
         public void TestGetStatementsByActivity()
         {
             var lrs = new InMemoryLRS();
-            lrs.PutStatement(GenerateStatement());
+            lrs.PutStatement(GenerateStatement(statementId));
 
             var retrieved1 = lrs.GetStatements(activityId: new Uri("http://example.com/activity"));
             Assert.Single(retrieved1.Statements);
@@ -88,7 +87,7 @@ namespace Float.xAPI.Tests
         public void TestGetStatementsByRegistration()
         {
             var lrs = new InMemoryLRS();
-            lrs.PutStatement(GenerateStatement());
+            lrs.PutStatement(GenerateStatement(statementId));
 
             var retrieved1 = lrs.GetStatements(registration: registration);
             Assert.Single(retrieved1.Statements);
@@ -96,53 +95,6 @@ namespace Float.xAPI.Tests
             // todo: fix this
             // var retrieved2 = lrs.GetStatements(registration: Guid.NewGuid());
             // Assert.Empty(retrieved2.Statements);
-        }
-
-        static IStatement GenerateVoidingStatement()
-        {
-            return new Statement(
-                GenerateActor(),
-                Verb.Voided,
-                GenerateStatementRef());
-        }
-
-        static IStatementReference GenerateStatementRef()
-        {
-            return new StatementReference(Guid.NewGuid());
-        }
-
-        static IIdentifiedActor GenerateActor()
-        {
-            return new Agent(
-                new OpenID(
-                    new Uri("http://example.com/agent")));
-        }
-
-        static IVerb GenerateVerb()
-        {
-            return new Verb(
-                new Uri("http://example.com/verb"),
-                LanguageMap.EnglishUS("verb"));
-        }
-
-        static IActivity GenerateActivity()
-        {
-            return new Activity(
-                new Uri("http://example.com/activity"));
-        }
-
-        IStatement GenerateStatement()
-        {
-            return new Statement(
-                GenerateActor(),
-                GenerateVerb(),
-                GenerateActivity(),
-                statementId);
-        }
-
-        IContext GenerateContext()
-        {
-            return new Context(registration);
         }
     }
 }

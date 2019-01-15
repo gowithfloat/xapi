@@ -6,6 +6,7 @@
 namespace Float.xAPI.Resources.Documents
 
 open System
+open System.Runtime.InteropServices
 open Float.xAPI.Actor
 
 /// <summary>
@@ -25,7 +26,12 @@ type IStateResource =
     /// <param name="activityId">The Activity id associated with this state.</param>
     /// <param name="agent">The Agent associated with this state.</param>
     /// <param name="registration">The registration associated with this state.</param>
-    abstract member DeleteStateDocument: StateId -> ActivityId option -> IAgent option -> Guid option -> unit
+    abstract member DeleteStateDocument: 
+        StateId * 
+        [<Optional>] activityId: ActivityId option * 
+        [<Optional>] agent: IAgent option * 
+        [<Optional>] guid: Guid option 
+            -> unit
 
     /// <summary>
     /// Deletes all state data for this context (Activity + Agent [+ registration if specified]).
@@ -33,7 +39,11 @@ type IStateResource =
     /// <param name="activityId">The Activity id associated with these states.</param>
     /// <param name="agent">The Agent associated with these states.</param>
     /// <param name="registration">The Registration associated with these states.</param>
-    abstract member DeleteStateDocuments: ActivityId -> IAgent -> Guid option -> unit
+    abstract member DeleteStateDocuments: 
+        ActivityId * 
+        IAgent * 
+        [<Optional>] guid: Guid option 
+            -> unit
 
     /// <summary>
     /// Fetches the document specified by the given "stateId" that exists in the context of the specified Activity, Agent, and registration (if specified).
@@ -43,7 +53,12 @@ type IStateResource =
     /// <param name="activityId">The Activity id associated with this state.</param>
     /// <param name="agent">The Agent associated with this state.</param>
     /// <param name="registration">The registration associated with this state.</param>
-    abstract member GetStateDocument: StateId -> ActivityId -> IAgent -> Guid option -> IDocument
+    abstract member GetStateDocument: 
+        StateId * 
+        ActivityId * 
+        IAgent * 
+        [<Optional>] guid: Guid option 
+            -> IDocument
 
     /// <summary>
     /// Fetches State ids of all state data for this context (Activity + Agent [ + registration if specified]).
@@ -54,4 +69,9 @@ type IStateResource =
     /// <param name="agent">The Agent associated with these states.</param>
     /// <param name="registration">The Registration associated with these states.</param>
     /// <param name="since">Only ids of states stored since the specified Timestamp (exclusive) are returned.</param>
-    abstract member GetStateDocuments: ActivityId -> IAgent -> Guid option -> DateTime option -> StateId seq
+    abstract member GetStateDocuments: 
+        ActivityId *
+        IAgent * 
+        [<Optional>] guid: Guid option * 
+        [<Optional>] date: DateTime option 
+            -> StateId seq

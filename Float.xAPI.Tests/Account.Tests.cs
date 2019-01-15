@@ -44,13 +44,17 @@ namespace Float.xAPI.Tests
         {
             var account1 = new Account("unknown", new Uri("http://www.example.com/unknown"));
             var account2 = new Account("known", new Uri("http://www.example.com/known"));
-            Assert.NotEqual(account1, account2);
-            Assert.False(account1 == account2);
-            Assert.False(account1.Equals(account2));
-            Assert.True(account1 != account2);
-            Assert.NotEqual(account1.GetHashCode(), account2.GetHashCode());
+            AssertHelper.Inequality<Account, IAccount, IInverseFunctionalIdentifier>(account1, account2, (a, b) => a != b);
             Assert.NotEqual(account1.Name, account2.Name);
             Assert.NotEqual(account1.HomePage, account2.HomePage);
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var account = new Account("Example Student", new Uri("http://example.com/example/student"));
+            Assert.Equal("Example Student", account.Name);
+            Assert.Equal(new Uri("http://example.com/example/student"), account.HomePage);
         }
     }
 }

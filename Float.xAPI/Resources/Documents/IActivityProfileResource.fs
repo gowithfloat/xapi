@@ -20,7 +20,7 @@ type IActivityProfileResource =
     /// </summary>
     /// <param name="activityId">The Activity id associated with this Profile document.</param>
     /// <param name="profileId">The profile id associated with this Profile document.</param>
-    abstract member DeleteActivityProfileDocument: ActivityId -> string -> unit
+    abstract member DeleteActivityProfileDocument: ActivityId * string -> unit
 
     /// <summary>
     /// Fetches the specified Profile document in the context of the specified Activity.
@@ -28,7 +28,7 @@ type IActivityProfileResource =
     /// <returns>The Profile document.</returns>
     /// <param name="activityId">The Activity id associated with this Profile document.</param>
     /// <param name="profileId">The profile id associated with this Profile document.</param>
-    abstract member GetActivityProfileDocument: ActivityId -> string -> IDocument
+    abstract member GetActivityProfileDocument: ActivityId * string -> IDocument
 
     /// <summary>
     /// Fetches the specified Profile document in the context of the specified Activity.
@@ -37,4 +37,4 @@ type IActivityProfileResource =
     /// <returns>Array of Profile id(s).</returns>
     /// <param name="activityId">The Activity id associated with these Profile documents.</param>
     /// <param name="since">Only ids of Profile documents stored since the specified Timestamp (exclusive) are returned.</param>
-    abstract member GetActivityProfileDocuments: ActivityId -> DateTime -> ProfileId seq
+    abstract member GetActivityProfileDocuments: ActivityId * DateTime -> ProfileId seq

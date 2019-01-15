@@ -25,7 +25,7 @@ type IDocument =
     /// <summary>
     /// The contents of the document.
     /// </summary>
-    abstract member Contents: Map<string, string>
+    abstract member Contents: (string * string) seq
 
 [<CustomEquality;NoComparison;Struct>]
 type Document =
@@ -36,7 +36,7 @@ type Document =
     val Updated: DateTime
 
     /// <inheritdoc />
-    val Contents: Map<string, string>
+    val Contents: (string * string) seq
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Resources.Document"/> struct.
