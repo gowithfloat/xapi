@@ -6,7 +6,7 @@ dotnet: 2.1
 install:
   - dotnet restore
 script:
-  - dotnet build
+  - dotnet build Float.xAPI/Float.xAPI.fsproj
   - dotnet test Float.xAPI.Tests/Float.xAPI.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 after_success:
   - curl -s https://codecov.io/bash > codecov
