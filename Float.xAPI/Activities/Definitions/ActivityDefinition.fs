@@ -18,7 +18,7 @@ type public IActivityDefinition =
     /// <summary>
     /// The human readable/visual name of the Activity.
     /// </summary>
-    abstract member Name: ILanguageMap
+    abstract member Name: ILanguageMap // todo: this should probably be optional; a lot of examples in the spec don't use it
 
     /// <summary>
     /// A description of the Activity.
