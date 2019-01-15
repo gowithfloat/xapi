@@ -5,6 +5,7 @@ mono: none
 dotnet: 2.1
 install:
   - dotnet restore
+  - nuget restore
 script:
   - dotnet build
   - dotnet test Float.xAPI.Tests/Float.xAPI.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
