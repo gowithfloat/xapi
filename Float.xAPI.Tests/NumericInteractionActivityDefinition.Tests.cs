@@ -13,7 +13,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class NumericInteractionActivityDefinitionTests : IInitializationTests<NumericInteractionActivityDefinition>
+    public class NumericInteractionActivityDefinitionTests : IInitializationTests<NumericInteractionActivityDefinition>, IPropertyTests
     {
         [Fact]
         public NumericInteractionActivityDefinition TestValidInit()
@@ -62,6 +62,15 @@ namespace Float.xAPI.Tests
             Assert.Equal(Interaction.Numeric, definition.InteractionType);
             Assert.Equal(new Uri("http://extension.com"), definition.Extensions.Value.First().Key); // todo: avoid Value
             Assert.Equal("extension", definition.Extensions.Value.First().Value);
+
+            var idefinition = definition as IInteractionActivityDefinition;
+            Assert.Equal(new ResponsePattern(new CharacterStringNumeric(4)), idefinition.CorrectResponsesPattern);
+            Assert.Equal(LanguageMap.EnglishUS("Description"), idefinition.Description);
+            Assert.Equal(new Uri("http://extension.com"), idefinition.Extensions.Value.First().Key);
+            Assert.Equal(Interaction.Numeric, idefinition.InteractionType);
+            Assert.Equal(new Uri("http://example.com"), idefinition.MoreInfo);
+            Assert.Equal(LanguageMap.EnglishUS("Name"), idefinition.Name);
+            Assert.Equal(new Uri("http://adlnet.gov/expapi/activities/cmi.interaction"), idefinition.Type);
         }
     }
 }
