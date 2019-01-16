@@ -31,6 +31,7 @@ namespace Float.xAPI.Tests
             Assert.True(equalityOp(second, first));
             Assert.Equal(first, second);
             Assert.Equal(first.GetHashCode(), second.GetHashCode());
+            Assert.Equal(first.GetType(), second.GetType());
 
             // cast to interface types
             var ifirst = (Interface)first;
@@ -40,6 +41,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(ifirst, isecond);
             Assert.Equal(isecond, ifirst);
             Assert.Equal(ifirst.GetHashCode(), isecond.GetHashCode());
+            Assert.Equal(ifirst.GetType(), isecond.GetType());
 
             // cast to equatable types
             var eqfirst = first as IEquatable<Equatable>;
@@ -49,6 +51,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(eqfirst, eqsecond);
             Assert.Equal(eqsecond, eqfirst);
             Assert.Equal(eqfirst.GetHashCode(), eqsecond.GetHashCode());
+            Assert.Equal(eqfirst.GetType(), eqsecond.GetType());
 
             // check that the right equals operator is used
             Assert.True(first.Equals(second));
