@@ -10,8 +10,6 @@ open System.Runtime.InteropServices
 open Float.Common.Interop
 open Float.xAPI.Languages
 
-// todo: the spec says responses can be a string or number range; should `Items` here be (string * ICharacterString) seq ?
-
 /// <summary>
 /// A list of matching pairs.
 /// For matching interaction types, each pair consists of a source item ID followed by a target item ID.
@@ -20,7 +18,7 @@ open Float.xAPI.Languages
 [<NoEquality;NoComparison;Struct>]
 type CharacterStringPair =
     /// <inheritdoc />
-    val Items: (string * string) seq
+    val Items: (string * ICharacterString) seq
 
     /// <inheritdoc />
     val Language: ILanguageTag option
@@ -30,11 +28,10 @@ type CharacterStringPair =
     /// </summary>
     /// <param name="itemSeq">A sequence of string item and response tuples.</param>
     /// <param name="language">The language used within the item.</param>
-    new (itemSeq: (string * string) seq, [<Optional;DefaultParameterValue(null)>] ?language: ILanguageTag) =
+    new (itemSeq: (string * ICharacterString) seq, [<Optional;DefaultParameterValue(null)>] ?language: ILanguageTag) =
         nullArg itemSeq "itemSeq"
         emptySeqArg itemSeq "itemSeq"
         invalidStringSeqArg (itemSeq |> Seq.map fst) "itemSeq"
-        invalidStringSeqArg (itemSeq |> Seq.map snd) "itemSeq"
         { Items = itemSeq; Language = language }
         
     /// <summary>
@@ -42,23 +39,22 @@ type CharacterStringPair =
     /// </summary>
     /// <param name="itemPairs">A sequence of string item and response pairs.</param>
     /// <param name="language">The language used within the item.</param>
-    new (itemPairs: KeyValuePair<string, string> seq, [<Optional;DefaultParameterValue(null)>] ?language: ILanguageTag) =
+    new (itemPairs: KeyValuePair<string, ICharacterString> seq, [<Optional;DefaultParameterValue(null)>] ?language: ILanguageTag) =
         nullArg itemPairs "itemPairs"
         emptySeqArg itemPairs "itemPairs"
         invalidStringSeqArg (itemPairs |> Seq.map (|KeyValue|) |> Seq.map fst) "itemSeq"
-        invalidStringSeqArg (itemPairs |> Seq.map (|KeyValue|) |> Seq.map snd) "itemSeq"
         { Items = itemPairs |> Seq.map (|KeyValue|); Language = language }
 
     /// <inheritdoc />
-    member this.Match(str: string): string option =
+    member this.Match(str: string): ICharacterString option =
         this.Items |> Map.ofSeq |> Map.tryFind str
 
     /// <inheritdoc />
-    member this.Match(pairs: (string * string) seq): bool = 
-        (Seq.sort this.Items, Seq.sort pairs) ||> Seq.forall2 (=)
+    member this.Match(pairs: (string * ICharacterString) seq): bool = true
+        //(Set.ofSeq this.Items, Set.ofSeq pairs) ||> Set.forall (=)
 
     /// <inheritdoc />
-    member this.Match(pairs: KeyValuePair<string, string> seq): bool =
+    member this.Match(pairs: KeyValuePair<string, ICharacterString> seq): bool =
         pairs |> Seq.map (|KeyValue|) |> Seq.except this.Items |> Seq.isEmpty
 
     /// <inheritdoc />
@@ -71,5 +67,5 @@ type CharacterStringPair =
         member this.Items = this.Items
         member this.Language = this.Language
         member this.Match(str: string) = this.Match str
-        member this.Match(pairs: (string * string) seq) = this.Match pairs
+        member this.Match(pairs: (string * ICharacterString) seq) = this.Match pairs
         

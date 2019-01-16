@@ -56,7 +56,7 @@ type ResponsePattern =
     /// </summary>
     /// <param name="correct">The correct response.</param>
     new (correct: bool) =
-        { CharacterStrings = [ CharacterString(correct.ToString().ToLower()) ] ; CaseMatters = Some false ; OrderMatters = None }
+        { CharacterStrings = [ CharacterString(correct) ] ; CaseMatters = Some false ; OrderMatters = None }
     
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.ResponsePattern"/> struct.
@@ -129,8 +129,8 @@ type ResponsePattern =
         |> Seq.cast<ICharacterStringMatchNumber> 
         |> Seq.exists(fun x -> x.Match(i))
 
-    member this.MatchResponse(str: string): string seq =
-        let filter1(str: string option): bool =
+    member this.MatchResponse(str: string): ICharacterString seq =
+        let filter1(str: ICharacterString option): bool =
             match str with
             | Some s -> true
             | None -> false

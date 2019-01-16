@@ -16,25 +16,25 @@ namespace Float.xAPI.Tests
         [Fact]
         public CharacterStringPair TestValidInit()
         {
-            var items1 = new Dictionary<string, string>
+            var items1 = new Dictionary<string, ICharacterString>
             {
                 {
-                    "one", "1"
+                    "one", new CharacterString("1")
                 },
                 {
-                    "two", "2"
+                    "two", new CharacterString("2")
                 },
                 {
-                    "three", "3"
+                    "three", new CharacterString("3")
                 }
             };
             var csp1 = new CharacterStringPair(items1);
 
-            var items2 = new List<Tuple<string, string>>
+            var items2 = new List<Tuple<string, ICharacterString>>
             {
-                new Tuple<string, string>("a", "A"),
-                new Tuple<string, string>("b", "B"),
-                new Tuple<string, string>("c", "C")
+                new Tuple<string, ICharacterString>("a", new CharacterString("A")),
+                new Tuple<string, ICharacterString>("b", new CharacterString("B")),
+                new Tuple<string, ICharacterString>("c", new CharacterString("C"))
             };
 
             var csp2 = new CharacterStringPair(items2);
@@ -47,28 +47,28 @@ namespace Float.xAPI.Tests
         {
             Assert.Throws<ArgumentNullException>(() => new CharacterStringPair(itemSeq: null));
             Assert.Throws<ArgumentNullException>(() => new CharacterStringPair(itemPairs: null));
-            Assert.Throws<ArgumentException>(() => new CharacterStringPair(itemSeq: new List<Tuple<string, string>>()));
-            Assert.Throws<ArgumentException>(() => new CharacterStringPair(itemPairs: new Dictionary<string, string>()));
-            Assert.Throws<ArgumentException>(() => new CharacterStringPair(itemSeq: new List<Tuple<string, string>> { new Tuple<string, string>(null, string.Empty) }));
-            Assert.Throws<ArgumentException>(() => new CharacterStringPair(itemPairs: new Dictionary<string, string> { { string.Empty, "empty" } }));
+            Assert.Throws<ArgumentException>(() => new CharacterStringPair(itemSeq: new List<Tuple<string, ICharacterString>>()));
+            Assert.Throws<ArgumentException>(() => new CharacterStringPair(itemPairs: new Dictionary<string, ICharacterString>()));
+            Assert.Throws<ArgumentException>(() => new CharacterStringPair(itemSeq: new List<Tuple<string, ICharacterString>> { new Tuple<string, ICharacterString>(null, new CharacterString("test")) }));
+            Assert.Throws<ArgumentException>(() => new CharacterStringPair(itemPairs: new Dictionary<string, ICharacterString> { { string.Empty, new CharacterString("test") } }));
         }
 
         [Fact]
         public void TestToString()
         {
-            var dict = new Dictionary<string, string>
+            var dict = new Dictionary<string, ICharacterString>
             {
                 {
-                    "ben", "3"
+                    "ben", new CharacterString("3")
                 },
                 {
-                    "chris", "2"
+                    "chris", new CharacterString("2")
                 },
                 {
-                    "troy", "4"
+                    "troy", new CharacterString("4")
                 },
                 {
-                    "freddie", "1"
+                    "freddie", new CharacterString("1")
                 }
             };
             var cs2 = new CharacterStringPair(dict);
@@ -78,90 +78,90 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestMatchSingle()
         {
-            var dict = new Dictionary<string, string>
+            var dict = new Dictionary<string, ICharacterString>
             {
                 {
-                    "ben", "3"
+                    "ben", new CharacterString("3")
                 },
                 {
-                    "chris", "2"
+                    "chris", new CharacterString("2")
                 },
                 {
-                    "troy", "4"
+                    "troy", new CharacterString("4")
                 },
                 {
-                    "freddie", "1"
+                    "freddie", new CharacterString("1")
                 }
             };
             var cs2 = new CharacterStringPair(dict);
             Assert.Null(cs2.Match("bob"));
             Assert.Null(cs2.Match("a"));
-            Assert.Equal("3", cs2.Match("ben"));
+            Assert.Equal("3", cs2.Match("ben").Value.ToString());
         }
 
         [Fact]
         public void TestMatchMultiple()
         {
-            var dict = new Dictionary<string, string>
+            var dict = new Dictionary<string, ICharacterString>
             {
                 {
-                    "ben", "3"
+                    "ben", new CharacterString("3")
                 },
                 {
-                    "chris", "2"
+                    "chris", new CharacterString("2")
                 },
                 {
-                    "troy", "4"
+                    "troy", new CharacterString("4")
                 },
                 {
-                    "freddie", "1"
+                    "freddie", new CharacterString("1")
                 }
             };
 
             var cs2 = new CharacterStringPair(dict);
 
-            var responses1 = new Dictionary<string, string>
+            var responses1 = new Dictionary<string, ICharacterString>
             {
                 {
-                    "freddie", "1"
+                    "freddie", new CharacterString("1")
                 },
                 {
-                    "chris", "2"
+                    "chris", new CharacterString("2")
                 },
                 {
-                    "ben", "3"
+                    "ben", new CharacterString("3")
                 },
                 {
-                    "troy", "4"
+                    "troy", new CharacterString("4")
                 }
             };
 
             Assert.True(cs2.Match(responses1));
 
-            var responses2 = new Dictionary<string, string>
+            var responses2 = new Dictionary<string, ICharacterString>
             {
                 {
-                    "freddie", "4"
+                    "freddie", new CharacterString("4")
                 },
                 {
-                    "chris", "3"
+                    "chris", new CharacterString("3")
                 },
                 {
-                    "ben", "2"
+                    "ben", new CharacterString("2")
                 },
                 {
-                    "troy", "1"
+                    "troy", new CharacterString("1")
                 }
             };
 
             Assert.False(cs2.Match(responses2));
 
-            var responses3 = new List<Tuple<string, string>>
+            var responses3 = new List<Tuple<string, ICharacterString>>
             {
-                new Tuple<string, string>("freddie", "1"),
-                new Tuple<string, string>("chris", "2"),
-                new Tuple<string, string>("ben", "3"),
-                new Tuple<string, string>("troy", "4")
+                new Tuple<string, ICharacterString>("freddie", new CharacterString("1")),
+                new Tuple<string, ICharacterString>("chris", new CharacterString("2")),
+                new Tuple<string, ICharacterString>("ben", new CharacterString("3")),
+                new Tuple<string, ICharacterString>("troy", new CharacterString("4"))
             };
 
             Assert.True(cs2.Match(responses3));
@@ -173,12 +173,14 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestProperties()
         {
-            var cs = new CharacterStringPair(new Tuple<string, string>[] { new Tuple<string, string>("one", "two") }, new LanguageTag(Language.Malagasy));
-            Assert.Equal(new List<Tuple<string, string>> { new Tuple<string, string>("one", "two") }, cs.Items);
+            var tuple = new Tuple<string, ICharacterString>("one", new CharacterString("two"));
+            var array = new Tuple<string, ICharacterString>[] { tuple };
+            var cs = new CharacterStringPair(array,  new LanguageTag(Language.Malagasy));
+            Assert.Equal(new List<Tuple<string, ICharacterString>> { new Tuple<string, ICharacterString>("one", new CharacterString("two")) }, cs.Items);
             Assert.Equal(new LanguageTag(Language.Malagasy), cs.Language);
 
             var ics = cs as ICharacterStringPair;
-            Assert.Equal(new List<Tuple<string, string>> { new Tuple<string, string>("one", "two") }, ics.Items);
+            Assert.Equal(array, ics.Items);
             Assert.Equal(new LanguageTag(Language.Malagasy), ics.Language);
         }
     }

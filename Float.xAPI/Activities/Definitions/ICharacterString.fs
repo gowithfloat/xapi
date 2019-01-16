@@ -65,7 +65,7 @@ type ICharacterStringMatchResponse =
     /// <summary>
     /// Returns a value for a response, or None if not found.
     /// </summary>
-    abstract member Match: string -> string option
+    abstract member Match: string -> ICharacterString option
 
     inherit ICharacterString
 
@@ -76,7 +76,7 @@ type ICharacterStringMatchResponses =
     /// <summary>
     /// Returns true if all of the given responses are correct for this character string.
     /// </summary>
-    abstract member Match: (string * string) seq -> bool
+    abstract member Match: (string * ICharacterString) seq -> bool
 
     inherit ICharacterString
     
@@ -102,7 +102,7 @@ type ICharacterStringPair =
     /// Characterstring parameters are not validated by the LRS.
     /// Systems interpreting Statement data can use their best judgement in interpreting (or ignoring) invalid characterstring parameters and values.
     /// </summary>
-    abstract member Items: (string * string) seq
+    abstract member Items: (string * ICharacterString) seq
 
     inherit ICharacterStringLanguage
     inherit ICharacterStringMatchResponse

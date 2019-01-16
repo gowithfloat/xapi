@@ -17,12 +17,12 @@ namespace Float.xAPI.Tests
         [Fact]
         public MatchingInteractionActivityDefinition TestValidInit()
         {
-            var pairs = new CharacterStringPair(new Dictionary<string, string>
+            var pairs = new CharacterStringPair(new Dictionary<string, ICharacterString>
             {
-                { "ben", "3" },
-                { "chris", "2" },
-                { "troy", "4" },
-                { "freddie", "1" }
+                { "ben", new CharacterString("3") },
+                { "chris", new CharacterString("2") },
+                { "troy", new CharacterString("4") },
+                { "freddie", new CharacterString("1") }
             });
             var source = new List<IInteractionComponent>
             {
@@ -75,12 +75,12 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestProperties()
         {
-            var pairs = new CharacterStringPair(new Dictionary<string, string>
+            var pairs = new CharacterStringPair(new Dictionary<string, ICharacterString>
             {
-                { "ben", "3" },
-                { "chris", "2" },
-                { "troy", "4" },
-                { "freddie", "1" }
+                { "ben", new CharacterString("3") },
+                { "chris", new CharacterString("2") },
+                { "troy", new CharacterString("4") },
+                { "freddie", new CharacterString("1") }
             });
             var source = new List<IInteractionComponent>
             {

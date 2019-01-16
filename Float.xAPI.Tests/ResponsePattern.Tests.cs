@@ -106,14 +106,14 @@ namespace Float.xAPI.Tests
             var css2 = new List<ICharacterString>
             {
                 new CharacterStringNumeric(min: 0, max: 10),
-                new CharacterStringPair(new Dictionary<string, string> { { "foo", "bar" } })
+                new CharacterStringPair(new Dictionary<string, ICharacterString> { { "foo", new CharacterString("bar") } })
             };
 
             var rp2 = new ResponsePattern(css2);
             Assert.False(rp2.Match("foo"));
             Assert.True(rp2.MatchNumeric(5));
             Assert.False(rp2.MatchNumeric(15));
-            Assert.Equal(new string[] { "bar" }, rp2.MatchResponse("foo"));
+            Assert.Equal(new ICharacterString[] { new CharacterString("bar") }, rp2.MatchResponse("foo"));
         }
 
         [Fact]
