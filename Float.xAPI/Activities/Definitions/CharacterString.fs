@@ -20,6 +20,14 @@ type CharacterString =
 
     /// <inheritdoc />
     val Language: ILanguageTag option 
+    
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.CharacterString"/> struct.
+    /// Use this to create a simple true/false character string.
+    /// </summary>
+    /// <param name="correct">The correct response.</param>
+    new (correct: bool) =
+        { Items = [ correct.ToString().ToLower() ]; Language = None }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions.CharacterString"/> struct.
