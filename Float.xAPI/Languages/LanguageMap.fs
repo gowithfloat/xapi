@@ -125,7 +125,10 @@ type public LanguageMap =
             with get(key) = this.[key]
         member this.TryGetValue(key: ILanguageTag, [<Out>] value: string byref) = this.TryGetValue(key, &value)
         member this.Equals other = this.Equals other
-
+        
+    /// <summary>
+    /// As United States English is the most common language map in examples, this constructor is provided for convenience.
+    /// </summary>
     static member EnglishUS value =
         LanguageMap(LanguageTag.EnglishUS, value)
     
