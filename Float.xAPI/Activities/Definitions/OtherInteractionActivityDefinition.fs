@@ -48,6 +48,7 @@ type public OtherInteractionActivityDefinition =
         nullArg description "description"
         emptySeqArg description "description"
         nullArg correctResponsesPattern "correctResponsesPattern"
+        emptyOptionalSeqArg extensions "extensions"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; MoreInfo = moreInfo; Extensions = extensions }
 
     /// <inheritdoc />

@@ -64,6 +64,7 @@ type public PerformanceInteractionActivityDefinition =
         nullArg correctResponsesPattern "correctResponsesPattern"
         nullArg steps "steps"
         emptySeqArg steps "steps"
+        emptyOptionalSeqArg extensions "extensions"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Steps = steps; MoreInfo = moreInfo; Extensions = extensions }
 
     /// <inheritdoc />
