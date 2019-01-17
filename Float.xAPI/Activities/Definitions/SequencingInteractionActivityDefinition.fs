@@ -61,6 +61,7 @@ type public SequencingInteractionActivityDefinition =
         nullArg correctResponsesPattern "correctResponsesPattern"
         nullArg choices "choices"
         emptySeqArg choices "choices"
+        emptyOptionalSeqArg extensions "extensions"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; Choices = choices; MoreInfo = moreInfo; Extensions = extensions }
 
     /// <inheritdoc />
@@ -69,7 +70,7 @@ type public SequencingInteractionActivityDefinition =
     /// <inheritdoc />
     member this.InteractionType = Sequencing
 
-    interface IInteractionActivityDefinition with
+    interface ISequencingInteractionActivityDefinition with
         member this.Name = this.Name
         member this.Description = this.Description
         member this.Type = this.Type
@@ -77,3 +78,4 @@ type public SequencingInteractionActivityDefinition =
         member this.Extensions = this.Extensions
         member this.InteractionType = this.InteractionType
         member this.CorrectResponsesPattern = this.CorrectResponsesPattern
+        member this.Choices = this.Choices
