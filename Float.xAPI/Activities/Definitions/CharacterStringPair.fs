@@ -50,9 +50,9 @@ type CharacterStringPair =
         this.Items |> Map.ofSeq |> Map.tryFind str
 
     /// <inheritdoc />
-    member this.Match(pairs: (string * ICharacterString) seq): bool = true
-        //(Set.ofSeq this.Items, Set.ofSeq pairs) ||> Set.forall (=)
-
+    member this.Match(pairs: (string * ICharacterString) seq): bool =
+        (Map.ofSeq this.Items, Map.ofSeq pairs) ||> (=)
+        
     /// <inheritdoc />
     member this.Match(pairs: KeyValuePair<string, ICharacterString> seq): bool =
         pairs |> Seq.map (|KeyValue|) |> Seq.except this.Items |> Seq.isEmpty

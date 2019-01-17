@@ -5,13 +5,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Float.xAPI.Activities.Definitions;
 using Float.xAPI.Languages;
 using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ResponsePatternTests : IInitializationTests<ResponsePattern>, IToStringTests
+    public class ResponsePatternTests : IInitializationTests<ResponsePattern>, IToStringTests, IPropertyTests
     {
         [Fact]
         public ResponsePattern TestValidInit()
@@ -114,6 +115,11 @@ namespace Float.xAPI.Tests
             Assert.True(rp2.MatchNumeric(5));
             Assert.False(rp2.MatchNumeric(15));
             Assert.Equal(new ICharacterString[] { new CharacterString("bar") }, rp2.MatchResponse("foo"));
+
+            var irp1 = rp1 as IResponsePattern;
+            Assert.True(irp1.Match("foo"));
+            Assert.True(irp1.Match(new string[] { "foo", "bar" }));
+            Assert.False(irp1.Match("bar"));
         }
 
         [Fact]
@@ -128,6 +134,20 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentException>(() => rp1.Match(strseq: new string[] { null }));
             Assert.Throws<ArgumentException>(() => rp1.Match(strseq: new string[] { string.Empty }));
             Assert.Throws<ArgumentException>(() => rp1.Match(strseq: new string[] { " " }));
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var rp1 = new ResponsePattern("1", true, false);
+            Assert.True(rp1.CaseMatters.Value);
+            Assert.False(rp1.OrderMatters.Value);
+            Assert.Equal(new CharacterString("1"), rp1.CharacterStrings.First());
+
+            var irp1 = rp1 as IResponsePattern;
+            Assert.True(irp1.CaseMatters.Value);
+            Assert.False(irp1.OrderMatters.Value);
+            Assert.Equal(new CharacterString("1"), irp1.CharacterStrings.First());
         }
     }
 }
