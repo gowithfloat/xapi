@@ -19,6 +19,7 @@ type public IStatementReference =
     abstract member Id: Guid
 
     inherit IObject
+    inherit IEquatable<IStatementReference>
 
 [<NoComparison;CustomEquality;Struct>]
 type public StatementReference =
@@ -30,11 +31,15 @@ type public StatementReference =
     /// </summary>
     /// <param name="id">The UUID of a Statement. Required.</param>
     new (id) =
-        nullArg id "id"
+        if id = Guid() then invalidArg "id" "Default GUID is not valid for a statement reference"
+        nullArg id "id" // todo: this might not be necessary; C# won't allow a null Guid
         { Id = id }
         
     /// <inheritdoc />
     override this.GetHashCode() = hash this.Id
+
+    static member op_Equality (lhs: IStatementReference, rhs: IStatementReference) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IStatementReference, rhs: IStatementReference) = not(lhs.Equals(rhs))
 
     /// <inheritdoc />
     override this.Equals other =
@@ -45,9 +50,7 @@ type public StatementReference =
     /// <inheritdoc />
     member this.ObjectType = ObjectType.StatementReference
 
-    interface IEquatable<IStatementReference> with
-        member this.Equals other = this.Equals other
-
     interface IStatementReference with
         member this.ObjectType = this.ObjectType
         member this.Id = this.Id
+        member this.Equals other = this.Equals other
