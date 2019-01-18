@@ -79,10 +79,10 @@ namespace Float.xAPI.Tests
                     new Uri("http://example.com")),
                     members,
                     "group");
-            Assert.Equal("Group", group.ObjectType);
+            Assert.Equal(ObjectType.Group, group.ObjectType);
 
             var igroup = group as IIdentifiedGroup;
-            Assert.Equal("Group", igroup.ObjectType);
+            Assert.Equal(ObjectType.Group, igroup.ObjectType);
             Assert.Equal(2, igroup.Member.Count());
             Assert.Equal("group", igroup.Name);
         }

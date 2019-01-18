@@ -112,11 +112,7 @@ type public Statement =
         | :? IStatement as statement -> this.Id = statement.Id
         | _ -> false
 
-    /// <inheritdoc />
-    member this.ObjectType = typeName this
-
     interface IStatement with
-        member this.ObjectType = this.ObjectType
         member this.Id = this.Id
         member this.Stored = this.Stored
         member this.Authority = this.Authority

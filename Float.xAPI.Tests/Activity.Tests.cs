@@ -58,13 +58,13 @@ namespace Float.xAPI.Tests
                 LanguageMap.EnglishUS("description"),
                 new Uri("http://example.com/type"));
             var activity = new Activity(new Uri("http://example.com/id-2"), definition);
-            Assert.Equal("Activity", activity.ObjectType);
+            Assert.Equal(ObjectType.Activity, activity.ObjectType);
             Assert.Equal(new Uri("http://example.com/id-2"), activity.Id);
             Assert.Equal(definition, activity.Definition);
             Assert.Equal(LanguageMap.EnglishUS("name"), activity.Definition.Value.Name);
 
             var iactivity = activity as IActivity;
-            Assert.Equal("Activity", iactivity.ObjectType);
+            Assert.Equal(ObjectType.Activity, iactivity.ObjectType);
             Assert.Equal(new Uri("http://example.com/id-2"), iactivity.Id);
             Assert.Equal(definition, iactivity.Definition);
         }

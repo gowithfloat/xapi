@@ -43,7 +43,7 @@ type public StatementReference =
         | _ -> false
 
     /// <inheritdoc />
-    member this.ObjectType = "StatementRef"
+    member this.ObjectType = ObjectType.StatementReference
 
     interface IEquatable<IStatementReference> with
         member this.Equals other = this.Equals other

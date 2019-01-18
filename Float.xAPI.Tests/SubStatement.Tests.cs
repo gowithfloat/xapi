@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class SubStatementTests : IInitializationTests<SubStatement>, ISpecExampleTests
+    public class SubStatementTests : IInitializationTests<SubStatement>, ISpecExampleTests, IPropertyTests
     {
         [Fact]
         public SubStatement TestValidInit()
@@ -66,6 +66,28 @@ namespace Float.xAPI.Tests
                 definition);
             var substatement = new SubStatement(actor, verb2, activity, null, null, null);
             var statement = new Statement(actor, verb1, substatement);
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var substatement = TestValidInit();
+            Assert.Equal(new Agent(new Mailbox(new MailAddress("test@example.com"))), substatement.Actor);
+            Assert.Equal(new Context(), substatement.Context);
+            Assert.Equal(new Activity(new Uri("http://example.com")), substatement.Object);
+            Assert.Equal(ObjectType.SubStatement, substatement.ObjectType);
+            Assert.Equal(new Result(), substatement.Result);
+            Assert.Equal(DateTime.Now, substatement.Timestamp.Value, new TimeSpan(TimeSpan.TicksPerSecond)); // todo: avoid Value
+            Assert.Equal(Verb.Voided, substatement.Verb);
+
+            var isubstatement = substatement as ISubStatement;
+            Assert.Equal(new Agent(new Mailbox(new MailAddress("test@example.com"))), isubstatement.Actor);
+            Assert.Equal(new Context(), isubstatement.Context);
+            Assert.Equal(new Activity(new Uri("http://example.com")), isubstatement.Object);
+            Assert.Equal(ObjectType.SubStatement, isubstatement.ObjectType);
+            Assert.Equal(new Result(), isubstatement.Result);
+            Assert.Equal(DateTime.Now, isubstatement.Timestamp.Value, new TimeSpan(TimeSpan.TicksPerSecond)); // todo: avoid Value
+            Assert.Equal(Verb.Voided, isubstatement.Verb);
         }
     }
 }

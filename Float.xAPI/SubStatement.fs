@@ -17,6 +17,11 @@ open Float.Common.Interop
 /// </summary>
 type public ISubStatement =
     /// <summary>
+    /// A substatement is an object.
+    /// </summary>
+    inherit IObject
+
+    /// <summary>
     /// A substatement is a statement without an ID.
     /// </summary>
     inherit IGenericStatement
@@ -58,7 +63,7 @@ type public SubStatement =
         { Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = timestamp }
 
     /// <inheritdoc />
-    member this.ObjectType = typeName this
+    member this.ObjectType = ObjectType.SubStatement
 
     interface ISubStatement with
         member this.ObjectType = this.ObjectType

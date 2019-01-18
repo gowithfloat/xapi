@@ -6,6 +6,7 @@
 namespace Float.xAPI.Actor
 
 open System.Runtime.InteropServices
+open Float.xAPI
 open Float.xAPI.Actor.Identifier
 open Float.Common.Interop
 
@@ -33,7 +34,7 @@ type public Agent =
         { Name = name; IFI = ifi }
 
     /// <inheritdoc />
-    member this.ObjectType = typeName this
+    member this.ObjectType = ObjectType.Agent
 
     /// <inheritdoc />
     override this.GetHashCode() = hash this.IFI

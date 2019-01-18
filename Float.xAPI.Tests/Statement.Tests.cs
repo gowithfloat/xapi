@@ -27,9 +27,8 @@ namespace Float.xAPI.Tests
             var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/created"), new LanguageMap(LanguageTag.EnglishUS, "created"));
             var obj = new Activity(new Uri("http://example.adlnet.gov/xapi/example/activity"));
             var statement = new Statement(actor, verb, obj);
-            Assert.Equal("Agent", statement.Actor.ObjectType);
-            Assert.Equal("Activity", statement.Object.ObjectType);
-            Assert.Equal("Statement", statement.ObjectType);
+            Assert.Equal(ObjectType.Agent, statement.Actor.ObjectType);
+            Assert.Equal(ObjectType.Activity, statement.Object.ObjectType);
             Assert.Null(statement.Actor.Name);
             Assert.Equal("xapi@adlnet.gov", ((statement.Actor as IAgent).IFI as IMailbox).Address.Address);
             return statement;
@@ -196,9 +195,8 @@ namespace Float.xAPI.Tests
             Assert.Equal(actor, statement.Actor);
             Assert.Equal(Verb.Voided, statement.Verb);
             Assert.Equal(obj, statement.Object);
-            Assert.Equal("Statement", statement.ObjectType);
-            Assert.Equal("StatementRef", statement.Object.ObjectType);
-            Assert.Equal("Agent", statement.Actor.ObjectType);
+            Assert.Equal(ObjectType.StatementReference, statement.Object.ObjectType);
+            Assert.Equal(ObjectType.Agent, statement.Actor.ObjectType);
             Assert.Equal("example.adlnet.gov", ((statement.Actor as IAgent).IFI as IMailbox).Address.Host);
             Assert.Equal("admin", ((statement.Actor as IAgent).IFI as IMailbox).Address.User);
         }

@@ -47,7 +47,7 @@ type public Activity =
         { Id = id; Definition = definition }
 
     /// <inheritdoc />
-    member this.ObjectType = typeName this
+    member this.ObjectType = ObjectType.Activity
 
     /// <inheritdoc />
     override this.GetHashCode() = hash this.Id

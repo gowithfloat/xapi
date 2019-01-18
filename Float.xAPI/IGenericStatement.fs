@@ -44,8 +44,3 @@ type public IGenericStatement =
     /// Timestamp of when the events described within this Statement occurred.
     /// </summary>
     abstract member Timestamp: DateTime option
-
-    /// <summary>
-    /// A statement is an object.
-    /// </summary>
-    inherit IObject

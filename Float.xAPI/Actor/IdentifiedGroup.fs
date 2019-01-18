@@ -6,8 +6,9 @@
 namespace Float.xAPI.Actor
 
 open System.Runtime.InteropServices
-open Float.xAPI.Actor.Identifier
 open Float.Common.Interop
+open Float.xAPI
+open Float.xAPI.Actor.Identifier
 
 /// <summary>
 /// An Identified Group is used to uniquely identify a cluster of Agents.
@@ -40,7 +41,7 @@ type public IdentifiedGroup =
         { Name = name; IFI = ifi; Member = members |? Seq.empty }
 
     /// <inheritdoc />
-    member this.ObjectType = "Group"
+    member this.ObjectType = ObjectType.Group
 
     /// <inheritdoc />
     override this.GetHashCode() = hash this.IFI

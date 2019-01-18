@@ -52,10 +52,10 @@ namespace Float.xAPI.Tests
                 new Agent(new OpenID(new Uri("http://example.com/2")))
             }, "test name");
 
-            Assert.Equal("Group", group.ObjectType);
+            Assert.Equal(ObjectType.Group, group.ObjectType);
 
             var igroup = group as IAnonymousGroup;
-            Assert.Equal("Group", igroup.ObjectType);
+            Assert.Equal(ObjectType.Group, igroup.ObjectType);
             Assert.Equal(2, igroup.Member.Count());
             Assert.Equal("test name", igroup.Name);
         }
