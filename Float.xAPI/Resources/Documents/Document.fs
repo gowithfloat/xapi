@@ -6,6 +6,9 @@
 namespace Float.xAPI.Resources.Documents
 
 open System
+open System.Collections
+open System.Collections.Generic
+open System.Runtime.InteropServices
 open Float.Common.Interop
 
 /// <summary>
@@ -26,6 +29,8 @@ type IDocument =
     /// The contents of the document.
     /// </summary>
     abstract member Contents: (string * string) seq
+
+    inherit IEquatable<IDocument>
 
 [<CustomEquality;NoComparison;Struct>]
 type Document =
@@ -51,6 +56,19 @@ type Document =
         emptySeqArg contents "contents"
         { Id = id; Updated = updated; Contents = contents }
         
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Resources.Document"/> struct.
+    /// </summary>
+    /// <param name="id">Unique within the scope of the Agent or Activity.</param>
+    /// <param name="updated">When the document was most recently modified.</param>
+    /// <param name="contents">The contents of the document, as a C# dictionary.</param>
+    new(id, updated, contents: IDictionary<string, string>) =
+        nullArg id "id"
+        nullArg updated "updated"
+        nullArg contents "contents"
+        emptySeqArg contents "contents"
+        { Id = id; Updated = updated; Contents = contents |> Seq.map (|KeyValue|) }
+        
     /// <inheritdoc />
     override this.GetHashCode() = hash this.Id
 
@@ -63,10 +81,11 @@ type Document =
         | :? IDocument as document -> this.Id = document.Id
         | _ -> false
 
-    interface IEquatable<IDocument> with
-        member this.Equals other = this.Equals other
+    static member op_Equality (lhs: IDocument, rhs: IDocument) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IDocument, rhs: IDocument) = not(lhs.Equals(rhs))
 
     interface IDocument with
         member this.Id = this.Id
         member this.Updated = this.Updated
         member this.Contents = this.Contents
+        member this.Equals other = this.Equals other

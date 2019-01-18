@@ -52,9 +52,11 @@ namespace Float.xAPI.Tests
 
             var retrieved1 = lrs.GetStatements(verbId: new Uri("http://example.com/verb"));
             Assert.Single(retrieved1.Statements);
+            Assert.Null(retrieved1.More);
 
             var retrieved2 = lrs.GetStatements(verbId: new Uri("http://example.com/sent"));
             Assert.Empty(retrieved2.Statements);
+            Assert.Null(retrieved2.More);
         }
 
         [Fact]
