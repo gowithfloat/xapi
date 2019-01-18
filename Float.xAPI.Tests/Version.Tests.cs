@@ -37,14 +37,7 @@ namespace Float.xAPI.Tests
         {
             var version1 = new Version(1, 2, 3);
             var version2 = new Version(1, 2, 3);
-            Assert.Equal(version1, version2);
-            Assert.Equal(version1.GetHashCode(), version2.GetHashCode());
-            Assert.True(version1 == version2);
-            Assert.False(version1 != version2);
-
-            var version1eq = version1 as IEquatable<IVersion>;
-            var version2eq = version2 as IEquatable<IVersion>;
-            Assert.True(version1eq.Equals(version2eq));
+            AssertHelper.Equality<Version, IVersion>(version1, version2, (a, b) => a == b);
         }
 
         [Fact]
@@ -52,22 +45,7 @@ namespace Float.xAPI.Tests
         {
             var version2 = new Version(1, 2, 3);
             var version3 = new Version(33, 22, 11);
-            Assert.NotEqual(version2, version3);
-            Assert.NotEqual(version2.GetHashCode(), version3.GetHashCode());
-            Assert.False(version2 == version3);
-            Assert.True(version2 != version3);
-
-            var version2eq = version2 as IEquatable<IVersion>;
-            var version3eq = version3 as IEquatable<IVersion>;
-            Assert.False(version2eq.Equals(version3eq));
-            Assert.False(version2eq.Equals(version3));
-            Assert.False(version3eq.Equals(version2eq));
-            Assert.False(version3eq.Equals(version2eq));
-
-            var version4 = new Version(1, 1, 0);
-            Assert.NotEqual(version3, version4);
-            var version5 = new Version(1, 0, 12);
-            Assert.NotEqual(version4, version5);
+            AssertHelper.Inequality<Version, IVersion>(version2, version3, (a, b) => a != b);
         }
 
         [Fact]
@@ -87,6 +65,11 @@ namespace Float.xAPI.Tests
             var version6 = new Version(2, 6, 6);
             Assert.True(version5 < version6);
             Assert.False(version5 > version6);
+
+            var iversion1 = version1 as IVersion;
+            var iversion2 = version2 as IVersion;
+            Assert.Equal(-1, iversion1.CompareTo(iversion2));
+            Assert.Equal(1, iversion2.CompareTo(iversion1));
         }
     }
 }

@@ -75,10 +75,11 @@ type public Version =
             | -1 -> -1
             | _ -> compare this.Patch other.Patch
 
-    static member op_LessThan (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) < 0
-    static member op_GreaterThan (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) > 0
-    static member op_Equality (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) = 0
-    static member op_Inequality (lhs: Version, rhs: IVersion) = lhs.CompareTo(rhs) <> 0
+    // todo: C# won't let us use the lt/gt operators on IVersion; why not?
+    static member op_LessThan (lhs: IVersion, rhs: IVersion) = lhs.CompareTo(rhs) < 0
+    static member op_GreaterThan (lhs: IVersion, rhs: IVersion) = lhs.CompareTo(rhs) > 0
+    static member op_Equality (lhs: IVersion, rhs: IVersion) = lhs.CompareTo(rhs) = 0
+    static member op_Inequality (lhs: IVersion, rhs: IVersion) = lhs.CompareTo(rhs) <> 0
 
     interface IVersion with
         member this.Major = this.Major
@@ -86,4 +87,3 @@ type public Version =
         member this.Patch = this.Patch
         member this.Equals other = this.Equals other
         member this.CompareTo other = this.CompareTo other
-        
