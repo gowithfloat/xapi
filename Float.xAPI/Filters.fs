@@ -16,7 +16,7 @@ module internal Filters =
     /// <summary>
     /// Returns true if the given ID matches the given statement's ID.
     /// </summary>
-    let inline statementIdMatch id (statement: IStatement) =
+    let statementIdMatch id (statement: IStatement) =
         statement.Id.Equals(id)
 
     /// <summary>
