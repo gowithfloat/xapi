@@ -112,6 +112,9 @@ type public Statement =
         | :? IStatement as statement -> this.Id = statement.Id
         | _ -> false
 
+    static member op_Equality (lhs: IStatement, rhs: IStatement) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: IStatement, rhs: IStatement) = not(lhs.Equals(rhs))
+
     interface IStatement with
         member this.Id = this.Id
         member this.Stored = this.Stored

@@ -63,9 +63,9 @@ namespace Float.xAPI.Tests
             var statement1 = new Statement(actor1, verb1, activity1, id);
             var statement2 = new Statement(actor1, verb1, activity1, id);
             var statement3 = new Statement(actor2, verb2, activity2, id);
-            Assert.Equal(statement1, statement2);
-            Assert.Equal(statement1, statement3);
-            Assert.Equal(statement2, statement3);
+            AssertHelper.Equality<Statement, IStatement>(statement1, statement2, (a, b) => a == b);
+            AssertHelper.Equality<Statement, IStatement>(statement1, statement3, (a, b) => a == b);
+            AssertHelper.Equality<Statement, IStatement>(statement2, statement3, (a, b) => a == b);
         }
 
         [Fact]
@@ -80,9 +80,9 @@ namespace Float.xAPI.Tests
             var statement1 = new Statement(actor1, verb1, activity1);
             var statement2 = new Statement(actor1, verb1, activity1);
             var statement3 = new Statement(actor2, verb2, activity2, Guid.NewGuid());
-            Assert.NotEqual(statement1, statement2);
-            Assert.NotEqual(statement1, statement3);
-            Assert.NotEqual(statement2, statement3);
+            AssertHelper.Inequality<Statement, IStatement>(statement1, statement2, (a, b) => a != b);
+            AssertHelper.Inequality<Statement, IStatement>(statement1, statement3, (a, b) => a != b);
+            AssertHelper.Inequality<Statement, IStatement>(statement2, statement3, (a, b) => a != b);
         }
 
         [Fact]
