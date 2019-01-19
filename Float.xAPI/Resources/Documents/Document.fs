@@ -73,9 +73,6 @@ type Document =
     override this.GetHashCode() = hash this.Id
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "<%O: Id %A Updated %O Contents %O>" (typeName this) this.Id this.Updated this.Contents
-
-    /// <inheritdoc />
     override this.Equals other =
         match other with
         | :? IDocument as document -> this.Id = document.Id
