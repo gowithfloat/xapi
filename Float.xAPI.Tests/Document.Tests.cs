@@ -57,6 +57,21 @@ namespace Float.xAPI.Tests
             Assert.Equal(DateTime.Now, idoc.Updated, new TimeSpan(0, 0, 1));
         }
 
+        [Fact]
+        public void TestIdTypes()
+        {
+            AssertHelper.Equality(ActivityId.NewActivityId(new Uri("http://example.com/test")), ActivityId.NewActivityId(new Uri("http://example.com/test")));
+            AssertHelper.Equality(ProfileId.NewProfileId("profile-id"), ProfileId.NewProfileId("profile-id"));
+            AssertHelper.Equality(StateId.NewStateId("state-id"), StateId.NewStateId("state-id"));
+            Assert.True(ActivityId.NewActivityId(new Uri("http://example.com/test")) is ActivityId);
+            Assert.True(ProfileId.NewProfileId("profile-id") is ProfileId);
+            Assert.True(StateId.NewStateId("state-id") is StateId);
+
+            AssertHelper.Inequality(ActivityId.NewActivityId(new Uri("http://example.com/test1")), ActivityId.NewActivityId(new Uri("http://example.com/test2")), (a, b) => a != b);
+            AssertHelper.Inequality(ProfileId.NewProfileId("profile-id"), ProfileId.NewProfileId("profile-id-b"), (a, b) => a != b);
+            AssertHelper.Inequality(StateId.NewStateId("stateid"), StateId.NewStateId("state-id"), (a, b) => a != b);
+        }
+
         static IDictionary<string, string> GenerateDictionary()
         {
             return new Dictionary<string, string>
