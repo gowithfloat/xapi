@@ -22,13 +22,17 @@ namespace Float.xAPI.Tests
         /// <typeparam name="Concrete">The concrete type of the given parameters.</typeparam>
         /// <typeparam name="Interface">The interface type of the given parameters.</typeparam>
         /// <typeparam name="Equatable">The type for which the concrete type is equatable.</typeparam>
-        public static void Equality<Concrete, Interface, Equatable>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> equalityOp) where Concrete : Interface where Interface : Equatable
+        public static void Equality<Concrete, Interface, Equatable>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> equalityOp = null) where Concrete : Interface where Interface : Equatable
         {
             Assert.NotNull(first);
             Assert.NotNull(second);
 
-            Assert.True(equalityOp(first, second));
-            Assert.True(equalityOp(second, first));
+            if (equalityOp != null)
+            {
+                Assert.True(equalityOp(first, second));
+                Assert.True(equalityOp(second, first));
+            }
+
             Assert.Equal(first, second);
             Assert.Equal(first.GetHashCode(), second.GetHashCode());
             Assert.Equal(first.GetType(), second.GetType());
@@ -83,9 +87,22 @@ namespace Float.xAPI.Tests
         /// <param name="equalityOp">A means to compare the two; often used to use equality operators.</param>
         /// <typeparam name="Concrete">The concrete type of the given parameters.</typeparam>
         /// <typeparam name="Interface">The interface type of the given parameters.</typeparam>
-        public static void Equality<Concrete, Interface>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> equalityOp) where Concrete : Interface
+        public static void Equality<Concrete, Interface>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> equalityOp = null) where Concrete : Interface
         {
             Equality<Concrete, Interface, Interface>(first, second, equalityOp);
+        }
+
+        /// <summary>
+        /// An extremely explicit method of checking equality of two types and throwing an assertion error if an equality check fails.
+        /// Use this when the concrete type doesn't have an interface type.
+        /// </summary>
+        /// <param name="first">The first object to compare.</param>
+        /// <param name="second">The second object to compare.</param>
+        /// <param name="equalityOp">A means to compare the two; often used to use equality operators.</param>
+        /// <typeparam name="Concrete">The concrete type of the given parameters.</typeparam>
+        public static void Equality<Concrete>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> equalityOp = null)
+        {
+            Equality<Concrete, Concrete>(first, second, equalityOp);
         }
 
         /// <summary>
@@ -97,13 +114,17 @@ namespace Float.xAPI.Tests
         /// <typeparam name="Concrete">The concrete type of the given parameters.</typeparam>
         /// <typeparam name="Interface">The interface type of the given parameters.</typeparam>
         /// <typeparam name="Equatable">The type for which the concrete type is equatable.</typeparam>
-        public static void Inequality<Concrete, Interface, Equatable>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> inequalityOp) where Concrete : Interface where Interface : Equatable
+        public static void Inequality<Concrete, Interface, Equatable>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> inequalityOp = null) where Concrete : Interface where Interface : Equatable
         {
             Assert.NotNull(first);
             Assert.NotNull(second);
 
-            Assert.True(inequalityOp(first, second));
-            Assert.True(inequalityOp(second, first));
+            if (inequalityOp != null)
+            {
+                Assert.True(inequalityOp(first, second));
+                Assert.True(inequalityOp(second, first));
+            }
+
             Assert.NotEqual(first, second);
             Assert.NotEqual(second, first);
             Assert.NotEqual(first.GetHashCode(), second.GetHashCode());
@@ -156,9 +177,22 @@ namespace Float.xAPI.Tests
         /// <param name="inequalityOp">A means to compare the two; often used to use equality operators.</param>
         /// <typeparam name="Concrete">The concrete type of the given parameters.</typeparam>
         /// <typeparam name="Interface">The interface type of the given parameters.</typeparam>
-        public static void Inequality<Concrete, Interface>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> inequalityOp) where Concrete : Interface
+        public static void Inequality<Concrete, Interface>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> inequalityOp = null) where Concrete : Interface
         {
             Inequality<Concrete, Interface, Interface>(first, second, inequalityOp);
+        }
+
+        /// <summary>
+        /// An extremely explicit method of checking inequality of two types and throwing an assertion error if an inequality check fails.
+        /// Use this when the concrete type doesn't have an interface type.
+        /// </summary>
+        /// <param name="first">The first object to compare.</param>
+        /// <param name="second">The second object to compare.</param>
+        /// <param name="inequalityOp">A means to compare the two; often used to use equality operators.</param>
+        /// <typeparam name="Concrete">The concrete type of the given parameters.</typeparam>
+        public static void Inequality<Concrete>(Concrete first, Concrete second, Func<Concrete, Concrete, bool> inequalityOp = null)
+        {
+            Inequality<Concrete, Concrete>(first, second, inequalityOp);
         }
     }
 }
