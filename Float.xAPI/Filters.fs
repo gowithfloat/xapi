@@ -8,7 +8,6 @@ namespace Float.xAPI
 open System
 open Float.xAPI.Activities
 open Float.xAPI.Actor
-open Float.xAPI.Resources
 
 /// <summary>
 /// Functions that can be used to filter statements by LRS implementations.
@@ -17,7 +16,8 @@ module internal Filters =
     /// <summary>
     /// Returns true if the given ID matches the given statement's ID.
     /// </summary>
-    let inline statementIdMatch id (statement: IStatement) = statement.Id = id
+    let inline statementIdMatch id (statement: IStatement) =
+        statement.Id.Equals(id)
 
     /// <summary>
     /// Returns false if the statement has an identified actor and it doesn't match the given identified actor.

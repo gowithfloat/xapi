@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Float.xAPI.Activities;
 using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
@@ -48,6 +49,11 @@ namespace Float.xAPI.Tests
         internal static IStatement GenerateStatement(Guid statementId)
         {
             return new Statement(GenerateActor(), GenerateVerb(), GenerateActivity(), statementId);
+        }
+
+        internal static IEnumerable<IStatement> GenerateStatements(params Guid[] statementIds)
+        {
+            return statementIds.Select(GenerateStatement);
         }
 
         internal static IContext GenerateContext(Guid registrationId)

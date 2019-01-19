@@ -4,6 +4,7 @@
 // </copyright>
 
 using System;
+using System.Linq;
 using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
 using Xunit;
@@ -97,6 +98,18 @@ namespace Float.xAPI.Tests
             // todo: fix this
             // var retrieved2 = lrs.GetStatements(registration: Guid.NewGuid());
             // Assert.Empty(retrieved2.Statements);
+        }
+
+        [Fact]
+        public void TestPostStatements()
+        {
+            var lrs = new InMemoryLRS();
+            var id1 = Guid.NewGuid();
+            var id2 = Guid.NewGuid();
+            var statements = GenerateStatements(id1, id2);
+            var results = lrs.PostStatements(statements);
+            Assert.Equal(id1, results.First());
+            Assert.Equal(id2, results.Last());
         }
     }
 }
