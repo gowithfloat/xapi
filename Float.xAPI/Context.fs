@@ -56,6 +56,7 @@ type public Context =
     new ([<Optional;DefaultParameterValue(null)>] ?registration, [<Optional;DefaultParameterValue(null)>] ?instructor, [<Optional;DefaultParameterValue(null)>] ?team, [<Optional;DefaultParameterValue(null)>] ?contextActivities, [<Optional;DefaultParameterValue(null)>] ?revision, [<Optional;DefaultParameterValue(null)>] ?platform, [<Optional;DefaultParameterValue(null)>] ?language, [<Optional;DefaultParameterValue(null)>] ?statement, [<Optional;DefaultParameterValue(null)>] ?extensions) =
         invalidOptionalStringArg revision "revision"
         invalidOptionalStringArg platform "platform"
+        emptyOptionalSeqArg extensions "extensions"
         { Registration = registration; Instructor = instructor; Team = team; ContextActivities = contextActivities; Revision = revision; Platform = platform; Language = language; Statement = statement; Extensions = extensions }
 
     interface IContext with

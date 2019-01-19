@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Security.Cryptography;
@@ -18,7 +19,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class StatementTests : IInitializationTests<Statement>, IEqualityTests
+    public class StatementTests : IInitializationTests<Statement>, IEqualityTests, IPropertyTests
     {
         [Fact]
         public Statement TestValidInit()
@@ -242,6 +243,56 @@ namespace Float.xAPI.Tests
             var context = new Context(new Guid("ec231277-b27b-4c15-8291-d29225b2b8f7"), contextActivities: contextActivities, extensions: ctxExtensions);
             var timestamp = new DateTime(2012, 6, 1, 19, 13, 24);
             var statement = new Statement(agent, verb, activity, id, result, context, timestamp);
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var actor = new Agent(new OpenID(new Uri("http://example.com/actor")));
+            var verb = new Verb(new Uri("http://example.com/verb"), LanguageMap.EnglishUS("verbed"));
+            var activity = new Activity(new Uri("http://example.com/activity"));
+            var id = Guid.NewGuid();
+            var result = new Result(new Score(0.5));
+            var contextId = Guid.NewGuid();
+            var context = new Context(contextId);
+            var timestamp = DateTime.Now;
+            var auth = new Agent(new OpenID(new Uri("http://example.com/authority")));
+            var version = new Version(1, 2, 3);
+            var attachments = new List<IAttachment>
+            {
+                new Attachment(
+                new Uri("http://example.com/usageType"),
+                    LanguageMap.EnglishUS("display"),
+                    new ContentType("text/plain"),
+                    16,
+                    new SHAHash("shahash"))
+            };
+
+            var statement = new Statement(actor, verb, activity, id, result, context, timestamp, timestamp, auth, version, attachments);
+            Assert.Equal(actor, statement.Actor);
+            Assert.Equal(attachments, statement.Attachments);
+            Assert.Equal(auth, statement.Authority);
+            Assert.Equal(contextId, statement.Context.Value.Registration);
+            Assert.Equal(id, statement.Id);
+            Assert.Equal(activity, statement.Object);
+            Assert.Equal(result, statement.Result);
+            Assert.Equal(timestamp, statement.Stored);
+            Assert.Equal(timestamp, statement.Timestamp);
+            Assert.Equal(verb.Id, statement.Verb.Id);
+            Assert.Equal(version, statement.Version);
+
+            var istatement = statement as IStatement;
+            Assert.Equal(actor, istatement.Actor);
+            Assert.Equal(attachments, istatement.Attachments);
+            Assert.Equal(auth, istatement.Authority);
+            Assert.Equal(contextId, istatement.Context.Value.Registration);
+            Assert.Equal(id, istatement.Id);
+            Assert.Equal(activity, istatement.Object);
+            Assert.Equal(result, istatement.Result);
+            Assert.Equal(timestamp, istatement.Stored);
+            Assert.Equal(timestamp, istatement.Timestamp);
+            Assert.Equal(verb.Id, istatement.Verb.Id);
+            Assert.Equal(version, istatement.Version);
         }
     }
 }
