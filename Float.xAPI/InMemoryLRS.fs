@@ -12,7 +12,7 @@ open Float.xAPI.Actor
 open Float.xAPI.Resources
 
 module internal Util =
-    let inline mapStatementToId(statement: IStatement) =
+    let mapStatementToId(statement: IStatement) =
         statement.Id
 
 /// <summary>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ReleaseVersion>0.0.1</ReleaseVersion>
@@ -84,6 +84,7 @@
     <Compile Include="Resources\Documents\IActivityProfileResource.fs" />
     <Compile Include="Resources\Documents\IAgentProfileResource.fs" />
     <Compile Include="Resources\IAgentsResource.fs" />
+    <Compile Include="Resources\IAboutResource.fs" />
     <Compile Include="Filters.fs" />
     <Compile Include="ILRS.fs" />
     <Compile Include="InMemoryLRS.fs" />

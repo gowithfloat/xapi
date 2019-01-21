@@ -17,13 +17,13 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestPutStatement()
         {
-            lrs.PutStatement(GenerateStatement(Guid.NewGuid()));
+            lrs.Statements.PutStatement(GenerateStatement(Guid.NewGuid()));
         }
 
         [Fact]
         public void TestPostStatement()
         {
-            lrs.PostStatements(new List<IStatement>
+            lrs.Statements.PostStatements(new List<IStatement>
             {
                 GenerateStatement(GenerateGuid())
             });
@@ -32,109 +32,109 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestGetStatement()
         {
-            lrs.GetStatement(GenerateGuid());
+            lrs.Statements.GetStatement(GenerateGuid());
         }
 
         [Fact]
         public void TestGetVoidedStatement()
         {
-            lrs.GetVoidedStatement(GenerateGuid());
+            lrs.Statements.GetVoidedStatement(GenerateGuid());
         }
 
         [Fact]
         public void TestGetStatements()
         {
-            lrs.GetStatements();
+            lrs.Statements.GetStatements();
         }
 
         [Fact]
         public void TestGetActivity()
         {
-            lrs.GetActivity(GenerateUri("activity"));
+            lrs.Activities.GetActivity(GenerateUri("activity"));
         }
 
         [Fact]
         public void TestGetPerson()
         {
-            lrs.GetPerson(GenerateAgent());
+            lrs.Agents.GetPerson(GenerateAgent());
         }
 
         [Fact]
         public void TestPutStateDocument()
         {
-            lrs.PutStateDocument(GenerateDocument());
+            lrs.Activities.State.PutStateDocument(GenerateDocument());
         }
 
         [Fact]
         public void TestDeleteStateDocument()
         {
-            lrs.DeleteStateDocument(GenerateStateId());
+            lrs.Activities.State.DeleteStateDocument(GenerateStateId());
         }
 
         [Fact]
         public void TestDeleteStateDocuments()
         {
-            lrs.DeleteStateDocuments(GenerateActivityId(), GenerateAgent());
+            lrs.Activities.State.DeleteStateDocuments(GenerateActivityId(), GenerateAgent());
         }
 
         [Fact]
         public void TestGetStateDocument()
         {
-            lrs.GetStateDocument(GenerateStateId(), GenerateActivityId(), GenerateAgent());
+            lrs.Activities.State.GetStateDocument(GenerateStateId(), GenerateActivityId(), GenerateAgent());
         }
 
         [Fact]
         public void TestGetStateDocuments()
         {
-            lrs.GetStateDocuments(GenerateActivityId(), GenerateAgent());
+            lrs.Activities.State.GetStateDocuments(GenerateActivityId(), GenerateAgent());
         }
 
         [Fact]
         public void TestPutActivityProfileDocument()
         {
-            lrs.PutActivityProfileDocument(GenerateDocument());
+            lrs.Activities.Profile.PutActivityProfileDocument(GenerateDocument());
         }
 
         [Fact]
         public void TestDeleteActivityProfileDocument()
         {
-            lrs.DeleteActivityProfileDocument(GenerateActivityId(), "test");
+            lrs.Activities.Profile.DeleteActivityProfileDocument(GenerateActivityId(), "test");
         }
 
         [Fact]
         public void TestGetActivityProfileDocument()
         {
-            lrs.GetActivityProfileDocument(GenerateActivityId(), "test");
+            lrs.Activities.Profile.GetActivityProfileDocument(GenerateActivityId(), "test");
         }
 
         [Fact]
         public void TestGetActivityProfileDocuments()
         {
-            lrs.GetActivityProfileDocuments(GenerateActivityId(), default(DateTime));
+            lrs.Activities.Profile.GetActivityProfileDocuments(GenerateActivityId(), default(DateTime));
         }
 
         [Fact]
         public void TestPutProfileDocument()
         {
-            lrs.PutProfileDocument(GenerateDocument());
+            lrs.Agents.Profile.PutProfileDocument(GenerateDocument());
         }
 
         [Fact]
         public void TestDeleteProfileDocument()
         {
-            lrs.DeleteProfileDocument(GenerateAgent(), GenerateProfileId());
+            lrs.Agents.Profile.DeleteProfileDocument(GenerateAgent(), GenerateProfileId());
         }
 
         [Fact]
         public void TestGetProfileDocument()
         {
-            lrs.GetProfileDocument(GenerateAgent(), GenerateProfileId());
+            lrs.Agents.Profile.GetProfileDocument(GenerateAgent(), GenerateProfileId());
         }
 
         [Fact]
         public void TestGetProfileDocuments()
         {
-            lrs.GetProfileDocuments(GenerateAgent());
+            lrs.Agents.Profile.GetProfileDocuments(GenerateAgent());
         }
     }
 }
