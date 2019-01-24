@@ -20,15 +20,15 @@ type IActivityProfileResource =
     /// </summary>
     /// <param name="activityId">The Activity id associated with this Profile document.</param>
     /// <param name="profileId">The profile id associated with this Profile document.</param>
-    abstract member DeleteActivityProfileDocument: ActivityId * string -> unit
+    abstract member DeleteActivityProfileDocument: ActivityId * ProfileId -> unit
 
     /// <summary>
     /// Fetches the specified Profile document in the context of the specified Activity.
     /// </summary>
-    /// <returns>The Profile document.</returns>
+    /// <returns>The Profile document, if found.</returns>
     /// <param name="activityId">The Activity id associated with this Profile document.</param>
     /// <param name="profileId">The profile id associated with this Profile document.</param>
-    abstract member GetActivityProfileDocument: ActivityId * string -> IDocument
+    abstract member GetActivityProfileDocument: ActivityId * ProfileId -> IDocument option
 
     /// <summary>
     /// Fetches the specified Profile document in the context of the specified Activity.

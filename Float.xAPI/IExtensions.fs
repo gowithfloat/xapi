@@ -10,6 +10,10 @@ open System.Collections.Generic
 
 // todo: in F#, this should just be (Uri * string) seq, but that prevents dictionary usage in C#
 // is there a way to use a simple F# tuple here but allow dictionary use in C#?
+// one option is a discriminated union:
+// | Pairs of KeyValuePair<Uri, string> seq
+// | Tuples of Tuple<Uri, string> seq
+// | Sequence of (Uri * string) seq
 
 /// <summary>
 /// Extensions are available as part of Activity Definitions, as part of a Statement's "context" property, or as part of a Statement's "result" property.

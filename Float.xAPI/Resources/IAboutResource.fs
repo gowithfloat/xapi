@@ -7,7 +7,7 @@ namespace Float.xAPI.Resources
 
 open Float.xAPI
 
-//type IAboutInformation = (Version seq * IExtensions)
+// todo: type IAboutInformation = (Version seq * IExtensions)
 
 /// <summary>
 /// Returns information about this LRS, including the xAPI version supported.

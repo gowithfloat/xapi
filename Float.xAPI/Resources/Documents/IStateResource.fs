@@ -30,7 +30,7 @@ type IStateResource =
         StateId * 
         [<Optional>] activityId: ActivityId option * 
         [<Optional>] agent: IAgent option * 
-        [<Optional>] guid: Guid option 
+        [<Optional>] registration: Guid option 
             -> unit
 
     /// <summary>
@@ -42,13 +42,13 @@ type IStateResource =
     abstract member DeleteStateDocuments: 
         ActivityId * 
         IAgent * 
-        [<Optional>] guid: Guid option 
+        [<Optional>] registration: Guid option 
             -> unit
 
     /// <summary>
     /// Fetches the document specified by the given "stateId" that exists in the context of the specified Activity, Agent, and registration (if specified).
     /// </summary>
-    /// <returns>The State document.</returns>
+    /// <returns>The State document, if found.</returns>
     /// <param name="stateId">The id for this state, within the given context.</param>
     /// <param name="activityId">The Activity id associated with this state.</param>
     /// <param name="agent">The Agent associated with this state.</param>
@@ -57,8 +57,8 @@ type IStateResource =
         StateId * 
         ActivityId * 
         IAgent * 
-        [<Optional>] guid: Guid option 
-            -> IDocument
+        [<Optional>] registration: Guid option 
+            -> IDocument option
 
     /// <summary>
     /// Fetches State ids of all state data for this context (Activity + Agent [ + registration if specified]).

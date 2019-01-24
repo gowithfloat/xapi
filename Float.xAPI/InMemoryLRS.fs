@@ -8,17 +8,18 @@ namespace Float.xAPI
 open System
 open System.Collections.Generic
 open System.Runtime.InteropServices
+open System.Linq
+open Float.xAPI.Activities
+open Float.xAPI.Activities.Definitions
 open Float.xAPI.Actor
 open Float.xAPI.Resources
+open Float.xAPI.Resources.Documents
 
 module internal Util =
     let mapStatementToId(statement: IStatement) =
         statement.Id
 
-/// <summary>
-/// The "in memory" LRS only stores provided objects for the duration of this instance.
-/// </summary>
-type InMemoryLRS =
+type private InMemoryStatementResource =
     val private Statements: List<IStatement>
 
     /// <summary>
@@ -78,10 +79,169 @@ type InMemoryLRS =
             |> StatementResult
             :> IStatementResult
 
-    interface IStatementResource with
+    interface IStatementEndpoint with
         member this.PutStatement statement = this.PutStatement statement
         member this.PostStatements statements = this.PostStatements statements
         member this.GetStatement(statementId, format, attachments) = this.GetStatement(statementId, format, attachments)
         member this.GetVoidedStatement(voidedStatementId, format, attachments) = this.GetVoidedStatement(voidedStatementId, format, attachments)
         member this.GetStatements(agent, verb, activity, registration, relatedActivities, relatedAgents, since, until, limit, format, attachments, ascending) = 
             this.GetStatements(agent, verb, activity, registration, relatedActivities, relatedAgents, since, until, limit, format, attachments, ascending)
+
+type private InMemoryStateResource =
+    val private Documents: List<IDocument>
+
+    new () =
+        { Documents = List<IDocument>() }
+
+    /// <inheritdoc />
+    member this.PutStateDocument(document: IDocument) =
+        this.Documents.Add(document)
+
+    /// <inheritdoc />
+    member this.DeleteStateDocument(id: StateId, [<Optional>] ?activityId: ActivityId option, [<Optional>] ?agent: IAgent option, [<Optional>] ?registration: Guid option) =
+        this.Documents.RemoveAll(fun doc -> doc.Id = id)
+        |> ignore
+        // todo: filter by activity, agent, registration
+
+    /// <inheritdoc />
+    member this.DeleteStateDocuments(id: ActivityId, agent: IAgent, [<Optional>] ?registration: Guid option) =
+        () // todo: implement
+
+    /// <inheritdoc />
+    member this.GetStateDocument(id: StateId, activityId: ActivityId, agent: IAgent, [<Optional>] ?registration: Guid option) =
+        None // todo: implement
+
+    /// <inheritdoc />
+    member this.GetStateDocuments(id: ActivityId, agent: IAgent, [<Optional>] ?guid: Guid option, [<Optional>] ?date: DateTime option) =
+        Seq.empty // todo: implement
+
+    interface IStateResource with
+        member this.PutStateDocument document = this.PutStateDocument document
+        member this.DeleteStateDocument(sid, aid, agent, reg) = this.DeleteStateDocument(sid, aid, agent, reg)
+        member this.DeleteStateDocuments(aid, agent, reg) = this.DeleteStateDocuments(aid, agent, reg)
+        member this.GetStateDocument(sid, aid, agent, reg) = this.GetStateDocument(sid, aid, agent, reg)
+        member this.GetStateDocuments(aid, agent, reg, date) = this.GetStateDocuments(aid, agent, reg, date)
+
+type private InMemoryActivityProfileResource =
+    val private Documents: List<IDocument>
+
+    new () =
+        { Documents = List<IDocument>() }
+
+    /// <inheritdoc />
+    member this.PutActivityProfileDocument(document: IDocument) =
+        this.Documents.Add(document)
+
+    /// <inheritdoc />
+    member this.DeleteActivityProfileDocument(aid: ActivityId, pid: ProfileId) =
+        () // todo: implement
+
+    /// <inheritdoc />
+    member this.GetActivityProfileDocument(aid: ActivityId, pid: ProfileId) =
+        None // todo: implement
+
+    /// <inheritdoc />
+    member this.GetActivityProfileDocuments(aid: ActivityId, date: DateTime) =
+        Seq.empty // todo: implement
+
+    interface IActivityProfileResource with
+        member this.PutActivityProfileDocument document = this.PutActivityProfileDocument document
+        member this.DeleteActivityProfileDocument(aid, pid) = this.DeleteActivityProfileDocument(aid, pid)
+        member this.GetActivityProfileDocument(aid, pid) = this.GetActivityProfileDocument(aid, pid)
+        member this.GetActivityProfileDocuments(aid, pid) = this.GetActivityProfileDocuments(aid, pid)
+
+type private InMemoryActivityEndpoint =
+    val private Activities: List<IActivity>
+
+    new () =
+        { Activities = List<IActivity>() }
+
+    /// <inheritdoc />
+    member this.GetActivity(id: Uri) =
+        this.Activities.Where(fun activity -> activity.Id = id).First()
+
+    interface IActivityEndpoint with
+        member this.State = InMemoryStateResource() :> IStateResource
+        member this.Profile = InMemoryActivityProfileResource() :> IActivityProfileResource
+        member this.GetActivity id = this.GetActivity id
+
+type private InMemoryAgentProfileResource =
+    val private Documents: List<IDocument>
+
+    new () =
+        { Documents = List<IDocument>() }
+
+    /// <inheritdoc />
+    member this.PutProfileDocument(document: IDocument) =
+        this.Documents.Add(document)
+
+    /// <inheritdoc />
+    member this.DeleteProfileDocument(agent: IAgent, id: ProfileId) =
+        this.Documents.RemoveAll(fun doc -> doc.Id = StateId(""))
+        |> ignore
+
+    /// <inheritdoc />
+    member this.GetProfileDocument(agent: IAgent, id: ProfileId) =
+        None // todo: implement
+
+    /// <inheritdoc />
+    member this.GetProfileDocuments(agent: IAgent, [<Optional>] ?date: DateTime option) =
+        Seq.empty
+
+    interface IAgentProfileResource with
+        member this.PutProfileDocument doc = this.PutProfileDocument doc
+        member this.DeleteProfileDocument(agent, id) = this.DeleteProfileDocument(agent, id)
+        member this.GetProfileDocument(agent, id) = this.GetProfileDocument(agent, id)
+        member this.GetProfileDocuments(agent, date) = this.GetProfileDocuments(agent, date)
+
+type private InMemoryAgentEndpoint =
+    new() = { }
+
+    /// <inheritdoc />
+    member this.GetPerson(agent: IAgent) =
+        Seq.empty // todo: implement
+
+    interface IAgentEndpoint with
+        member this.Profile = InMemoryAgentProfileResource() :> IAgentProfileResource
+        member this.GetPerson agent = this.GetPerson agent
+
+type private InMemoryAboutEndpoint =
+    new() = { }
+
+    /// <inheritdoc />
+    member this.Information =
+            "hi"
+
+    interface IAboutEndpoint with
+        member this.Information = this.Information
+
+/// <summary>
+/// The "in memory" LRS only stores provided objects for the duration of this instance.
+/// </summary>
+[<NoEquality;NoComparison>]
+type InMemoryLRS =
+    val private StatementsResource: InMemoryStatementResource
+    val private ActivityEndpoint: InMemoryActivityEndpoint
+    val private AgentEndpoint: InMemoryAgentEndpoint
+    val private AboutEndpoint: InMemoryAboutEndpoint
+
+    new() =
+        { StatementsResource = InMemoryStatementResource(); ActivityEndpoint = InMemoryActivityEndpoint(); AgentEndpoint = InMemoryAgentEndpoint(); AboutEndpoint = InMemoryAboutEndpoint() }
+
+    /// <inheritdoc />
+    member this.Statements = this.StatementsResource :> IStatementEndpoint
+
+    /// <inheritdoc />
+    member this.Activities = this.ActivityEndpoint :> IActivityEndpoint
+
+    /// <inheritdoc />
+    member this.Agents = this.AgentEndpoint :> IAgentEndpoint
+
+    /// <inheritdoc />
+    member this.About = this.AboutEndpoint :> IAboutEndpoint
+
+    interface ILRS with
+        member this.Statements = InMemoryStatementResource() :> IStatementEndpoint
+        member this.Activities = InMemoryActivityEndpoint() :> IActivityEndpoint
+        member this.Agents = InMemoryAgentEndpoint() :> IAgentEndpoint
+        member this.About = InMemoryAboutEndpoint() :> IAboutEndpoint

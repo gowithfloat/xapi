@@ -8,6 +8,10 @@ namespace Float.xAPI
 open Float.xAPI.Resources
 open Float.xAPI.Resources.Documents
 
+// todo: how do endpoints handle Etags as specified by the xAPI spec?
+// https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Communication.md#concurrency
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
+
 type public IStatementEndpoint =
     inherit IStatementResource
 

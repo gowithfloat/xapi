@@ -98,13 +98,13 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestDeleteActivityProfileDocument()
         {
-            lrs.Activities.Profile.DeleteActivityProfileDocument(GenerateActivityId(), "test");
+            lrs.Activities.Profile.DeleteActivityProfileDocument(GenerateActivityId(), GenerateProfileId());
         }
 
         [Fact]
         public void TestGetActivityProfileDocument()
         {
-            lrs.Activities.Profile.GetActivityProfileDocument(GenerateActivityId(), "test");
+            lrs.Activities.Profile.GetActivityProfileDocument(GenerateActivityId(), GenerateProfileId());
         }
 
         [Fact]

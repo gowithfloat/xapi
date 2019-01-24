@@ -6,15 +6,11 @@
 namespace Float.xAPI
 
 open System
-open System.Collections.Generic
 open Float.xAPI.Activities
 open Float.xAPI.Activities.Definitions
 open Float.xAPI.Languages
 open Float.xAPI.Resources
 open Float.xAPI.Resources.Documents
-
-module private NoopHelper =
-    let CreateDocument = Document(StateId.StateId("noop"), DateTime.Now, Seq.singleton("contents", "contents")) :> IDocument
 
 type private NoopStatementEndpoint =
     new() = {}
@@ -31,7 +27,7 @@ type private NoopStateResource =
         member this.PutStateDocument document = ()
         member this.DeleteStateDocument(stateId, activityId, agent, guid) = ()
         member this.DeleteStateDocuments(activityId, agent, guid) = ()
-        member this.GetStateDocument(stateId, activityId, agent, guid) = NoopHelper.CreateDocument
+        member this.GetStateDocument(stateId, activityId, agent, guid) = None
         member this.GetStateDocuments(activityId, agent, guid, date) = Seq.empty
 
 type private NoopActivityProfileResource =
@@ -39,7 +35,7 @@ type private NoopActivityProfileResource =
     interface IActivityProfileResource with
         member this.PutActivityProfileDocument document = ()
         member this.DeleteActivityProfileDocument(id, name) = ()
-        member this.GetActivityProfileDocument(id, name) = NoopHelper.CreateDocument
+        member this.GetActivityProfileDocument(id, name) = None
         member this.GetActivityProfileDocuments(id, date) = Seq.empty
 
 type private NoopActivityEndpoint =
@@ -62,7 +58,7 @@ type private NoopAgentProfileResource =
     interface IAgentProfileResource with
         member this.PutProfileDocument document = ()
         member this.DeleteProfileDocument(agent, id) = ()
-        member this.GetProfileDocument(agent, id) = NoopHelper.CreateDocument
+        member this.GetProfileDocument(agent, id) = None
         member this.GetProfileDocuments(agent, date) = Seq.empty
 
 type private NoopAgentEndpoint =

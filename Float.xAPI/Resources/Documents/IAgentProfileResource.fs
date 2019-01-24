@@ -29,10 +29,10 @@ type IAgentProfileResource =
     /// <summary>
     /// Fetches the specified Profile document in the context of the specified Agent.
     /// </summary>
-    /// <returns>The Profile document.</returns>
+    /// <returns>The Profile document, if found.</returns>
     /// <param name="agent">The Agent associated with this Profile document.</param>
     /// <param name="profileId">The profile id associated with this Profile document.</param>
-    abstract member GetProfileDocument: IAgent * ProfileId -> IDocument
+    abstract member GetProfileDocument: IAgent * ProfileId -> IDocument option
 
     /// <summary>
     /// Fetches Profile ids of all Profile documents for an Agent.
