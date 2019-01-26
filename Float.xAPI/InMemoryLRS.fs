@@ -32,31 +32,38 @@ type private InMemoryStatementResource =
         { Statements = List<IStatement>() }
 
     /// <inheritdoc />
-    member this.PutStatement statement = this.Statements.Add(statement)
+    member this.PutStatement statement = 
+        this.Statements.Add(statement)
 
     /// <inheritdoc />
     member this.PostStatements statements =
         this.Statements.AddRange(statements)
         statements 
-            |> Seq.map Util.mapStatementToId
+        |> Seq.map Util.mapStatementToId
 
     /// <inheritdoc />
     member this.GetStatement(statementId: Guid, 
                              [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat, 
                              [<Optional;DefaultParameterValue(false)>] attachments: bool) =
         this.Statements
-            |> List.ofSeq 
-            |> List.where (Filters.statementVerbMismatch (Some(Verb.Voided.Id)))
-            |> List.tryFind (Filters.statementIdMatch statementId)
+        |> Seq.where (Filters.statementIdMatch statementId)
+        |> Seq.where (Filters.statementNotVoidedIn this.Statements)
+        |> Seq.tryHead
 
     /// <inheritdoc />
     member this.GetVoidedStatement(voidedStatementId: Guid, 
                                    [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat, 
                                    [<Optional;DefaultParameterValue(false)>] attachments: bool) =
-        this.Statements 
-            |> List.ofSeq 
-            |> List.where (Filters.statementVerbMatch (Some(Verb.Voided.Id)))
-            |> List.tryFind (Filters.statementIdMatch voidedStatementId)
+        let voidingStatement = this.Statements 
+                               |> Seq.where (Filters.statementVerbMatch (Some(Verb.Voided.Id)))
+                               |> Seq.tryFind (Filters.statementReferenceIdMatch voidedStatementId)
+
+        match voidingStatement with
+        | None -> None
+        | Some vs -> match vs.Object with
+                     | :? IStatementReference as sref -> this.Statements
+                                                         |> Seq.tryFind (Filters.statementIdMatch sref.Id)
+                     | _ -> None
 
     /// <inheritdoc />
     member this.GetStatements([<Optional>] actor: IIdentifiedActor option, 
@@ -72,15 +79,14 @@ type private InMemoryStatementResource =
                               [<Optional;DefaultParameterValue(false)>] attachments: bool, 
                               [<Optional;DefaultParameterValue(false)>] ascending: bool) =
         this.Statements 
-            |> List.ofSeq 
-            |> List.where (Filters.statementActorMatch actor)
-            |> List.where (Filters.statementVerbMatch verbId)
-            |> List.where (Filters.statementActivityMatch activityId)
-            |> List.where (Filters.statementRegistrationMatch registration)
-            |> List.where (Filters.statementSinceMatch since)
-            |> List.where (Filters.statementUntilMatch until)
-            |> StatementResult
-            :> IStatementResult
+        |> Seq.where (Filters.statementActorMatch actor)
+        |> Seq.where (Filters.statementVerbMatch verbId)
+        |> Seq.where (Filters.statementActivityMatch activityId)
+        |> Seq.where (Filters.statementRegistrationMatch registration)
+        |> Seq.where (Filters.statementSinceMatch since)
+        |> Seq.where (Filters.statementUntilMatch until)
+        |> StatementResult
+        :> IStatementResult
 
     interface IStatementEndpoint with
         member this.PutStatement statement = this.PutStatement statement
@@ -241,14 +247,17 @@ type private InMemoryAgentProfileResource =
         member this.GetProfileDocuments(agent, date) = this.GetProfileDocuments(agent, date)
 
 type private InMemoryAgentEndpoint =
-    new() = { }
+    val private AgentProfileResource: InMemoryAgentProfileResource
+
+    new() =
+        { AgentProfileResource = InMemoryAgentProfileResource() }
 
     /// <inheritdoc />
     member this.GetPerson(agent: IAgent) =
         Seq.empty // todo: implement
 
     interface IAgentEndpoint with
-        member this.Profile = InMemoryAgentProfileResource() :> IAgentProfileResource
+        member this.Profile = this.AgentProfileResource :> IAgentProfileResource
         member this.GetPerson agent = this.GetPerson agent
 
 type private InMemoryAboutEndpoint =

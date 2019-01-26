@@ -16,14 +16,14 @@ namespace Float.xAPI.Tests
 {
     internal static class LRSTestHelper
     {
-        internal static IStatement GenerateVoidingStatement()
+        internal static IStatement GenerateVoidingStatement(Guid id)
         {
-            return new Statement(GenerateActor(), Verb.Voided, GenerateStatementRef());
+            return new Statement(GenerateActor(), Verb.Voided, GenerateStatementRef(id));
         }
 
-        internal static IStatementReference GenerateStatementRef()
+        internal static IStatementReference GenerateStatementRef(Guid id)
         {
-            return new StatementReference(Guid.NewGuid());
+            return new StatementReference(id);
         }
 
         internal static IIdentifiedActor GenerateActor()

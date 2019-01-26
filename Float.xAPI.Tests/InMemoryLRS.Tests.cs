@@ -26,20 +26,19 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestGetStatement()
         {
-            var statement = GenerateStatement(GenerateGuid());
-            lrs.Statements.PutStatement(statement);
+            var id1 = GenerateGuid();
+            lrs.Statements.PutStatement(GenerateStatement(id1));
 
-            var retrieved1 = lrs.Statements.GetStatement(statement.Id);
-            Assert.Equal(statement.Id, retrieved1.Value.Id);
+            var retrieved1 = lrs.Statements.GetStatement(id1);
+            Assert.Equal(id1, retrieved1.Value.Id);
 
             var retrieved2 = lrs.Statements.GetStatement(GenerateGuid());
             Assert.Null(retrieved2);
 
             var id2 = GenerateGuid();
-            var statement2 = GenerateStatement(id2);
-            ilrs.Statements.PutStatement(statement2);
+            ilrs.Statements.PutStatement(GenerateStatement(id2));
 
-            var retrieved3 = ilrs.Statements.GetStatement(statement.Id);
+            var retrieved3 = ilrs.Statements.GetStatement(id2);
             Assert.Equal(id2, retrieved3.Value.Id);
 
             var retrieved4 = ilrs.Statements.GetStatement(GenerateGuid());
@@ -49,20 +48,24 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestGetVoidedStatement()
         {
-            var statement = GenerateVoidingStatement();
-            lrs.Statements.PutStatement(statement);
+            var sid1 = GenerateGuid();
+            lrs.Statements.PutStatement(GenerateStatement(sid1));
+            lrs.Statements.PutStatement(GenerateVoidingStatement(sid1));
 
-            var retrieved1 = lrs.Statements.GetVoidedStatement(statement.Id);
-            Assert.Equal(statement.Id, retrieved1.Value.Id);
+            var retrieved1 = lrs.Statements.GetVoidedStatement(sid1);
+            Assert.Equal(sid1, retrieved1.Value.Id);
 
-            var retrieved2 = lrs.Statements.GetStatement(statement.Id);
+            var retrieved2 = lrs.Statements.GetStatement(sid1);
             Assert.Null(retrieved2);
 
-            var statement2 = GenerateVoidingStatement();
-            var retrieved3 = ilrs.Statements.GetVoidedStatement(statement2.Id);
-            Assert.Equal(statement2.Id, retrieved3.Value.Id);
+            var sid2 = GenerateGuid();
+            ilrs.Statements.PutStatement(GenerateStatement(sid2));
+            ilrs.Statements.PutStatement(GenerateVoidingStatement(sid2));
 
-            var retrieved4 = ilrs.Statements.GetStatement(statement2.Id);
+            var retrieved3 = ilrs.Statements.GetVoidedStatement(sid2);
+            Assert.Equal(sid2, retrieved3.Value.Id);
+
+            var retrieved4 = ilrs.Statements.GetStatement(sid2);
             Assert.Null(retrieved4);
         }
 

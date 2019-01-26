@@ -22,6 +22,14 @@ module internal Filters =
         statement.Id.Equals(id)
 
     /// <summary>
+    /// Returns true if the given statement's object is a statement reference, and the statement reference's ID matches the given ID.
+    /// </summary>
+    let statementReferenceIdMatch id (statement: IStatement) =
+        match statement.Object with
+        | :? IStatementReference as sref -> sref.Id = id
+        | _ -> false
+
+    /// <summary>
     /// Returns false if the statement has an identified actor and it doesn't match the given identified actor.
     /// </summary>
     let statementActorMatch (actor: IIdentifiedActor option) (statement: IStatement) =
@@ -47,6 +55,15 @@ module internal Filters =
         match verbId with
         | Some id -> statement.Verb.Id <> id
         | None -> false
+
+    /// <summary>
+    /// Returns true if the given statement is voided by any statements in the sequence.
+    /// </summary>
+    let statementNotVoidedIn (statements: IStatement seq) (statement: IStatement) =
+        statements 
+        |> Seq.where (statementVerbMatch (Some(Verb.Voided.Id)))
+        |> Seq.where (statementReferenceIdMatch statement.Id)
+        |> Seq.isEmpty
 
     /// <summary>
     /// Returns false if the statement has an activity as the object, and the activity ID doesn't match the given ID.
