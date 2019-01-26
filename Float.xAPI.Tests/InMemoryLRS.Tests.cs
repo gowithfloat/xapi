@@ -12,16 +12,21 @@ using static Float.xAPI.Tests.LRSTestHelper;
 
 namespace Float.xAPI.Tests
 {
-    public class LRSTests
+    public class InMemoryLRSTests
     {
-        readonly Guid registration = GenerateGuid();
-        readonly Guid statementId = GenerateGuid();
+        readonly InMemoryLRS lrs;
+        readonly ILRS ilrs;
+
+        public InMemoryLRSTests()
+        {
+            lrs = new InMemoryLRS();
+            ilrs = lrs as ILRS;
+        }
 
         [Fact]
         public void TestGetStatement()
         {
-            var lrs = new InMemoryLRS();
-            var statement = GenerateStatement(statementId);
+            var statement = GenerateStatement(GenerateGuid());
             lrs.Statements.PutStatement(statement);
 
             var retrieved1 = lrs.Statements.GetStatement(statement.Id);
@@ -29,8 +34,6 @@ namespace Float.xAPI.Tests
 
             var retrieved2 = lrs.Statements.GetStatement(GenerateGuid());
             Assert.Null(retrieved2);
-
-            var ilrs = lrs as ILRS;
 
             var id2 = GenerateGuid();
             var statement2 = GenerateStatement(id2);
@@ -46,7 +49,6 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestGetVoidedStatement()
         {
-            var lrs = new InMemoryLRS();
             var statement = GenerateVoidingStatement();
             lrs.Statements.PutStatement(statement);
 
@@ -56,9 +58,7 @@ namespace Float.xAPI.Tests
             var retrieved2 = lrs.Statements.GetStatement(statement.Id);
             Assert.Null(retrieved2);
 
-            var ilrs = lrs as ILRS;
             var statement2 = GenerateVoidingStatement();
-
             var retrieved3 = ilrs.Statements.GetVoidedStatement(statement2.Id);
             Assert.Equal(statement2.Id, retrieved3.Value.Id);
 
@@ -69,8 +69,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestGetStatementsByVerb()
         {
-            var lrs = new InMemoryLRS();
-            lrs.Statements.PutStatement(GenerateStatement(statementId));
+            lrs.Statements.PutStatement(GenerateStatement(GenerateGuid()));
 
             var retrieved1 = lrs.Statements.GetStatements(verbId: new Uri("http://example.com/verb"));
             Assert.Single(retrieved1.Statements);
@@ -79,8 +78,6 @@ namespace Float.xAPI.Tests
             var retrieved2 = lrs.Statements.GetStatements(verbId: new Uri("http://example.com/sent"));
             Assert.Empty(retrieved2.Statements);
             Assert.Null(retrieved2.More);
-
-            var ilrs = lrs as ILRS;
 
             var retrieved3 = ilrs.Statements.GetStatements(verbId: new Uri("http://example.com/verb"));
             Assert.Single(retrieved3.Statements);
@@ -94,8 +91,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestGetStatementsByActor()
         {
-            var lrs = new InMemoryLRS();
-            lrs.Statements.PutStatement(GenerateStatement(statementId));
+            lrs.Statements.PutStatement(GenerateStatement(GenerateGuid()));
 
             var retrieved1 = lrs.Statements.GetStatements(actor: new Agent(new OpenID(new Uri("http://example.com/agent"))));
             Assert.Single(retrieved1.Statements);
@@ -103,7 +99,6 @@ namespace Float.xAPI.Tests
             var retrieved2 = lrs.Statements.GetStatements(actor: new Agent(new OpenID(new Uri("http://example.com/agent/2"))));
             Assert.Empty(retrieved2.Statements);
 
-            var ilrs = lrs as ILRS;
             var retrieved3 = ilrs.Statements.GetStatements(actor: new Agent(new OpenID(new Uri("http://example.com/agent"))));
             Assert.Single(retrieved3.Statements);
 
@@ -114,8 +109,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestGetStatementsByActivity()
         {
-            var lrs = new InMemoryLRS();
-            lrs.Statements.PutStatement(GenerateStatement(statementId));
+            lrs.Statements.PutStatement(GenerateStatement(GenerateGuid()));
 
             var retrieved1 = lrs.Statements.GetStatements(activityId: new Uri("http://example.com/activity"));
             Assert.Single(retrieved1.Statements);
@@ -123,7 +117,6 @@ namespace Float.xAPI.Tests
             var retrieved2 = lrs.Statements.GetStatements(activityId: new Uri("http://example.com/activity/2"));
             Assert.Empty(retrieved2.Statements);
 
-            var ilrs = lrs as ILRS;
             var retrieved3 = ilrs.Statements.GetStatements(activityId: new Uri("http://example.com/activity"));
             Assert.Single(retrieved3.Statements);
 
@@ -134,10 +127,9 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestGetStatementsByRegistration()
         {
-            var lrs = new InMemoryLRS();
-            lrs.Statements.PutStatement(GenerateStatement(statementId));
+            lrs.Statements.PutStatement(GenerateStatement(GenerateGuid()));
 
-            var retrieved1 = lrs.Statements.GetStatements(registration: registration);
+            var retrieved1 = lrs.Statements.GetStatements(registration: GenerateGuid());
             Assert.Single(retrieved1.Statements);
 
             // todo: fix this
@@ -148,7 +140,6 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestPostStatements()
         {
-            var lrs = new InMemoryLRS();
             var id1 = GenerateGuid();
             var id2 = GenerateGuid();
             var statements = GenerateStatements(id1, id2);
@@ -156,7 +147,6 @@ namespace Float.xAPI.Tests
             Assert.Equal(id1, results.First());
             Assert.Equal(id2, results.Last());
 
-            var ilrs = lrs as ILRS;
             var id3 = GenerateGuid();
             var id4 = GenerateGuid();
             var statements2 = GenerateStatements(id3, id4);

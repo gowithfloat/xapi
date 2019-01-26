@@ -6,6 +6,7 @@
 namespace Float.xAPI.Resources.Documents
 
 open System
+open System.Runtime.InteropServices
 
 /// The Activity Profile Resource is much like the State Resource, allowing for arbitrary key / document pairs to be saved which are related to an Activity.
 type IActivityProfileResource =
@@ -13,7 +14,7 @@ type IActivityProfileResource =
     /// Stores or changes the specified Profile document in the context of the specified Activity.
     /// </summary>
     /// <param name="document">The document to be stored or updated.</param>
-    abstract member PutActivityProfileDocument: IDocument -> unit
+    abstract member PutActivityProfileDocument: IDocument * ActivityId * ProfileId -> unit
 
     /// <summary>
     /// Deletes the specified Profile document in the context of the specified Activity.
@@ -37,4 +38,4 @@ type IActivityProfileResource =
     /// <returns>Array of Profile id(s).</returns>
     /// <param name="activityId">The Activity id associated with these Profile documents.</param>
     /// <param name="since">Only ids of Profile documents stored since the specified Timestamp (exclusive) are returned.</param>
-    abstract member GetActivityProfileDocuments: ActivityId * DateTime -> ProfileId seq
+    abstract member GetActivityProfileDocuments: ActivityId * [<Optional>] date: DateTime option -> ProfileId seq

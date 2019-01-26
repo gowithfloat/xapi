@@ -17,7 +17,7 @@ type IAgentProfileResource =
     /// Stores or changes the specified Profile document in the context of the specified Agent.
     /// </summary>
     /// <param name="document">The document to be stored or updated.</param>
-    abstract member PutProfileDocument: IDocument -> unit
+    abstract member PutProfileDocument: IDocument * IAgent * ProfileId -> unit
 
     /// <summary>
     /// Deletes the specified Profile document in the context of the specified Agent.

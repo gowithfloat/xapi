@@ -8,6 +8,8 @@ namespace Float.xAPI
 open System
 open Float.xAPI.Activities
 open Float.xAPI.Actor
+open Float.xAPI.Resources
+open Float.xAPI.Resources.Documents
 
 /// <summary>
 /// Functions that can be used to filter statements by LRS implementations.
@@ -92,3 +94,7 @@ module internal Filters =
             | Some unti -> timestamp < unti
             | None -> true
         | None -> true
+
+    let documentIdMatch (id: StateId) (document: IDocument) =
+        id = document.Id
+        

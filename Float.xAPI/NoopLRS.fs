@@ -6,6 +6,7 @@
 namespace Float.xAPI
 
 open System
+open Float.xAPI
 open Float.xAPI.Activities
 open Float.xAPI.Activities.Definitions
 open Float.xAPI.Languages
@@ -33,7 +34,7 @@ type private NoopStateResource =
 type private NoopActivityProfileResource =
     new() = {}
     interface IActivityProfileResource with
-        member this.PutActivityProfileDocument document = ()
+        member this.PutActivityProfileDocument(document, id, name) = ()
         member this.DeleteActivityProfileDocument(id, name) = ()
         member this.GetActivityProfileDocument(id, name) = None
         member this.GetActivityProfileDocuments(id, date) = Seq.empty
@@ -56,9 +57,9 @@ type private NoopActivityEndpoint =
 type private NoopAgentProfileResource =
     new() = {}
     interface IAgentProfileResource with
-        member this.PutProfileDocument document = ()
-        member this.DeleteProfileDocument(agent, id) = ()
-        member this.GetProfileDocument(agent, id) = None
+        member this.PutProfileDocument(document, agent, pid) = ()
+        member this.DeleteProfileDocument(agent, pid) = ()
+        member this.GetProfileDocument(agent, pid) = None
         member this.GetProfileDocuments(agent, date) = Seq.empty
 
 type private NoopAgentEndpoint =
@@ -68,22 +69,34 @@ type private NoopAgentEndpoint =
         member this.GetPerson agent = Seq.empty
 
 type private NoopAboutEndpoint =
-    new() = {}
+    new() = { }
+
     interface IAboutEndpoint with
-        member this.Information = "info"
+        member this.Information() = (Seq.empty, Seq.empty)
 
 /// <summary>
 /// The "noop" LRS takes no action in response to statement requests.
 /// Generally, this is only used for testing.
 /// </summary>
 type NoopLRS =
+    val private StatementEndpoint: NoopStatementEndpoint
+    val private ActivityEndpoint: NoopActivityEndpoint
+    val private AgentEndpoint: NoopAgentEndpoint
+    val private AboutEndpoint: NoopAboutEndpoint
+
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.NoopLRS"/> object.
     /// </summary>
-    new () = { }
+    new () = 
+        { StatementEndpoint = NoopStatementEndpoint() ; ActivityEndpoint = NoopActivityEndpoint() ; AgentEndpoint = NoopAgentEndpoint() ; AboutEndpoint = NoopAboutEndpoint() }
+        
+    member this.Statements = this.StatementEndpoint :> IStatementEndpoint
+    member this.Activities = this.ActivityEndpoint :> IActivityEndpoint
+    member this.Agents = this.AgentEndpoint :> IAgentEndpoint
+    member this.About = this.AboutEndpoint :> IAboutEndpoint
 
     interface ILRS with
-        member this.Statements = NoopStatementEndpoint() :> IStatementEndpoint
-        member this.Activities = NoopActivityEndpoint() :> IActivityEndpoint
-        member this.Agents = NoopAgentEndpoint() :> IAgentEndpoint
-        member this.About = NoopAboutEndpoint() :> IAboutEndpoint
+        member this.Statements = this.Statements
+        member this.Activities = this.Activities
+        member this.Agents = this.Agents
+        member this.About = this.About
