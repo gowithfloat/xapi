@@ -7,7 +7,7 @@ namespace Float.xAPI
 
 open System
 open Float.xAPI
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// A Statement Reference is a pointer to another pre-existing Statement.

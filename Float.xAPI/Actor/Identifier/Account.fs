@@ -6,7 +6,7 @@
 namespace Float.xAPI.Actor.Identifier
 
 open System
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// A user account on an existing system, such as a private system (LMS or intranet) or a public system (social networking site).

@@ -8,7 +8,7 @@ namespace Float.xAPI.Resources
 open System
 open System.Runtime.InteropServices
 open Float.xAPI
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// A collection of Statements can be retrieved by performing a query on the Statement Resource.

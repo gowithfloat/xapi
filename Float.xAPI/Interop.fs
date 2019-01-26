@@ -3,7 +3,7 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-namespace Float.Common
+namespace Float
 
 open System
 open System.Text
@@ -27,6 +27,9 @@ module Interop =
     /// </summary>
     let inline nullArg x name =
         if (isNull (box x)) then raise (ArgumentNullException name)
+
+    //let inline defaultArg<'T when 'T :> struct>(x: 'T, name: string) =
+        //if (x = 'T()) then raise (ArgumentException name)
 
     /// <summary>
     /// Raise an argument exception if the given sequence is empty.

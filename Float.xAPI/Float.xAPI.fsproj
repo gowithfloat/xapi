@@ -1,7 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ReleaseVersion>0.0.1</ReleaseVersion>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageId>Float.xAPI</PackageId>
+    <Authors>Float</Authors>
+    <Owners>Float</Owners>
+    <License>MIT</License>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/gowithfloat/xapi</PackageProjectUrl>
+    <Summary>An F# implementation of the xAPI specification with a focus on type safety and immutability.</Summary>
+    <Title>Float.xAPI</Title>
+    <Description>An F# implementation of the xAPI specification with a focus on type safety and immutability.</Description>
+    <Copyright>Copyright (c) 2018 Float, All rights reserved. Shared under an MIT license.</Copyright>
+    <Tags>xapi</Tags>
+    <RepositoryUrl>https://github.com/gowithfloat/xapi</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DocumentationFile>bin\Debug\netstandard2.0\Float.xAPI.XML</DocumentationFile>
@@ -17,6 +30,7 @@
     <Folder Include="Resources\Documents\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interop.fs" />
     <Compile Include="IDictionaryRepresentable.fs" />
     <Compile Include="SHAHash.fs" />
     <Compile Include="IObject.fs" />
@@ -89,8 +103,5 @@
     <Compile Include="ILRS.fs" />
     <Compile Include="InMemoryLRS.fs" />
     <Compile Include="NoopLRS.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Float.Common\Float.Common.fsproj" />
   </ItemGroup>
 </Project>

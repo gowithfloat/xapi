@@ -9,7 +9,7 @@ open System
 open System.Net.Mime
 open System.Runtime.InteropServices
 open Float.xAPI.Languages
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// In some cases an Attachment is logically an important part of a Learning Record.

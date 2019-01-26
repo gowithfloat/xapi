@@ -9,7 +9,7 @@ open System
 open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities.Definitions
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// A Statement can represent an Activity as the Object of the Statement.

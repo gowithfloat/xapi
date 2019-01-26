@@ -56,11 +56,5 @@
     <Compile Include="Program.fs" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Float.Common\Float.Common.fsproj">
-      <Project>{4F7D8D7D-C0FB-462A-B7DF-F6D348A8C9D0}</Project>
-      <Name>Float.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />
 </Project>

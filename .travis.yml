@@ -8,7 +8,8 @@ install:
 script:
   - dotnet build Float.xAPI/Float.xAPI.fsproj
   - dotnet test Float.xAPI.Tests/Float.xAPI.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-  - dotnet pack Float.xAPI/Float.xAPI.fsproj /p:Configuration=Release
+  - dotnet pack Float.xAPI/Float.xAPI.fsproj /p:Configuration=Release /p:PackageVersion=0.0.1
+  - dotnet nuget push Float.xAPI/bin/Release/*.nupkg -Verbosity detailed -ApiKey $NUGET_KEY -Source $NUGET_SOURCE
 after_success:
   - curl -s https://codecov.io/bash > codecov
   - chmod +x codecov

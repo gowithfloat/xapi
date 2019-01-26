@@ -6,7 +6,7 @@
 namespace Float.xAPI.Actor.Identifier
 
 open System.Net.Mail
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// A personal mailbox, ie. an Internet mailbox associated with exactly one owner, the first owner of this mailbox.

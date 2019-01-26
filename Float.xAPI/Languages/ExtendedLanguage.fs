@@ -5,7 +5,7 @@
 
 namespace Float.xAPI.Languages
 
-open Float.Common.Interop
+open Float.Interop
 
 // todo: extended language subtags should be tied to specific languages only (the registry specifies the parent tag)
 

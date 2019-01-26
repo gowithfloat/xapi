@@ -7,7 +7,7 @@ namespace Float.VSDocGen
 
 open System.IO
 open System
-open Float.Common.Interop
+//open Float.Interop
 open FSharp.Data
 open System.Xml
 open System.Xml.Linq

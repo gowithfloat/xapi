@@ -7,7 +7,7 @@ namespace Float.xAPI
 
 open System
 open Float.xAPI.Languages
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// The Verb defines the action between an Actor and an Activity.

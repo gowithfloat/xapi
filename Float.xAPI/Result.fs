@@ -7,7 +7,7 @@ namespace Float.xAPI
 
 open System
 open System.Runtime.InteropServices
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// Represents a measured outcome related to the Statement in which it is included.

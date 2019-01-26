@@ -6,7 +6,7 @@
 namespace Float.xAPI.Actor.Identifier
 
 open System
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// An openID that uniquely identifies the Agent.

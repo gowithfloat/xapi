@@ -9,8 +9,8 @@ open System
 open System.Runtime.InteropServices
 open Float.xAPI.Actor
 open Float.xAPI.Activities
-open Float.Common.Interop
 open Float.xAPI.Languages
+open Float.Interop
 
 [<NoEquality;NoComparison;Struct>]
 type public Context =

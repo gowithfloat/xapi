@@ -5,7 +5,7 @@
 
 namespace Float.VSDocGen
 
-open Float.Common.Interop
+//open Float.Interop
 
 /// <summary>
 /// Nearly all useful information in the parsed XML is in the form of a member of some class.

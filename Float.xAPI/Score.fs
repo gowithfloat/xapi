@@ -6,7 +6,7 @@
 namespace Float.xAPI
 
 open System
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// Represents the outcome of a graded Activity achieved by an Agent.

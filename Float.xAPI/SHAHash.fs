@@ -7,7 +7,7 @@ namespace Float.xAPI
 
 open System.Runtime.InteropServices
 open System.Security.Cryptography
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// Storage for data in SHA1 hash format.

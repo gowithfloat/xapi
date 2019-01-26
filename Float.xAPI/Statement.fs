@@ -9,7 +9,7 @@ open System
 open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Actor
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// Statements are the evidence for any sort of experience or event which is to be tracked in xAPI.

@@ -8,7 +8,7 @@ namespace Float.xAPI.Languages
 open System
 open System.Globalization
 open System.Runtime.InteropServices
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// A language tag is composed from a sequence of one or more "subtags", each of which refines or narrows the range of language identified by the overall tag.

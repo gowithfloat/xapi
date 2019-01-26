@@ -7,7 +7,7 @@ namespace Float.xAPI.Resources.Documents
 
 open System
 open System.Collections.Generic
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// The Experience API provides a facility for Learning Record Providers to save arbitrary data in the form of documents, perhaps related to an Activity, Agent, or combination of both.

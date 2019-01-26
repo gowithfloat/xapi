@@ -8,7 +8,7 @@ namespace Float.xAPI.Actor
 open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Actor.Identifier
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// An Agent (an individual) is a persona or system.

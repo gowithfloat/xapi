@@ -6,7 +6,7 @@
 namespace Float.xAPI.Activities
 
 open System.Runtime.InteropServices
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// A map of the types of learning activity context that this Statement is related to.

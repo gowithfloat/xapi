@@ -6,7 +6,7 @@
 namespace Float.xAPI.Activities.Definitions
 
 open System.Runtime.InteropServices
-open Float.Common.Interop
+open Float.Interop
 
 /// <summary>
 /// The Correct Responses Pattern contains an array of response patterns.
