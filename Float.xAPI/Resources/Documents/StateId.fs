@@ -5,10 +5,35 @@
 
 namespace Float.xAPI.Resources.Documents
 
-// todo: prohibit empty strings as state IDs; may not be possible with a discriminated union of one
-// todo: StateId/ActivityId/ProfileId equality operators seem to use reference equality
+open System
+open Float.Interop
 
 /// <summary>
-/// Set by Learning Record Provider, unique within the scope of the Agent or Activity.
+/// The id for a state, within the given context.
 /// </summary>
-type StateId = StateId of string
+[<CustomEquality;NoComparison;Struct>]
+type StateId =
+    val Value: string
+    
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Resources.Documents.StateId"/> struct.
+    /// </summary>
+    /// <param name="value">Unique within the given context.</param>
+    new(value) =
+        invalidStringArg value "value"
+        { Value = value }
+
+    /// <inheritdoc />
+    override this.GetHashCode() = hash this.Value
+
+    /// <inheritdoc />
+    override this.Equals other = 
+        match other with
+        | :? StateId as id -> this.Value = id.Value
+        | _ -> false
+
+    static member op_Equality (lhs: StateId, rhs: StateId) = lhs.Equals(rhs)
+    static member op_Inequality (lhs: StateId, rhs: StateId) = not(lhs.Equals(rhs))
+
+    interface IEquatable<StateId> with
+        member this.Equals other = this.Equals other

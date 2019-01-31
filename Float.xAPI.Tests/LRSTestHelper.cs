@@ -31,9 +31,9 @@ namespace Float.xAPI.Tests
             return new Agent(new OpenID(GenerateUri("agent")));
         }
 
-        internal static IAgent GenerateAgent()
+        internal static IAgent GenerateAgent(string suffix = "agent")
         {
-            return new Agent(new OpenID(GenerateUri("agent")));
+            return new Agent(new OpenID(GenerateUri(suffix)));
         }
 
         internal static IVerb GenerateVerb()
@@ -79,24 +79,24 @@ namespace Float.xAPI.Tests
         internal static IDocument GenerateDocument()
         {
             return new Document(
-                StateId.NewStateId("stateid"),
+                GenerateStateId(),
                 DateTime.Now,
                 new List<Tuple<string, string>> { new Tuple<string, string>("contents", "contents") });
         }
 
-        internal static StateId GenerateStateId()
+        internal static StateId GenerateStateId(string value = "state_id")
         {
-            return StateId.NewStateId("state_id");
+            return new StateId(value);
         }
 
-        internal static ActivityId GenerateActivityId()
+        internal static ActivityId GenerateActivityId(string suffix = "activity_id")
         {
-            return ActivityId.NewActivityId(new Uri("http://activity.id"));
+            return new ActivityId(new Uri($"http://example.com/{suffix}"));
         }
 
-        internal static ProfileId GenerateProfileId()
+        internal static ProfileId GenerateProfileId(string value = "profile_id")
         {
-            return ProfileId.NewProfileId("profile_id");
+            return new ProfileId(value);
         }
     }
 }

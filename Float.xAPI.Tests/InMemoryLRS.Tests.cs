@@ -23,6 +23,8 @@ namespace Float.xAPI.Tests
             ilrs = lrs as ILRS;
         }
 
+        //// IStatementResource
+
         [Fact]
         public void TestGetStatement()
         {
@@ -156,6 +158,42 @@ namespace Float.xAPI.Tests
             var results2 = ilrs.Statements.PostStatements(statements2);
             Assert.Equal(id3, results2.First());
             Assert.Equal(id4, results2.Last());
+        }
+
+        //// IStateResource
+
+        [Fact]
+        public void TestPutStateDocument()
+        {
+            var doc1 = GenerateDocument();
+            var sid1 = GenerateStateId("sid1");
+            var aid1 = GenerateActivityId("aid1");
+            var agent1 = GenerateAgent("agent1");
+            lrs.Activities.State.PutStateDocument(doc1, sid1, aid1, agent1);
+
+            var doc2 = GenerateDocument();
+            var sid2 = GenerateStateId("sid2");
+            var aid2 = GenerateActivityId("aid2");
+            var agent2 = GenerateAgent("agent2");
+            ilrs.Activities.State.PutStateDocument(doc2, sid2, aid2, agent2);
+        }
+
+        [Fact]
+        public void TestDeleteStateDocument()
+        {
+            var doc1 = GenerateDocument();
+            var sid1 = GenerateStateId();
+            var aid1 = GenerateActivityId();
+            var agent1 = GenerateAgent();
+            lrs.Activities.State.PutStateDocument(doc1, sid1, aid1, agent1);
+
+            var retrievedDoc1 = lrs.Activities.State.GetStateDocument(sid1, aid1, agent1);
+            Assert.Equal(doc1, retrievedDoc1.Value); // todo: remove Value
+
+            lrs.Activities.State.DeleteStateDocument(sid1, aid1, agent1);
+
+            var retrievedDoc2 = lrs.Activities.State.GetStateDocument(sid1, aid1, agent1);
+            Assert.Null(retrievedDoc2);
         }
     }
 }

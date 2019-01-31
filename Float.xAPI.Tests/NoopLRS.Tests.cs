@@ -74,15 +74,15 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestPutStateDocument()
         {
-            lrs.Activities.State.PutStateDocument(GenerateDocument());
-            ilrs.Activities.State.PutStateDocument(GenerateDocument());
+            lrs.Activities.State.PutStateDocument(GenerateDocument(), GenerateStateId(), GenerateActivityId(), GenerateAgent());
+            ilrs.Activities.State.PutStateDocument(GenerateDocument(), GenerateStateId(), GenerateActivityId(), GenerateAgent());
         }
 
         [Fact]
         public void TestDeleteStateDocument()
         {
-            lrs.Activities.State.DeleteStateDocument(GenerateStateId());
-            ilrs.Activities.State.DeleteStateDocument(GenerateStateId());
+            lrs.Activities.State.DeleteStateDocument(GenerateStateId(), GenerateActivityId(), GenerateAgent());
+            ilrs.Activities.State.DeleteStateDocument(GenerateStateId(), GenerateActivityId(), GenerateAgent());
         }
 
         [Fact]

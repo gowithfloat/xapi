@@ -93,6 +93,7 @@
     <Compile Include="Resources\Documents\StateId.fs" />
     <Compile Include="Resources\Documents\ActivityId.fs" />
     <Compile Include="Resources\Documents\ProfileId.fs" />
+    <Compile Include="Resources\Documents\StateResourceKey.fs" />
     <Compile Include="Resources\Documents\Document.fs" />
     <Compile Include="Resources\Documents\IStateResource.fs" />
     <Compile Include="Resources\Documents\IActivityProfileResource.fs" />

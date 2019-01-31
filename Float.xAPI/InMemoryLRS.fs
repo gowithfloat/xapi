@@ -15,13 +15,6 @@ open Float.xAPI.Actor
 open Float.xAPI.Resources
 open Float.xAPI.Resources.Documents
 
-module internal Util =
-    let mapStatementToId(statement: IStatement) =
-        statement.Id
-
-    let mapDocumentToId(document: IDocument) =
-        document.Id
-
 type private InMemoryStatementResource =
     val private Statements: List<IStatement>
 
@@ -39,7 +32,7 @@ type private InMemoryStatementResource =
     member this.PostStatements statements =
         this.Statements.AddRange(statements)
         statements 
-        |> Seq.map Util.mapStatementToId
+        |> Seq.map Filters.statementToId
 
     /// <inheritdoc />
     member this.GetStatement(statementId: Guid, 
@@ -54,16 +47,11 @@ type private InMemoryStatementResource =
     member this.GetVoidedStatement(voidedStatementId: Guid, 
                                    [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat, 
                                    [<Optional;DefaultParameterValue(false)>] attachments: bool) =
-        let voidingStatement = this.Statements 
-                               |> Seq.where (Filters.statementVerbMatch (Some(Verb.Voided.Id)))
-                               |> Seq.tryFind (Filters.statementReferenceIdMatch voidedStatementId)
-
-        match voidingStatement with
-        | None -> None
-        | Some vs -> match vs.Object with
-                     | :? IStatementReference as sref -> this.Statements
-                                                         |> Seq.tryFind (Filters.statementIdMatch sref.Id)
-                     | _ -> None
+        this.Statements 
+        |> Seq.where (Filters.statementVerbMatch (Some(Verb.Voided.Id)))
+        |> Seq.tryFind (Filters.statementReferenceIdMatch voidedStatementId)
+        |> Filters.getStatementReference
+        |> Filters.tryFindStatementReferenceSource(this.Statements)
 
     /// <inheritdoc />
     member this.GetStatements([<Optional>] actor: IIdentifiedActor option, 
@@ -97,61 +85,48 @@ type private InMemoryStatementResource =
             this.GetStatements(agent, verb, activity, registration, relatedActivities, relatedAgents, since, until, limit, format, attachments, ascending)
 
 type private InMemoryStateResource =
-    val private Documents: List<IDocument>
+    val private Documents: Dictionary<StateResourceKey, IDocument>
 
     new () =
-        { Documents = List<IDocument>() }
+        { Documents = Dictionary<StateResourceKey, IDocument>() }
 
     /// <inheritdoc />
-    member this.PutStateDocument(document: IDocument) =
-        this.Documents.Add(document)
+    member this.PutStateDocument(document: IDocument, sid: StateId, aid: ActivityId, agent: IAgent, [<Optional>] ?registration: Guid option) =
+        // todo: registration
+        this.Documents.Add(StateResourceKey(sid, aid, agent), document)
 
     /// <inheritdoc />
-    member this.DeleteStateDocument(stateId: StateId, [<Optional>] ?activityId: ActivityId option, [<Optional>] ?agent: IAgent option, [<Optional>] ?registration: Guid option) =
-        // todo: filter by activity, agent, registration
-        this.Documents.RemoveAll(fun doc -> 
-            // todo: simplify this?
-            doc.Id = stateId && match (activityId, agent, registration) with
-                                | (Some id, Some agent, Some reg) -> true
-                                | (Some id, Some agent, None) -> true
-                                | (Some id, None, Some reg) -> true
-                                | (None, Some agent, Some reg) -> true
-                                | (Some id, None, None) -> true
-                                | (None, Some agent, None) -> true
-                                | (None, None, Some reg) -> true
-                                | (None, None, None) -> true
-        ) |> ignore
+    member this.DeleteStateDocument(sid: StateId, aid: ActivityId, agent: IAgent, [<Optional>] ?registration: Guid option) =
+        // todo: registration
+        this.Documents.Remove(StateResourceKey(sid, aid, agent))
+        |> ignore
 
     /// <inheritdoc />
-    member this.DeleteStateDocuments(id: ActivityId, agent: IAgent, [<Optional>] ?registration: Guid option) =
-        this.Documents.RemoveAll(fun doc ->
-            // todo: filter by activity, agent, registration
-            match registration with
-            | Some reg -> false
-            | None -> false
-        ) |> ignore
-
-    /// <inheritdoc />
-    member this.GetStateDocument(id: StateId, activityId: ActivityId, agent: IAgent, [<Optional>] ?registration: Guid option) =
+    member this.DeleteStateDocuments(aid: ActivityId, agent: IAgent, [<Optional>] ?registration: Guid option) =
+        // todo: registration
         this.Documents
-        |> List.ofSeq
-        |> List.where (Filters.documentIdMatch id)
-        // todo: filter by activity ID
-        // todo: filter by agent
-        // todo: filter by registration
-        |> List.tryHead
+        |> Seq.map(fun keyval -> keyval.Key)
+        |> Seq.where(fun key -> key.ActivityId = aid && key.Agent = agent)
+        |> Filters.removeFrom(this.Documents)
 
     /// <inheritdoc />
-    member this.GetStateDocuments(id: ActivityId, agent: IAgent, [<Optional>] ?registration: Guid option, [<Optional>] ?date: DateTime option) =
+    member this.GetStateDocument(sid: StateId, aid: ActivityId, agent: IAgent, [<Optional>] ?registration: Guid option) =
+        // todo: registration
         this.Documents
-        // todo: filter by activity ID
-        // todo: filter by agent
-        // todo: filter by registration
-        // todo: filter by date
-        |> Seq.map Util.mapDocumentToId
+        |> Seq.where(fun keyval -> keyval.Key.ActivityId = aid && keyval.Key.Agent = agent && keyval.Key.StateId = sid)
+        |> Seq.map(fun keyval -> keyval.Value)
+        |> Seq.tryHead
+
+    /// <inheritdoc />
+    member this.GetStateDocuments(aid: ActivityId, agent: IAgent, [<Optional>] ?registration: Guid option, [<Optional>] ?since: DateTime option) =
+        // todo: registration
+        // todo: since
+        this.Documents
+        |> Seq.where (fun keyval -> keyval.Key.ActivityId = aid && keyval.Key.Agent = agent)
+        |> Seq.map(fun keyval -> keyval.Key.StateId)
 
     interface IStateResource with
-        member this.PutStateDocument document = this.PutStateDocument document
+        member this.PutStateDocument(document, sid, aid, agent, reg) = this.PutStateDocument(document, sid, aid, agent, reg)
         member this.DeleteStateDocument(sid, aid, agent, reg) = this.DeleteStateDocument(sid, aid, agent, reg)
         member this.DeleteStateDocuments(aid, agent, reg) = this.DeleteStateDocuments(aid, agent, reg)
         member this.GetStateDocument(sid, aid, agent, reg) = this.GetStateDocument(sid, aid, agent, reg)
@@ -165,8 +140,7 @@ type private InMemoryActivityProfileResource =
 
     /// <inheritdoc />
     member this.PutActivityProfileDocument(document: IDocument, aid: ActivityId, pid: ProfileId) =
-        this.Documents.[(aid, pid)] = document
-        |> ignore
+        this.Documents.Add((aid, pid), document)
 
     /// <inheritdoc />
     member this.DeleteActivityProfileDocument(aid: ActivityId, pid: ProfileId) =
@@ -196,17 +170,19 @@ type private InMemoryActivityProfileResource =
 
 type private InMemoryActivityEndpoint =
     val private Activities: List<IActivity>
+    val private StateEndpoint: InMemoryStateResource
+    val private ProfileEndpoint: InMemoryActivityProfileResource
 
     new () =
-        { Activities = List<IActivity>() }
+        { Activities = List<IActivity>(); StateEndpoint = InMemoryStateResource() ; ProfileEndpoint = InMemoryActivityProfileResource() }
 
     /// <inheritdoc />
     member this.GetActivity(id: Uri) =
         this.Activities.Where(fun activity -> activity.Id = id).First()
 
     interface IActivityEndpoint with
-        member this.State = InMemoryStateResource() :> IStateResource
-        member this.Profile = InMemoryActivityProfileResource() :> IActivityProfileResource
+        member this.State = this.StateEndpoint :> IStateResource
+        member this.Profile = this.ProfileEndpoint :> IActivityProfileResource
         member this.GetActivity id = this.GetActivity id
 
 type private InMemoryAgentProfileResource =
@@ -217,8 +193,7 @@ type private InMemoryAgentProfileResource =
 
     /// <inheritdoc />
     member this.PutProfileDocument(document: IDocument, agent: IAgent, pid: ProfileId) =
-        this.Documents.[(agent, pid)] = document
-        |> ignore
+        this.Documents.Add((agent, pid), document)
 
     /// <inheritdoc />
     member this.DeleteProfileDocument(agent: IAgent, pid: ProfileId) =

@@ -25,11 +25,11 @@ type private NoopStatementEndpoint =
 type private NoopStateResource =
     new() = {}
     interface IStateResource with
-        member this.PutStateDocument document = ()
-        member this.DeleteStateDocument(stateId, activityId, agent, guid) = ()
-        member this.DeleteStateDocuments(activityId, agent, guid) = ()
-        member this.GetStateDocument(stateId, activityId, agent, guid) = None
-        member this.GetStateDocuments(activityId, agent, guid, date) = Seq.empty
+        member this.PutStateDocument(doc, sid, aid, agent, reg) = ()
+        member this.DeleteStateDocument(sid, aid, agent, reg) = ()
+        member this.DeleteStateDocuments(aid, agent, reg) = ()
+        member this.GetStateDocument(sid, aid, agent, reg) = None
+        member this.GetStateDocuments(aid, agent, reg, since) = Seq.empty
 
 type private NoopActivityProfileResource =
     new() = {}

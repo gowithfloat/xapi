@@ -17,7 +17,17 @@ type IStateResource =
     /// Stores the document specified.
     /// </summary>
     /// <param name="stateDocument">The document to be stored or updated.</param>
-    abstract member PutStateDocument: IDocument -> unit
+    /// <param name="stateId">The id for this state, within the given context.</param>
+    /// <param name="activityId">The Activity id associated with this state.</param>
+    /// <param name="agent">The Agent associated with this state.</param>
+    /// <param name="registration">The registration associated with this state.</param>
+    abstract member PutStateDocument: 
+        IDocument * 
+        StateId * 
+        ActivityId * 
+        IAgent *
+        [<Optional>] registration: Guid option 
+            -> unit
 
     /// <summary>
     /// Deletes the document specified by the given "stateId" that exists in the context of the specified Activity, Agent, and registration (if specified).
@@ -28,8 +38,8 @@ type IStateResource =
     /// <param name="registration">The registration associated with this state.</param>
     abstract member DeleteStateDocument: 
         StateId * 
-        [<Optional>] activityId: ActivityId option * 
-        [<Optional>] agent: IAgent option * 
+        ActivityId * 
+        IAgent *
         [<Optional>] registration: Guid option 
             -> unit
 
@@ -72,6 +82,6 @@ type IStateResource =
     abstract member GetStateDocuments: 
         ActivityId *
         IAgent * 
-        [<Optional>] guid: Guid option * 
-        [<Optional>] date: DateTime option 
+        [<Optional>] registration: Guid option * 
+        [<Optional>] since: DateTime option 
             -> StateId seq

@@ -6,9 +6,9 @@
 namespace Float.xAPI
 
 open System
+open System.Collections.Generic
 open Float.xAPI.Activities
 open Float.xAPI.Actor
-open Float.xAPI.Resources
 open Float.xAPI.Resources.Documents
 
 /// <summary>
@@ -112,6 +112,48 @@ module internal Filters =
             | None -> true
         | None -> true
 
+    /// <summary>
+    /// Returns true if the given state ID matches the given document's state ID.
+    /// </summary>
     let documentIdMatch (id: StateId) (document: IDocument) =
         id = document.Id
+
+    /// <summary>
+    /// Returns the object of the given statement if it is a statement reference, none otherwise.
+    /// </summary>
+    let getStatementReference (statement: IStatement option) =
+        match statement with
+        | Some stmt -> match stmt.Object with
+                       | :? IStatementReference as sref -> Some sref
+                       | _ -> None
+        | _ -> None
+
+    /// <summary>
+    /// Like Seq.tryFind, but it accepts an optional. If none, this always returns none.
+    /// </summary>
+    let tryFindOpt toFind sequence =
+        match toFind with
+        | Some tf -> Seq.tryFind tf sequence
+        | None -> None
         
+    /// <summary>
+    /// Try to find the statement to which a statement reference refers, in a sequence of statements.
+    /// </summary>
+    let tryFindStatementReferenceSource (statements: IStatement seq) (srefopt: IStatementReference option) =
+        match srefopt with
+        | Some sref -> statements |> Seq.tryFind (statementIdMatch sref.Id)
+        | None -> None
+        
+    /// <summary>
+    /// Remove all of the given keys from the given dictionary.
+    /// </summary>
+    let removeFrom (dict: Dictionary<'a, 'b>) (keys: 'a seq) =
+        for key in keys do
+            dict.Remove(key)
+            |> ignore
+
+    /// <summary>
+    /// Return just the ID for a statement.
+    /// </summary>
+    let statementToId(statement: IStatement) =
+        statement.Id
