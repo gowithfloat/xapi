@@ -1,14 +1,40 @@
-#r "paket:
-nuget Fake.IO.FileSystem
-nuget Fake.Core.Target //"
-#load "./.fake/build.fsx/intellisense.fsx"
-
+#load ".fake/build.fsx/intellisense.fsx"
 open Fake.Core
+open Fake.DotNet
+open Fake.IO
+open Fake.IO.FileSystemOperators
+open Fake.IO.Globbing.Operators
+open Fake.Core.TargetOperators
 
-// Default target
-Target.create "Default" (fun _ ->
-  // todo
+Target.create "Clean" (fun _ ->
+    !! "**/bin"
+    ++ "**/obj"
+    |> Shell.cleanDirs
 )
 
-// start build
-Target.runOrDefault "Default"
+Target.create "Build" (fun _ ->
+    !! "Float.xAPI/*.fsproj"
+    |> Seq.iter (DotNet.build id)
+)
+
+//  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+Target.create "Test" (fun _ ->
+    !! "Float.xAPI.Tests/*.csproj"
+    |> Seq.iter (DotNet.test id)
+)
+
+//  /p:Configuration=Release /p:PackageVersion=0.0.2
+Target.create "Pack" (fun _ ->
+    !! "Float.xAPI/*.fsproj"
+    |> Seq.iter (DotNet.pack id)
+)
+
+Target.create "All" ignore
+
+"Clean"
+  ==> "Build"
+  ==> "Test"
+  ==> "Pack"
+  ==> "All"
+
+Target.runOrDefault "All"
