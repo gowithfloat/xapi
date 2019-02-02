@@ -3,6 +3,7 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
+using System;
 using Xunit;
 
 namespace Float.xAPI.Tests
@@ -13,7 +14,7 @@ namespace Float.xAPI.Tests
         public void TestEquality()
         {
             var vid1 = new VerbId("http://adlnet.gov/expapi/verbs/experienced");
-            var vid2 = new VerbId("http://adlnet.gov/expapi/verbs/experienced");
+            var vid2 = new VerbId(new Uri("http://adlnet.gov/expapi/verbs/experienced"));
             AssertHelper.Equality(vid1, vid2, (a, b) => a == b);
         }
 
@@ -21,7 +22,7 @@ namespace Float.xAPI.Tests
         public void TestInequality()
         {
             var vid1 = new VerbId("http://activitystrea.ms/schema/1.0/acknowledge");
-            var vid2 = new VerbId("http://id.tincanapi.com/verb/mentored");
+            var vid2 = new VerbId(new Uri("http://id.tincanapi.com/verb/mentored"));
             AssertHelper.Inequality(vid1, vid2, (a, b) => a != b);
         }
     }
