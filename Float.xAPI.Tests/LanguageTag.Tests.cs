@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class LanguageTagTests : IInitializationTests<LanguageTag>, IEqualityTests, IToStringTests
+    public class LanguageTagTests : IInitializationTests<LanguageTag>, IEqualityTests, IToStringTests, IPropertyTests
     {
         [Fact]
         public LanguageTag TestValidInit()
@@ -106,6 +106,20 @@ namespace Float.xAPI.Tests
 
             var itag1 = tag1 as ILanguageTag;
             Assert.Equal(ExtendedLanguage.OmaniArabic, itag1.ExtendedLanguage);
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var tag = new LanguageTag(Language.Guarani, Region.NewCaledonia, ExtendedLanguage.MonasticSignLanguage);
+            Assert.Equal(Language.Guarani, tag.PrimaryLanguage);
+            Assert.Equal(Region.NewCaledonia, tag.Region);
+            Assert.Equal(ExtendedLanguage.MonasticSignLanguage, tag.ExtendedLanguage);
+
+            var itag = tag as ILanguageTag;
+            Assert.Equal(Language.Guarani, itag.PrimaryLanguage);
+            Assert.Equal(Region.NewCaledonia, itag.Region);
+            Assert.Equal(ExtendedLanguage.MonasticSignLanguage, itag.ExtendedLanguage);
         }
     }
 }
