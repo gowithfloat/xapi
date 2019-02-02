@@ -4,6 +4,7 @@
 // </copyright>
 
 using System;
+using Float.xAPI.Statements;
 using Xunit;
 
 namespace Float.xAPI.Tests

@@ -14,6 +14,7 @@ open Float.xAPI.Activities
 open Float.xAPI.Actor
 open Float.xAPI.Resources
 open Float.xAPI.Resources.Documents
+open Float.xAPI.Statements
 
 type private InMemoryStatementResource =
     val private Statements: List<IStatement>

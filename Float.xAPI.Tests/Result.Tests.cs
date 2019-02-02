@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using Float.xAPI.Statements;
 using Xunit;
 
 namespace Float.xAPI.Tests

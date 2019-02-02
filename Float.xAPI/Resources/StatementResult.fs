@@ -7,7 +7,7 @@ namespace Float.xAPI.Resources
 
 open System
 open System.Runtime.InteropServices
-open Float.xAPI
+open Float.xAPI.Statements
 open Float.Interop
 
 /// <summary>

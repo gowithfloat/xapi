@@ -10,6 +10,7 @@ open System.Collections.Generic
 open Float.xAPI.Activities
 open Float.xAPI.Actor
 open Float.xAPI.Resources.Documents
+open Float.xAPI.Statements
 
 /// <summary>
 /// Functions that can be used to filter statements by LRS implementations.

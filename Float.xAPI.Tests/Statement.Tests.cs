@@ -14,6 +14,7 @@ using Float.xAPI.Activities.Definitions;
 using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
 using Float.xAPI.Languages;
+using Float.xAPI.Statements;
 using Microsoft.FSharp.Core;
 using Xunit;
 
@@ -169,7 +170,7 @@ namespace Float.xAPI.Tests
             var activity = new Activity(
                 new ActivityId("http://www.example.com/tincan/activities/multipart"),
                 definition);
-            var attachment = new Attachment(
+            var attachment = new Statements.Attachment(
                 new Uri("http://example.com/attachment-usage/test"),
                 new LanguageMap(LanguageTag.EnglishUS, "A test attachment"),
                 new ContentType("text/plan; charset=ascii"),
@@ -260,7 +261,7 @@ namespace Float.xAPI.Tests
             var version = new Version(1, 2, 3);
             var attachments = new List<IAttachment>
             {
-                new Attachment(
+                new Statements.Attachment(
                 new Uri("http://example.com/usageType"),
                     LanguageMap.EnglishUS("display"),
                     new ContentType("text/plain"),

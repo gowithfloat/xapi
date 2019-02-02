@@ -10,6 +10,7 @@ using Float.xAPI.Activities.Definitions;
 using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
 using Float.xAPI.Languages;
+using Float.xAPI.Statements;
 using Xunit;
 
 namespace Float.xAPI.Tests

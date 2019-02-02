@@ -10,6 +10,7 @@ open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
 open Float.xAPI.Actor
+open Float.xAPI.Statements
 
 /// <summary>
 /// The basic communication mechanism of the Experience API.

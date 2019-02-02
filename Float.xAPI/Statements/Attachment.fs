@@ -3,13 +3,16 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-namespace Float.xAPI
+namespace Float.xAPI.Statements
 
 open System
 open System.Net.Mime
 open System.Runtime.InteropServices
+open Float.xAPI
 open Float.xAPI.Languages
 open Float.Interop
+
+type uint = uint32
 
 /// <summary>
 /// In some cases an Attachment is logically an important part of a Learning Record.

@@ -6,6 +6,7 @@
 using System;
 using System.Net.Mime;
 using Float.xAPI.Languages;
+using Float.xAPI.Statements;
 using Xunit;
 
 namespace Float.xAPI.Tests

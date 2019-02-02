@@ -3,7 +3,7 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-namespace Float.xAPI
+namespace Float.xAPI.Statements
 
 open System
 open Float.xAPI

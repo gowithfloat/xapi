@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <ReleaseVersion>0.0.2</ReleaseVersion>
+    <ReleaseVersion>0.0.1</ReleaseVersion>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>Float.xAPI</PackageId>
     <Authors>Float</Authors>
@@ -28,11 +28,14 @@
     <Folder Include="Properties\" />
     <Folder Include="Resources\" />
     <Folder Include="Resources\Documents\" />
+    <Folder Include="Statements\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.fs" />
     <Compile Include="Interop.fs" />
     <Compile Include="IDictionaryRepresentable.fs" />
     <Compile Include="SHAHash.fs" />
+    <Compile Include="ObjectType.fs" />
     <Compile Include="IObject.fs" />
     <Compile Include="Languages\Language.fs" />
     <Compile Include="Languages\ExtendedLanguage.fs" />
@@ -54,8 +57,6 @@
     <Compile Include="VerbId.fs" />
     <Compile Include="Verb.fs" />
     <Compile Include="Version.fs" />
-    <Compile Include="Score.fs" />
-    <Compile Include="Result.fs" />
     <Compile Include="Activities\ActivityId.fs" />
     <Compile Include="Activities\Interaction.fs" />
     <Compile Include="Activities\Definitions\Definition.fs" />
@@ -79,14 +80,15 @@
     <Compile Include="Activities\Definitions\OtherInteractionActivityDefinition.fs" />
     <Compile Include="Activities\Activity.fs" />
     <Compile Include="Activities\ContextActivities.fs" />
-    <Compile Include="StatementReference.fs" />
-    <Compile Include="IContext.fs" />
-    <Compile Include="Context.fs" />
-    <Compile Include="Attachment.fs" />
-    <Compile Include="IGenericStatement.fs" />
-    <Compile Include="SubStatement.fs" />
-    <Compile Include="Statement.fs" />
-    <Compile Include="Properties\AssemblyInfo.fs" />
+    <Compile Include="Statements\Score.fs" />
+    <Compile Include="Statements\Result.fs" />
+    <Compile Include="Statements\Attachment.fs" />
+    <Compile Include="Statements\StatementReference.fs" />
+    <Compile Include="Statements\IContext.fs" />
+    <Compile Include="Statements\Context.fs" />
+    <Compile Include="Statements\IGenericStatement.fs" />
+    <Compile Include="Statements\SubStatement.fs" />
+    <Compile Include="Statements\Statement.fs" />
     <Compile Include="Resources\Person.fs" />
     <Compile Include="Resources\StatementResultFormat.fs" />
     <Compile Include="Resources\StatementResult.fs" />

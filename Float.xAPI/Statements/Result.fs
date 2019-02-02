@@ -3,11 +3,12 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-namespace Float.xAPI
+namespace Float.xAPI.Statements
 
 open System
 open System.Runtime.InteropServices
 open Float.Interop
+open Float.xAPI
 
 /// <summary>
 /// Represents a measured outcome related to the Statement in which it is included.

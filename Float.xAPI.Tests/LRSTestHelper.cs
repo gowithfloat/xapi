@@ -11,6 +11,7 @@ using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
 using Float.xAPI.Languages;
 using Float.xAPI.Resources.Documents;
+using Float.xAPI.Statements;
 
 namespace Float.xAPI.Tests
 {
