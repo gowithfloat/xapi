@@ -17,7 +17,7 @@ type VerbId =
     val Iri: Uri
     
     /// <summary>
-    /// Initializes a new instance of the <see cref="T:Float.xAPI.Resources.Documents.StateId"/> struct.
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.VerbId"/> struct.
     /// </summary>
     /// <param name="iri">Corresponds to a Verb definition.</param>
     new(iri) =
@@ -25,7 +25,7 @@ type VerbId =
         { Iri = iri }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="T:Float.xAPI.Resources.Documents.StateId"/> struct.
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.VerbId"/> struct.
     /// </summary>
     /// <param name="iri">Corresponds to a Verb definition.</param>
     new(iri) =
