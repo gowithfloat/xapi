@@ -27,9 +27,7 @@ type ActivityId =
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.ActivityId"/> struct.
     /// </summary>
     /// <param name="iri">Unique within the given context.</param>
-    new(iri) =
-        invalidAbsoluteUriString iri "iri"
-        { Iri = Uri(iri) }
+    new(iri) = ActivityId(Uri(iri))
 
     /// <inheritdoc />
     override this.GetHashCode() = hash this.Iri

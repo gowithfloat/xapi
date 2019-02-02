@@ -28,9 +28,7 @@ type VerbId =
     /// Initializes a new instance of the <see cref="T:Float.xAPI.VerbId"/> struct.
     /// </summary>
     /// <param name="iri">Corresponds to a Verb definition.</param>
-    new(iri) =
-        invalidAbsoluteUriString iri "iri"
-        { Iri = Uri(iri) }
+    new(iri) = VerbId(Uri(iri))
 
     /// <inheritdoc />
     override this.GetHashCode() = hash this.Iri

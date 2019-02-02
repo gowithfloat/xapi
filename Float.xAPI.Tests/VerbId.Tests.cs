@@ -8,8 +8,27 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class VerbIdTests : IEqualityTests
+    public class VerbIdTests : IInitializationTests<VerbId>, IEqualityTests
     {
+        [Fact]
+        public VerbId TestValidInit()
+        {
+            var vid1 = new VerbId("http://activitystrea.ms/schema/1.0/win");
+            return new VerbId(new Uri("http://activitystrea.ms/schema/1.0/make-friend"));
+        }
+
+        [Fact]
+        public void TestInvalidInit()
+        {
+            Assert.Throws<UriFormatException>(() => new VerbId(string.Empty));
+            Assert.Throws<UriFormatException>(() => new VerbId(" "));
+            Assert.Throws<UriFormatException>(() => new VerbId("htp/:/missing.slash"));
+            Assert.Throws<UriFormatException>(() => new VerbId("gowithfloat.com/not-absolute"));
+            Assert.Throws<UriFormatException>(() => new VerbId(new Uri(string.Empty)));
+            Assert.Throws<UriFormatException>(() => new VerbId(new Uri("ftp//missing")));
+            Assert.Throws<UriFormatException>(() => new VerbId(new Uri("invalid-uri")));
+        }
+
         [Fact]
         public void TestEquality()
         {

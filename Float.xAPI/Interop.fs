@@ -10,6 +10,11 @@ open System.Text
 open System.Security.Cryptography
 
 /// <summary>
+/// An exception thrown by IRI checks.
+/// </summary>
+type InvalidIriException(argName: string) = inherit Exception(sprintf "The given value was not an absolute IRI: %O" argName)
+
+/// <summary>
 /// Defines functions used internally to ensure proper parameters are received from C#.
 /// </summary>
 module Interop =
@@ -73,13 +78,13 @@ module Interop =
     /// Throw an argument exception if the given Uri is not a well formed absolute URI string.
     /// </summary>
     let inline invalidAbsoluteUri(x: Uri) (name: string) =
-        ifRaise (not(Uri.IsWellFormedUriString(x.OriginalString, UriKind.Absolute))) name
+        if (not(Uri.IsWellFormedUriString(x.OriginalString, UriKind.Absolute))) then raise (InvalidIriException name)
         
     /// <summary>
     /// Throw an argument exception if the given string is not a well formed absolute URI string.
     /// </summary>
     let inline invalidAbsoluteUriString(x: string) (name: string) =
-        ifRaise (not(Uri.IsWellFormedUriString(x, UriKind.Absolute))) name
+        if (not(Uri.IsWellFormedUriString(x, UriKind.Absolute))) then raise (InvalidIriException name)
 
     /// <summary>
     /// Throw an argument exception if any given string in a list is null or whitespace.
