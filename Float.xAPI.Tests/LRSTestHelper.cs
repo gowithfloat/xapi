@@ -38,7 +38,7 @@ namespace Float.xAPI.Tests
 
         internal static IVerb GenerateVerb()
         {
-            return new Verb(GenerateUri("verb"), LanguageMap.EnglishUS("verb"));
+            return new Verb(GenerateVerbId("verb"), LanguageMap.EnglishUS("verb"));
         }
 
         internal static IActivity GenerateActivity()
@@ -69,6 +69,11 @@ namespace Float.xAPI.Tests
         internal static Uri GenerateUri(string suffix)
         {
             return new Uri($"http://example.com/{suffix}");
+        }
+
+        internal static VerbId GenerateVerbId(string suffix = "verb_id")
+        {
+            return new VerbId($"http://example.com/{suffix}");
         }
 
         internal static ActivityId GenerateActivityId(string suffix = "activity_id")

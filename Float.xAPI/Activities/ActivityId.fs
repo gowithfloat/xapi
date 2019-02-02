@@ -5,9 +5,6 @@
 
 namespace Float.xAPI.Activities
 
-// todo: ensure activity Ids are well-formed IRIs via Uri.IsWellFormedUriString(activity.id, UriKind.Absolute)
-// ActivityId should be a type like ProfileId, etc
-
 open System
 open Float.Interop
 
@@ -19,17 +16,17 @@ type ActivityId =
     val Iri: Uri
     
     /// <summary>
-    /// Initializes a new instance of the <see cref="T:Float.xAPI.Resources.Documents.StateId"/> struct.
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.ActivityId"/> struct.
     /// </summary>
-    /// <param name="value">Unique within the given context.</param>
+    /// <param name="iri">Unique within the given context.</param>
     new(iri) =
         invalidAbsoluteUri iri "iri"
         { Iri = iri }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="T:Float.xAPI.Resources.Documents.StateId"/> struct.
+    /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.ActivityId"/> struct.
     /// </summary>
-    /// <param name="value">Unique within the given context.</param>
+    /// <param name="iri">Unique within the given context.</param>
     new(iri) =
         invalidAbsoluteUriString iri "iri"
         { Iri = Uri(iri) }

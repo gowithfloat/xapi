@@ -70,7 +70,7 @@ type IStatementResource =
     /// <param name="ascending">If true, return results in ascending order of stored time.</param>
     abstract member GetStatements: 
         [<Optional>] actor: IIdentifiedActor option * 
-        [<Optional>] verbId: Uri option * 
+        [<Optional>] verbId: VerbId option * 
         [<Optional>] activityId: ActivityId option * 
         [<Optional>] registration: Guid option * 
         [<Optional;DefaultParameterValue(false)>] relatedActivities: bool * 

@@ -77,19 +77,19 @@ namespace Float.xAPI.Tests
         {
             lrs.Statements.PutStatement(GenerateStatement(GenerateGuid()));
 
-            var retrieved1 = lrs.Statements.GetStatements(verbId: new Uri("http://example.com/verb"));
+            var retrieved1 = lrs.Statements.GetStatements(verbId: new VerbId("http://example.com/verb"));
             Assert.Single(retrieved1.Statements);
             Assert.Null(retrieved1.More);
 
-            var retrieved2 = lrs.Statements.GetStatements(verbId: new Uri("http://example.com/sent"));
+            var retrieved2 = lrs.Statements.GetStatements(verbId: new VerbId("http://example.com/sent"));
             Assert.Empty(retrieved2.Statements);
             Assert.Null(retrieved2.More);
 
-            var retrieved3 = ilrs.Statements.GetStatements(verbId: new Uri("http://example.com/verb"));
+            var retrieved3 = ilrs.Statements.GetStatements(verbId: new VerbId("http://example.com/verb"));
             Assert.Single(retrieved3.Statements);
             Assert.Null(retrieved3.More);
 
-            var retrieved4 = ilrs.Statements.GetStatements(verbId: new Uri("http://example.com/sent"));
+            var retrieved4 = ilrs.Statements.GetStatements(verbId: new VerbId("http://example.com/sent"));
             Assert.Empty(retrieved4.Statements);
             Assert.Null(retrieved4.More);
         }

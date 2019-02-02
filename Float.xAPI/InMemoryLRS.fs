@@ -55,7 +55,7 @@ type private InMemoryStatementResource =
 
     /// <inheritdoc />
     member this.GetStatements([<Optional>] actor: IIdentifiedActor option, 
-                              [<Optional>] verbId: Uri option, 
+                              [<Optional>] verbId: VerbId option, 
                               [<Optional>] activityId: ActivityId option, 
                               [<Optional>] registration: Guid option, 
                               [<Optional>] relatedActivities: bool, 

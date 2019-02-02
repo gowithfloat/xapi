@@ -51,6 +51,7 @@
     <Compile Include="Actor\AnonymousGroup.fs" />
     <Compile Include="Actor\IdentifiedGroup.fs" />
     <Compile Include="IExtensions.fs" />
+    <Compile Include="VerbId.fs" />
     <Compile Include="Verb.fs" />
     <Compile Include="Version.fs" />
     <Compile Include="Score.fs" />

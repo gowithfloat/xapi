@@ -17,7 +17,7 @@ type public IVerb =
     /// Corresponds to a Verb definition.
     /// Each Verb definition corresponds to the meaning of a Verb, not the word.
     /// </summary>
-    abstract member Id: Uri
+    abstract member Id: VerbId
 
     /// <summary>
     /// The human readable representation of the Verb in one or more languages.
@@ -30,7 +30,7 @@ type public IVerb =
 [<CustomEquality;NoComparison;Struct>]
 type public Verb =
     /// <inheritdoc />
-    val Id: Uri
+    val Id: VerbId
 
     /// <inheritdoc />
     val Display: ILanguageMap
@@ -71,4 +71,4 @@ type public Verb =
     /// This is called "voiding a Statement" and this reserved Verb is used for this purpose.
     /// </summary>
     static member public Voided =
-        Verb(Uri("http://adlnet.gov/expapi/verbs/voided"), LanguageMap(LanguageTag.EnglishUS, "voided"))
+        Verb(VerbId("http://adlnet.gov/expapi/verbs/voided"), LanguageMap.EnglishUS("voided"))

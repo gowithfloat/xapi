@@ -16,7 +16,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public Verb TestValidInit()
         {
-            var uri = new Uri("http://www.gowithfloat.com");
+            var uri = new VerbId("http://www.gowithfloat.com");
             var map = new LanguageMap(LanguageTag.EnglishUS, "floated");
             return new Verb(uri, map);
         }
@@ -24,20 +24,19 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInvalidInit()
         {
-            var uri = new Uri("http://www.gowithfloat.com");
+            var uri = new VerbId("http://www.gowithfloat.com");
             var map = new LanguageMap(LanguageTag.EnglishUS, "floated");
 
-            Assert.Throws<ArgumentNullException>(() => new Verb(null, map));
             Assert.Throws<ArgumentNullException>(() => new Verb(uri, null));
         }
 
         [Fact]
         public void TestEquality()
         {
-            var verb1 = new Verb(new Uri("https://w3id.org/xapi/adl/verbs/abandoned"), LanguageMap.EnglishUS("abandoned"));
-            var verb2 = new Verb(new Uri("https://w3id.org/xapi/dod-isd/verbs/accessed"), LanguageMap.EnglishUS("accessed"));
+            var verb1 = new Verb(new VerbId("https://w3id.org/xapi/adl/verbs/abandoned"), LanguageMap.EnglishUS("abandoned"));
+            var verb2 = new Verb(new VerbId("https://w3id.org/xapi/dod-isd/verbs/accessed"), LanguageMap.EnglishUS("accessed"));
             var verb3 = new Verb(
-                new Uri("https://w3id.org/xapi/dod-isd/verbs/accessed"),
+                new VerbId("https://w3id.org/xapi/dod-isd/verbs/accessed"),
                 new LanguageMap(new LanguageTag(Language.Spanish, Region.Mexico), "acceso"));
             Assert.Equal(verb2, verb3);
             Assert.Equal(verb2.Id, verb3.Id);
@@ -49,8 +48,8 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInequality()
         {
-            var verb1 = new Verb(new Uri("https://w3id.org/xapi/adl/verbs/abandoned"), LanguageMap.EnglishUS("abandoned"));
-            var verb2 = new Verb(new Uri("https://w3id.org/xapi/dod-isd/verbs/accessed"), LanguageMap.EnglishUS("accessed"));
+            var verb1 = new Verb(new VerbId("https://w3id.org/xapi/adl/verbs/abandoned"), LanguageMap.EnglishUS("abandoned"));
+            var verb2 = new Verb(new VerbId("https://w3id.org/xapi/dod-isd/verbs/accessed"), LanguageMap.EnglishUS("accessed"));
             Assert.NotEqual(verb1, verb2);
             Assert.NotEqual(verb1.GetHashCode(), verb2.GetHashCode());
             Assert.False(verb1 == verb2);
@@ -60,7 +59,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestExample()
         {
-            var uri = new Uri("http://example.com/xapi/verbs#defenestrated");
+            var uri = new VerbId("http://example.com/xapi/verbs#defenestrated");
             var map = new LanguageMap(new Dictionary<ILanguageTag, string>
             {
                 {
@@ -84,7 +83,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestSerialize()
         {
-            var verb = new Verb(new Uri("http://example.com"), new LanguageMap(LanguageTag.EnglishUS, "example"));
+            var verb = new Verb(new VerbId("http://example.com"), new LanguageMap(LanguageTag.EnglishUS, "example"));
         }
 
         [Fact]

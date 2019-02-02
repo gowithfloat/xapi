@@ -25,7 +25,7 @@ namespace Float.xAPI.Tests
         public Statement TestValidInit()
         {
             var actor = new Agent(new Mailbox(new MailAddress("xapi@adlnet.gov")));
-            var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/created"), new LanguageMap(LanguageTag.EnglishUS, "created"));
+            var verb = new Verb(new VerbId("http://adlnet.gov/expapi/verbs/created"), new LanguageMap(LanguageTag.EnglishUS, "created"));
             var obj = new Activity(new ActivityId("http://example.adlnet.gov/xapi/example/activity"));
             var statement = new Statement(actor, verb, obj);
             Assert.Equal(ObjectType.Agent, statement.Actor.ObjectType);
@@ -39,7 +39,7 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             var actor = new Agent(new OpenID(new Uri("http://example.com")));
-            var verb = new Verb(new Uri("http://example.com"), LanguageMap.EnglishUS("test"));
+            var verb = new Verb(new VerbId("http://example.com"), LanguageMap.EnglishUS("test"));
             var activity = new Activity(new ActivityId("http://example.com"));
 
             Assert.Throws<ArgumentNullException>(() => new Statement(null, null, null));
@@ -55,10 +55,10 @@ namespace Float.xAPI.Tests
         public void TestEquality()
         {
             var actor1 = new Agent(new Account("agent", new Uri("http://example.com/account")));
-            var verb1 = new Verb(new Uri("http://example.com/verb"), LanguageMap.EnglishUS("verb"));
+            var verb1 = new Verb(new VerbId("http://example.com/verb"), LanguageMap.EnglishUS("verb"));
             var activity1 = new Activity(new ActivityId("http://example.com/activity"));
             var actor2 = new Agent(new Account("agent", new Uri("http://example.com/other-account")));
-            var verb2 = new Verb(new Uri("http://example.com/different-verb"), LanguageMap.EnglishUS("verbed"));
+            var verb2 = new Verb(new VerbId("http://example.com/different-verb"), LanguageMap.EnglishUS("verbed"));
             var activity2 = new Activity(new ActivityId("http://example.com/another-activity"));
             var id = Guid.NewGuid();
             var statement1 = new Statement(actor1, verb1, activity1, id);
@@ -73,10 +73,10 @@ namespace Float.xAPI.Tests
         public void TestInequality()
         {
             var actor1 = new Agent(new Account("agent", new Uri("http://example.com/account")));
-            var verb1 = new Verb(new Uri("http://example.com/verb"), LanguageMap.EnglishUS("verb"));
+            var verb1 = new Verb(new VerbId("http://example.com/verb"), LanguageMap.EnglishUS("verb"));
             var activity1 = new Activity(new ActivityId("http://example.com/activity"));
             var actor2 = new Agent(new Account("agent", new Uri("http://example.com/other-account")));
-            var verb2 = new Verb(new Uri("http://example.com/different-verb"), LanguageMap.EnglishUS("verbed"));
+            var verb2 = new Verb(new VerbId("http://example.com/different-verb"), LanguageMap.EnglishUS("verbed"));
             var activity2 = new Activity(new ActivityId("http://example.com/another-activity"));
             var statement1 = new Statement(actor1, verb1, activity1);
             var statement2 = new Statement(actor1, verb1, activity1);
@@ -91,7 +91,7 @@ namespace Float.xAPI.Tests
         {
             var mailbox = new Mailbox(new MailAddress("example@gowithfloat.com"));
             var actor = new Agent(mailbox, "Example Learner");
-            var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/completed"), new LanguageMap(LanguageTag.EnglishUS, "completed"));
+            var verb = new Verb(new VerbId("http://adlnet.gov/expapi/verbs/completed"), new LanguageMap(LanguageTag.EnglishUS, "completed"));
 
             var name = new LanguageMap(LanguageTag.EnglishUS, "Example Activity");
             var description = new LanguageMap(LanguageTag.EnglishUS, "An example activity.");
@@ -113,7 +113,7 @@ namespace Float.xAPI.Tests
             var address = new MailAddress("user@example.com");
             var mailbox = new Mailbox(address);
             var actor = new Agent(mailbox, "Project Tin Can API");
-            var verbUri = new Uri("http://example.com/xapi/verbs#sent-a-statement");
+            var verbUri = new VerbId("http://example.com/xapi/verbs#sent-a-statement");
 
             var verbMap = new LanguageMap(LanguageTag.EnglishUS, "sent");
             var verb = new Verb(verbUri, verbMap);
@@ -142,7 +142,7 @@ namespace Float.xAPI.Tests
             var mbox = new Mailbox(new MailAddress("example.learner@adlnet.gov"));
             var actor = new Agent(mbox, "Example Learner");
             var display = new LanguageMap(LanguageTag.EnglishUS, "attempted");
-            var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/attempted"), display);
+            var verb = new Verb(new VerbId("http://adlnet.gov/expapi/verbs/attempted"), display);
 
             var id2 = new ActivityId("http://example.adlnet.gov/xapi/example/simpleCBT");
             var name = new LanguageMap(LanguageTag.EnglishUS, "simple CBT course");
@@ -160,7 +160,7 @@ namespace Float.xAPI.Tests
         {
             var actor = new Agent(new Mailbox(new MailAddress("sample.agent@example.com")), "Sample Agent");
             var verb = new Verb(
-                new Uri("http://adlnet.gov/expapi/verbs/answered"),
+                new VerbId("http://adlnet.gov/expapi/verbs/answered"),
                 new LanguageMap(LanguageTag.EnglishUS, "answered"));
             var definition = new ActivityDefinition(
                 new LanguageMap(LanguageTag.EnglishUS, "Multi Part Activity"),
@@ -206,7 +206,7 @@ namespace Float.xAPI.Tests
         public void TestWithResult()
         {
             var actor = new Agent(new Mailbox(new MailAddress("test@example.com")), null);
-            var verb = new Verb(new Uri("http://example.com/commented"), new LanguageMap(LanguageTag.EnglishUS, "commented"));
+            var verb = new Verb(new VerbId("http://example.com/commented"), new LanguageMap(LanguageTag.EnglishUS, "commented"));
             var statementRef = new StatementReference(new Guid("8f87ccde-bb56-4c2e-ab83-44982ef22df0"));
             var result = new Result(response: "Wow, nice work!");
             var statement = new Statement(actor, verb, statementRef, result: result);
@@ -218,7 +218,7 @@ namespace Float.xAPI.Tests
             var id = new Guid("2a41c918-b88b-4220-20a5-a4c32391a240");
             var account = new Account("1625378", new Uri("http://example.adlnet.gov"));
             var agent = new Agent(account, "Gert Frobe");
-            var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/failed"), new LanguageMap(LanguageTag.EnglishUS, "failed"));
+            var verb = new Verb(new VerbId("http://adlnet.gov/expapi/verbs/failed"), new LanguageMap(LanguageTag.EnglishUS, "failed"));
             var activity = new Activity(new ActivityId("https://example.adlnet.gov/AUidentifier"));
             var extensions = new Dictionary<Uri, string>
             {
@@ -249,7 +249,7 @@ namespace Float.xAPI.Tests
         public void TestProperties()
         {
             var actor = new Agent(new OpenID(new Uri("http://example.com/actor")));
-            var verb = new Verb(new Uri("http://example.com/verb"), LanguageMap.EnglishUS("verbed"));
+            var verb = new Verb(new VerbId("http://example.com/verb"), LanguageMap.EnglishUS("verbed"));
             var activity = new Activity(new ActivityId("http://example.com/activity"));
             var id = Guid.NewGuid();
             var result = new Result(new Score(0.5));

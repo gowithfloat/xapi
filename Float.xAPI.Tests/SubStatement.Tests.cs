@@ -55,8 +55,8 @@ namespace Float.xAPI.Tests
         public void TestExample()
         {
             var actor = new Agent(new Mailbox(new MailAddress("test@example.com")), "Agent");
-            var verb1 = new Verb(new Uri("http://example.com/planned"), new LanguageMap(LanguageTag.EnglishUS, "planned"));
-            var verb2 = new Verb(new Uri("http://example.com/planned"), new LanguageMap(LanguageTag.EnglishUS, "will visit"));
+            var verb1 = new Verb(new VerbId("http://example.com/planned"), new LanguageMap(LanguageTag.EnglishUS, "planned"));
+            var verb2 = new Verb(new VerbId("http://example.com/planned"), new LanguageMap(LanguageTag.EnglishUS, "will visit"));
             var definition = new ActivityDefinition(
                     new LanguageMap(LanguageTag.EnglishUS, "Some Awesome Website"),
                     new LanguageMap(LanguageTag.EnglishUS, "This is an awesome website"),

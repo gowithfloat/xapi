@@ -43,7 +43,7 @@ module internal Filters =
     /// <summary>
     /// Returns false if the statement's verb ID doesn't match the given verb ID.
     /// </summary>
-    let statementVerbMatch (verbId: Uri option) (statement: IStatement) =
+    let statementVerbMatch (verbId: VerbId option) (statement: IStatement) =
         match verbId with
         | Some id -> statement.Verb.Id = id
         | None -> true
@@ -51,7 +51,7 @@ module internal Filters =
     /// <summary>
     /// Returns true if the statement's verb ID doesn't match the given verb ID.
     /// </summary>
-    let statementVerbMismatch (verbId: Uri option) (statement: IStatement) =
+    let statementVerbMismatch (verbId: VerbId option) (statement: IStatement) =
         match verbId with
         | Some id -> statement.Verb.Id <> id
         | None -> false
