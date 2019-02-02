@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class SHAHashTests : IInitializationTests<SHAHash>, IEqualityTests, IToStringTests
+    public class SHAHashTests : IInitializationTests<SHAHash>, IEqualityTests, IToStringTests, IPropertyTests
     {
         [Fact]
         public SHAHash TestValidInit()
@@ -67,6 +67,16 @@ namespace Float.xAPI.Tests
             var bytes = new byte[] { 0x12, 0x34, 0x56, 0x78, 0x90 };
             var hash2 = new SHAHash(bytes);
             Assert.Equal(bytes, hash2.Encoded);
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var hash = new SHAHash("test");
+            Assert.Equal(new byte[] { 0xa9, 0x4a, 0x8f, 0xe5, 0xcc, 0xb1, 0x9b, 0xa6, 0x1c, 0x4c, 0x08, 0x73, 0xd3, 0x91, 0xe9, 0x87, 0x98, 0x2f, 0xbb, 0xd3 }, hash.Encoded);
+
+            var ihash = hash as ISHAHash;
+            Assert.Equal(new byte[] { 0xa9, 0x4a, 0x8f, 0xe5, 0xcc, 0xb1, 0x9b, 0xa6, 0x1c, 0x4c, 0x08, 0x73, 0xd3, 0x91, 0xe9, 0x87, 0x98, 0x2f, 0xbb, 0xd3 }, ihash.Encoded);
         }
     }
 }
