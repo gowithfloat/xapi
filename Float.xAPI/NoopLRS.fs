@@ -46,7 +46,7 @@ type private NoopActivityEndpoint =
         member this.Profile = NoopActivityProfileResource() :> IActivityProfileResource
         member this.GetActivity id = 
             Activity(
-                Uri("http://noop.com"), 
+                ActivityId(Uri("http://noop.com")), 
                 ActivityDefinition(
                     LanguageMap.EnglishUS("noop"),
                     LanguageMap.EnglishUS("noop"),

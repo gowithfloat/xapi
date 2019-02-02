@@ -43,7 +43,7 @@ namespace Float.xAPI.Tests
 
         internal static IActivity GenerateActivity()
         {
-            return new Activity(GenerateUri("activity"));
+            return new Activity(GenerateActivityId("activity"));
         }
 
         internal static IStatement GenerateStatement(Guid statementId)
@@ -71,6 +71,11 @@ namespace Float.xAPI.Tests
             return new Uri($"http://example.com/{suffix}");
         }
 
+        internal static ActivityId GenerateActivityId(string suffix = "activity_id")
+        {
+            return new ActivityId($"http://example.com/{suffix}");
+        }
+
         internal static ILanguageMap GenerateLanguageMap()
         {
             return LanguageMap.EnglishUS("verb");
@@ -87,11 +92,6 @@ namespace Float.xAPI.Tests
         internal static StateId GenerateStateId(string value = "state_id")
         {
             return new StateId(value);
-        }
-
-        internal static ActivityId GenerateActivityId(string suffix = "activity_id")
-        {
-            return new ActivityId(new Uri($"http://example.com/{suffix}"));
         }
 
         internal static ProfileId GenerateProfileId(string value = "profile_id")

@@ -68,6 +68,18 @@ module Interop =
     /// </summary>
     let inline invalidStringArg x name =
         ifRaise (String.IsNullOrWhiteSpace x) name
+        
+    /// <summary>
+    /// Throw an argument exception if the given Uri is not a well formed absolute URI string.
+    /// </summary>
+    let inline invalidAbsoluteUri(x: Uri) (name: string) =
+        ifRaise (not(Uri.IsWellFormedUriString(x.OriginalString, UriKind.Absolute))) name
+        
+    /// <summary>
+    /// Throw an argument exception if the given string is not a well formed absolute URI string.
+    /// </summary>
+    let inline invalidAbsoluteUriString(x: string) (name: string) =
+        ifRaise (not(Uri.IsWellFormedUriString(x, UriKind.Absolute))) name
 
     /// <summary>
     /// Throw an argument exception if any given string in a list is null or whitespace.

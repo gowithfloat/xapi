@@ -21,22 +21,22 @@ namespace Float.xAPI.Tests
 
             var parent = new List<IActivity>
             {
-                new Activity(new Uri("a://b.c"))
+                new Activity(new ActivityId("a://b.c"))
             };
 
             var grouping = new List<IActivity>
             {
-                new Activity(new Uri("a://b.c"))
+                new Activity(new ActivityId("a://b.c"))
             };
 
             var category = new List<IActivity>
             {
-                new Activity(new Uri("a://b.c"))
+                new Activity(new ActivityId("a://b.c"))
             };
 
             var other = new List<IActivity>
             {
-                new Activity(new Uri("a://b.c"))
+                new Activity(new ActivityId("a://b.c"))
             };
 
             return new ContextActivities(parent, grouping, category, other);
@@ -48,7 +48,7 @@ namespace Float.xAPI.Tests
             var empty = new List<IActivity>();
             var one = new List<IActivity>
             {
-                new Activity(new Uri("d://e.f"))
+                new Activity(new ActivityId("d://e.f"))
             };
             Assert.Throws<ArgumentException>(() => new ContextActivities(empty, empty, empty, empty));
             Assert.Throws<ArgumentException>(() => new ContextActivities(empty, one, one, one));
@@ -57,9 +57,9 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestExample()
         {
-            var parent = new Activity(new Uri("http://example.adlnet.gov/xapi/example/test1"));
+            var parent = new Activity(new ActivityId("http://example.adlnet.gov/xapi/example/test1"));
             var parentList = new List<IActivity> { parent };
-            var grouping = new Activity(new Uri("http://example.adlnet.gov/xapi/example/Algebra1"));
+            var grouping = new Activity(new ActivityId("http://example.adlnet.gov/xapi/example/Algebra1"));
             var groupingList = new List<IActivity> { grouping };
             var contextActivities = new ContextActivities(parentList, groupingList, null, null);
         }
@@ -67,13 +67,13 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestProperties()
         {
-            var parent = new Activity(new Uri("http://example/com/parent"));
+            var parent = new Activity(new ActivityId("http://example/com/parent"));
             var parentList = new List<IActivity> { parent };
-            var grouping = new Activity(new Uri("http://example/com/grouping"));
+            var grouping = new Activity(new ActivityId("http://example/com/grouping"));
             var groupingList = new List<IActivity> { grouping };
-            var category = new Activity(new Uri("http://example/com/category"));
+            var category = new Activity(new ActivityId("http://example/com/category"));
             var categoryList = new List<IActivity> { category };
-            var other = new Activity(new Uri("http://example/com/other"));
+            var other = new Activity(new ActivityId("http://example/com/other"));
             var otherList = new List<IActivity> { other };
             var contextActivities = new ContextActivities(parentList, groupingList, categoryList, otherList);
             Assert.Equal(parent, contextActivities.Parent.Value.First());

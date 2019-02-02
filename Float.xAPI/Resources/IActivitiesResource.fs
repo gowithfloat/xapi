@@ -17,4 +17,4 @@ type IActivitiesResource =
     /// If an LRS does not have a canonical definition of the Activity to return, the LRS SHOULD* still return an Activity Object when queried.
     /// </summary>
     /// <param name="activityId">The id associated with the Activities to load.</param>
-    abstract member GetActivity: Uri -> IActivity
+    abstract member GetActivity: ActivityId -> IActivity

@@ -68,7 +68,7 @@ module internal Filters =
     /// <summary>
     /// Returns false if the statement has an activity as the object, and the activity ID doesn't match the given ID.
     /// </summary>
-    let statementActivityMatch (activityId: Uri option) (statement: IStatement) =
+    let statementActivityMatch (activityId: ActivityId option) (statement: IStatement) =
         match statement.Object with
         | :? IActivity as statementActivity ->
             match activityId with

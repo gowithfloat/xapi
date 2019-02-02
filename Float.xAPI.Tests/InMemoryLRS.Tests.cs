@@ -5,6 +5,7 @@
 
 using System;
 using System.Linq;
+using Float.xAPI.Activities;
 using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
 using Xunit;
@@ -116,16 +117,16 @@ namespace Float.xAPI.Tests
         {
             lrs.Statements.PutStatement(GenerateStatement(GenerateGuid()));
 
-            var retrieved1 = lrs.Statements.GetStatements(activityId: new Uri("http://example.com/activity"));
+            var retrieved1 = lrs.Statements.GetStatements(activityId: new ActivityId("http://example.com/activity"));
             Assert.Single(retrieved1.Statements);
 
-            var retrieved2 = lrs.Statements.GetStatements(activityId: new Uri("http://example.com/activity/2"));
+            var retrieved2 = lrs.Statements.GetStatements(activityId: new ActivityId("http://example.com/activity/2"));
             Assert.Empty(retrieved2.Statements);
 
-            var retrieved3 = ilrs.Statements.GetStatements(activityId: new Uri("http://example.com/activity"));
+            var retrieved3 = ilrs.Statements.GetStatements(activityId: new ActivityId("http://example.com/activity"));
             Assert.Single(retrieved3.Statements);
 
-            var retrieved4 = ilrs.Statements.GetStatements(activityId: new Uri("http://example.com/activity/2"));
+            var retrieved4 = ilrs.Statements.GetStatements(activityId: new ActivityId("http://example.com/activity/2"));
             Assert.Empty(retrieved4.Statements);
         }
 

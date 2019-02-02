@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using Float.xAPI.Activities;
 using Float.xAPI.Resources.Documents;
 using Xunit;
 

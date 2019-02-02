@@ -8,6 +8,7 @@ namespace Float.xAPI.Resources
 open System
 open System.Runtime.InteropServices
 open Float.xAPI
+open Float.xAPI.Activities
 open Float.xAPI.Actor
 
 /// <summary>
@@ -70,7 +71,7 @@ type IStatementResource =
     abstract member GetStatements: 
         [<Optional>] actor: IIdentifiedActor option * 
         [<Optional>] verbId: Uri option * 
-        [<Optional>] activityId: Uri option * 
+        [<Optional>] activityId: ActivityId option * 
         [<Optional>] registration: Guid option * 
         [<Optional;DefaultParameterValue(false)>] relatedActivities: bool * 
         [<Optional;DefaultParameterValue(false)>] relatedAgents: bool * 

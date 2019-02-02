@@ -4,9 +4,11 @@ os: linux
 mono: none
 dotnet: 2.1
 install:
-  - dotnet tool install fake-cli -g
+  - dotnet restore
 script:
-  - fake build
+  - dotnet build Float.xAPI/Float.xAPI.fsproj
+  - dotnet test Float.xAPI.Tests/Float.xAPI.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+#  - dotnet pack Float.xAPI/Float.xAPI.fsproj /p:Configuration=Release /p:PackageVersion=0.0.2
 #  - dotnet nuget push Float.xAPI/bin/Release/*.nupkg -k $NUGET_KEY -s $NUGET_SOURCE
 after_success:
   - curl -s https://codecov.io/bash > codecov

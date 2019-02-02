@@ -26,7 +26,7 @@ namespace Float.xAPI.Tests
         {
             var actor = new Agent(new Mailbox(new MailAddress("xapi@adlnet.gov")));
             var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/created"), new LanguageMap(LanguageTag.EnglishUS, "created"));
-            var obj = new Activity(new Uri("http://example.adlnet.gov/xapi/example/activity"));
+            var obj = new Activity(new ActivityId("http://example.adlnet.gov/xapi/example/activity"));
             var statement = new Statement(actor, verb, obj);
             Assert.Equal(ObjectType.Agent, statement.Actor.ObjectType);
             Assert.Equal(ObjectType.Activity, statement.Object.ObjectType);
@@ -40,7 +40,7 @@ namespace Float.xAPI.Tests
         {
             var actor = new Agent(new OpenID(new Uri("http://example.com")));
             var verb = new Verb(new Uri("http://example.com"), LanguageMap.EnglishUS("test"));
-            var activity = new Activity(new Uri("http://example.com"));
+            var activity = new Activity(new ActivityId("http://example.com"));
 
             Assert.Throws<ArgumentNullException>(() => new Statement(null, null, null));
             Assert.Throws<ArgumentNullException>(() => new Statement(actor, null, null));
@@ -56,10 +56,10 @@ namespace Float.xAPI.Tests
         {
             var actor1 = new Agent(new Account("agent", new Uri("http://example.com/account")));
             var verb1 = new Verb(new Uri("http://example.com/verb"), LanguageMap.EnglishUS("verb"));
-            var activity1 = new Activity(new Uri("http://example.com/activity"));
+            var activity1 = new Activity(new ActivityId("http://example.com/activity"));
             var actor2 = new Agent(new Account("agent", new Uri("http://example.com/other-account")));
             var verb2 = new Verb(new Uri("http://example.com/different-verb"), LanguageMap.EnglishUS("verbed"));
-            var activity2 = new Activity(new Uri("http://example.com/another-activity"));
+            var activity2 = new Activity(new ActivityId("http://example.com/another-activity"));
             var id = Guid.NewGuid();
             var statement1 = new Statement(actor1, verb1, activity1, id);
             var statement2 = new Statement(actor1, verb1, activity1, id);
@@ -74,10 +74,10 @@ namespace Float.xAPI.Tests
         {
             var actor1 = new Agent(new Account("agent", new Uri("http://example.com/account")));
             var verb1 = new Verb(new Uri("http://example.com/verb"), LanguageMap.EnglishUS("verb"));
-            var activity1 = new Activity(new Uri("http://example.com/activity"));
+            var activity1 = new Activity(new ActivityId("http://example.com/activity"));
             var actor2 = new Agent(new Account("agent", new Uri("http://example.com/other-account")));
             var verb2 = new Verb(new Uri("http://example.com/different-verb"), LanguageMap.EnglishUS("verbed"));
-            var activity2 = new Activity(new Uri("http://example.com/another-activity"));
+            var activity2 = new Activity(new ActivityId("http://example.com/another-activity"));
             var statement1 = new Statement(actor1, verb1, activity1);
             var statement2 = new Statement(actor1, verb1, activity1);
             var statement3 = new Statement(actor2, verb2, activity2, Guid.NewGuid());
@@ -97,7 +97,7 @@ namespace Float.xAPI.Tests
             var description = new LanguageMap(LanguageTag.EnglishUS, "An example activity.");
             var theType = new Uri("http://adlnet.gov/expapi/activities/course");
             var definition = new ActivityDefinition(name, description, theType);
-            var activityId = new Uri("http://www.example.com/example-activity");
+            var activityId = new ActivityId("http://www.example.com/example-activity");
             var activity = new Activity(activityId, definition);
             var statement = new Statement(actor, verb, activity);
         }
@@ -120,7 +120,7 @@ namespace Float.xAPI.Tests
             var nameMap = new LanguageMap(LanguageTag.EnglishUS, "simple statement");
             var descriptionMap = new LanguageMap(LanguageTag.EnglishUS, "A simple Experience API statement. Note that the LRS does not need to have any prior information about the Actor(learner), the verb, or the Activity/ object.");
 
-            var activityId = new Uri("http://example.com/xapi/activity/simplestatement");
+            var activityId = new ActivityId("http://example.com/xapi/activity/simplestatement");
             var thetype = new Uri("http://adlnet.gov/expapi/activities/media");
             var definition = new ActivityDefinition(nameMap, descriptionMap, thetype, FSharpOption<Uri>.None);
             var activity = new Activity(activityId, definition);
@@ -144,7 +144,7 @@ namespace Float.xAPI.Tests
             var display = new LanguageMap(LanguageTag.EnglishUS, "attempted");
             var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/attempted"), display);
 
-            var id2 = new Uri("http://example.adlnet.gov/xapi/example/simpleCBT");
+            var id2 = new ActivityId("http://example.adlnet.gov/xapi/example/simpleCBT");
             var name = new LanguageMap(LanguageTag.EnglishUS, "simple CBT course");
             var description = new LanguageMap(LanguageTag.EnglishUS, "A fictitious example CBT course.");
             var thetype = new Uri("http://adlnet.gov/expapi/activities/media");
@@ -167,7 +167,7 @@ namespace Float.xAPI.Tests
                 new LanguageMap(LanguageTag.EnglishUS, "Multi Part Activity Description"),
                 new Uri("http://www.example.com/tincan/activities/multipart"));
             var activity = new Activity(
-                new Uri("http://www.example.com/tincan/activities/multipart"),
+                new ActivityId("http://www.example.com/tincan/activities/multipart"),
                 definition);
             var attachment = new Attachment(
                 new Uri("http://example.com/attachment-usage/test"),
@@ -219,7 +219,7 @@ namespace Float.xAPI.Tests
             var account = new Account("1625378", new Uri("http://example.adlnet.gov"));
             var agent = new Agent(account, "Gert Frobe");
             var verb = new Verb(new Uri("http://adlnet.gov/expapi/verbs/failed"), new LanguageMap(LanguageTag.EnglishUS, "failed"));
-            var activity = new Activity(new Uri("https://example.adlnet.gov/AUidentifier"));
+            var activity = new Activity(new ActivityId("https://example.adlnet.gov/AUidentifier"));
             var extensions = new Dictionary<Uri, string>
             {
                 {
@@ -230,8 +230,8 @@ namespace Float.xAPI.Tests
             var result = new Result(new Score(), false, duration: timespan, extensions: extensions);
             var categories = new List<IActivity>
             {
-                new Activity(new Uri("https://w3id.org/xapi/cmi5/context/categories/moveon")),
-                new Activity(new Uri("https://w3id.org/xapi/cmi5/context/categories/cmi5"))
+                new Activity(new ActivityId("https://w3id.org/xapi/cmi5/context/categories/moveon")),
+                new Activity(new ActivityId("https://w3id.org/xapi/cmi5/context/categories/cmi5"))
             };
             var contextActivities = new ContextActivities(category: categories);
             var ctxExtensions = new Dictionary<Uri, string>
@@ -250,7 +250,7 @@ namespace Float.xAPI.Tests
         {
             var actor = new Agent(new OpenID(new Uri("http://example.com/actor")));
             var verb = new Verb(new Uri("http://example.com/verb"), LanguageMap.EnglishUS("verbed"));
-            var activity = new Activity(new Uri("http://example.com/activity"));
+            var activity = new Activity(new ActivityId("http://example.com/activity"));
             var id = Guid.NewGuid();
             var result = new Result(new Score(0.5));
             var contextId = Guid.NewGuid();

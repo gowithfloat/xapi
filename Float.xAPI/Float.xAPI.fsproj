@@ -55,6 +55,7 @@
     <Compile Include="Version.fs" />
     <Compile Include="Score.fs" />
     <Compile Include="Result.fs" />
+    <Compile Include="Activities\ActivityId.fs" />
     <Compile Include="Activities\Interaction.fs" />
     <Compile Include="Activities\Definitions\Definition.fs" />
     <Compile Include="Activities\Definitions\ICharacterString.fs" />
@@ -91,7 +92,6 @@
     <Compile Include="Resources\IStatementResource.fs" />
     <Compile Include="Resources\IActivitiesResource.fs" />
     <Compile Include="Resources\Documents\StateId.fs" />
-    <Compile Include="Resources\Documents\ActivityId.fs" />
     <Compile Include="Resources\Documents\ProfileId.fs" />
     <Compile Include="Resources\Documents\StateResourceKey.fs" />
     <Compile Include="Resources\Documents\Document.fs" />

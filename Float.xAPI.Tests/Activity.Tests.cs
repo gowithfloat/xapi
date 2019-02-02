@@ -16,33 +16,33 @@ namespace Float.xAPI.Tests
         [Fact]
         public Activity TestValidInit()
         {
-            var activity1 = new Activity(new Uri("http://example.com/id"));
+            var activity1 = new Activity(new ActivityId("http://example.com/id"));
             var definition = new ActivityDefinition(
                 LanguageMap.EnglishUS("name"),
                 LanguageMap.EnglishUS("description"),
                 new Uri("http://example.com/type"));
-            return new Activity(new Uri("http://example.com/id-2"), definition);
+            return new Activity(new ActivityId("http://example.com/id-2"), definition);
         }
 
         [Fact]
         public void TestInvalidInit()
         {
-            Assert.Throws<ArgumentNullException>(() => new Activity(null));
+            // not possible
         }
 
         [Fact]
         public void TestEquality()
         {
-            var activity1 = new Activity(new Uri("http://example.com/id"));
-            var activity2 = new Activity(new Uri("http://example.com/id"));
+            var activity1 = new Activity(new ActivityId("http://example.com/id"));
+            var activity2 = new Activity(new ActivityId("http://example.com/id"));
             AssertHelper.Equality<Activity, IActivity, IActivity>(activity1, activity2, (a, b) => a == b);
         }
 
         [Fact]
         public void TestInequality()
         {
-            var activity1 = new Activity(new Uri("http://example.com/activity1"));
-            var activity2 = new Activity(new Uri("http://example.com/activity2"));
+            var activity1 = new Activity(new ActivityId("http://example.com/activity1"));
+            var activity2 = new Activity(new ActivityId("http://example.com/activity2"));
             Assert.NotEqual(activity1, activity2);
             Assert.False(activity1 == activity2);
             Assert.False(activity1.Equals(activity2));
@@ -57,15 +57,15 @@ namespace Float.xAPI.Tests
                 LanguageMap.EnglishUS("name"),
                 LanguageMap.EnglishUS("description"),
                 new Uri("http://example.com/type"));
-            var activity = new Activity(new Uri("http://example.com/id-2"), definition);
+            var activity = new Activity(new ActivityId("http://example.com/id-2"), definition);
             Assert.Equal(ObjectType.Activity, activity.ObjectType);
-            Assert.Equal(new Uri("http://example.com/id-2"), activity.Id);
+            Assert.Equal(new ActivityId("http://example.com/id-2"), activity.Id);
             Assert.Equal(definition, activity.Definition);
             Assert.Equal(LanguageMap.EnglishUS("name"), activity.Definition.Value.Name);
 
             var iactivity = activity as IActivity;
             Assert.Equal(ObjectType.Activity, iactivity.ObjectType);
-            Assert.Equal(new Uri("http://example.com/id-2"), iactivity.Id);
+            Assert.Equal(new ActivityId("http://example.com/id-2"), iactivity.Id);
             Assert.Equal(definition, iactivity.Definition);
         }
     }

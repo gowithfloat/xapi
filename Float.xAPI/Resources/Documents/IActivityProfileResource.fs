@@ -7,6 +7,7 @@ namespace Float.xAPI.Resources.Documents
 
 open System
 open System.Runtime.InteropServices
+open Float.xAPI.Activities
 
 /// The Activity Profile Resource is much like the State Resource, allowing for arbitrary key / document pairs to be saved which are related to an Activity.
 type IActivityProfileResource =

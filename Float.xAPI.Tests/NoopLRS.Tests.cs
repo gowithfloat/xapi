@@ -60,8 +60,8 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestGetActivity()
         {
-            lrs.Activities.GetActivity(GenerateUri("activity"));
-            ilrs.Activities.GetActivity(GenerateUri("activity"));
+            lrs.Activities.GetActivity(GenerateActivityId("activity"));
+            ilrs.Activities.GetActivity(GenerateActivityId("activity"));
         }
 
         [Fact]

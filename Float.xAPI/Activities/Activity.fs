@@ -18,7 +18,7 @@ type public IActivity =
     /// <summary>
     /// An identifier for a single unique Activity.
     /// </summary>
-    abstract member Id: Uri
+    abstract member Id: ActivityId
 
     /// <summary>
     /// Metadata related to this activity.
@@ -31,7 +31,7 @@ type public IActivity =
 [<CustomEquality;NoComparison;Struct>]
 type public Activity =
     /// <inheritdoc />
-    val Id: Uri
+    val Id: ActivityId
 
     /// <inheritdoc />
     val Definition: IActivityDefinition option
@@ -43,7 +43,6 @@ type public Activity =
     /// <param name="definition">Metadata related to the activity.</param>
     new (id, [<Optional;DefaultParameterValue(null)>] ?definition) =
         nullArg id "id"
-        invalidIRIArg id "id"
         { Id = id; Definition = definition }
 
     /// <inheritdoc />

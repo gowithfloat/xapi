@@ -8,6 +8,7 @@ namespace Float.xAPI.Resources.Documents
 open System
 open Float.Interop
 open Float.xAPI.Actor
+open Float.xAPI.Activities
 
 /// <summary>
 /// State resources often need to store keys for documents, so this struct is provided for that purpose.

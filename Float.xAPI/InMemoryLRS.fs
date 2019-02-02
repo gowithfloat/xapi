@@ -56,7 +56,7 @@ type private InMemoryStatementResource =
     /// <inheritdoc />
     member this.GetStatements([<Optional>] actor: IIdentifiedActor option, 
                               [<Optional>] verbId: Uri option, 
-                              [<Optional>] activityId: Uri option, 
+                              [<Optional>] activityId: ActivityId option, 
                               [<Optional>] registration: Guid option, 
                               [<Optional>] relatedActivities: bool, 
                               [<Optional>] relatedAgents: bool, 
@@ -177,7 +177,7 @@ type private InMemoryActivityEndpoint =
         { Activities = List<IActivity>(); StateEndpoint = InMemoryStateResource() ; ProfileEndpoint = InMemoryActivityProfileResource() }
 
     /// <inheritdoc />
-    member this.GetActivity(id: Uri) =
+    member this.GetActivity id =
         this.Activities.Where(fun activity -> activity.Id = id).First()
 
     interface IActivityEndpoint with

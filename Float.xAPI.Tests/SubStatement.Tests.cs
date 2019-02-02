@@ -21,7 +21,7 @@ namespace Float.xAPI.Tests
         {
             var actor = new Agent(new Mailbox(new MailAddress("test@example.com")));
             var verb = Verb.Voided;
-            var activity = new Activity(new Uri("http://example.com"));
+            var activity = new Activity(new ActivityId("http://example.com"));
             var result = new Result();
             var context = new Context();
             var timestamp = DateTime.Now;
@@ -37,7 +37,7 @@ namespace Float.xAPI.Tests
         {
             var actor = new Agent(new Mailbox(new MailAddress("test@example.com")));
             var verb = Verb.Voided;
-            var activity = new Activity(new Uri("http://example.com"));
+            var activity = new Activity(new ActivityId("http://example.com"));
 
             Assert.Throws<ArgumentNullException>(() => new SubStatement(null, null, null));
             Assert.Throws<ArgumentNullException>(() => new SubStatement(actor, null, null));
@@ -62,7 +62,7 @@ namespace Float.xAPI.Tests
                     new LanguageMap(LanguageTag.EnglishUS, "This is an awesome website"),
                 new Uri("http://adlnet.gov/expapi/activities/media"));
             var activity = new Activity(
-                new Uri("http://example.com/website"),
+                new ActivityId("http://example.com/website"),
                 definition);
             var substatement = new SubStatement(actor, verb2, activity, null, null, null);
             var statement = new Statement(actor, verb1, substatement);
@@ -74,7 +74,7 @@ namespace Float.xAPI.Tests
             var substatement = TestValidInit();
             Assert.Equal(new Agent(new Mailbox(new MailAddress("test@example.com"))), substatement.Actor);
             Assert.Equal(new Context(), substatement.Context);
-            Assert.Equal(new Activity(new Uri("http://example.com")), substatement.Object);
+            Assert.Equal(new Activity(new ActivityId("http://example.com")), substatement.Object);
             Assert.Equal(ObjectType.SubStatement, substatement.ObjectType);
             Assert.Equal(new Result(), substatement.Result);
             Assert.Equal(DateTime.Now, substatement.Timestamp.Value, new TimeSpan(TimeSpan.TicksPerSecond)); // todo: avoid Value
@@ -83,7 +83,7 @@ namespace Float.xAPI.Tests
             var isubstatement = substatement as ISubStatement;
             Assert.Equal(new Agent(new Mailbox(new MailAddress("test@example.com"))), isubstatement.Actor);
             Assert.Equal(new Context(), isubstatement.Context);
-            Assert.Equal(new Activity(new Uri("http://example.com")), isubstatement.Object);
+            Assert.Equal(new Activity(new ActivityId("http://example.com")), isubstatement.Object);
             Assert.Equal(ObjectType.SubStatement, isubstatement.ObjectType);
             Assert.Equal(new Result(), isubstatement.Result);
             Assert.Equal(DateTime.Now, isubstatement.Timestamp.Value, new TimeSpan(TimeSpan.TicksPerSecond)); // todo: avoid Value
