@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ContextActivitiesTests : IInitializationTests<ContextActivities>, ISpecExampleTests
+    public class ContextActivitiesTests : IInitializationTests<ContextActivities>, ISpecExampleTests, IPropertyTests
     {
         [Fact]
         public ContextActivities TestValidInit()

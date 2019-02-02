@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class AccountTests : IInitializationTests<Account>, IEqualityTests
+    public class AccountTests : IInitializationTests<Account>, IEqualityTests, IPropertyTests
     {
         [Fact]
         public Account TestValidInit()

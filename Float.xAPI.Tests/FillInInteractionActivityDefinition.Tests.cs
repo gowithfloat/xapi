@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class FillInInteractionActivityDefinitionTests : IInitializationTests<FillInInteractionActivityDefinition>
+    public class FillInInteractionActivityDefinitionTests : IInitializationTests<FillInInteractionActivityDefinition>, IPropertyTests
     {
         [Fact]
         public FillInInteractionActivityDefinition TestValidInit()

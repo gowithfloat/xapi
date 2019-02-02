@@ -35,15 +35,7 @@ namespace Float.xAPI.Tests
         {
             var mailbox1 = new MailboxSha1Sum(new SHAHash("person1@example.com"));
             var mailbox2 = new MailboxSha1Sum(new SHAHash("person2@example.com"));
-            Assert.NotEqual(mailbox1, mailbox2);
-            Assert.NotEqual(mailbox1.MboxSha1Sum, mailbox2.MboxSha1Sum);
-            Assert.NotEqual(mailbox1.MboxSha1Sum.Encoded, mailbox2.MboxSha1Sum.Encoded);
-            Assert.NotEqual(mailbox1.GetHashCode(), mailbox2.GetHashCode());
-            Assert.True(mailbox1 != mailbox2);
-
-            var imail1 = mailbox1 as IMailboxSha1Sum;
-            var imail2 = mailbox2 as IMailboxSha1Sum;
-            Assert.NotEqual(imail1.MboxSha1Sum, imail2.MboxSha1Sum);
+            AssertHelper.Inequality<MailboxSha1Sum, IMailboxSha1Sum, IInverseFunctionalIdentifier>(mailbox1, mailbox2, (a, b) => a != b);
         }
 
         [Fact]

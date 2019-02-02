@@ -33,16 +33,11 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestEquality()
         {
-            var verb1 = new Verb(new VerbId("https://w3id.org/xapi/adl/verbs/abandoned"), LanguageMap.EnglishUS("abandoned"));
             var verb2 = new Verb(new VerbId("https://w3id.org/xapi/dod-isd/verbs/accessed"), LanguageMap.EnglishUS("accessed"));
             var verb3 = new Verb(
                 new VerbId("https://w3id.org/xapi/dod-isd/verbs/accessed"),
                 new LanguageMap(new LanguageTag(Language.Spanish, Region.Mexico), "acceso"));
-            Assert.Equal(verb2, verb3);
-            Assert.Equal(verb2.Id, verb3.Id);
-            Assert.Equal(verb2.GetHashCode(), verb3.GetHashCode());
-            Assert.True(verb2 == verb3);
-            Assert.False(verb2 != verb3);
+            AssertHelper.Equality<Verb, IVerb>(verb2, verb3, (a, b) => a == b);
         }
 
         [Fact]
@@ -50,10 +45,7 @@ namespace Float.xAPI.Tests
         {
             var verb1 = new Verb(new VerbId("https://w3id.org/xapi/adl/verbs/abandoned"), LanguageMap.EnglishUS("abandoned"));
             var verb2 = new Verb(new VerbId("https://w3id.org/xapi/dod-isd/verbs/accessed"), LanguageMap.EnglishUS("accessed"));
-            Assert.NotEqual(verb1, verb2);
-            Assert.NotEqual(verb1.GetHashCode(), verb2.GetHashCode());
-            Assert.False(verb1 == verb2);
-            Assert.True(verb1 != verb2);
+            AssertHelper.Inequality<Verb, IVerb>(verb1, verb2, (a, b) => a != b);
         }
 
         [Fact]

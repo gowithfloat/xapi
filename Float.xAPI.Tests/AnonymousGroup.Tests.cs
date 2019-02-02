@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class AnonymousGroupTests : IInitializationTests<AnonymousGroup>
+    public class AnonymousGroupTests : IInitializationTests<AnonymousGroup>, IPropertyTests
     {
         [Fact]
         public AnonymousGroup TestValidInit()

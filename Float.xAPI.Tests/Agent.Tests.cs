@@ -60,25 +60,18 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInequality()
         {
-            var ifi1 = new Mailbox(new MailAddress("test@example.com"));
-            var ifi2 = new MailboxSha1Sum(new SHAHash("test@example.com"));
+            var ifi1 = new Mailbox(new MailAddress("test1@example.com"));
+            var ifi2 = new MailboxSha1Sum(new SHAHash("test2@example.com"));
             var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
             var ifi4 = new Account("test", new Uri("http://example.com"));
             var agent1a = new Agent(ifi1, "Jane Doe");
-            var agent1b = new Agent(ifi1, "Learner, Example");
             var agent2a = new Agent(ifi2, "Jane Doe");
-            var agent2b = new Agent(ifi2, "Sue Schmoe");
             var agent3a = new Agent(ifi3, "Jane Doe");
-            var agent3b = new Agent(ifi3, "xAPI Example");
             var agent4a = new Agent(ifi4, "Jane Doe");
-            var agent4b = new Agent(ifi4, "Student");
-            Assert.NotEqual(agent1a, agent2a);
-            Assert.NotEqual(agent2a, agent3a);
-            Assert.NotEqual(agent3a, agent4a);
-            Assert.NotEqual(agent1a.GetHashCode(), agent2a.GetHashCode());
-            Assert.True(agent1a != agent2a);
-            Assert.True(agent2a != agent3a);
-            Assert.True(agent3a != agent4a);
+            AssertHelper.Inequality<Agent, IAgent, IIdentifiedActor>(agent1a, agent2a, (a, b) => a != b);
+            AssertHelper.Inequality<Agent, IAgent, IIdentifiedActor>(agent2a, agent3a, (a, b) => a != b);
+            AssertHelper.Inequality<Agent, IAgent, IIdentifiedActor>(agent3a, agent4a, (a, b) => a != b);
+            AssertHelper.Inequality<Agent, IAgent, IIdentifiedActor>(agent4a, agent1a, (a, b) => a != b);
         }
 
         [Fact]

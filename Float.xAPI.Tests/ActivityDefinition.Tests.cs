@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ActivityDefinitionTests : IInitializationTests<ActivityDefinition>
+    public class ActivityDefinitionTests : IInitializationTests<ActivityDefinition>, IPropertyTests
     {
         [Fact]
         public ActivityDefinition TestValidInit()

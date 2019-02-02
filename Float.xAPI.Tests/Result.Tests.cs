@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ResultTests : IInitializationTests<Result>
+    public class ResultTests : IInitializationTests<Result>, IPropertyTests
     {
         [Fact]
         public Result TestValidInit()
@@ -38,7 +38,7 @@ namespace Float.xAPI.Tests
         }
 
         [Fact]
-        public void TestInterface()
+        public void TestProperties()
         {
             var result = new Result(
                 new Score(0.25),

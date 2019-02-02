@@ -36,31 +36,14 @@ namespace Float.xAPI.Tests
         {
             var tag1 = new LanguageTag(Language.Wolof, Region.Senegal);
             var tag2 = new LanguageTag(Language.Wolof, Region.Senegal);
-            Assert.Equal(tag1, tag2);
-            Assert.True(tag1 == tag2);
-            Assert.False(tag1 != tag2);
-            Assert.True(tag1.Equals(tag2));
-
-            var itag1 = tag1 as ILanguageTag;
-            var itag2 = tag2 as ILanguageTag;
-            Assert.Equal(itag1, itag2);
-            Assert.True(tag1.Equals(itag2));
-            Assert.True(tag1.Equals(tag2));
-            Assert.True(itag1.Equals(itag2));
-            Assert.True(itag1.Equals(tag2));
-            Assert.True(itag2.Equals(itag1));
-            Assert.True(itag2.Equals(tag1));
-
             var tag3 = new LanguageTag(Language.English, Region.UnitedStates);
             var tag4 = LanguageTag.EnglishUS;
-            Assert.Equal(tag3, tag4);
-            Assert.True(tag3 == tag4);
-            Assert.False(tag3 != tag4);
-
             var tag5 = new LanguageTag(Language.Nyanja, Region.Niue, ExtendedLanguage.NicaraguanSignLanguage);
             var tag6 = new LanguageTag(Language.Nyanja, Region.Niue, ExtendedLanguage.NicaraguanSignLanguage);
-            Assert.Equal(tag5, tag6);
-            Assert.False(tag5 != tag6);
+
+            AssertHelper.Equality<LanguageTag, ILanguageTag>(tag1, tag2, (a, b) => a == b);
+            AssertHelper.Equality<LanguageTag, ILanguageTag>(tag3, tag4, (a, b) => a == b);
+            AssertHelper.Equality<LanguageTag, ILanguageTag>(tag5, tag6, (a, b) => a == b);
         }
 
         [Fact]
@@ -72,27 +55,9 @@ namespace Float.xAPI.Tests
             var tag4 = new LanguageTag(Language.Lao, Region.Latvia);
             var tag5 = new LanguageTag(Language.Ido, Region.Gabon, ExtendedLanguage.Musi);
             var tag6 = new LanguageTag(Language.Ido, Region.Gabon);
-            Assert.NotEqual(tag1, tag2);
-            Assert.NotEqual(tag1, tag3);
-            Assert.NotEqual(tag1, tag4);
-            Assert.NotEqual(tag2, tag3);
-            Assert.NotEqual(tag2, tag4);
-            Assert.NotEqual(tag3, tag4);
-            Assert.NotEqual(tag5, tag6);
-            Assert.False(tag1 == tag2);
-            Assert.False(tag1 == tag3);
-            Assert.True(tag1 != tag4);
-            Assert.False(tag1.Equals(tag2));
-
-            var itag1 = tag1 as ILanguageTag;
-            var itag2 = tag2 as ILanguageTag;
-            Assert.NotEqual(itag1, itag2);
-            Assert.False(tag1.Equals(itag2));
-            Assert.False(tag1.Equals(tag2));
-            Assert.False(itag1.Equals(itag2));
-            Assert.False(itag1.Equals(tag2));
-            Assert.False(itag2.Equals(itag1));
-            Assert.False(itag2.Equals(tag1));
+            AssertHelper.Inequality<LanguageTag, ILanguageTag>(tag1, tag2, (a, b) => a != b);
+            AssertHelper.Inequality<LanguageTag, ILanguageTag>(tag3, tag4, (a, b) => a != b);
+            AssertHelper.Inequality<LanguageTag, ILanguageTag>(tag5, tag6, (a, b) => a != b);
         }
 
         [Fact]

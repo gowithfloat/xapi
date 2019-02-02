@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class CharacterStringNumericTests : IInitializationTests<CharacterStringNumeric>, IToStringTests
+    public class CharacterStringNumericTests : IInitializationTests<CharacterStringNumeric>, IToStringTests, IPropertyTests
     {
         [Fact]
         public CharacterStringNumeric TestValidInit()

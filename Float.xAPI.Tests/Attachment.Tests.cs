@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class AttachmentTests : IInitializationTests<Attachment>
+    public class AttachmentTests : IInitializationTests<Attachment>, IPropertyTests
     {
         [Fact]
         public Attachment TestValidInit()
@@ -50,7 +50,7 @@ namespace Float.xAPI.Tests
         }
 
         [Fact]
-        public void TestInterface()
+        public void TestProperties()
         {
             uint length = 37037;
             var iattachment = new Attachment(

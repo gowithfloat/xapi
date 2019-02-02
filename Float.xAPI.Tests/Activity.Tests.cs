@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ActivityTests : IInitializationTests<Activity>, IEqualityTests
+    public class ActivityTests : IInitializationTests<Activity>, IEqualityTests, IPropertyTests
     {
         [Fact]
         public Activity TestValidInit()
@@ -27,7 +27,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInvalidInit()
         {
-            // not possible
+            // not possible?
         }
 
         [Fact]

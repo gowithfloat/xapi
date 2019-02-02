@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class ChoiceInteractionActivityDefinitionTests : IInitializationTests<ChoiceInteractionActivityDefinition>
+    public class ChoiceInteractionActivityDefinitionTests : IInitializationTests<ChoiceInteractionActivityDefinition>, IPropertyTests
     {
         [Fact]
         public ChoiceInteractionActivityDefinition TestValidInit()

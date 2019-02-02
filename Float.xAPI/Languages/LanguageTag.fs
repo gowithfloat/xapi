@@ -74,12 +74,12 @@ type public LanguageTag =
     member this.ToCultureInfo() = CultureInfo(this.ToString())
 
     /// <inheritdoc />
-    override this.GetHashCode() = hash (this.PrimaryLanguage, this.Region)
+    override this.GetHashCode() = hash (this.PrimaryLanguage, this.Region, this.ExtendedLanguage)
 
     /// <inheritdoc />
     override this.Equals other =
         match other with
-        | :? ILanguageTag as tag -> (this.PrimaryLanguage, this.Region) = (tag.PrimaryLanguage, tag.Region)
+        | :? ILanguageTag as tag -> this.GetHashCode() = tag.GetHashCode()
         | _ -> false
 
     static member op_Equality (lhs: LanguageTag, rhs: ILanguageTag) = lhs.Equals(rhs)

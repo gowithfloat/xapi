@@ -28,7 +28,7 @@ namespace Float.xAPI.Tests
             var version1 = new Version(0, 0, 0);
             Assert.Equal("0.0.0", version1.ToString());
 
-            var version2 = new Version(23, 232, 12);
+            var version2 = new Version(23u, 232u, 12u);
             Assert.Equal("23.232.12", version2.ToString());
         }
 
@@ -70,6 +70,15 @@ namespace Float.xAPI.Tests
             var iversion2 = version2 as IVersion;
             Assert.Equal(-1, iversion1.CompareTo(iversion2));
             Assert.Equal(1, iversion2.CompareTo(iversion1));
+        }
+
+        [Fact]
+        public void TestProperties()
+        {
+            var version1 = new Version(17, 19, 23);
+            Assert.Equal(17u, version1.Major);
+            Assert.Equal(19u, version1.Minor);
+            Assert.Equal(23u, version1.Patch);
         }
     }
 }

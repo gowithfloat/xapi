@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class InteractionComponentTests : IInitializationTests<InteractionComponent>, IEqualityTests
+    public class InteractionComponentTests : IInitializationTests<InteractionComponent>, IEqualityTests, IPropertyTests
     {
         [Fact]
         public InteractionComponent TestValidInit()

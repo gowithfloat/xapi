@@ -3,7 +3,6 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-using System;
 using Xunit;
 
 namespace Float.xAPI.Tests

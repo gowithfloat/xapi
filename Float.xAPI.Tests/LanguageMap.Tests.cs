@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class LanguageMapTests : IInitializationTests<LanguageMap>, IEqualityTests, ISerializationTests
+    public class LanguageMapTests : IInitializationTests<LanguageMap>, IEqualityTests, ISerializationTests, IPropertyTests
     {
         [Fact]
         public LanguageMap TestValidInit()

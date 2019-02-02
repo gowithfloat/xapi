@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class CharacterStringSingleTests : IInitializationTests<CharacterString>, IToStringTests
+    public class CharacterStringSingleTests : IInitializationTests<CharacterString>, IToStringTests, IPropertyTests
     {
         [Fact]
         public CharacterString TestValidInit()

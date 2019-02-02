@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class LikertInteractionActivityDefinitionTests : IInitializationTests<LikertInteractionActivityDefinition>
+    public class LikertInteractionActivityDefinitionTests : IInitializationTests<LikertInteractionActivityDefinition>, IPropertyTests
     {
         [Fact]
         public LikertInteractionActivityDefinition TestValidInit()
