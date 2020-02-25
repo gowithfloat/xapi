@@ -1,11 +1,13 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Float.xAPI", "Float.xAPI\Float.xAPI.fsproj", "{962D667A-CA1B-4DE5-9642-99E8E4720D74}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Float.xAPI", "Float.xAPI\Float.xAPI.fsproj", "{962D667A-CA1B-4DE5-9642-99E8E4720D74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Float.xAPI.Tests", "Float.xAPI.Tests\Float.xAPI.Tests.csproj", "{9C34C770-6FE9-405E-82AF-429278571B82}"
 EndProject
-Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Float.VSDocGen", "Float.VSDocGen\Float.VSDocGen.fsproj", "{FCC39507-2418-47B9-A290-512DAE0B6BFE}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Float.xAPI.Registry.Builder", "Float.xAPI.Registry.Builder\Float.xAPI.Registry.Builder.fsproj", "{FCC39507-2418-47B9-A290-512DAE0B6BFE}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Float.xAPI.Registry", "Float.xAPI.Registry\Float.xAPI.Registry.fsproj", "{471ABCCA-8957-45E4-96B1-1CFEF49D6EE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{FCC39507-2418-47B9-A290-512DAE0B6BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCC39507-2418-47B9-A290-512DAE0B6BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCC39507-2418-47B9-A290-512DAE0B6BFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{471ABCCA-8957-45E4-96B1-1CFEF49D6EE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{471ABCCA-8957-45E4-96B1-1CFEF49D6EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{471ABCCA-8957-45E4-96B1-1CFEF49D6EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{471ABCCA-8957-45E4-96B1-1CFEF49D6EE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
