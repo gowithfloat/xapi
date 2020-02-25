@@ -4,6 +4,7 @@
 // </copyright>
 
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Float.xAPI.Tests
@@ -76,6 +77,12 @@ namespace Float.xAPI.Tests
             Assert.True(eqsecond.Equals(first));
             Assert.True(eqsecond.Equals(ifirst));
             Assert.True(eqsecond.Equals(eqfirst));
+
+            // check all types using an equality comparer
+            Assert.True(EqualityComparer<Concrete>.Default.Equals(first, second));
+            Assert.True(EqualityComparer<Interface>.Default.Equals(first, second));
+            Assert.True(EqualityComparer<Concrete>.Default.Equals(second, first));
+            Assert.True(EqualityComparer<Interface>.Default.Equals(second, first));
         }
 
         /// <summary>
