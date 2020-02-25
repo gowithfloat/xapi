@@ -10,6 +10,8 @@ open System.Runtime.InteropServices
 open Float.xAPI.Activities
 open Float.xAPI.Actor
 
+// todo: handle merging updates to state (re: uploading a JSON array and getting key/value pairs instead)
+
 /// <summary>
 /// Generally, this is a scratch area for Learning Record Providers that do not have their own internal storage, or need to persist state across devices.
 /// </summary>
