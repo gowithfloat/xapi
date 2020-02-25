@@ -8,12 +8,20 @@ install:
 script:
   - dotnet build Float.xAPI/Float.xAPI.fsproj
   - dotnet test Float.xAPI.Tests/Float.xAPI.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-#  - dotnet pack Float.xAPI/Float.xAPI.fsproj /p:Configuration=Release /p:PackageVersion=0.0.2
-#  - dotnet nuget push Float.xAPI/bin/Release/*.nupkg -k $NUGET_KEY -s $NUGET_SOURCE
 after_success:
   - curl -s https://codecov.io/bash > codecov
   - chmod +x codecov
   - ./codecov -f "./Float.xAPI.Tests/coverage.opencover.xml" -t $CODECOV_TOKEN
+before_deploy:
+  - sh create_release.sh
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file: "./Float.xAPI/bin/Release/*.nupkg"
+  body: $(cat release_notes.md)
+  skip_cleanup: true
+  on:
+    tags: true
 
 branches:
   only:
