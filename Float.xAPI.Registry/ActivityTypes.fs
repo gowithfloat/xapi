@@ -322,9 +322,7 @@ module ActivityTypes =
                                    LanguageMap(LanguageTag.EnglishUS, "A short message sent on Twitter. Used with the 'tweeted' verb. "),
                                    Uri("http://id.tincanapi.com/activitytype/tweet"))
     let UnderlineAnnotation = ActivityDefinition(LanguageMap(LanguageTag.EnglishUS, "Underline annotation"),
-                                                 LanguageMap(LanguageTag.EnglishUS, "An annotation of the 'underline' type. Underlines are used to mark strings of text in a document with a line underneath the text. 
-
-    This activity type should only be used for underlined text and not for images or other elements. "),
+                                                 LanguageMap(LanguageTag.EnglishUS, "An annotation of the 'underline' type. Underlines are used to mark strings of text in a document with a line underneath the text. This activity type should only be used for underlined text and not for images or other elements. "),
                                                  Uri("http://risc-inc.com/annotator/activities/underline"))
     let UnitTest = ActivityDefinition(LanguageMap(LanguageTag.EnglishUS, "unit test"),
                                       LanguageMap(LanguageTag.EnglishUS, "A unit test in a test suite that is part of a programming project."),
