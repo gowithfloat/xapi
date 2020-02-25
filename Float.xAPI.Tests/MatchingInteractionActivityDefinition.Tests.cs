@@ -22,21 +22,21 @@ namespace Float.xAPI.Tests
                 { "ben", new CharacterString("3") },
                 { "chris", new CharacterString("2") },
                 { "troy", new CharacterString("4") },
-                { "freddie", new CharacterString("1") }
+                { "freddie", new CharacterString("1") },
             });
             var source = new List<IInteractionComponent>
             {
                 new InteractionComponent("ben", LanguageMap.EnglishUS("Ben")),
                 new InteractionComponent("chris", LanguageMap.EnglishUS("Chris")),
                 new InteractionComponent("troy", LanguageMap.EnglishUS("Troy")),
-                new InteractionComponent("freddie", LanguageMap.EnglishUS("Freddie"))
+                new InteractionComponent("freddie", LanguageMap.EnglishUS("Freddie")),
             };
             var target = new List<IInteractionComponent>
             {
                 new InteractionComponent("1", LanguageMap.EnglishUS("Swift Kick in the Grass")),
                 new InteractionComponent("2", LanguageMap.EnglishUS("We got Runs")),
                 new InteractionComponent("3", LanguageMap.EnglishUS("Duck")),
-                new InteractionComponent("4", LanguageMap.EnglishUS("Van Delay Industries"))
+                new InteractionComponent("4", LanguageMap.EnglishUS("Van Delay Industries")),
             };
             var definition1 = new MatchingInteractionActivityDefinition(
                 LanguageMap.EnglishUS("Long Fill-in"),
@@ -80,21 +80,21 @@ namespace Float.xAPI.Tests
                 { "ben", new CharacterString("3") },
                 { "chris", new CharacterString("2") },
                 { "troy", new CharacterString("4") },
-                { "freddie", new CharacterString("1") }
+                { "freddie", new CharacterString("1") },
             });
             var source = new List<IInteractionComponent>
             {
                 new InteractionComponent("ben", LanguageMap.EnglishUS("Ben")),
                 new InteractionComponent("chris", LanguageMap.EnglishUS("Chris")),
                 new InteractionComponent("troy", LanguageMap.EnglishUS("Troy")),
-                new InteractionComponent("freddie", LanguageMap.EnglishUS("Freddie"))
+                new InteractionComponent("freddie", LanguageMap.EnglishUS("Freddie")),
             };
             var target = new List<IInteractionComponent>
             {
                 new InteractionComponent("1", LanguageMap.EnglishUS("Swift Kick in the Grass")),
                 new InteractionComponent("2", LanguageMap.EnglishUS("We got Runs")),
                 new InteractionComponent("3", LanguageMap.EnglishUS("Duck")),
-                new InteractionComponent("4", LanguageMap.EnglishUS("Van Delay Industries"))
+                new InteractionComponent("4", LanguageMap.EnglishUS("Van Delay Industries")),
             };
             var extensions = new Dictionary<Uri, string> { { new Uri("http://www.example.com/ext"), "ext" } };
             var definition = new MatchingInteractionActivityDefinition(

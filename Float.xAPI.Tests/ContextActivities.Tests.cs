@@ -21,22 +21,22 @@ namespace Float.xAPI.Tests
 
             var parent = new List<IActivity>
             {
-                new Activity(new ActivityId("http://b.c"))
+                new Activity(new ActivityId("http://b.c")),
             };
 
             var grouping = new List<IActivity>
             {
-                new Activity(new ActivityId("http://b.c"))
+                new Activity(new ActivityId("http://b.c")),
             };
 
             var category = new List<IActivity>
             {
-                new Activity(new ActivityId("http://b.c"))
+                new Activity(new ActivityId("http://b.c")),
             };
 
             var other = new List<IActivity>
             {
-                new Activity(new ActivityId("http://b.c"))
+                new Activity(new ActivityId("http://b.c")),
             };
 
             return new ContextActivities(parent, grouping, category, other);
@@ -48,7 +48,7 @@ namespace Float.xAPI.Tests
             var empty = new List<IActivity>();
             var one = new List<IActivity>
             {
-                new Activity(new ActivityId("http://example.com"))
+                new Activity(new ActivityId("http://example.com")),
             };
             Assert.Throws<ArgumentException>(() => new ContextActivities(empty, empty, empty, empty));
             Assert.Throws<ArgumentException>(() => new ContextActivities(empty, one, one, one));

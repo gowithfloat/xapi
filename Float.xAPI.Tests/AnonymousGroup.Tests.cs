@@ -20,7 +20,7 @@ namespace Float.xAPI.Tests
             var ifi = new OpenID(new Uri("a://b.c"));
             var members = new List<IAgent>
             {
-                new Agent(ifi, "Agent Name")
+                new Agent(ifi, "Agent Name"),
             };
 
             return new AnonymousGroup(members, "Group Name");
@@ -33,7 +33,7 @@ namespace Float.xAPI.Tests
             var members1 = new List<IAgent>();
             var members2 = new List<IAgent>
             {
-                new Agent(ifi, "Agent Name")
+                new Agent(ifi, "Agent Name"),
             };
 
             Assert.Throws<ArgumentNullException>(() => new AnonymousGroup(null, "Group Name"));
@@ -49,7 +49,7 @@ namespace Float.xAPI.Tests
                 new List<IAgent>
             {
                 new Agent(new OpenID(new Uri("http://example.com/1"))),
-                new Agent(new OpenID(new Uri("http://example.com/2")))
+                new Agent(new OpenID(new Uri("http://example.com/2"))),
             }, "test name");
 
             Assert.Equal(ObjectType.Group, group.ObjectType);

@@ -26,7 +26,7 @@ namespace Float.xAPI.Tests
             var map3 = new LanguageMap(new Dictionary<ILanguageTag, string>
             {
                 { new LanguageTag(Language.Kyrgyz, Region.Jamaica), "example1" },
-                { new LanguageTag(Language.Sango, Region.Mauritius), "example2" }
+                { new LanguageTag(Language.Sango, Region.Mauritius), "example2" },
             });
 
             // or provide a list of key-value pairs with tags and values
@@ -40,7 +40,7 @@ namespace Float.xAPI.Tests
                     "example4"),
                 new KeyValuePair<ILanguageTag, string>(
                     new LanguageTag(Language.Limburgan, Region.LaoPeoplesDemocraticRepublic),
-                    "example5")
+                    "example5"),
             });
 
             // or provide an array of key-value pairs with tags and values
@@ -54,7 +54,7 @@ namespace Float.xAPI.Tests
                     "example7"),
                 new KeyValuePair<ILanguageTag, string>(
                     new LanguageTag(Language.Cornish, Region.RussianFederation),
-                    "example8")
+                    "example8"),
             });
 
             // or just make a copy from another, since a language map is a read-only dictionary
@@ -65,7 +65,7 @@ namespace Float.xAPI.Tests
             {
                 new Tuple<ILanguageTag, string>(
                     new LanguageTag(Language.Navaho, Region.UnitedStatesMinorOutlyingIslands),
-                    "example9")
+                    "example9"),
             };
 
             // ...and wrap that in an F# map...
@@ -104,12 +104,12 @@ namespace Float.xAPI.Tests
             var map3 = new LanguageMap(new Dictionary<ILanguageTag, string>
             {
                 { new LanguageTag(Language.Ido, Region.Panama), "example" },
-                { new LanguageTag(Language.NorthNdebele, Region.UnitedArabEmirates), "test" }
+                { new LanguageTag(Language.NorthNdebele, Region.UnitedArabEmirates), "test" },
             });
             var map4 = new LanguageMap(new Dictionary<ILanguageTag, string>
             {
                 { new LanguageTag(Language.NorthNdebele, Region.UnitedArabEmirates), "test" },
-                { new LanguageTag(Language.Ido, Region.Panama), "example" }
+                { new LanguageTag(Language.Ido, Region.Panama), "example" },
             });
             Assert.Equal(map3, map4);
             Assert.True(map1 == map2);
@@ -141,12 +141,12 @@ namespace Float.xAPI.Tests
             var map3 = new LanguageMap(new Dictionary<ILanguageTag, string>
             {
                 { new LanguageTag(Language.Ido, Region.Panama), "example" },
-                { new LanguageTag(Language.NorthNdebele, Region.UnitedArabEmirates), "test" }
+                { new LanguageTag(Language.NorthNdebele, Region.UnitedArabEmirates), "test" },
             });
             var map4 = new LanguageMap(new Dictionary<ILanguageTag, string>
             {
                 { new LanguageTag(Language.NorthNdebele, Region.UnitedArabEmirates), "test" },
-                { new LanguageTag(Language.Ido, Region.Panama), "example2" }
+                { new LanguageTag(Language.Ido, Region.Panama), "example2" },
             });
             Assert.NotEqual(map3, map4);
             Assert.False(map1 == map2);
@@ -167,7 +167,7 @@ namespace Float.xAPI.Tests
             {
                 {
                     LanguageTag.EnglishUS, "sent"
-                }
+                },
             });
             Assert.Single(map2);
 
@@ -183,7 +183,7 @@ namespace Float.xAPI.Tests
             var map1 = new LanguageMap(LanguageTag.EnglishUS, "launched");
             var map2 = new LanguageMap(new Dictionary<ILanguageTag, string>
             {
-                { new LanguageTag(Language.French, Region.France), "envoyé" }
+                { new LanguageTag(Language.French, Region.France), "envoyé" },
             });
         }
 

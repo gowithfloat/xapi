@@ -24,7 +24,7 @@ namespace Float.xAPI.Tests
             var members = new List<IAgent>
             {
                 new Agent(ifi2),
-                new Agent(ifi2)
+                new Agent(ifi2),
             };
 
             var group2 = new IdentifiedGroup(ifi, members);
@@ -48,7 +48,7 @@ namespace Float.xAPI.Tests
             var members = new List<IAgent>
             {
                 new Agent(ifi2),
-                new Agent(ifi2)
+                new Agent(ifi2),
             };
             var group3 = new IdentifiedGroup(new OpenID(new Uri("http://example.com")), members);
             Assert.Equal(group2, group3);
@@ -72,13 +72,13 @@ namespace Float.xAPI.Tests
             var members = new List<IAgent>
             {
                 new Agent(new Account("learner", new Uri("http://example.com"))),
-                new Agent(new Account("learner", new Uri("http://example.com")))
+                new Agent(new Account("learner", new Uri("http://example.com"))),
             };
             var group = new IdentifiedGroup(
                 new OpenID(
                     new Uri("http://example.com")),
-                    members,
-                    "group");
+                members,
+                "group");
             Assert.Equal(ObjectType.Group, group.ObjectType);
 
             var igroup = group as IIdentifiedGroup;

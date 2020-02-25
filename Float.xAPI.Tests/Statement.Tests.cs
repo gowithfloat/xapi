@@ -224,21 +224,21 @@ namespace Float.xAPI.Tests
             {
                 {
                     new Uri("https://w3id.org/xapi/cmi5/result/extensions/progress"), "100"
-                }
+                },
             };
             var timespan = new TimeSpan(0, 30, 0);
             var result = new Result(new Score(), false, duration: timespan, extensions: extensions);
             var categories = new List<IActivity>
             {
                 new Activity(new ActivityId("https://w3id.org/xapi/cmi5/context/categories/moveon")),
-                new Activity(new ActivityId("https://w3id.org/xapi/cmi5/context/categories/cmi5"))
+                new Activity(new ActivityId("https://w3id.org/xapi/cmi5/context/categories/cmi5")),
             };
             var contextActivities = new ContextActivities(category: categories);
             var ctxExtensions = new Dictionary<Uri, string>
             {
                 {
                     new Uri("https://w3id.org/xapi/cmi5/context/extensions/sessionid"), "458240298378231"
-                }
+                },
             };
             var context = new Context(new Guid("ec231277-b27b-4c15-8291-d29225b2b8f7"), contextActivities: contextActivities, extensions: ctxExtensions);
             var timestamp = new DateTime(2012, 6, 1, 19, 13, 24);
@@ -261,11 +261,11 @@ namespace Float.xAPI.Tests
             var attachments = new List<IAttachment>
             {
                 new Statements.Attachment(
-                new Uri("http://example.com/usageType"),
+                    new Uri("http://example.com/usageType"),
                     LanguageMap.EnglishUS("display"),
                     new ContentType("text/plain"),
                     16,
-                    new SHAHash("shahash"))
+                    new SHAHash("shahash")),
             };
 
             var statement = new Statement(actor, verb, activity, id, result, context, timestamp, timestamp, auth, version, attachments);

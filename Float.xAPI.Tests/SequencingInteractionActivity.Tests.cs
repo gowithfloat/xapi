@@ -23,7 +23,7 @@ namespace Float.xAPI.Tests
                 "tim",
                 "mike",
                 "ells",
-                "ben"
+                "ben",
             });
 
             var choices = new List<IInteractionComponent>

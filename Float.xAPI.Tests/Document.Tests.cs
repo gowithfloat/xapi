@@ -74,7 +74,7 @@ namespace Float.xAPI.Tests
         {
             return new Dictionary<string, string>
             {
-                { "contents", "example" }
+                { "contents", "example" },
             };
         }
     }

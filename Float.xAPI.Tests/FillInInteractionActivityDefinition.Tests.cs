@@ -25,7 +25,7 @@ namespace Float.xAPI.Tests
             {
                 {
                     new Uri("http://example.com/ext"), "ext"
-                }
+                },
             };
             var definition1 = new FillInInteractionActivityDefinition(name, description, correctResponsesPattern);
             var definition2 = new FillInInteractionActivityDefinition(name, description, correctResponsesPattern, moreInfo);
@@ -55,7 +55,7 @@ namespace Float.xAPI.Tests
             {
                 {
                     new Uri("http://example.com/ext"), "ext"
-                }
+                },
             };
             var definition = new FillInInteractionActivityDefinition(name, description, correctResponsesPattern, moreInfo, extensions);
             Assert.Equal(correctResponsesPattern, definition.CorrectResponsesPattern);

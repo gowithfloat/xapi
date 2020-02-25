@@ -59,7 +59,7 @@ namespace Float.xAPI.Tests
                 },
                 {
                     new LanguageTag(Language.Spanish, Region.Mexico), "defenestrado"
-                }
+                },
             });
 
             var verb = new Verb(uri, map);

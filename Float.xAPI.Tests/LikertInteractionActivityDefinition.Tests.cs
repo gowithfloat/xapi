@@ -22,7 +22,7 @@ namespace Float.xAPI.Tests
                 new InteractionComponent("likert_0", LanguageMap.EnglishUS("It's OK")),
                 new InteractionComponent("likert_1", LanguageMap.EnglishUS("It's Pretty Cool")),
                 new InteractionComponent("likert_2", LanguageMap.EnglishUS("It's Damn Cool")),
-                new InteractionComponent("likert_3", LanguageMap.EnglishUS("It's Gonna Change the World"))
+                new InteractionComponent("likert_3", LanguageMap.EnglishUS("It's Gonna Change the World")),
             };
 
             var definition1 = new LikertInteractionActivityDefinition(
@@ -52,7 +52,7 @@ namespace Float.xAPI.Tests
         {
             var scale1 = new List<IInteractionComponent>
             {
-                new InteractionComponent("likert_0", LanguageMap.EnglishUS("It's OK"))
+                new InteractionComponent("likert_0", LanguageMap.EnglishUS("It's OK")),
             };
 
             var scale2 = new List<IInteractionComponent>();
@@ -72,7 +72,7 @@ namespace Float.xAPI.Tests
                 new InteractionComponent("likert_0", LanguageMap.EnglishUS("It's OK")),
                 new InteractionComponent("likert_1", LanguageMap.EnglishUS("It's Pretty Cool")),
                 new InteractionComponent("likert_2", LanguageMap.EnglishUS("It's Damn Cool")),
-                new InteractionComponent("likert_3", LanguageMap.EnglishUS("It's Gonna Change the World"))
+                new InteractionComponent("likert_3", LanguageMap.EnglishUS("It's Gonna Change the World")),
             };
 
             var ext = new List<KeyValuePair<Uri, string>> { new KeyValuePair<Uri, string>(new Uri("http://www.example.com/ext"), "ext") };

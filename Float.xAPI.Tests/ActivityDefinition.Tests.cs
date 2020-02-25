@@ -23,7 +23,7 @@ namespace Float.xAPI.Tests
             var moreInfo = new Uri("http://example.com/more");
             var extensions = new Dictionary<Uri, string>
             {
-                { new Uri("http://example.com/ext1"), "ext1" }
+                { new Uri("http://example.com/ext1"), "ext1" },
             };
 
             var ad1 = new ActivityDefinition(name, description, uri);

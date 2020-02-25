@@ -22,14 +22,14 @@ namespace Float.xAPI.Tests
             {
                 new InteractionComponent("pong", LanguageMap.EnglishUS("Net pong matches won")),
                 new InteractionComponent("dg", LanguageMap.EnglishUS("Strokes over par in disc golf at Liberty")),
-                new InteractionComponent("lunch", LanguageMap.EnglishUS("Lunch having been eaten"))
+                new InteractionComponent("lunch", LanguageMap.EnglishUS("Lunch having been eaten")),
             };
 
             var pairs = new CharacterStringPair(new Dictionary<string, ICharacterString>
             {
                 { "pong", new CharacterStringNumeric(min: 1) },
                 { "dg", new CharacterStringNumeric(max: 10) },
-                { "lunch", new CharacterString(true) }
+                { "lunch", new CharacterString(true) },
             });
 
             var def1 = new PerformanceInteractionActivityDefinition(
@@ -79,7 +79,7 @@ namespace Float.xAPI.Tests
             {
                 { "pong", new CharacterStringNumeric(min: 1) },
                 { "dg", new CharacterStringNumeric(max: 10) },
-                { "lunch", new CharacterString(true) }
+                { "lunch", new CharacterString(true) },
             });
 
             // Assert.Equal(result, cs2.ToString());

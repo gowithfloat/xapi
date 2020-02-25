@@ -26,7 +26,7 @@ namespace Float.xAPI.Tests
                 },
                 {
                     "three", new CharacterString("3")
-                }
+                },
             };
             var csp1 = new CharacterStringPair(items1);
 
@@ -34,7 +34,7 @@ namespace Float.xAPI.Tests
             {
                 new Tuple<string, ICharacterString>("a", new CharacterString("A")),
                 new Tuple<string, ICharacterString>("b", new CharacterString("B")),
-                new Tuple<string, ICharacterString>("c", new CharacterString("C"))
+                new Tuple<string, ICharacterString>("c", new CharacterString("C")),
             };
 
             var csp2 = new CharacterStringPair(items2);
@@ -69,7 +69,7 @@ namespace Float.xAPI.Tests
                 },
                 {
                     "freddie", new CharacterString("1")
-                }
+                },
             };
             var cs2 = new CharacterStringPair(dict);
             Assert.Equal("ben[.]3[,]chris[.]2[,]troy[.]4[,]freddie[.]1", cs2.ToString());
@@ -91,7 +91,7 @@ namespace Float.xAPI.Tests
                 },
                 {
                     "freddie", new CharacterString("1")
-                }
+                },
             };
             var cs2 = new CharacterStringPair(dict);
             Assert.Null(cs2.Match("bob"));
@@ -115,7 +115,7 @@ namespace Float.xAPI.Tests
                 },
                 {
                     "freddie", new CharacterString("1")
-                }
+                },
             };
 
             var cs2 = new CharacterStringPair(dict);
@@ -133,7 +133,7 @@ namespace Float.xAPI.Tests
                 },
                 {
                     "troy", new CharacterString("4")
-                }
+                },
             };
 
             Assert.True(cs2.Match(responses1));
@@ -151,7 +151,7 @@ namespace Float.xAPI.Tests
                 },
                 {
                     "troy", new CharacterString("1")
-                }
+                },
             };
 
             Assert.False(cs2.Match(responses2));
@@ -161,7 +161,7 @@ namespace Float.xAPI.Tests
                 new Tuple<string, ICharacterString>("freddie", new CharacterString("1")),
                 new Tuple<string, ICharacterString>("chris", new CharacterString("2")),
                 new Tuple<string, ICharacterString>("ben", new CharacterString("3")),
-                new Tuple<string, ICharacterString>("troy", new CharacterString("4"))
+                new Tuple<string, ICharacterString>("troy", new CharacterString("4")),
             };
 
             Assert.True(cs2.Match(responses3));

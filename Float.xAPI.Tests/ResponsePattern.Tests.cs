@@ -77,7 +77,7 @@ namespace Float.xAPI.Tests
             var css = new List<ICharacterString>
             {
                 new CharacterString("foo"),
-                new CharacterString(new string[] { "foo", "bar" })
+                new CharacterString(new string[] { "foo", "bar" }),
             };
 
             var rp1 = new ResponsePattern(css);
@@ -96,7 +96,7 @@ namespace Float.xAPI.Tests
             var css = new List<ICharacterString>
             {
                 new CharacterString("foo"),
-                new CharacterString(new string[] { "foo", "bar" })
+                new CharacterString(new string[] { "foo", "bar" }),
             };
 
             var rp1 = new ResponsePattern(css);
@@ -107,7 +107,7 @@ namespace Float.xAPI.Tests
             var css2 = new List<ICharacterString>
             {
                 new CharacterStringNumeric(min: 0, max: 10),
-                new CharacterStringPair(new Dictionary<string, ICharacterString> { { "foo", new CharacterString("bar") } })
+                new CharacterStringPair(new Dictionary<string, ICharacterString> { { "foo", new CharacterString("bar") } }),
             };
 
             var rp2 = new ResponsePattern(css2);

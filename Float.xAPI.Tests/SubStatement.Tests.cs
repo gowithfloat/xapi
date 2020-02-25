@@ -61,7 +61,7 @@ namespace Float.xAPI.Tests
             var definition = new ActivityDefinition(
                     new LanguageMap(LanguageTag.EnglishUS, "Some Awesome Website"),
                     new LanguageMap(LanguageTag.EnglishUS, "This is an awesome website"),
-                new Uri("http://adlnet.gov/expapi/activities/media"));
+                    new Uri("http://adlnet.gov/expapi/activities/media"));
             var activity = new Activity(
                 new ActivityId("http://example.com/website"),
                 definition);

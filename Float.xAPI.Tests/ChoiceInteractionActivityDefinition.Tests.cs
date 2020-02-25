@@ -25,14 +25,14 @@ namespace Float.xAPI.Tests
                 new InteractionComponent("golf", LanguageMap.EnglishUS("Golf Example")),
                 new InteractionComponent("facebook", LanguageMap.EnglishUS("Facebook App")),
                 new InteractionComponent("tetris", LanguageMap.EnglishUS("Tetris Example")),
-                new InteractionComponent("scrabble", LanguageMap.EnglishUS("Scrabble Example"))
+                new InteractionComponent("scrabble", LanguageMap.EnglishUS("Scrabble Example")),
             };
             var moreInfo = new Uri("http://www.example.com/more");
             var extensions = new Dictionary<Uri, string>
             {
                 {
                     new Uri("http://example.com/extension"), "extension"
-                }
+                },
             };
             var definition1 = new ChoiceInteractionActivityDefinition(name, description, correctResponsesPattern, choices);
             var definition2 = new ChoiceInteractionActivityDefinition(name, description, correctResponsesPattern, choices, moreInfo);
@@ -64,14 +64,14 @@ namespace Float.xAPI.Tests
                 new InteractionComponent("golf", LanguageMap.EnglishUS("Golf Example")),
                 new InteractionComponent("facebook", LanguageMap.EnglishUS("Facebook App")),
                 new InteractionComponent("tetris", LanguageMap.EnglishUS("Tetris Example")),
-                new InteractionComponent("scrabble", LanguageMap.EnglishUS("Scrabble Example"))
+                new InteractionComponent("scrabble", LanguageMap.EnglishUS("Scrabble Example")),
             };
             var moreInfo = new Uri("http://www.example.com/more");
             var extensions = new Dictionary<Uri, string>
             {
                 {
                     new Uri("http://example.com/extension"), "extension"
-                }
+                },
             };
             var definition1 = new ChoiceInteractionActivityDefinition(name, description, correctResponsesPattern, choices, moreInfo, extensions);
 
