@@ -115,4 +115,19 @@ type public LanguageTag =
     /// As United States English is the most common language tag in examples, it is provided here for convenience.
     /// </summary>
     static member public EnglishUS = LanguageTag(Language.English, Region.UnitedStates)
-    
+
+    /// <summary>
+    /// Convert a string to a LanguageTag object.
+    /// </summary>
+    static member FromString(str: string): LanguageTag option =
+        let pair = str.Split("-" |> Seq.exactlyOne)
+
+        // todo: support more than just "lang" and "lang-region" conversion
+        match pair.Length with
+        | 1 -> match Language.FromString(pair.[0]) with
+               | Some x -> Some(LanguageTag(x))
+               | _ -> None
+        | 2 -> match Language.FromString(pair.[0]), Region.FromString(pair.[1]) with
+               | Some x, Some y -> Some(LanguageTag(x, y))
+               | _ -> None
+        | _ -> None

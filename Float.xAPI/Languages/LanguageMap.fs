@@ -96,6 +96,9 @@ type public LanguageMap =
     override this.GetHashCode() = hash this.map
 
     /// <inheritdoc />
+    override this.ToString() = this.map.ToString()
+
+    /// <inheritdoc />
     override this.Equals other =
         match other with
         | :? ILanguageMap as map -> this.GetHashCode() = map.GetHashCode()

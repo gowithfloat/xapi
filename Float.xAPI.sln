@@ -5,9 +5,11 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Float.xAPI", "Float.xAPI\Fl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Float.xAPI.Tests", "Float.xAPI.Tests\Float.xAPI.Tests.csproj", "{9C34C770-6FE9-405E-82AF-429278571B82}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Float.xAPI.Registry.Builder", "Float.xAPI.Registry.Builder\Float.xAPI.Registry.Builder.fsproj", "{FCC39507-2418-47B9-A290-512DAE0B6BFE}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Float.xAPI.Registry", "Float.xAPI.Registry\Float.xAPI.Registry.fsproj", "{471ABCCA-8957-45E4-96B1-1CFEF49D6EE2}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Float.xAPI.Json", "Float.xAPI.Json\Float.xAPI.Json.fsproj", "{C0561F1F-F903-4186-B104-4CD4CB160ADA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Float.xAPI.Json.Tests", "Float.xAPI.Json.Tests\Float.xAPI.Json.Tests.csproj", "{670F4194-2E07-4103-834B-9A82EAC78FFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +25,18 @@ Global
 		{9C34C770-6FE9-405E-82AF-429278571B82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C34C770-6FE9-405E-82AF-429278571B82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C34C770-6FE9-405E-82AF-429278571B82}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FCC39507-2418-47B9-A290-512DAE0B6BFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FCC39507-2418-47B9-A290-512DAE0B6BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FCC39507-2418-47B9-A290-512DAE0B6BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FCC39507-2418-47B9-A290-512DAE0B6BFE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{471ABCCA-8957-45E4-96B1-1CFEF49D6EE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{471ABCCA-8957-45E4-96B1-1CFEF49D6EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{471ABCCA-8957-45E4-96B1-1CFEF49D6EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{471ABCCA-8957-45E4-96B1-1CFEF49D6EE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0561F1F-F903-4186-B104-4CD4CB160ADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0561F1F-F903-4186-B104-4CD4CB160ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0561F1F-F903-4186-B104-4CD4CB160ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0561F1F-F903-4186-B104-4CD4CB160ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{670F4194-2E07-4103-834B-9A82EAC78FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{670F4194-2E07-4103-834B-9A82EAC78FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{670F4194-2E07-4103-834B-9A82EAC78FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{670F4194-2E07-4103-834B-9A82EAC78FFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
