@@ -5,10 +5,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Float.xAPI.Languages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
+using static Float.xAPI.Json.Tests.TestHelpers;
 
 namespace Float.xAPI.Json.Tests
 {
@@ -38,7 +40,7 @@ namespace Float.xAPI.Json.Tests
             });
 
             var verb = new Verb(id, display);
-            var actual = Json.Serialize(verb);
+            var actual = Json.SerializeVerb(verb);
 
             Assert.Equal(expected, actual);
         }
@@ -88,6 +90,24 @@ namespace Float.xAPI.Json.Tests
 
             // verb comparison is done using ID only
             Assert.Equal(expected, notActual);
+        }
+
+        [Fact]
+        public void TestSerialize()
+        {
+            var verb = new Verb(new VerbId("http://example.com"), new LanguageMap(LanguageTag.EnglishUS, "example"));
+            var str = Json.SerializeVerb(verb);
+            Assert.Equal("{\"id\":\"http://example.com/\",\"display\":{\"en-US\":\"example\"}}", str);
+        }
+
+        [Fact]
+        public void TestDeserialize()
+        {
+            var json = ReadFile("data-verb-example.json");
+            var verb = Json.DeserializeVerb(json);
+            Assert.Equal("http://example.com/xapi/verbs#defenestrated", verb.Id.Iri.AbsoluteUri);
+            Assert.Equal(verb.Display.Keys.Select(arg => arg.ToString()), new string[] { "en-US", "es" });
+            Assert.Equal(verb.Display.Values.Select(arg => arg.ToString()), new string[] { "defenestrated", "defenestrado" });
         }
 
         string FormatJson(string json)

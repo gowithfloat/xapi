@@ -19,6 +19,7 @@
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+    <PackageReference Include="FsCheck.Xunit" Version="2.14.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Float.xAPI\Float.xAPI.fsproj" />
@@ -26,44 +27,11 @@
   <ItemGroup>
     <None Remove="coverage.json" />
     <None Remove="coverage.opencover.xml" />
-    <None Remove="Data\data-agent-account-example.json" />
-    <None Remove="Data\about-example-statement.json" />
-    <None Remove="Data\data-appendix-a-example-1.json" />
-    <None Remove="Data\data-appendix-a-example-2.json" />
-    <None Remove="Data\data-appendix-a-example-3.json" />
-    <None Remove="Data\data-appendix-b-activity.json" />
-    <None Remove="Data\data-appendix-b-agent.json" />
-    <None Remove="Data\data-appendix-b-group.json" />
-    <None Remove="Data\data-appendix-b-statement.json" />
-    <None Remove="Data\data-authority-example.json" />
-    <None Remove="Data\data-context-activities-example.json" />
-    <None Remove="Data\data-minimal-example-statement.json" />
-    <None Remove="Data\data-statement-intention-example.json" />
-    <None Remove="Data\data-statementref-example.json" />
-    <None Remove="Data\data-verb-example.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Definitions\" />
-    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Actor.Tests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Data\data-agent-account-example.json" />
-    <EmbeddedResource Include="Data\about-example-statement.json" />
-    <EmbeddedResource Include="Data\data-appendix-a-example-1.json" />
-    <EmbeddedResource Include="Data\data-appendix-a-example-2.json" />
-    <EmbeddedResource Include="Data\data-appendix-a-example-3.json" />
-    <EmbeddedResource Include="Data\data-appendix-b-activity.json" />
-    <EmbeddedResource Include="Data\data-appendix-b-agent.json" />
-    <EmbeddedResource Include="Data\data-appendix-b-group.json" />
-    <EmbeddedResource Include="Data\data-appendix-b-statement.json" />
-    <EmbeddedResource Include="Data\data-authority-example.json" />
-    <EmbeddedResource Include="Data\data-context-activities-example.json" />
-    <EmbeddedResource Include="Data\data-minimal-example-statement.json" />
-    <EmbeddedResource Include="Data\data-statement-intention-example.json" />
-    <EmbeddedResource Include="Data\data-statementref-example.json" />
-    <EmbeddedResource Include="Data\data-verb-example.json" />
   </ItemGroup>
 </Project>

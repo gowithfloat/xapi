@@ -7,11 +7,10 @@ using System;
 using System.Collections.Generic;
 using Float.xAPI.Languages;
 using Xunit;
-using static Float.xAPI.Tests.TestHelpers;
 
 namespace Float.xAPI.Tests
 {
-    public class VerbTests : IInitializationTests<Verb>, IEqualityTests, ISpecExampleTests, ISerializationTests
+    public class VerbTests : IInitializationTests<Verb>, IEqualityTests, ISpecExampleTests
     {
         [Fact]
         public Verb TestValidInit()
@@ -70,18 +69,6 @@ namespace Float.xAPI.Tests
             var iverb = verb as IVerb;
             Assert.Equal(uri, iverb.Id);
             Assert.Equal(map, iverb.Display);
-        }
-
-        [Fact]
-        public void TestSerialize()
-        {
-            var verb = new Verb(new VerbId("http://example.com"), new LanguageMap(LanguageTag.EnglishUS, "example"));
-        }
-
-        [Fact]
-        public void TestDeserialize()
-        {
-            var json = ReadFile("data-verb-example.json");
         }
     }
 }

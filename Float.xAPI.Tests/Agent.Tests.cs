@@ -12,7 +12,7 @@ using static Float.xAPI.Tests.TestHelpers;
 
 namespace Float.xAPI.Tests
 {
-    public class AgentTests : IInitializationTests<Agent>, IEqualityTests, ISerializationTests
+    public class AgentTests : IInitializationTests<Agent>, IEqualityTests
     {
         [Fact]
         public Agent TestValidInit()
@@ -72,25 +72,6 @@ namespace Float.xAPI.Tests
             AssertHelper.Inequality<Agent, IAgent, IIdentifiedActor>(agent2a, agent3a, (a, b) => a != b);
             AssertHelper.Inequality<Agent, IAgent, IIdentifiedActor>(agent3a, agent4a, (a, b) => a != b);
             AssertHelper.Inequality<Agent, IAgent, IIdentifiedActor>(agent4a, agent1a, (a, b) => a != b);
-        }
-
-        [Fact]
-        public void TestSerialize()
-        {
-            var ifi1 = new Mailbox(new MailAddress("jdoe@example.com"));
-            var ifi2 = new MailboxSha1Sum(new SHAHash("sschmoe@example.com"));
-            var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
-            var ifi4 = new Account("test", new Uri("http://example.com"));
-            var agent1 = new Agent(ifi1, "Jane Doe");
-            var agent2 = new Agent(ifi2, "Sue Schmoe");
-            var agent3 = new Agent(ifi3, "Learner, Example");
-            var agent4 = new Agent(ifi4, "Student");
-        }
-
-        [Fact]
-        public void TestDeserialize()
-        {
-            var json = ReadFile("data-agent-account-example.json");
         }
     }
 }

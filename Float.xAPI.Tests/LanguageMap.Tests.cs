@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Float.xAPI.Tests
 {
-    public class LanguageMapTests : IInitializationTests<LanguageMap>, IEqualityTests, ISerializationTests, IPropertyTests
+    public class LanguageMapTests : IInitializationTests<LanguageMap>, IEqualityTests, IPropertyTests
     {
         [Fact]
         public LanguageMap TestValidInit()
@@ -175,23 +175,6 @@ namespace Float.xAPI.Tests
 
             var map3 = new LanguageMap(new LanguageTag(Language.French, Region.France), "envoyé");
             Assert.Single(map3);
-        }
-
-        [Fact]
-        public void TestSerialize()
-        {
-            var map1 = new LanguageMap(LanguageTag.EnglishUS, "launched");
-            var map2 = new LanguageMap(new Dictionary<ILanguageTag, string>
-            {
-                { new LanguageTag(Language.French, Region.France), "envoyé" },
-            });
-        }
-
-        [Fact]
-        public void TestDeserialize()
-        {
-            var json1 = "{\"en-US\":\"launched\"}";
-            Assert.NotNull(json1);
         }
 
         [Fact]

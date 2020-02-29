@@ -41,3 +41,16 @@ type ObjectType =
         | Group -> "Group"
         | SubStatement -> "SubStatement"
         | StatementReference -> "StatementRef"
+
+
+    /// <summary>
+    /// Convert a string to an object type. Returns none if the string is not a valid object type.
+    /// </summary>
+    static member FromString objtyp =
+        match objtyp with
+        | "Activity" -> Some Activity
+        | "Agent" -> Some Agent
+        | "Group" -> Some Group
+        | "SubStatement" -> Some SubStatement
+        | "StatementRef" -> Some StatementReference
+        | _ -> None
