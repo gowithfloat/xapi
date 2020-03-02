@@ -8,7 +8,6 @@ using System.Net.Mail;
 using Float.xAPI.Actor;
 using Float.xAPI.Actor.Identifier;
 using Xunit;
-using static Float.xAPI.Tests.TestHelpers;
 
 namespace Float.xAPI.Tests
 {
