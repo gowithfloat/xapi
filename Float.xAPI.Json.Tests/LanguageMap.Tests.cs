@@ -25,9 +25,6 @@ namespace Float.xAPI.Json.Tests
             var serialized1 = Json.SerializeLanguageMap(map1);
             var serialized2 = Json.SerializeLanguageMap(map2);
 
-            Console.WriteLine(serialized1);
-            Console.WriteLine(serialized2);
-
             Assert.Equal("{\"en-US\":\"launched\"}", serialized1);
             Assert.Equal("{\"fr-FR\":\"envoyé\"}", serialized2);
         }
