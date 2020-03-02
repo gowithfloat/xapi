@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Float.xAPI.Languages;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Xunit;
 using static Float.xAPI.Json.Tests.TestHelpers;
 
@@ -108,11 +106,6 @@ namespace Float.xAPI.Json.Tests
             Assert.Equal("http://example.com/xapi/verbs#defenestrated", verb.Id.Iri.AbsoluteUri);
             Assert.Equal(verb.Display.Keys.Select(arg => arg.ToString()), new string[] { "en-US", "es" });
             Assert.Equal(verb.Display.Values.Select(arg => arg.ToString()), new string[] { "defenestrated", "defenestrado" });
-        }
-
-        string FormatJson(string json)
-        {
-            return JToken.Parse(json).ToString(Formatting.None);
         }
     }
 }
