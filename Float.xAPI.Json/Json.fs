@@ -107,12 +107,12 @@ module Json =
                     | true -> jsonScore.["raw"] |> string |> float |> Some
                     | _ -> None
 
-        let min = match jsonScore.ContainsKey "score" with
-                  | true -> jsonScore.["score"] |> string |> float |> Some
+        let min = match jsonScore.ContainsKey "min" with
+                  | true -> jsonScore.["min"] |> string |> float |> Some
                   | _ -> None
 
-        let max = match jsonScore.ContainsKey "score" with
-                  | true -> jsonScore.["score"] |> string |> float |> Some
+        let max = match jsonScore.ContainsKey "max" with
+                  | true -> jsonScore.["max"] |> string |> float |> Some
                   | _ -> None
 
         match raw, min, max with
