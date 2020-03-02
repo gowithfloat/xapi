@@ -7,6 +7,7 @@ namespace Float.xAPI.Json
 
 open System
 open System.Collections.Generic
+open System.Xml
 open Float.xAPI
 open Float.xAPI.Activities
 open Float.xAPI.Actor
@@ -119,6 +120,12 @@ module Json =
         | Some x, Some y, Some z -> Score(x, y, z) :> IScore
         | _ -> Score(scaled):> IScore
 
+    let DeserializeBool str =
+        match str with
+        | "False" -> false
+        | "True" -> true
+        | _ -> invalidArg "str" "Unrecognized boolean string"
+
     let DeserializeResult str =
         let jsonResult = JsonConvert.DeserializeObject<Map<string, obj>>(str)
 
@@ -127,7 +134,7 @@ module Json =
                     | _ -> None
 
         let success = match jsonResult.ContainsKey "success" with
-                      | true -> JsonConvert.DeserializeObject<bool>(jsonResult.["success"] |> string) |> Some
+                      | true -> jsonResult.["success"] |> string |> DeserializeBool |> Some
                       | _ -> None
 
         let completion = match jsonResult.ContainsKey "completion" with
@@ -139,14 +146,21 @@ module Json =
                        | _ -> None
 
         let duration = match jsonResult.ContainsKey "duration" with
-                       | true -> JsonConvert.DeserializeObject<TimeSpan>(jsonResult.["duration"]|> string) |> Some
+                       | true -> jsonResult.["duration"] |> string |> XmlConvert.ToTimeSpan |> Some
                        | _ -> None
 
         let extensions = match jsonResult.ContainsKey "extensions" with
-                         | true -> JsonConvert.DeserializeObject<IExtensions>(jsonResult.["extensions"]|> string) |> Some
+                         | true -> JsonConvert.DeserializeObject<Dictionary<Uri, string>>(jsonResult.["extensions"] |> string)
+                                   |> Seq.map (fun (KeyValue(k, v)) -> KeyValuePair(k, v))
+                                   |> Some
                          | _ -> None
 
-        Result(?score=score) :> IResult//, success, completion, response, duration, extensions)
+        Result(?score=score, 
+               ?success=success, 
+               ?completion=completion, 
+               ?response=response,
+               ?duration=duration, 
+               ?extensions=extensions) :> IResult
 
 
     let DeserializeStatement str =
