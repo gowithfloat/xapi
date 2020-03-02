@@ -22,14 +22,25 @@ module Json =
     /// <summary>
     /// Convert a verb to a JSON string.
     /// </summary>
-    let SerializeVerb (verb: Verb) =
+    let SerializeVerb (verb: IVerb) =
         sprintf "{\"id\":\"%s\",\"display\":%s}" verb.Id.Iri.AbsoluteUri (JsonConvert.SerializeObject verb.Display)
 
+    let SerializeActor (actor: IActor) =
+        sprintf "actor"
+
+    let SerializeObject (object: IObject) =
+        sprintf "object"
+
+    let SerializeStatement (statement: IStatement) =
+        let actor = SerializeActor(statement.Actor)
+        let verb = SerializeVerb(statement.Verb)
+        let object = SerializeObject(statement.Object)
+        sprintf "{\"id\":\"%s\",\"actor\":\"%s\",\"verb\":\"%s\",\"object\":\"%s\"}" (statement.Id.ToString()) actor verb object
 
     /// <summary>
     /// Convert a language map to a JSON string.
     /// </summary>
-    let SerializeLanguageMap (map: LanguageMap) =
+    let SerializeLanguageMap (map: ILanguageMap) =
         map 
         |> Seq.map (fun (pair) -> sprintf "{\"%O\":\"%O\"}" pair.Key pair.Value)
         |> String.concat ","

@@ -5,12 +5,19 @@
 
 using System;
 using Float.xAPI.Actor.Identifier;
+using FsCheck;
+using FsCheck.Xunit;
 using Xunit;
 
 namespace Float.xAPI.Tests
 {
     public class AccountTests : IInitializationTests<Account>, IEqualityTests, IPropertyTests
     {
+        public AccountTests()
+        {
+            Arb.Register<Generators>();
+        }
+
         [Fact]
         public Account TestValidInit()
         {
@@ -39,6 +46,14 @@ namespace Float.xAPI.Tests
             AssertHelper.Equality<Account, IAccount, IInverseFunctionalIdentifier>(account1, account2, (a, b) => a == b);
         }
 
+        [Property]
+        public void TestGeneratedEquality(NonWhiteSpaceString name, Uri uri)
+        {
+            var account1 = new Account(name.Item, uri);
+            var account2 = new Account(name.Item, uri);
+            AssertHelper.Equality<Account, IAccount, IInverseFunctionalIdentifier>(account1, account2, (a, b) => a == b);
+        }
+
         [Fact]
         public void TestInequality()
         {
@@ -55,6 +70,13 @@ namespace Float.xAPI.Tests
             var account = new Account("Example Student", new Uri("http://example.com/example/student"));
             Assert.Equal("Example Student", account.Name);
             Assert.Equal(new Uri("http://example.com/example/student"), account.HomePage);
+        }
+
+        [Property]
+        public bool TestGeneratedProperties(NonWhiteSpaceString name, Uri uri)
+        {
+            var account = new Account(name.Item, uri);
+            return account.Name == name.Item && account.HomePage.AbsoluteUri == uri.AbsoluteUri;
         }
     }
 }
