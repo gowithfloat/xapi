@@ -63,14 +63,14 @@ namespace Float.xAPI.Json.Tests
 
             Assert.Equal(
                 FormatJson(ReadFile("about-example-statement.json")),
-                Json.SerializeStatement(statement));
+                Json.Serialize.Statement(statement));
         }
 
         [Fact]
         public void TestDeserialize()
         {
             var statementJson = ReadFile("about-example-statement.json");
-            var statement = Json.DeserializeStatement(statementJson);
+            var statement = Json.Deserialize.ParseStatement(statementJson).Value;
 
             // id
             Assert.Equal(new Guid("2a41c918-b88b-4220-20a5-a4c32391a240"), statement.Id);

@@ -1,5 +1,5 @@
-﻿// <copyright file="Generators.cs" company="">
-// Copyright (c) 2020 , All rights reserved.
+﻿// <copyright file="Generators.cs" company="Float">
+// Copyright (c) 2018 Float, All rights reserved.
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
@@ -12,6 +12,19 @@ namespace Float.xAPI.Tests
 {
     public class Generators
     {
+        public static Arbitrary<Uri> Uri()
+        {
+            return Scheme()
+                .Zip(Subdomain())
+                .Zip(Domain())
+                .Select(a => (a.Item1.Item1, a.Item1.Item2, a.Item2))
+                .Zip(Tld())
+                .Select(a => $"{a.Item1.Item1}://{a.Item1.Item2}.{a.Item1.Item3}.{a.Item2}")
+                .Where(str => IsValid(str))
+                .Select(str => new Uri(str))
+                .ToArbitrary();
+        }
+
         static bool IsValid(string uri)
         {
             try
@@ -67,19 +80,6 @@ namespace Float.xAPI.Tests
             return Gen.Choose(1, 63)
                 .SelectMany(i => Gen.ArrayOf(i, characters))
                 .Select(a => new string(a));
-        }
-
-        public static Arbitrary<Uri> Uri()
-        {
-            return Scheme()
-                .Zip(Subdomain())
-                .Zip(Domain())
-                .Select(a => (a.Item1.Item1, a.Item1.Item2, a.Item2))
-                .Zip(Tld())
-                .Select(a => $"{a.Item1.Item1}://{a.Item1.Item2}.{a.Item1.Item3}.{a.Item2}")
-                .Where(str => IsValid(str))
-                .Select(str => new Uri(str))
-                .ToArbitrary();
         }
     }
 }

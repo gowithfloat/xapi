@@ -47,7 +47,7 @@ type public Score =
     val Max: float option
 
     /// <inheritdoc />
-    val Scaled: float
+    val Scaled: float // todo: this is recommended, not required
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Score"/> struct.

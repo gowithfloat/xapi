@@ -1,5 +1,5 @@
 ﻿// <copyright file="Extensions.fs" company="Float">
-// Copyright (c) 2020 Float, All rights reserved.
+// Copyright (c) 2018 Float, All rights reserved.
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 

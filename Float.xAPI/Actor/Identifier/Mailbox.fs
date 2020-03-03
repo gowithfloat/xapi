@@ -23,7 +23,7 @@ type public IMailbox =
 [<CustomEquality;NoComparison;Struct>]
 type public Mailbox =
     /// <inheritdoc />
-    val Address: MailAddress
+    val Address: MailAddress // todo: should be an IRI
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.Mailbox"/> class.

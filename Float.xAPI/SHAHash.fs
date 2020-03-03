@@ -18,6 +18,11 @@ type public ISHAHash =
     /// </summary>
     abstract member Encoded: byte seq
 
+    /// <summary>
+    /// The encoded data, in string format.
+    /// </summary>
+    abstract member ToString: unit -> string
+
 [<StructuralEquality;NoComparison;Struct>]
 type public SHAHash =
     /// <inheritdoc />
@@ -49,3 +54,4 @@ type public SHAHash =
 
     interface ISHAHash with
         member this.Encoded = this.Encoded
+        member this.ToString() = this.ToString()

@@ -5,6 +5,9 @@
     <ReleaseVersion>0.0.1</ReleaseVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>bin\Debug\netstandard2.0\Float.xAPI.Registry.XML</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="ActivityTypes.fs" />
     <Compile Include="Verbs.fs" />

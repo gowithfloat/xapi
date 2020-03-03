@@ -4,7 +4,7 @@
         "objectType": "Agent",
         "name": "Gert Frobe",
         "account": {
-            "homePage": "http://example.adlnet.gov",
+            "homePage": "http://example.adlnet.gov/",
             "name": "1625378"
         }
     },
@@ -19,12 +19,12 @@
         "objectType": "Activity"
     },
     "result": {
-        "score": {
-            "scaled": 0.65,
-            "raw": 65,
-            "min": 0,
-            "max": 100
-        },
+      "score": {
+        "scaled": 0.65,
+        "raw": 65.00,
+        "min": 0.00,
+        "max": 100.00
+      },
         "success": false,
         "duration": "PT30M",
         "extensions": {
