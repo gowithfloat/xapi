@@ -21,7 +21,7 @@ type public IStatement =
     /// <summary>
     /// UUID assigned by LRS if not set by the Learning Record Provider.
     /// </summary>
-    abstract member Id: Guid
+    abstract member Id: Guid // todo: should this be a lifted type?
 
     /// <summary>
     /// Timestamp of when this Statement was recorded. Set by LRS.

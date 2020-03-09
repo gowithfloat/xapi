@@ -250,7 +250,7 @@ module Deserialize =
     /// </summary>
     let ParseExtensions str =
         JsonExtensions.Parse(str).JsonValue.Properties()
-        |> Seq.map(fun (k,v) -> KeyValuePair(Uri(k), v.AsString()))
+        |> Seq.map(fun (k,v) -> KeyValuePair(Uri(k), v.AsString() :> obj))
         |> Some
 
     /// <summary>
@@ -258,7 +258,7 @@ module Deserialize =
     /// </summary>
     let ParseVerb str =
         let des = JsonVerb.Parse(str)
-        let dis = des.Display.JsonValue.AsString() |> ParseLanguageMap
+        let dis = des.Display.JsonValue.ToString() |> ParseLanguageMap
         Verb(VerbId(des.Id), dis) |> Some
 
     /// <summary>
@@ -317,9 +317,10 @@ module Deserialize =
     /// </summary>
     let ParseScore str =
         let des = JsonScore.Parse(str)
+        Console.WriteLine(str)
 
         match des.Raw, des.Min, des.Max, des.Scaled with
-        | Some a, Some b, Some c, None -> Score(float a, float b, float c) :> IScore |> Some
+        | Some a, Some b, Some c, _ -> Score(float a, float b, float c) :> IScore |> Some
         | None, None, None, Some d -> Score(float d) :> IScore |> Some
         | _ -> None
 
@@ -329,10 +330,10 @@ module Deserialize =
     let ParseResult str =
         let des = JsonResult.Parse(str)
         let ext = match des.Extensions with
-                  | Some e -> e.JsonValue.AsString() |> ParseExtensions
+                  | Some e -> e.JsonValue.ToString() |> ParseExtensions
                   | _ -> None
         let score = match des.Score with
-                    | Some e -> e.JsonValue.AsString() |> ParseScore
+                    | Some e -> e.JsonValue.ToString() |> ParseScore
                     | _ -> None
         let duration = match des.Duration with
                        | Some d -> d |> XmlConvert.ToTimeSpan |> Some
@@ -351,10 +352,10 @@ module Deserialize =
     let ParseStatement str =
         let des = JsonStatement.Parse(str)
         let id = des.Id
-        let actor = des.Actor.JsonValue.AsString() |> ParseActor
-        let verb = des.Verb.JsonValue.AsString() |> ParseVerb
-        let object = des.Object.JsonValue.AsString() |> ParseObject
-        let result = des.Result.JsonValue.AsString() |> ParseResult
+        let actor = des.Actor.JsonValue.ToString() |> ParseActor
+        let verb = des.Verb.JsonValue.ToString() |> ParseVerb
+        let object = des.Object.JsonValue.ToString() |> ParseObject
+        let result = des.Result.JsonValue.ToString() |> ParseResult
 
         match actor, verb, object with
         | Some a, Some v, Some o -> Statement(a, v, o, id, ?result=result) :> IStatement |> Some

@@ -34,7 +34,7 @@ namespace Float.xAPI.Tests
                 LanguageMap.EnglishUS("Does the xAPI include the concept of statements?"),
                 true,
                 new Uri("http://example.com/more"),
-                new Dictionary<Uri, string> { { new Uri("http://example.com/ext"), "ext" } });
+                new Dictionary<Uri, object> { { new Uri("http://example.com/ext"), "ext" } });
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace Float.xAPI.Tests
         {
             Assert.Throws<ArgumentNullException>(() => new TrueFalseInteractionActivityDefinition(null, null, false, null));
             Assert.Throws<ArgumentNullException>(() => new TrueFalseInteractionActivityDefinition(LanguageMap.EnglishUS("name"), null, false, null));
-            Assert.Throws<ArgumentException>(() => new TrueFalseInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), false, new Uri("http://example.com"), new Dictionary<Uri, string> { }));
+            Assert.Throws<ArgumentException>(() => new TrueFalseInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), false, new Uri("http://example.com"), new Dictionary<Uri, object> { }));
         }
 
         [Fact]

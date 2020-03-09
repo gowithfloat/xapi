@@ -32,7 +32,7 @@ namespace Float.xAPI.Tests
                 LanguageMap.EnglishUS("Description"),
                 new ResponsePattern(new CharacterStringNumeric(4)),
                 new Uri("http://example.com"),
-                new Dictionary<Uri, string> { { new Uri("http://extension.com"), "extension" } });
+                new Dictionary<Uri, object> { { new Uri("http://extension.com"), "extension" } });
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentNullException>(() => new NumericInteractionActivityDefinition(null, null, null, null));
             Assert.Throws<ArgumentNullException>(() => new NumericInteractionActivityDefinition(LanguageMap.EnglishUS("name"), null, null, null));
             Assert.Throws<ArgumentNullException>(() => new NumericInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), null, null));
-            Assert.Throws<ArgumentException>(() => new NumericInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new Uri("http://example.com"), new Dictionary<Uri, string> { }));
+            Assert.Throws<ArgumentException>(() => new NumericInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new Uri("http://example.com"), new Dictionary<Uri, object> { }));
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Float.xAPI.Tests
                 LanguageMap.EnglishUS("Description"),
                 new ResponsePattern(new CharacterStringNumeric(4)),
                 new Uri("http://example.com"),
-                new Dictionary<Uri, string> { { new Uri("http://extension.com"), "extension" } });
+                new Dictionary<Uri, object> { { new Uri("http://extension.com"), "extension" } });
 
             Assert.Equal(LanguageMap.EnglishUS("Name"), definition.Name);
             Assert.Equal(LanguageMap.EnglishUS("Description"), definition.Description);

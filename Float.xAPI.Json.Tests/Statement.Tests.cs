@@ -34,7 +34,7 @@ namespace Float.xAPI.Json.Tests
                 score: new Score(65, 0, 100),
                 success: false,
                 duration: new TimeSpan(hours: 0, minutes: 30, seconds: 0),
-                extensions: new Dictionary<Uri, string> { { new Uri("https://w3id.org/xapi/cmi5/result/extensions/progress"), "100" } });
+                extensions: new Dictionary<Uri, object> { { new Uri("https://w3id.org/xapi/cmi5/result/extensions/progress"), 100 } });
 
             var category = new List<IActivity>
             {
@@ -42,7 +42,7 @@ namespace Float.xAPI.Json.Tests
                 new Activity(new ActivityId("https://w3id.org/xapi/cmi5/context/categories/cmi5")),
             };
 
-            var contextExtensions = new Dictionary<Uri, string>
+            var contextExtensions = new Dictionary<Uri, object>
             {
                 { new Uri("https://w3id.org/xapi/cmi5/context/extensions/sessionid"), "458240298378231" },
             };
@@ -95,7 +95,10 @@ namespace Float.xAPI.Json.Tests
 
             // result
             Assert.NotNull(statement.Result);
-            Console.WriteLine(statement.Result.Value.Score.Value.Scaled);
+            Assert.NotNull(statement.Result.Value);
+            Assert.NotNull(statement.Result.Value.Score);
+            Assert.NotNull(statement.Result.Value.Score.Value);
+            Assert.NotNull(statement.Result.Value.Score.Value.Scaled);
             Assert.Equal(0.65, statement.Result.Value.Score.Value.Scaled); // todo: avoid ".Value"
             Assert.Equal(0, statement.Result.Value.Score.Value.Min);
             Assert.Equal(100, statement.Result.Value.Score.Value.Max);

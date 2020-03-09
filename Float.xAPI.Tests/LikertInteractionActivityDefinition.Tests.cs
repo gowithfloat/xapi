@@ -44,7 +44,7 @@ namespace Float.xAPI.Tests
                 new ResponsePattern(new CharacterString("likert_3")),
                 scale,
                 new Uri("http://www.example.com/more"),
-                new List<KeyValuePair<Uri, string>> { new KeyValuePair<Uri, string>(new Uri("http://www.example.com/ext"), "ext") });
+                new List<KeyValuePair<Uri, object>> { new KeyValuePair<Uri, object>(new Uri("http://www.example.com/ext"), "ext") });
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentNullException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), null, null, null));
             Assert.Throws<ArgumentNullException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), null, null));
             Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("c"), scale2));
-            Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("c"), scale2, new Uri("a://b.c"), new Dictionary<Uri, string>()));
+            Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("c"), scale2, new Uri("a://b.c"), new Dictionary<Uri, object>()));
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace Float.xAPI.Tests
                 new InteractionComponent("likert_3", LanguageMap.EnglishUS("It's Gonna Change the World")),
             };
 
-            var ext = new List<KeyValuePair<Uri, string>> { new KeyValuePair<Uri, string>(new Uri("http://www.example.com/ext"), "ext") };
+            var ext = new List<KeyValuePair<Uri, object>> { new KeyValuePair<Uri, object>(new Uri("http://www.example.com/ext"), "ext") };
 
             var definition = new LikertInteractionActivityDefinition(
                 LanguageMap.EnglishUS("Likert"),
@@ -83,7 +83,7 @@ namespace Float.xAPI.Tests
                 new ResponsePattern("likert_3"),
                 scale,
                 new Uri("http://www.example.com/more"),
-                new List<KeyValuePair<Uri, string>> { new KeyValuePair<Uri, string>(new Uri("http://www.example.com/ext"), "ext") });
+                new List<KeyValuePair<Uri, object>> { new KeyValuePair<Uri, object>(new Uri("http://www.example.com/ext"), "ext") });
 
             Assert.Single(definition.CorrectResponsesPattern.CharacterStrings);
             Assert.Equal(LanguageMap.EnglishUS("How awesome is Experience API?"), definition.Description);

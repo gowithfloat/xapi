@@ -28,7 +28,7 @@ namespace Float.xAPI.Tests
                 new InteractionComponent("scrabble", LanguageMap.EnglishUS("Scrabble Example")),
             };
             var moreInfo = new Uri("http://www.example.com/more");
-            var extensions = new Dictionary<Uri, string>
+            var extensions = new Dictionary<Uri, object>
             {
                 {
                     new Uri("http://example.com/extension"), "extension"
@@ -67,7 +67,7 @@ namespace Float.xAPI.Tests
                 new InteractionComponent("scrabble", LanguageMap.EnglishUS("Scrabble Example")),
             };
             var moreInfo = new Uri("http://www.example.com/more");
-            var extensions = new Dictionary<Uri, string>
+            var extensions = new Dictionary<Uri, object>
             {
                 {
                     new Uri("http://example.com/extension"), "extension"

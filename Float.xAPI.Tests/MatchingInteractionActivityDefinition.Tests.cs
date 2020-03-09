@@ -58,7 +58,7 @@ namespace Float.xAPI.Tests
                 source,
                 target,
                 new Uri("http://www.example.com/more"),
-                new Dictionary<Uri, string> { { new Uri("http://www.example.com/ext"), "ext" } });
+                new Dictionary<Uri, object> { { new Uri("http://www.example.com/ext"), "ext" } });
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace Float.xAPI.Tests
                 new InteractionComponent("3", LanguageMap.EnglishUS("Duck")),
                 new InteractionComponent("4", LanguageMap.EnglishUS("Van Delay Industries")),
             };
-            var extensions = new Dictionary<Uri, string> { { new Uri("http://www.example.com/ext"), "ext" } };
+            var extensions = new Dictionary<Uri, object> { { new Uri("http://www.example.com/ext"), "ext" } };
             var definition = new MatchingInteractionActivityDefinition(
                 LanguageMap.EnglishUS("Long Fill-in"),
                 LanguageMap.EnglishUS("Match these people to their kickball team:"),

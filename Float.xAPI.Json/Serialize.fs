@@ -6,6 +6,9 @@
 namespace Float.xAPI.Json
 
 open System
+open System.Collections.Generic
+open System.Runtime.InteropServices
+open System.Xml
 open Float.xAPI
 open Float.xAPI.Activities
 open Float.xAPI.Actor
@@ -39,8 +42,15 @@ module Serialize =
     /// Convert an activity to a JSON string.
     /// </summary>
     let Activity (act: IActivity) =
-        // todo: make a more generic method of serializing objects
-        sprintf "{\"id\":\"%s\",\"objectType\":\"Activity\"}" act.Id.Iri.AbsoluteUri
+        let output = new List<string>()
+        output.Add(sprintf "\"id\":\"%s\"" act.Id.Iri.AbsoluteUri)
+        output.Add("\"objectType\":\"Activity\"")
+        sprintf "{%s}" (String.Join(",", output))
+
+    let ShortActivity (act: IActivity) =
+        let output = new List<string>()
+        output.Add(sprintf "\"id\":\"%s\"" act.Id.Iri.AbsoluteUri)
+        sprintf "{%s}" (String.Join(",", output))
 
     /// <summary>
     /// Convert an actor to a JSON string.
@@ -58,61 +68,127 @@ module Serialize =
     let Object (object: IObject) =
         match object with
         | :? IActivity as activity -> Activity activity
-        | _ -> raise (NotImplementedException "test")
+        | _ -> raise (NotImplementedException "test") // todo: make an object union
 
     /// <summary>
     /// Convert a score to a JSON string.
     /// </summary>
     let Score (score: IScore) =
         match score.Raw, score.Min, score.Max with
-        | Some raw, Some min, Some max -> sprintf "{\"scaled\":%.2f,\"raw\":%.2f,\"min\":%.2f,\"max\":%.2f}" score.Scaled raw min max
+        | Some raw, Some min, Some max -> sprintf "{\"scaled\":%A,\"raw\":%A,\"min\":%A,\"max\":%A}" score.Scaled raw min max
         | _ -> sprintf "{scaled:\"%f\"}" score.Scaled
+
+    /// <summary>
+    /// Convert extensions to a JSON string.
+    /// </summary>
+    let Extensions (extensions: IExtensions) =
+        extensions 
+        |> Seq.map (fun (pair) -> sprintf "{\"%O\":%A}" pair.Key pair.Value)
+        |> String.concat ","
 
     /// <summary>
     /// Convert a result to a JSON string.
     /// </summary>
     let Result (result: IResult) =
-        let mutable out = ""
+        let output = new List<string>()
 
-        out <- match result.Score with
-               | Some score -> out + sprintf "{\"score\":%s}," (Score score)
-               | _ -> out
+        match result.Score with
+        | Some score -> output.Add(sprintf "\"score\":%s" (Score score))
+        | _ -> ()
 
-        out <- match result.Success with
-               | Some false -> out + "\"success\":false,"
-               | Some true -> out + "\"success\":true,"
-               | _ -> out
+        match result.Success with
+        | Some false -> output.Add("\"success\":false")
+        | Some true -> output.Add("\"success\":true")
+        | _ -> ()
 
-        out <- match result.Duration with
-               | Some duration -> out + sprintf "\"duration\":\"%s\"" (duration.ToString())
-               | _ -> out
+        match result.Duration with
+        | Some duration -> output.Add(sprintf "\"duration\":\"%s\"" (XmlConvert.ToString(duration)))
+        | _ -> ()
 
-        out
+        match result.Extensions with
+        | Some extensions -> output.Add(sprintf "\"extensions\":%s" (Extensions extensions))
+        | _ -> ()
+
+        sprintf "{%s}" (String.Join(",", output))
+
+    let private Activities (activities: IActivity seq) =
+        activities
+        |> Seq.map (fun (a) -> (ShortActivity a))
+        |> String.concat ","
+        |> sprintf "[%s]"
+
+    let ContextActivities (activities: IContextActivities) =
+        let output = new List<string>()
+
+        match activities.Parent with
+        | Some parent -> output.Add(sprintf "\"parent\":%s" (Activities parent))
+        | _ -> ()
+
+        match activities.Grouping with
+        | Some grouping -> output.Add(sprintf "\"grouping\":%s" (Activities grouping))
+        | _ -> ()
+
+        match activities.Category with
+        | Some category -> output.Add(sprintf "\"category\":%s" (Activities category))
+        | _ -> ()
+
+        match activities.Other with
+        | Some other -> output.Add(sprintf "\"other\":%A" (Activities other))
+        | _ -> ()
+
+        sprintf "{%s}" (String.Join(",", output))
 
     /// <summary>
     /// Convert a context to a JSON string.
     /// </summary>
     let Context (context: IContext) =
-        "context"
+        let output = new List<string>()
+
+        match context.Registration with
+        | Some registration -> output.Add(sprintf "\"registration\":\"%s\"" (registration.ToString()))
+        | _ -> ()
+
+        match context.Instructor with
+        | Some instructor -> output.Add(sprintf "\"instructor\":%s" (Actor instructor))
+        | _ -> ()
+
+        match context.Team with
+        | Some team -> output.Add(sprintf "\"team\":%s" (Actor team))
+        | _ -> ()
+
+        match context.ContextActivities with
+        | Some activities -> output.Add(sprintf "\"contextActivities\":%s" (ContextActivities activities))
+        | _ -> ()
+
+        match context.Extensions with
+        | Some extensions -> output.Add(sprintf "\"extensions\":%s" (Extensions extensions))
+        | _ -> ()
+
+        sprintf "{%s}" (String.Join(",", output))
 
     /// <summary>
     /// Convert a statement to a JSON string.
     /// </summary>
     let Statement (statement: IStatement) =
-        let actor = Actor statement.Actor
-        let verb = Verb statement.Verb
-        let object = Object statement.Object
-        let mutable output = sprintf "\"id\":\"%s\",\"actor\":%s,\"verb\":%s,\"object\":%s" (statement.Id.ToString()) actor verb object
+        let output = new List<string>()
+        output.Add(sprintf "\"id\":\"%s\"" (statement.Id.ToString()))
+        output.Add(sprintf "\"actor\":%s" (Actor statement.Actor))
+        output.Add(sprintf "\"verb\":%s" (Verb statement.Verb))
+        output.Add(sprintf "\"object\":%s" (Object statement.Object))
 
-        output <- match statement.Result with
-                  | Some result -> output + sprintf ",\"result\":%s" (Result result)
-                  | _ -> output
+        match statement.Result with
+        | Some result -> output.Add(sprintf "\"result\":%s" (Result result))
+        | _ -> ()
 
-        output <- match statement.Context with
-                  | Some context -> output + sprintf ",\"context\":%s" (Context context)
-                  | _ -> output
+        match statement.Context with
+        | Some context -> output.Add(sprintf "\"context\":%s" (Context context))
+        | _ -> ()
 
-        sprintf "{%s}" output
+        match statement.Timestamp with
+        | Some timestamp -> output.Add(sprintf "\"timestamp\":%A" (timestamp.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK")))
+        | _ -> ()
+
+        sprintf "{%s}" (String.Join(",", output))
 
     /// <summary>
     /// Convert a language map to a JSON string.

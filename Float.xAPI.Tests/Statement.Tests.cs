@@ -220,7 +220,7 @@ namespace Float.xAPI.Tests
             var agent = new Agent(account, "Gert Frobe");
             var verb = new Verb(new VerbId("http://adlnet.gov/expapi/verbs/failed"), new LanguageMap(LanguageTag.EnglishUS, "failed"));
             var activity = new Activity(new ActivityId("https://example.adlnet.gov/AUidentifier"));
-            var extensions = new Dictionary<Uri, string>
+            var extensions = new Dictionary<Uri, object>
             {
                 {
                     new Uri("https://w3id.org/xapi/cmi5/result/extensions/progress"), "100"
@@ -234,7 +234,7 @@ namespace Float.xAPI.Tests
                 new Activity(new ActivityId("https://w3id.org/xapi/cmi5/context/categories/cmi5")),
             };
             var contextActivities = new ContextActivities(category: categories);
-            var ctxExtensions = new Dictionary<Uri, string>
+            var ctxExtensions = new Dictionary<Uri, object>
             {
                 {
                     new Uri("https://w3id.org/xapi/cmi5/context/extensions/sessionid"), "458240298378231"

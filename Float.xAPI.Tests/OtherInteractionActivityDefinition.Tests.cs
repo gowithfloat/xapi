@@ -32,7 +32,7 @@ namespace Float.xAPI.Tests
                 LanguageMap.EnglishUS("On this map, please mark Franklin, TN"),
                 new ResponsePattern("(35.937432,-86.868896)"),
                 new Uri("http://example.com"),
-                new Dictionary<Uri, string> { { new Uri("http://example.com"), "extension" } });
+                new Dictionary<Uri, object> { { new Uri("http://example.com"), "extension" } });
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentNullException>(() => new OtherInteractionActivityDefinition(null, null, null));
             Assert.Throws<ArgumentNullException>(() => new OtherInteractionActivityDefinition(LanguageMap.EnglishUS("name"), null, null));
             Assert.Throws<ArgumentNullException>(() => new OtherInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), null, null));
-            Assert.Throws<ArgumentException>(() => new OtherInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new Uri("http://example.com"), new Dictionary<Uri, string> { }));
+            Assert.Throws<ArgumentException>(() => new OtherInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new Uri("http://example.com"), new Dictionary<Uri, object> { }));
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Float.xAPI.Tests
                 LanguageMap.EnglishUS("On this map, please mark Franklin, TN"),
                 new ResponsePattern("(35.937432,-86.868896)"),
                 new Uri("http://example.com"),
-                new Dictionary<Uri, string> { { new Uri("http://example.com"), "extension" } });
+                new Dictionary<Uri, object> { { new Uri("http://example.com"), "extension" } });
 
             Assert.Equal(LanguageMap.EnglishUS("Name"), definition.Name);
             Assert.Equal(LanguageMap.EnglishUS("On this map, please mark Franklin, TN"), definition.Description);

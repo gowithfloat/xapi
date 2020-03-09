@@ -21,14 +21,14 @@ namespace Float.xAPI.Tests
             var result4 = new Result(completion: false);
             var result5 = new Result(response: "response");
             var result6 = new Result(duration: TimeSpan.FromHours(2));
-            var result7 = new Result(extensions: new Dictionary<Uri, string> { { new Uri("http://example.com"), "example" } });
+            var result7 = new Result(extensions: new Dictionary<Uri, object> { { new Uri("http://example.com"), "example" } });
             return new Result(
                 new Score(0.25),
                 false,
                 true,
                 "example response",
                 new TimeSpan(),
-                new Dictionary<Uri, string> { { new Uri("http://example.com"), "example" } });
+                new Dictionary<Uri, object> { { new Uri("http://example.com"), "example" } });
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace Float.xAPI.Tests
                 true,
                 "example response",
                 new TimeSpan(),
-                new Dictionary<Uri, string> { { new Uri("http://example.com"), "example" } }) as IResult;
+                new Dictionary<Uri, object> { { new Uri("http://example.com"), "example" } }) as IResult;
             Assert.NotNull(result.Score);
             Assert.Equal(false, result.Success);
             Assert.Equal(true, result.Completion);

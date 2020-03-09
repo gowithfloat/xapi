@@ -72,7 +72,7 @@ namespace Float.xAPI.Tests
                 "platform",
                 LanguageTag.EnglishUS,
                 new StatementReference(Guid.NewGuid()),
-                new Dictionary<Uri, string> { { new Uri("http://example.com/ext"), "ext" } });
+                new Dictionary<Uri, object> { { new Uri("http://example.com/ext"), "ext" } });
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace Float.xAPI.Tests
         {
             Assert.Throws<ArgumentException>(() => new Context(revision: string.Empty));
             Assert.Throws<ArgumentException>(() => new Context(platform: string.Empty));
-            Assert.Throws<ArgumentException>(() => new Context(extensions: new Dictionary<Uri, string> { }));
+            Assert.Throws<ArgumentException>(() => new Context(extensions: new Dictionary<Uri, object> { }));
         }
 
         [Fact]

@@ -51,7 +51,7 @@ namespace Float.xAPI.Tests
                 new ResponsePattern(pairs),
                 steps,
                 new Uri("http://example.com/more"),
-                new Dictionary<Uri, string> { { new Uri("http://example.com/ext"), "ext" } });
+                new Dictionary<Uri, object> { { new Uri("http://example.com/ext"), "ext" } });
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace Float.xAPI.Tests
             Assert.Throws<ArgumentNullException>(() => new PerformanceInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), null, null));
             Assert.Throws<ArgumentNullException>(() => new PerformanceInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), null));
             Assert.Throws<ArgumentException>(() => new PerformanceInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new List<IInteractionComponent> { }, new Uri("http://example.com")));
-            Assert.Throws<ArgumentException>(() => new PerformanceInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new List<IInteractionComponent> { new InteractionComponent("id") }, new Uri("http://example.com"), new Dictionary<Uri, string> { }));
+            Assert.Throws<ArgumentException>(() => new PerformanceInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new List<IInteractionComponent> { new InteractionComponent("id") }, new Uri("http://example.com"), new Dictionary<Uri, object> { }));
         }
 
         [Fact]

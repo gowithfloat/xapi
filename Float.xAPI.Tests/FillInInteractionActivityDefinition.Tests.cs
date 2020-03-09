@@ -21,7 +21,7 @@ namespace Float.xAPI.Tests
             var description = LanguageMap.EnglishUS("Ben is often heard saying: ");
             var correctResponsesPattern = new ResponsePattern(new CharacterString("Bob's your uncle"));
             var moreInfo = new Uri("http://example.com/more");
-            var extensions = new Dictionary<Uri, string>
+            var extensions = new Dictionary<Uri, object>
             {
                 {
                     new Uri("http://example.com/ext"), "ext"
@@ -51,7 +51,7 @@ namespace Float.xAPI.Tests
             var description = LanguageMap.EnglishUS("Ben is often heard saying: ");
             var correctResponsesPattern = new ResponsePattern(new CharacterString("Bob's your uncle"));
             var moreInfo = new Uri("http://example.com/more");
-            var extensions = new Dictionary<Uri, string>
+            var extensions = new Dictionary<Uri, object>
             {
                 {
                     new Uri("http://example.com/ext"), "ext"

@@ -21,7 +21,7 @@ namespace Float.xAPI.Tests
             var description = new LanguageMap(LanguageTag.EnglishUS, "Description");
             var uri = new Uri("http://example.com");
             var moreInfo = new Uri("http://example.com/more");
-            var extensions = new Dictionary<Uri, string>
+            var extensions = new Dictionary<Uri, object>
             {
                 { new Uri("http://example.com/ext1"), "ext1" },
             };
@@ -54,7 +54,7 @@ namespace Float.xAPI.Tests
                 LanguageMap.EnglishUS("description"),
                 new Uri("http://example.com/type"),
                 new Uri("http://example.com/more"),
-                new Dictionary<Uri, string> { { new Uri("http://example.com/ext"), "extension" } });
+                new Dictionary<Uri, object> { { new Uri("http://example.com/ext"), "extension" } });
             Assert.Equal(LanguageMap.EnglishUS("description"), activityDefinition.Description);
             Assert.Equal("extension", activityDefinition.Extensions.Value.First().Value);
             Assert.Equal(new Uri("http://example.com/more"), activityDefinition.MoreInfo);
