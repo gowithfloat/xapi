@@ -38,7 +38,7 @@ namespace Float.xAPI.Json.Tests
             });
 
             var verb = new Verb(id, display);
-            var actual = Json.Serialize.Verb(verb);
+            var actual = FormatJson(Serialize.Verb(verb));
 
             Assert.Equal(expected, actual);
         }

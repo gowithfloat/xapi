@@ -63,7 +63,7 @@ namespace Float.xAPI.Json.Tests
 
             Assert.Equal(
                 FormatJson(ReadFile("about-example-statement.json")),
-                Json.Serialize.Statement(statement));
+                FormatJson(Serialize.Statement(statement)));
         }
 
         [Fact]

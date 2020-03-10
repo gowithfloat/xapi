@@ -4,6 +4,7 @@
 // </copyright>
 
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -33,9 +34,28 @@ namespace Float.xAPI.Json.Tests
         /// </summary>
         /// <param name="json">The JSON string to format.</param>
         /// <returns></returns>
-        public static string FormatJson(string json)
+        public static string FormatJson(string json, bool pretty = false)
         {
-            return JToken.Parse(json).ToString(Formatting.None);
+            return Sort(JObject.Parse(json)).ToString(pretty ? Formatting.Indented : Formatting.None);
+        }
+
+        static JObject Sort(JObject obj)
+        {
+            var result = new JObject();
+
+            foreach (var property in obj.Properties().OrderBy(p => p.Name))
+            {
+                if (property.Value is JObject value)
+                {
+                    result.Add(property.Name, Sort(value));
+                }
+                else
+                {
+                    result.Add(property.Name, property.Value);
+                }
+            }
+
+            return result;
         }
     }
 }
