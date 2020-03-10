@@ -22,7 +22,7 @@ type public Agent =
     val Name: string option
 
     /// <inheritdoc />
-    val IFI: IInverseFunctionalIdentifier
+    val IFI: AnyIFI
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Agent"/> class.
@@ -31,7 +31,7 @@ type public Agent =
     /// <param name="display">Name of the Agent. Optional.</param>
     new (ifi, [<Optional;DefaultParameterValue(null)>] ?name) =
         nullArg ifi "ifi"
-        { Name = name; IFI = ifi }
+        { Name = name; IFI = AnyIFI.FromIdentifier ifi }
 
     /// <inheritdoc />
     member this.ObjectType = ObjectType.Agent

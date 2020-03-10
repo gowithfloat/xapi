@@ -33,9 +33,9 @@ module Serialize =
     let IFI (ifi: IInverseFunctionalIdentifier) =
         match ifi with
         | :? IAccount as acc -> sprintf "{\"homePage\":\"%s\",\"name\":\"%s\"}" acc.HomePage.AbsoluteUri acc.Name
-        | :? IMailbox as mbox -> sprintf "{\"mbox\":\"%s\"}" (mbox.Address.ToString())
-        | :? IMailboxSha1Sum as sha -> sprintf "{\"mbox_sha1sum\":\"%s\"}" (sha.MboxSha1Sum.ToString())
-        | :? IOpenID as id -> sprintf "{\"openid\":\"%s\"}" id.OpenID.AbsoluteUri
+        | :? IMailbox as mbox -> sprintf "\"%s\"" (mbox.ToString())
+        | :? IMailboxSha1Sum as sha -> sprintf "\"%s\"" (sha.MboxSha1Sum.ToString())
+        | :? IOpenID as id -> sprintf "\"%s\"" id.OpenID.AbsoluteUri
         | _ -> invalidArg "ifi" "Not a valid IFI" // todo: make an IFI union to avoid this case
 
     /// <summary>
@@ -43,24 +43,37 @@ module Serialize =
     /// </summary>
     let Activity (act: IActivity) =
         let output = new List<string>()
-        output.Add(sprintf "\"id\":\"%s\"" act.Id.Iri.AbsoluteUri)
         output.Add("\"objectType\":\"Activity\"")
-        sprintf "{%s}" (String.Join(",", output))
-
-    let ShortActivity (act: IActivity) =
-        let output = new List<string>()
         output.Add(sprintf "\"id\":\"%s\"" act.Id.Iri.AbsoluteUri)
         sprintf "{%s}" (String.Join(",", output))
+    
+    /// <summary>
+    /// Convert an activity to a JSON string, but without the object type identifier.
+    /// </summary>
+    let private ShortActivity (act: IActivity) =
+        sprintf "{\"id\":\"%s\"}" act.Id.Iri.AbsoluteUri
 
     /// <summary>
     /// Convert an actor to a JSON string.
     /// </summary>
     let Actor (actor: IActor) =
-        match actor, actor.Name with
-        | :? IIdentifiedActor as idActor, Some name -> sprintf "{\"objectType\":\"%s\",\"name\":\"%s\",\"account\":%s}" (actor.ObjectType.ToString()) name (IFI idActor.IFI)
-        | :? IIdentifiedActor as idActor, _ -> sprintf "{\"objectType\":\"%s\",\"account\":%s}" (actor.ObjectType.ToString()) (IFI idActor.IFI)
-        | _, Some name -> sprintf "{\"objectType\":\"%s\",\"name\":\"%s\"}" (actor.ObjectType.ToString()) name
-        | _, _ -> sprintf "{\"objectType\":\"%s\"}" (actor.ObjectType.ToString())
+        let output = new List<string>()
+        output.Add("\"objectType\":\"Agent\"")
+
+        match actor.Name with
+        | Some name -> output.Add(sprintf "\"name\":\"%s\"" name)
+        | _ -> ()
+
+        match actor with
+        | :? IIdentifiedActor as idActor -> 
+            match idActor.IFI with
+            | Mailbox mbox -> output.Add(sprintf "\"mbox\":%s" (IFI mbox))
+            | MailboxSha1Sum sha -> output.Add(sprintf "\"mbox_sha1sum\":%s"(IFI sha))
+            | OpenID id -> output.Add(sprintf "\"openid\":%s" (IFI id))
+            | Account account -> output.Add(sprintf "\"account\":%s" (IFI account))
+        | _ -> ()
+        
+        sprintf "{%s}" (String.Join(",", output))
 
     /// <summary>
     /// Convert an object to a JSON string.
@@ -111,12 +124,18 @@ module Serialize =
 
         sprintf "{%s}" (String.Join(",", output))
 
+    /// <summary>
+    /// Convert an array of activities to a JSON string.
+    /// </summary>
     let private Activities (activities: IActivity seq) =
         activities
         |> Seq.map (fun (a) -> (ShortActivity a))
         |> String.concat ","
         |> sprintf "[%s]"
-
+    
+    /// <summary>
+    /// Convert context activities to a JSON string.
+    /// </summary>
     let ContextActivities (activities: IContextActivities) =
         let output = new List<string>()
 

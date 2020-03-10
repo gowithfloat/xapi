@@ -24,13 +24,35 @@ namespace Float.xAPI.Json.Tests
             var agent1 = new Agent(ifi1, "Jane Doe");
             var agent2 = new Agent(ifi2, "Sue Schmoe");
             var agent3 = new Agent(ifi3, "Learner, Example");
-            var agent4 = new Agent(ifi4, "Student");
+            var agent4 = new Agent(ifi4);
+
+            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Jane Doe\",\"mbox\":\"mailto:jdoe@example.com\"}", Json.Serialize.Actor(agent1));
+            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Sue Schmoe\",\"mbox_sha1sum\":\"0e3372390b51c30c2fa4d2e0fd7b2b2009fc5692\"}", Json.Serialize.Actor(agent2));
+            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Learner, Example\",\"openid\":\"https://www.gowithfloat.com/\"}", Json.Serialize.Actor(agent3));
+            Assert.Equal("{\"objectType\":\"Agent\",\"account\":{\"homePage\":\"http://example.com/\",\"name\":\"test\"}}", Json.Serialize.Actor(agent4));
         }
 
         [Fact]
         public void TestDeserialize()
         {
             var json = ReadFile("data-agent-account-example.json");
+            var agent = Json.Deserialize.ParseAgent(json).Value;
+
+            Assert.NotNull(agent);
+            Assert.Equal(ObjectType.Agent, agent.ObjectType);
+            Assert.True(agent.IFI.IsAccount);
+
+            switch (agent.IFI)
+            {
+                case var ifi when ifi.IsAccount:
+                    var account = ((AnyIFI.Account)ifi).Item;
+                    Assert.Equal(new Uri("http://www.example.com/"), account.HomePage);
+                    Assert.Equal("1625378", account.Name);
+                    break;
+                default:
+                    Assert.True(false);
+                    break;
+            }
         }
     }
 }

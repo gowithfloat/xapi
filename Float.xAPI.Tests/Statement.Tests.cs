@@ -31,7 +31,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(ObjectType.Agent, statement.Actor.ObjectType);
             Assert.Equal(ObjectType.Activity, statement.Object.ObjectType);
             Assert.Null(statement.Actor.Name);
-            Assert.Equal("xapi@adlnet.gov", ((statement.Actor as IAgent).IFI as IMailbox).Address.Address);
+            Assert.Equal("xapi@adlnet.gov", ((statement.Actor as IAgent).IFI.Item as IMailbox).Address.Address);
             return statement;
         }
 
@@ -198,8 +198,8 @@ namespace Float.xAPI.Tests
             Assert.Equal(obj, statement.Object);
             Assert.Equal(ObjectType.StatementReference, statement.Object.ObjectType);
             Assert.Equal(ObjectType.Agent, statement.Actor.ObjectType);
-            Assert.Equal("example.adlnet.gov", ((statement.Actor as IAgent).IFI as IMailbox).Address.Host);
-            Assert.Equal("admin", ((statement.Actor as IAgent).IFI as IMailbox).Address.User);
+            Assert.Equal("example.adlnet.gov", ((statement.Actor as IAgent).IFI.Item as IMailbox).Address.Host);
+            Assert.Equal("admin", ((statement.Actor as IAgent).IFI.Item as IMailbox).Address.User);
         }
 
         [Fact]

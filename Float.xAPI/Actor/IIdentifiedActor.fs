@@ -5,9 +5,6 @@
 
 namespace Float.xAPI.Actor
 
-// todo: since the IFI is always one of four (mbox, mboxsha1sum, openid, account) should the IFI property be a union?
-// i.e. type IFIKind = | M of Mailbox | S of MailboxSha1Sum | O of OpenID | A of Account
-
 open System
 open Float.xAPI.Actor.Identifier
 
@@ -18,7 +15,7 @@ type public IIdentifiedActor =
     /// <summary>
     /// An Inverse Functional Identifier unique to the Agent.
     /// </summary>
-    abstract member IFI: IInverseFunctionalIdentifier
+    abstract member IFI: AnyIFI
 
     inherit IEquatable<IIdentifiedActor>
     inherit IActor
