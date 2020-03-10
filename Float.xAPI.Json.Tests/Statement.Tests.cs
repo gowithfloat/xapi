@@ -98,7 +98,6 @@ namespace Float.xAPI.Json.Tests
             Assert.NotNull(statement.Result.Value);
             Assert.NotNull(statement.Result.Value.Score);
             Assert.NotNull(statement.Result.Value.Score.Value);
-            Assert.NotNull(statement.Result.Value.Score.Value.Scaled);
             Assert.Equal(0.65, statement.Result.Value.Score.Value.Scaled); // todo: avoid ".Value"
             Assert.Equal(0, statement.Result.Value.Score.Value.Min);
             Assert.Equal(100, statement.Result.Value.Score.Value.Max);
