@@ -6,15 +6,15 @@
 namespace Float.xAPI.Actor.Identifier
 
 /// <summary>
-/// A discriminated union for every possible IFI type.
+/// A discriminated union for every possible inverse functional identifier.
 /// </summary>
-type public AnyIFI = 
+type public InverseFunctionalIdentifier = 
     | Mailbox of IMailbox 
     | MailboxSha1Sum of IMailboxSha1Sum 
     | OpenID of IOpenID 
     | Account of IAccount
 
-type public AnyIFI with
+type public InverseFunctionalIdentifier with
     /// <summary>
     /// Retrieve the inverse functional identifier in this instance.
     /// </summary>
@@ -28,10 +28,10 @@ type public AnyIFI with
     /// <summary>
     /// A function to create an AnyIFI object from an inverse functional identifier.
     /// </summary>
-    static member FromIdentifier (ifi: IInverseFunctionalIdentifier) =
+    static member From (ifi: IInverseFunctionalIdentifier) =
         match ifi with
-        | :? IMailbox as mbox -> AnyIFI.Mailbox mbox
-        | :? IMailboxSha1Sum as sha -> AnyIFI.MailboxSha1Sum sha
-        | :? IOpenID as openId -> AnyIFI.OpenID openId
-        | :? IAccount as account -> AnyIFI.Account account
+        | :? IMailbox as mbox -> Mailbox mbox
+        | :? IMailboxSha1Sum as sha -> MailboxSha1Sum sha
+        | :? IOpenID as openId -> OpenID openId
+        | :? IAccount as account -> Account account
         | _ -> invalidArg "ifi" "Unknown inverse functional identifier"

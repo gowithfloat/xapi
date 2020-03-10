@@ -15,7 +15,7 @@ type public IIdentifiedActor =
     /// <summary>
     /// An Inverse Functional Identifier unique to the Agent.
     /// </summary>
-    abstract member IFI: AnyIFI
+    abstract member IFI: InverseFunctionalIdentifier
 
     inherit IEquatable<IIdentifiedActor>
     inherit IActor

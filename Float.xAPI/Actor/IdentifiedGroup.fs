@@ -26,7 +26,7 @@ type public IdentifiedGroup =
     val Member: IAgent seq
 
     /// <inheritdoc />
-    val IFI: AnyIFI
+    val IFI: InverseFunctionalIdentifier
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.IdentifiedGroup"/> class.
@@ -38,7 +38,7 @@ type public IdentifiedGroup =
         nullArg ifi "ifi"
         emptyOptionalSeqArg members "members"
         invalidOptionalStringArg name "name"
-        { Name = name; IFI = AnyIFI.FromIdentifier ifi; Member = members |? Seq.empty }
+        { Name = name; IFI = InverseFunctionalIdentifier.From ifi; Member = members |? Seq.empty }
 
     /// <inheritdoc />
     member this.ObjectType = ObjectType.Group

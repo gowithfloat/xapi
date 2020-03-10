@@ -45,7 +45,7 @@ namespace Float.xAPI.Json.Tests
             switch (agent.IFI)
             {
                 case var ifi when ifi.IsAccount:
-                    var account = ((AnyIFI.Account)ifi).Item;
+                    var account = ((InverseFunctionalIdentifier.Account)ifi).Item;
                     Assert.Equal(new Uri("http://www.example.com/"), account.HomePage);
                     Assert.Equal("1625378", account.Name);
                     break;
