@@ -21,9 +21,9 @@
     "result": {
       "score": {
         "scaled": 0.65,
-        "raw": 65.00,
-        "min": 0.00,
-        "max": 100.00
+        "raw": 65,
+        "min": 0,
+        "max": 100
       },
         "success": false,
         "duration": "PT30M",

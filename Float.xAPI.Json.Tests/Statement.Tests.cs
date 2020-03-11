@@ -117,7 +117,67 @@ namespace Float.xAPI.Json.Tests
             Assert.NotNull(target.Definition);
 
             var actual = FormatJson(Serialize.Statement(statement));
+
+            // these strings won't be identical; Float.xAPI explicitly sets objectType wherever possible
+            Assert.Equal(24, LevenshteinDistance(expected, actual));
+        }
+
+        [Fact]
+        public void TestExampleA2()
+        {
+            var expected = FormatJson(ReadFile("data-appendix-a-example-2.json"));
+            var statement = Deserialize.ParseStatement(expected).Value;
+            Assert.NotNull(statement.Result.Value);
+            Assert.True(statement.Result.Value.Completion.Value);
+            Assert.True(statement.Result.Value.Success.Value);
+            Assert.Equal(0.95, statement.Result.Value.Score.Value.Scaled);
+            Assert.Equal(new TimeSpan(0, 0, 1234), statement.Result.Value.Duration.Value);
+
+            var actual = FormatJson(Serialize.Statement(statement));
+
+            // these strings won't be identical; Float.xAPI explicitly sets objectType wherever possible
+            // also: TimeSpan will return 1234S as 20M34S
+            // also: floating point precision of scaled score
+            //Assert.Equal(24, LevenshteinDistance(expected, actual));
             Assert.Equal(expected, actual);
+        }
+
+        int LevenshteinDistance(string x, string  y)
+        {
+            // https://www.csharpstar.com/csharp-string-distance-algorithm/
+            var bounds = new { Height = x.Length + 1, Width = y.Length + 1 };
+            var matrix = new int[bounds.Height, bounds.Width];
+
+            for (var height = 0; height < bounds.Height; height++)
+            {
+                matrix[height, 0] = height;
+            }
+
+            for (var width = 0; width < bounds.Width; width++)
+            {
+                matrix[0, width] = width;
+            }
+
+            for (var height = 1; height < bounds.Height; height++)
+            {
+                for (var width = 1; width < bounds.Width; width++)
+                {
+                    var cost = (x[height - 1] == y[width - 1]) ? 0 : 1;
+                    var insertion = matrix[height, width - 1] + 1;
+                    var deletion = matrix[height - 1, width] + 1;
+                    var substitution = matrix[height - 1, width - 1] + cost;
+                    var distance = Math.Min(insertion, Math.Min(deletion, substitution));
+
+                    if (height > 1 && width > 1 && x[height - 1] == y[width - 2] && x[height - 2] == y[width - 1])
+                    {
+                        distance = Math.Min(distance, matrix[height - 2, width - 2] + cost);
+                    }
+
+                    matrix[height, width] = distance;
+                }
+            }
+
+            return matrix[bounds.Height - 1, bounds.Width - 1];
         }
     }
 }

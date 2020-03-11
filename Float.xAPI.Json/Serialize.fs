@@ -23,10 +23,58 @@ open Newtonsoft.Json
 /// </summary>
 module Serialize =
     /// <summary>
+    /// Convert a time span to a string in the expected xAPI format.
+    /// </summary>
+    let private durationString (d: TimeSpan) =
+        XmlConvert.ToString(d)
+
+    /// <summary>
+    /// Wrap a string in quotes.
+    /// </summary>
+    let private quoteWrap s =
+        sprintf "\"%s\"" s
+
+    /// <summary>
+    /// An F#-friendly wrapper for the C# string join method.
+    /// </summary>
+    let private commaJoinSeq (s: seq<_>) =
+        String.Join(",", s)
+
+    /// <summary>
+    /// Convert key/value pairs into a JSON string, e.g. "{\"key\":value}".
+    /// </summary>
+    let private dictToJson (m: IDictionary<_, _>) =
+        m
+        |> Seq.map (|KeyValue|)  
+        |> Seq.map (fun (k,v) -> sprintf "\"%s\":%O" k v)
+        |> commaJoinSeq
+        |> sprintf "{%s}"
+    
+    /// <summary>
+    /// Convert an activity to a JSON string, but without the object type identifier.
+    /// </summary>
+    let private ShortActivity (act: IActivity) =
+        let output = new Dictionary<string, obj>()
+        output.Add("id", act.Id.ToString() |> quoteWrap)
+        output |> dictToJson
+
+    /// <summary>
+    /// Convert an array of activities to a JSON string.
+    /// </summary>
+    let private Activities (activities: IActivity seq) =
+        activities
+        |> Seq.map (fun (a) -> (ShortActivity a))
+        |> String.concat ","
+        |> sprintf "[%s]"
+
+    /// <summary>
     /// Convert a verb to a JSON string.
     /// </summary>
     let Verb (verb: IVerb) =
-        sprintf "{\"id\":\"%s\",\"display\":%s}" verb.Id.Iri.AbsoluteUri (JsonConvert.SerializeObject verb.Display)
+        let output = new Dictionary<string, obj>()
+        output.Add("id", verb.Id.ToString() |> quoteWrap)
+        output.Add("display", verb.Display |> JsonConvert.SerializeObject)
+        output |> dictToJson
 
     /// <summary>
     /// Convert an inverse functional identifier to a JSON string.
@@ -44,64 +92,60 @@ module Serialize =
     /// </summary>
     let LanguageMap (map: ILanguageMap) =
         map 
-        |> Seq.map (fun (pair) -> sprintf "{\"%O\":\"%O\"}" pair.Key pair.Value)
-        |> String.concat ","
+        |> Seq.map (|KeyValue|) 
+        |> Seq.map (fun (k,v) -> k.ToString(), v |> quoteWrap) 
+        |> Map.ofSeq 
+        |> dictToJson
 
     let ActivityDefinition (def: IActivityDefinition) =
-        let output = new List<string>()
+        let output = new Dictionary<string, obj>()
 
         match def.Name with
-        | Some name -> output.Add(sprintf "\"name\":%s" (LanguageMap name))
+        | Some name -> output.Add("name", name |> LanguageMap)
         | None -> ()
 
         match def.Description with
-        | Some desc -> output.Add(sprintf "\"description\":%s" (LanguageMap desc))
+        | Some desc -> output.Add("description", desc |> LanguageMap)
         | None -> ()
 
-        sprintf "{%s}" (String.Join(",", output))
+        output |> dictToJson
 
 
     /// <summary>
     /// Convert an activity to a JSON string.
     /// </summary>
     let Activity (act: IActivity) =
-        let output = new List<string>()
-        output.Add("\"objectType\":\"Activity\"")
-        output.Add(sprintf "\"id\":\"%s\"" act.Id.Iri.AbsoluteUri)
+        let output = new Dictionary<string, obj>()
+        output.Add("objectType", "Activity" |> quoteWrap)
+        output.Add("id", act.Id.ToString() |> quoteWrap)
 
         match act.Definition with
-        | Some def -> output.Add(sprintf "\"definition\":%s" (ActivityDefinition def))
+        | Some def -> output.Add("definition", def |> ActivityDefinition)
         | None -> ()
 
-        sprintf "{%s}" (String.Join(",", output))
-    
-    /// <summary>
-    /// Convert an activity to a JSON string, but without the object type identifier.
-    /// </summary>
-    let private ShortActivity (act: IActivity) =
-        sprintf "{\"id\":\"%s\"}" act.Id.Iri.AbsoluteUri
+        output |> dictToJson
 
     /// <summary>
     /// Convert an actor to a JSON string.
     /// </summary>
     let Actor (actor: IActor) =
-        let output = new List<string>()
-        output.Add("\"objectType\":\"Agent\"")
+        let output = new Dictionary<string, obj>()
+        output.Add("objectType", "Agent" |> quoteWrap)
 
         match actor.Name with
-        | Some name -> output.Add(sprintf "\"name\":\"%s\"" name)
+        | Some name -> output.Add("name", name |> quoteWrap)
         | _ -> ()
 
         match actor with
         | :? IIdentifiedActor as idActor -> 
             match idActor.IFI with
-            | Mailbox mbox -> output.Add(sprintf "\"mbox\":%s" (IFI mbox))
-            | MailboxSha1Sum sha -> output.Add(sprintf "\"mbox_sha1sum\":%s"(IFI sha))
-            | OpenID id -> output.Add(sprintf "\"openid\":%s" (IFI id))
-            | Account account -> output.Add(sprintf "\"account\":%s" (IFI account))
+            | Mailbox mbox -> output.Add("mbox", mbox |> IFI)
+            | MailboxSha1Sum sha -> output.Add("mbox_sha1sum", sha |> IFI)
+            | OpenID id -> output.Add("openid", id |> IFI)
+            | Account account -> output.Add("account", account |> IFI)
         | _ -> ()
-        
-        sprintf "{%s}" (String.Join(",", output))
+
+        output |> dictToJson
 
     /// <summary>
     /// Convert an object to a JSON string.
@@ -115,124 +159,135 @@ module Serialize =
     /// Convert a score to a JSON string.
     /// </summary>
     let Score (score: IScore) =
-        match score.Raw, score.Min, score.Max with
-        | Some raw, Some min, Some max -> sprintf "{\"scaled\":%A,\"raw\":%A,\"min\":%A,\"max\":%A}" score.Scaled raw min max
-        | _ -> sprintf "{scaled:\"%f\"}" score.Scaled
+        let output = new Dictionary<string, obj>()
+        output.Add("scaled", score.Scaled)
+
+        match score.Raw with
+        | Some raw -> output.Add("raw", raw)
+        | _ -> ()
+
+        match score.Min with
+        | Some min -> output.Add("min", min)
+        | _ -> ()
+
+        match score.Max with
+        | Some max -> output.Add("max", max)
+        | _ -> ()
+
+        output |> dictToJson
 
     /// <summary>
     /// Convert extensions to a JSON string.
     /// </summary>
     let Extensions (extensions: IExtensions) =
         extensions 
-        |> Seq.map (fun (pair) -> sprintf "{\"%O\":%A}" pair.Key pair.Value)
-        |> String.concat ","
+        |> Seq.map (|KeyValue|) 
+        |> Seq.map (fun (k,v) -> k.AbsoluteUri, sprintf "%A" v) 
+        |> Map.ofSeq 
+        |> dictToJson
 
     /// <summary>
     /// Convert a result to a JSON string.
     /// </summary>
     let Result (result: IResult) =
-        let output = new List<string>()
+        let output = new Dictionary<string, obj>()
 
         match result.Score with
-        | Some score -> output.Add(sprintf "\"score\":%s" (Score score))
+        | Some score -> output.Add("score", score |> Score)
         | _ -> ()
 
         match result.Success with
-        | Some false -> output.Add("\"success\":false")
-        | Some true -> output.Add("\"success\":true")
+        | Some false -> output.Add("success", "false")
+        | Some true -> output.Add("success", "true")
+        | _ -> ()
+
+        match result.Completion with
+        | Some false -> output.Add("completion", "false")
+        | Some true -> output.Add("completion", "true")
         | _ -> ()
 
         match result.Duration with
-        | Some duration -> output.Add(sprintf "\"duration\":\"%s\"" (XmlConvert.ToString(duration)))
+        | Some duration -> output.Add("duration", duration |> durationString |> quoteWrap)
         | _ -> ()
 
         match result.Extensions with
-        | Some extensions -> output.Add(sprintf "\"extensions\":%s" (Extensions extensions))
+        | Some extensions -> output.Add("extensions", extensions |> Extensions)
         | _ -> ()
 
-        sprintf "{%s}" (String.Join(",", output))
-
-    /// <summary>
-    /// Convert an array of activities to a JSON string.
-    /// </summary>
-    let private Activities (activities: IActivity seq) =
-        activities
-        |> Seq.map (fun (a) -> (ShortActivity a))
-        |> String.concat ","
-        |> sprintf "[%s]"
+        output |> dictToJson
     
     /// <summary>
     /// Convert context activities to a JSON string.
     /// </summary>
     let ContextActivities (activities: IContextActivities) =
-        let output = new List<string>()
+        let output = new Dictionary<string, obj>()
 
         match activities.Parent with
-        | Some parent -> output.Add(sprintf "\"parent\":%s" (Activities parent))
+        | Some parent -> output.Add("parent", parent |> Activities)
         | _ -> ()
 
         match activities.Grouping with
-        | Some grouping -> output.Add(sprintf "\"grouping\":%s" (Activities grouping))
+        | Some grouping -> output.Add("grouping", grouping |> Activities)
         | _ -> ()
 
         match activities.Category with
-        | Some category -> output.Add(sprintf "\"category\":%s" (Activities category))
+        | Some category -> output.Add("category", category |> Activities)
         | _ -> ()
 
         match activities.Other with
-        | Some other -> output.Add(sprintf "\"other\":%A" (Activities other))
+        | Some other -> output.Add("other", other |> Activities)
         | _ -> ()
 
-        sprintf "{%s}" (String.Join(",", output))
+        output |> dictToJson
 
     /// <summary>
     /// Convert a context to a JSON string.
     /// </summary>
     let Context (context: IContext) =
-        let output = new List<string>()
+        let output = new Dictionary<string, obj>()
 
         match context.Registration with
-        | Some registration -> output.Add(sprintf "\"registration\":\"%s\"" (registration.ToString()))
+        | Some registration -> output.Add("registration", registration.ToString() |> quoteWrap)
         | _ -> ()
 
         match context.Instructor with
-        | Some instructor -> output.Add(sprintf "\"instructor\":%s" (Actor instructor))
+        | Some instructor -> output.Add("instructor", instructor |> Actor)
         | _ -> ()
 
         match context.Team with
-        | Some team -> output.Add(sprintf "\"team\":%s" (Actor team))
+        | Some team -> output.Add("team", team |> Actor)
         | _ -> ()
 
         match context.ContextActivities with
-        | Some activities -> output.Add(sprintf "\"contextActivities\":%s" (ContextActivities activities))
+        | Some activities -> output.Add("contextActivities", activities |> ContextActivities)
         | _ -> ()
 
         match context.Extensions with
-        | Some extensions -> output.Add(sprintf "\"extensions\":%s" (Extensions extensions))
+        | Some extensions -> output.Add("extensions", extensions |> Extensions)
         | _ -> ()
 
-        sprintf "{%s}" (String.Join(",", output))
+        output |> dictToJson
 
     /// <summary>
     /// Convert a statement to a JSON string.
     /// </summary>
     let Statement (statement: IStatement) =
-        let output = new List<string>()
-        output.Add(sprintf "\"id\":\"%s\"" (statement.Id.ToString()))
-        output.Add(sprintf "\"actor\":%s" (Actor statement.Actor))
-        output.Add(sprintf "\"verb\":%s" (Verb statement.Verb))
-        output.Add(sprintf "\"object\":%s" (Object statement.Object))
+        let output = new Dictionary<string, obj>()
+        output.Add("id", statement.Id.ToString() |> quoteWrap)
+        output.Add("actor", statement.Actor |> Actor)
+        output.Add("verb", statement.Verb |> Verb)
+        output.Add("object", statement.Object |> Object)
 
         match statement.Result with
-        | Some result -> output.Add(sprintf "\"result\":%s" (Result result))
+        | Some result -> output.Add("result", result |> Result)
         | _ -> ()
 
         match statement.Context with
-        | Some context -> output.Add(sprintf "\"context\":%s" (Context context))
+        | Some context -> output.Add("context", context |> Context)
         | _ -> ()
 
         match statement.Timestamp with
-        | Some timestamp -> output.Add(sprintf "\"timestamp\":%A" (timestamp.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK")))
+        | Some timestamp -> output.Add("timestamp", timestamp.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK") |> quoteWrap)
         | _ -> ()
 
-        sprintf "{%s}" (String.Join(",", output))
+        output |> dictToJson

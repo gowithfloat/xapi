@@ -34,6 +34,9 @@ type VerbId =
     override this.GetHashCode() = hash this.Iri
 
     /// <inheritdoc />
+    override this.ToString() = this.Iri.AbsoluteUri
+
+    /// <inheritdoc />
     override this.Equals other = 
         match other with
         | :? VerbId as id -> this.Iri = id.Iri

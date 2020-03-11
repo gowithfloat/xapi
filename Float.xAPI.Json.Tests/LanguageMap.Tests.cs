@@ -22,8 +22,8 @@ namespace Float.xAPI.Json.Tests
                 { new LanguageTag(Language.French, Region.France), "envoyé" },
             });
 
-            var serialized1 = Json.Serialize.LanguageMap(map1);
-            var serialized2 = Json.Serialize.LanguageMap(map2);
+            var serialized1 = Serialize.LanguageMap(map1);
+            var serialized2 = Serialize.LanguageMap(map2);
 
             Assert.Equal("{\"en-US\":\"launched\"}", serialized1);
             Assert.Equal("{\"fr-FR\":\"envoyé\"}", serialized2);
@@ -33,7 +33,7 @@ namespace Float.xAPI.Json.Tests
         public void TestDeserialize()
         {
             var json1 = "{\"en-US\":\"launched\"}";
-            var map1 = Json.Deserialize.ParseLanguageMap(json1);
+            var map1 = Deserialize.ParseLanguageMap(json1);
 
             Assert.True(map1.ContainsKey(LanguageTag.EnglishUS));
             Assert.Contains("launched", map1.Values);
