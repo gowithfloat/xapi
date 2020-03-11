@@ -19,18 +19,18 @@ namespace Float.xAPI.Tests
         public NumericInteractionActivityDefinition TestValidInit()
         {
             var def1 = new NumericInteractionActivityDefinition(
+                new ResponsePattern(new CharacterStringNumeric(4)),
                 LanguageMap.EnglishUS("Jokes"),
-                LanguageMap.EnglishUS("How many jokes is Chris the butt of each day?"),
-                new ResponsePattern(new CharacterStringNumeric(4)));
+                LanguageMap.EnglishUS("How many jokes is Chris the butt of each day?"));
             var def2 = new NumericInteractionActivityDefinition(
+                new ResponsePattern(new CharacterStringNumeric(4)),
                 LanguageMap.EnglishUS("Name"),
                 LanguageMap.EnglishUS("Description"),
-                new ResponsePattern(new CharacterStringNumeric(4)),
                 new Uri("http://example.com"));
             return new NumericInteractionActivityDefinition(
+                new ResponsePattern(new CharacterStringNumeric(4)),
                 LanguageMap.EnglishUS("Name"),
                 LanguageMap.EnglishUS("Description"),
-                new ResponsePattern(new CharacterStringNumeric(4)),
                 new Uri("http://example.com"),
                 new Dictionary<Uri, object> { { new Uri("http://extension.com"), "extension" } });
         }
@@ -39,18 +39,18 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             Assert.Throws<ArgumentNullException>(() => new NumericInteractionActivityDefinition(null, null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new NumericInteractionActivityDefinition(LanguageMap.EnglishUS("name"), null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new NumericInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), null, null));
-            Assert.Throws<ArgumentException>(() => new NumericInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new Uri("http://example.com"), new Dictionary<Uri, object> { }));
+            Assert.Throws<ArgumentNullException>(() => new NumericInteractionActivityDefinition(null, null, LanguageMap.EnglishUS("name"), null));
+            Assert.Throws<ArgumentNullException>(() => new NumericInteractionActivityDefinition(null, LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), null));
+            Assert.Throws<ArgumentException>(() => new NumericInteractionActivityDefinition(new ResponsePattern(new CharacterStringNumeric(4)), LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new Uri("http://example.com"), new Dictionary<Uri, object> { }));
         }
 
         [Fact]
         public void TestProperties()
         {
             var definition = new NumericInteractionActivityDefinition(
+                new ResponsePattern(new CharacterStringNumeric(4)),
                 LanguageMap.EnglishUS("Name"),
                 LanguageMap.EnglishUS("Description"),
-                new ResponsePattern(new CharacterStringNumeric(4)),
                 new Uri("http://example.com"),
                 new Dictionary<Uri, object> { { new Uri("http://extension.com"), "extension" } });
 

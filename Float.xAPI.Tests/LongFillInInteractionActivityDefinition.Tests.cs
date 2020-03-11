@@ -18,18 +18,18 @@ namespace Float.xAPI.Tests
         public LongFillInInteractionActivityDefinition TestValidInit()
         {
             var definition1 = new LongFillInInteractionActivityDefinition(
+                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", new LanguageTag(Language.English)), false),
                 LanguageMap.EnglishUS("Long Fill-in"),
-                LanguageMap.EnglishUS("What is the purpose of the xAPI?"),
-                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", new LanguageTag(Language.English)), false));
+                LanguageMap.EnglishUS("What is the purpose of the xAPI?"));
             var definition2 = new LongFillInInteractionActivityDefinition(
+                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", LanguageTag.EnglishUS), false),
                 LanguageMap.EnglishUS("Long Fill-in"),
                 LanguageMap.EnglishUS("What is the purpose of the xAPI?"),
-                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", LanguageTag.EnglishUS), false),
                 new Uri("http://www.example.com/more"));
             return new LongFillInInteractionActivityDefinition(
+                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", LanguageTag.EnglishUS), false),
                 LanguageMap.EnglishUS("Long Fill-in"),
                 LanguageMap.EnglishUS("What is the purpose of the xAPI?"),
-                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", LanguageTag.EnglishUS), false),
                 new Uri("http://www.example.com/more"),
                 new Dictionary<Uri, object> { { new Uri("a://b.c"), "extension" } });
         }
@@ -38,18 +38,18 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             Assert.Throws<ArgumentNullException>(() => new LongFillInInteractionActivityDefinition(null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new LongFillInInteractionActivityDefinition(LanguageMap.EnglishUS("a"), null, null));
-            Assert.Throws<ArgumentNullException>(() => new LongFillInInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), null));
-            Assert.Throws<ArgumentException>(() => new LongFillInInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("c"), new Uri("a://b.c"), new Dictionary<Uri, object>()));
+            Assert.Throws<ArgumentNullException>(() => new LongFillInInteractionActivityDefinition(null, LanguageMap.EnglishUS("a"), null));
+            Assert.Throws<ArgumentNullException>(() => new LongFillInInteractionActivityDefinition(null, LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b")));
+            Assert.Throws<ArgumentException>(() => new LongFillInInteractionActivityDefinition(new ResponsePattern("c"), LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new Uri("a://b.c"), new Dictionary<Uri, object>()));
         }
 
         [Fact]
         public void TestProperties()
         {
             var definition = new LongFillInInteractionActivityDefinition(
+                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", LanguageTag.EnglishUS), false),
                 LanguageMap.EnglishUS("Long Fill-in"),
                 LanguageMap.EnglishUS("What is the purpose of the xAPI?"),
-                new ResponsePattern(new CharacterString("To store and provide access to learning experiences.", LanguageTag.EnglishUS), false),
                 new Uri("http://www.example.com/more"),
                 new Dictionary<Uri, object> { { new Uri("a://b.c"), "extension" } });
 

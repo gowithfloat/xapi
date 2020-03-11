@@ -19,20 +19,20 @@ namespace Float.xAPI.Tests
         public TrueFalseInteractionActivityDefinition TestValidInit()
         {
             var def1 = new TrueFalseInteractionActivityDefinition(
+                true,
                 LanguageMap.EnglishUS("Appendix C"),
-                LanguageMap.EnglishUS("Does the xAPI include the concept of statements?"),
-                true);
+                LanguageMap.EnglishUS("Does the xAPI include the concept of statements?"));
 
             var def2 = new TrueFalseInteractionActivityDefinition(
+                true,
                 LanguageMap.EnglishUS("Appendix C"),
                 LanguageMap.EnglishUS("Does the xAPI include the concept of statements?"),
-                true,
                 new Uri("http://example.com/more"));
 
             return new TrueFalseInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Appendix C"), // todo: name should be optional
-                LanguageMap.EnglishUS("Does the xAPI include the concept of statements?"),
                 true,
+                null,
+                LanguageMap.EnglishUS("Does the xAPI include the concept of statements?"),
                 new Uri("http://example.com/more"),
                 new Dictionary<Uri, object> { { new Uri("http://example.com/ext"), "ext" } });
         }
@@ -40,9 +40,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInvalidInit()
         {
-            Assert.Throws<ArgumentNullException>(() => new TrueFalseInteractionActivityDefinition(null, null, false, null));
-            Assert.Throws<ArgumentNullException>(() => new TrueFalseInteractionActivityDefinition(LanguageMap.EnglishUS("name"), null, false, null));
-            Assert.Throws<ArgumentException>(() => new TrueFalseInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), false, new Uri("http://example.com"), new Dictionary<Uri, object> { }));
+            // not possible?
         }
 
         [Fact]
@@ -55,7 +53,7 @@ namespace Float.xAPI.Tests
             Assert.Equal("ext", definition.Extensions.Value.First().Value);
             Assert.Equal(Interaction.TrueFalse, definition.InteractionType);
             Assert.Equal(new Uri("http://example.com/more"), definition.MoreInfo);
-            Assert.Equal(LanguageMap.EnglishUS("Appendix C"), definition.Name);
+            Assert.Null(definition.Name);
             Assert.Equal(new Uri("http://adlnet.gov/expapi/activities/cmi.interaction"), definition.Type);
 
             var idefinition = definition as IInteractionActivityDefinition;
@@ -65,7 +63,7 @@ namespace Float.xAPI.Tests
             Assert.Equal("ext", idefinition.Extensions.Value.First().Value);
             Assert.Equal(Interaction.TrueFalse, idefinition.InteractionType);
             Assert.Equal(new Uri("http://example.com/more"), idefinition.MoreInfo);
-            Assert.Equal(LanguageMap.EnglishUS("Appendix C"), idefinition.Name);
+            Assert.Null(idefinition.Name);
             Assert.Equal(new Uri("http://adlnet.gov/expapi/activities/cmi.interaction"), idefinition.Type);
         }
     }

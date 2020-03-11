@@ -34,9 +34,11 @@ namespace Float.xAPI.Tests
                     new Uri("http://example.com/extension"), "extension"
                 },
             };
-            var definition1 = new ChoiceInteractionActivityDefinition(name, description, correctResponsesPattern, choices);
-            var definition2 = new ChoiceInteractionActivityDefinition(name, description, correctResponsesPattern, choices, moreInfo);
-            return new ChoiceInteractionActivityDefinition(name, description, correctResponsesPattern, choices, moreInfo, extensions);
+            var definition0 = new ChoiceInteractionActivityDefinition(correctResponsesPattern, choices, name);
+            var definition1 = new ChoiceInteractionActivityDefinition(correctResponsesPattern, choices, null, description);
+            var definition2 = new ChoiceInteractionActivityDefinition(correctResponsesPattern, choices, name, description);
+            var definition3 = new ChoiceInteractionActivityDefinition(correctResponsesPattern, choices, name, description, moreInfo);
+            return new ChoiceInteractionActivityDefinition(correctResponsesPattern, choices, name, description, moreInfo, extensions);
         }
 
         [Fact]
@@ -46,11 +48,9 @@ namespace Float.xAPI.Tests
             var resp = new ResponsePattern(new CharacterString("test"));
             var choice = new IInteractionComponent[] { new InteractionComponent("test") };
             Assert.Throws<ArgumentNullException>(() => new ChoiceInteractionActivityDefinition(null, null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new ChoiceInteractionActivityDefinition(map, null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new ChoiceInteractionActivityDefinition(map, map, resp, null));
-            Assert.Throws<ArgumentNullException>(() => new ChoiceInteractionActivityDefinition(null, map, resp, choice));
-            Assert.Throws<ArgumentNullException>(() => new ChoiceInteractionActivityDefinition(map, null, resp, choice));
-            Assert.Throws<ArgumentNullException>(() => new ChoiceInteractionActivityDefinition(map, map, null, choice));
+            Assert.Throws<ArgumentNullException>(() => new ChoiceInteractionActivityDefinition(null, null, map, null));
+            Assert.Throws<ArgumentNullException>(() => new ChoiceInteractionActivityDefinition(resp, null, map, map));
+            Assert.Throws<ArgumentNullException>(() => new ChoiceInteractionActivityDefinition(null, choice, map, map));
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace Float.xAPI.Tests
                     new Uri("http://example.com/extension"), "extension"
                 },
             };
-            var definition1 = new ChoiceInteractionActivityDefinition(name, description, correctResponsesPattern, choices, moreInfo, extensions);
+            var definition1 = new ChoiceInteractionActivityDefinition(correctResponsesPattern, choices, name, description, moreInfo, extensions);
 
             Assert.Equal(choices, definition1.Choices);
             Assert.Equal(correctResponsesPattern, definition1.CorrectResponsesPattern);

@@ -9,7 +9,6 @@ open System
 open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Languages
-open Float.Interop
 
 /// <summary>
 /// Metadata associated with an activity.
@@ -18,17 +17,17 @@ type public IActivityDefinition =
     /// <summary>
     /// The human readable/visual name of the Activity.
     /// </summary>
-    abstract member Name: ILanguageMap // todo: this should probably be optional; a lot of examples in the spec don't use it
+    abstract member Name: ILanguageMap option
 
     /// <summary>
     /// A description of the Activity.
     /// </summary>
-    abstract member Description: ILanguageMap
+    abstract member Description: ILanguageMap option
 
     /// <summary>
     /// The type of Activity.
     /// </summary>
-    abstract member Type: Uri
+    abstract member Type: Uri option
 
     /// <summary>
     /// Resolves to a document with human-readable information about the Activity, which could include a way to launch the activity. 
@@ -43,13 +42,13 @@ type public IActivityDefinition =
 [<NoEquality;NoComparison;Struct>]
 type public ActivityDefinition =
     /// <inheritdoc />
-    val Name: ILanguageMap
+    val Name: ILanguageMap option
 
     /// <inheritdoc />
-    val Description: ILanguageMap
+    val Description: ILanguageMap option
 
     /// <inheritdoc />
-    val Type: Uri
+    val Type: Uri option
 
     /// <inheritdoc />
     val MoreInfo: Uri option
@@ -65,13 +64,7 @@ type public ActivityDefinition =
     /// <param name="thetype">The type of Activity.</param>
     /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
     /// <param name="extensions">A map of other properties as needed.</param>
-    new(name, description, thetype, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
-        nullArg name "name"
-        emptySeqArg name "name"
-        nullArg description "description"
-        emptySeqArg description "description"
-        nullArg thetype "thetype"
-        invalidIRIArg thetype "thetype"
+    new([<Optional;DefaultParameterValue(null)>] ?name, [<Optional;DefaultParameterValue(null)>] ?description, [<Optional;DefaultParameterValue(null)>] ?thetype, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
         { Name = name; Description = description; Type = thetype; MoreInfo = moreInfo; Extensions = extensions }
 
     interface IActivityDefinition with

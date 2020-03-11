@@ -19,18 +19,18 @@ namespace Float.xAPI.Tests
         public OtherInteractionActivityDefinition TestValidInit()
         {
             var definition = new OtherInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Name"),
-                LanguageMap.EnglishUS("On this map, please mark Franklin, TN"),
-                new ResponsePattern("(35.937432,-86.868896)"));
-            var definition2 = new OtherInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Name"),
-                LanguageMap.EnglishUS("On this map, please mark Franklin, TN"),
                 new ResponsePattern("(35.937432,-86.868896)"),
+                LanguageMap.EnglishUS("Name"),
+                LanguageMap.EnglishUS("On this map, please mark Franklin, TN"));
+            var definition2 = new OtherInteractionActivityDefinition(
+                new ResponsePattern("(35.937432,-86.868896)"),
+                null,
+                LanguageMap.EnglishUS("On this map, please mark Franklin, TN"),
                 new Uri("http://example.com"));
             return new OtherInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Name"),
-                LanguageMap.EnglishUS("On this map, please mark Franklin, TN"),
                 new ResponsePattern("(35.937432,-86.868896)"),
+                null,
+                LanguageMap.EnglishUS("On this map, please mark Franklin, TN"),
                 new Uri("http://example.com"),
                 new Dictionary<Uri, object> { { new Uri("http://example.com"), "extension" } });
         }
@@ -39,18 +39,18 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             Assert.Throws<ArgumentNullException>(() => new OtherInteractionActivityDefinition(null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new OtherInteractionActivityDefinition(LanguageMap.EnglishUS("name"), null, null));
-            Assert.Throws<ArgumentNullException>(() => new OtherInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), null, null));
-            Assert.Throws<ArgumentException>(() => new OtherInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new Uri("http://example.com"), new Dictionary<Uri, object> { }));
+            Assert.Throws<ArgumentNullException>(() => new OtherInteractionActivityDefinition(null, LanguageMap.EnglishUS("name"), null));
+            Assert.Throws<ArgumentNullException>(() => new OtherInteractionActivityDefinition(null, LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), null));
+            Assert.Throws<ArgumentException>(() => new OtherInteractionActivityDefinition(new ResponsePattern(new CharacterStringNumeric(4)), LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new Uri("http://example.com"), new Dictionary<Uri, object> { }));
         }
 
         [Fact]
         public void TestProperties()
         {
             var definition = new OtherInteractionActivityDefinition(
+                new ResponsePattern("(35.937432,-86.868896)"),
                 LanguageMap.EnglishUS("Name"),
                 LanguageMap.EnglishUS("On this map, please mark Franklin, TN"),
-                new ResponsePattern("(35.937432,-86.868896)"),
                 new Uri("http://example.com"),
                 new Dictionary<Uri, object> { { new Uri("http://example.com"), "extension" } });
 

@@ -18,10 +18,10 @@ open Float.xAPI.Languages
 [<NoEquality;NoComparison;Struct>]
 type public NumericInteractionActivityDefinition =
     /// <inheritdoc />
-    val Name: ILanguageMap
+    val Name: ILanguageMap option
 
     /// <inheritdoc />
-    val Description: ILanguageMap
+    val Description: ILanguageMap option
 
     /// <inheritdoc />
     val MoreInfo: Uri option
@@ -40,16 +40,12 @@ type public NumericInteractionActivityDefinition =
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Activities.Definitions."/> struct.
     /// </summary>
+    /// <param name="correctResponsesPattern">A pattern representing the correct response to the interaction.</param>
     /// <param name="name">The human readable/visual name of the Activity.</param>
     /// <param name="description">A description of the Activity.</param>
-    /// <param name="correctResponsesPattern">A pattern representing the correct response to the interaction.</param>
     /// <param name="moreInfo">Resolves to a document with human-readable information about the Activity.</param>
     /// <param name="extensions">A map of other properties as needed.</param>
-    new(name, description, correctResponsesPattern, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
-        nullArg name "name"
-        emptySeqArg name "name"
-        nullArg description "description"
-        emptySeqArg description "description"
+    new(correctResponsesPattern, [<Optional;DefaultParameterValue(null)>] ?name, [<Optional;DefaultParameterValue(null)>] ?description, [<Optional;DefaultParameterValue(null)>] ?moreInfo, [<Optional;DefaultParameterValue(null)>] ?extensions) =
         nullArg correctResponsesPattern "correctResponsesPattern"
         emptyOptionalSeqArg extensions "extensions"
         { Name = name; Description = description; CorrectResponsesPattern = correctResponsesPattern; MoreInfo = moreInfo; Extensions = extensions }
@@ -63,7 +59,7 @@ type public NumericInteractionActivityDefinition =
     interface IInteractionActivityDefinition with
         member this.Name = this.Name
         member this.Description = this.Description
-        member this.Type = this.Type
+        member this.Type = this.Type |> Some
         member this.MoreInfo = this.MoreInfo
         member this.Extensions = this.Extensions
         member this.InteractionType = this.InteractionType

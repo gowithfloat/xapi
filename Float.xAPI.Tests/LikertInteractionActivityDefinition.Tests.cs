@@ -26,23 +26,23 @@ namespace Float.xAPI.Tests
             };
 
             var definition1 = new LikertInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Likert"),
-                LanguageMap.EnglishUS("How awesome is Experience API?"),
-                new ResponsePattern(new CharacterString("likert_3")),
-                scale);
-
-            var definition2 = new LikertInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Likert"),
-                LanguageMap.EnglishUS("How awesome is Experience API?"),
                 new ResponsePattern(new CharacterString("likert_3")),
                 scale,
+                LanguageMap.EnglishUS("Likert"),
+                LanguageMap.EnglishUS("How awesome is Experience API?"));
+
+            var definition2 = new LikertInteractionActivityDefinition(
+                new ResponsePattern(new CharacterString("likert_3")),
+                scale,
+                LanguageMap.EnglishUS("Likert"),
+                LanguageMap.EnglishUS("How awesome is Experience API?"),
                 new Uri("http://www.example.com/more"));
 
             return new LikertInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Likert"),
-                LanguageMap.EnglishUS("How awesome is Experience API?"),
                 new ResponsePattern(new CharacterString("likert_3")),
                 scale,
+                LanguageMap.EnglishUS("Likert"),
+                LanguageMap.EnglishUS("How awesome is Experience API?"),
                 new Uri("http://www.example.com/more"),
                 new List<KeyValuePair<Uri, object>> { new KeyValuePair<Uri, object>(new Uri("http://www.example.com/ext"), "ext") });
         }
@@ -58,10 +58,10 @@ namespace Float.xAPI.Tests
             var scale2 = new List<IInteractionComponent>();
 
             Assert.Throws<ArgumentNullException>(() => new LikertInteractionActivityDefinition(null, null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), null, null));
-            Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("c"), scale2));
-            Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("c"), scale2, new Uri("a://b.c"), new Dictionary<Uri, object>()));
+            Assert.Throws<ArgumentNullException>(() => new LikertInteractionActivityDefinition(null, null, LanguageMap.EnglishUS("a"), null));
+            Assert.Throws<ArgumentNullException>(() => new LikertInteractionActivityDefinition(null, null, LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b")));
+            Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(new ResponsePattern("c"), scale2, LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b")));
+            Assert.Throws<ArgumentException>(() => new LikertInteractionActivityDefinition(new ResponsePattern("c"), scale2, LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new Uri("a://b.c"), new Dictionary<Uri, object>()));
         }
 
         [Fact]
@@ -78,10 +78,10 @@ namespace Float.xAPI.Tests
             var ext = new List<KeyValuePair<Uri, object>> { new KeyValuePair<Uri, object>(new Uri("http://www.example.com/ext"), "ext") };
 
             var definition = new LikertInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Likert"),
-                LanguageMap.EnglishUS("How awesome is Experience API?"),
                 new ResponsePattern("likert_3"),
                 scale,
+                LanguageMap.EnglishUS("Likert"),
+                LanguageMap.EnglishUS("How awesome is Experience API?"),
                 new Uri("http://www.example.com/more"),
                 new List<KeyValuePair<Uri, object>> { new KeyValuePair<Uri, object>(new Uri("http://www.example.com/ext"), "ext") });
 

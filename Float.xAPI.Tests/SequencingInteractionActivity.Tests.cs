@@ -35,23 +35,23 @@ namespace Float.xAPI.Tests
             };
 
             var def1 = new SequencingInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Appendix C"),
-                LanguageMap.EnglishUS("Order players by their pong ladder position:"),
-                new ResponsePattern(sequence),
-                choices);
-
-            var def2 = new SequencingInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Appendix C"),
-                LanguageMap.EnglishUS("Order players by their pong ladder position:"),
                 new ResponsePattern(sequence),
                 choices,
+                LanguageMap.EnglishUS("Appendix C"),
+                LanguageMap.EnglishUS("Order players by their pong ladder position:"));
+
+            var def2 = new SequencingInteractionActivityDefinition(
+                new ResponsePattern(sequence),
+                choices,
+                LanguageMap.EnglishUS("Appendix C"),
+                LanguageMap.EnglishUS("Order players by their pong ladder position:"),
                 new Uri("http://example.com/more"));
 
             return new SequencingInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Appendix C"),
-                LanguageMap.EnglishUS("Order players by their pong ladder position:"),
                 new ResponsePattern(sequence),
                 choices,
+                LanguageMap.EnglishUS("Appendix C"),
+                LanguageMap.EnglishUS("Order players by their pong ladder position:"),
                 new Uri("http://example.com/more"),
                 new Dictionary<Uri, object> { { new Uri("http://example.com/ext"), "ext" } });
         }
@@ -60,11 +60,11 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             Assert.Throws<ArgumentNullException>(() => new SequencingInteractionActivityDefinition(null, null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new SequencingInteractionActivityDefinition(LanguageMap.EnglishUS("name"), null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new SequencingInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), null, null));
-            Assert.Throws<ArgumentNullException>(() => new SequencingInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), null));
-            Assert.Throws<ArgumentException>(() => new SequencingInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new List<IInteractionComponent> { }, new Uri("http://example.com")));
-            Assert.Throws<ArgumentException>(() => new SequencingInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new List<IInteractionComponent> { new InteractionComponent("id") }, new Uri("http://example.com"), new Dictionary<Uri, object> { }));
+            Assert.Throws<ArgumentNullException>(() => new SequencingInteractionActivityDefinition(null, null, LanguageMap.EnglishUS("name"), null));
+            Assert.Throws<ArgumentNullException>(() => new SequencingInteractionActivityDefinition(null, null, LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description")));
+            Assert.Throws<ArgumentNullException>(() => new SequencingInteractionActivityDefinition(new ResponsePattern(new CharacterStringNumeric(4)), null, LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description")));
+            Assert.Throws<ArgumentException>(() => new SequencingInteractionActivityDefinition(new ResponsePattern(new CharacterStringNumeric(4)), new List<IInteractionComponent> { }, LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new Uri("http://example.com")));
+            Assert.Throws<ArgumentException>(() => new SequencingInteractionActivityDefinition(new ResponsePattern(new CharacterStringNumeric(4)), new List<IInteractionComponent> { new InteractionComponent("id") }, LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new Uri("http://example.com"), new Dictionary<Uri, object> { }));
         }
 
         [Fact]

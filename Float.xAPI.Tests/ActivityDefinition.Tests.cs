@@ -39,10 +39,6 @@ namespace Float.xAPI.Tests
         {
             var name = new LanguageMap(LanguageTag.EnglishUS, "Name");
             var desc = new LanguageMap(LanguageTag.EnglishUS, "Description");
-            Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(name, null, null));
-            Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(null, desc, null));
-            Assert.Throws<ArgumentNullException>(() => new ActivityDefinition(name, desc, null));
             Assert.Throws<UriFormatException>(() => new ActivityDefinition(name, desc, new Uri(string.Empty)));
         }
 
@@ -62,11 +58,11 @@ namespace Float.xAPI.Tests
             Assert.Equal(LanguageMap.EnglishUS("name"), activityDefinition.Name);
 
             var iactivityDefinition = activityDefinition as IActivityDefinition;
-            Assert.Equal(LanguageMap.EnglishUS("description").ToString(), iactivityDefinition.Description.ToString());
+            Assert.Equal(LanguageMap.EnglishUS("description").ToString(), iactivityDefinition.Description.Value.ToString());
             Assert.Equal(new Uri("http://example.com/ext"), iactivityDefinition.Extensions.Value.First().Key);
             Assert.Equal("http://example.com/more", iactivityDefinition.MoreInfo.Value.ToString());
-            Assert.Equal("http://example.com/type", iactivityDefinition.Type.ToString());
-            Assert.Equal(LanguageMap.EnglishUS("name").ToString(), iactivityDefinition.Name.ToString());
+            Assert.Equal("http://example.com/type", iactivityDefinition.Type.Value.ToString());
+            Assert.Equal(LanguageMap.EnglishUS("name").ToString(), iactivityDefinition.Name.Value.ToString());
         }
     }
 }

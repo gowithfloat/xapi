@@ -26,17 +26,17 @@ namespace Float.xAPI.Json.Tests
             var agent3 = new Agent(ifi3, "Learner, Example");
             var agent4 = new Agent(ifi4);
 
-            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Jane Doe\",\"mbox\":\"mailto:jdoe@example.com\"}", Json.Serialize.Actor(agent1));
-            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Sue Schmoe\",\"mbox_sha1sum\":\"0e3372390b51c30c2fa4d2e0fd7b2b2009fc5692\"}", Json.Serialize.Actor(agent2));
-            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Learner, Example\",\"openid\":\"https://www.gowithfloat.com/\"}", Json.Serialize.Actor(agent3));
-            Assert.Equal("{\"objectType\":\"Agent\",\"account\":{\"homePage\":\"http://example.com/\",\"name\":\"test\"}}", Json.Serialize.Actor(agent4));
+            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Jane Doe\",\"mbox\":\"mailto:jdoe@example.com\"}", Serialize.Actor(agent1));
+            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Sue Schmoe\",\"mbox_sha1sum\":\"0e3372390b51c30c2fa4d2e0fd7b2b2009fc5692\"}", Serialize.Actor(agent2));
+            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Learner, Example\",\"openid\":\"https://www.gowithfloat.com/\"}", Serialize.Actor(agent3));
+            Assert.Equal("{\"objectType\":\"Agent\",\"account\":{\"homePage\":\"http://example.com/\",\"name\":\"test\"}}", Serialize.Actor(agent4));
         }
 
         [Fact]
         public void TestDeserialize()
         {
             var json = ReadFile("data-agent-account-example.json");
-            var agent = Json.Deserialize.ParseAgent(json).Value;
+            var agent = Deserialize.ParseAgent(json).Value;
 
             Assert.NotNull(agent);
             Assert.Equal(ObjectType.Agent, agent.ObjectType);

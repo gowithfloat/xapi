@@ -39,24 +39,24 @@ namespace Float.xAPI.Tests
                 new InteractionComponent("4", LanguageMap.EnglishUS("Van Delay Industries")),
             };
             var definition1 = new MatchingInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Long Fill-in"),
-                LanguageMap.EnglishUS("Match these people to their kickball team:"),
-                new ResponsePattern(pairs),
-                source,
-                target);
-            var definition2 = new MatchingInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Long Fill-in"),
-                LanguageMap.EnglishUS("Match these people to their kickball team:"),
                 new ResponsePattern(pairs),
                 source,
                 target,
+                LanguageMap.EnglishUS("Long Fill-in"),
+                LanguageMap.EnglishUS("Match these people to their kickball team:"));
+            var definition2 = new MatchingInteractionActivityDefinition(
+                new ResponsePattern(pairs),
+                source,
+                target,
+                LanguageMap.EnglishUS("Long Fill-in"),
+                LanguageMap.EnglishUS("Match these people to their kickball team:"),
                 new Uri("http://www.example.com/more"));
             return new MatchingInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Long Fill-in"),
-                LanguageMap.EnglishUS("Match these people to their kickball team:"),
                 new ResponsePattern(pairs),
                 source,
                 target,
+                LanguageMap.EnglishUS("Long Fill-in"),
+                LanguageMap.EnglishUS("Match these people to their kickball team:"),
                 new Uri("http://www.example.com/more"),
                 new Dictionary<Uri, object> { { new Uri("http://www.example.com/ext"), "ext" } });
         }
@@ -65,11 +65,11 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             Assert.Throws<ArgumentNullException>(() => new MatchingInteractionActivityDefinition(null, null, null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new MatchingInteractionActivityDefinition(LanguageMap.EnglishUS("a"), null, null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new MatchingInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("a"), null, null));
-            Assert.Throws<ArgumentException>(() => new MatchingInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("a"), new List<IInteractionComponent> { }, null));
-            Assert.Throws<ArgumentNullException>(() => new MatchingInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("a"), new List<IInteractionComponent> { new InteractionComponent("id") }, null));
-            Assert.Throws<ArgumentException>(() => new MatchingInteractionActivityDefinition(LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b"), new ResponsePattern("a"), new List<IInteractionComponent> { new InteractionComponent("id") }, new List<IInteractionComponent> { }));
+            Assert.Throws<ArgumentNullException>(() => new MatchingInteractionActivityDefinition(null, null, null, LanguageMap.EnglishUS("a"), null));
+            Assert.Throws<ArgumentNullException>(() => new MatchingInteractionActivityDefinition(new ResponsePattern("a"), null, null, LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b")));
+            Assert.Throws<ArgumentException>(() => new MatchingInteractionActivityDefinition(new ResponsePattern("a"), new List<IInteractionComponent> { }, null, LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b")));
+            Assert.Throws<ArgumentNullException>(() => new MatchingInteractionActivityDefinition(new ResponsePattern("a"), new List<IInteractionComponent> { new InteractionComponent("id") }, null, LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b")));
+            Assert.Throws<ArgumentException>(() => new MatchingInteractionActivityDefinition(new ResponsePattern("a"), new List<IInteractionComponent> { new InteractionComponent("id") }, new List<IInteractionComponent> { }, LanguageMap.EnglishUS("a"), LanguageMap.EnglishUS("b")));
         }
 
         [Fact]
@@ -98,11 +98,11 @@ namespace Float.xAPI.Tests
             };
             var extensions = new Dictionary<Uri, object> { { new Uri("http://www.example.com/ext"), "ext" } };
             var definition = new MatchingInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Long Fill-in"),
-                LanguageMap.EnglishUS("Match these people to their kickball team:"),
                 new ResponsePattern(pairs),
                 source,
                 target,
+                LanguageMap.EnglishUS("Long Fill-in"),
+                LanguageMap.EnglishUS("Match these people to their kickball team:"),
                 new Uri("http://www.example.com/more"),
                 extensions);
             Assert.Equal(new ResponsePattern(pairs), definition.CorrectResponsesPattern);

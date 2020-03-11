@@ -33,23 +33,23 @@ namespace Float.xAPI.Tests
             });
 
             var def1 = new PerformanceInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Appendix C"),
-                LanguageMap.EnglishUS("This interaction measures performance over a day of RS sports:"),
-                new ResponsePattern(pairs),
-                steps);
-
-            var def2 = new PerformanceInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Appendix C"),
-                LanguageMap.EnglishUS("This interaction measures performance over a day of RS sports:"),
                 new ResponsePattern(pairs),
                 steps,
+                LanguageMap.EnglishUS("Appendix C"),
+                LanguageMap.EnglishUS("This interaction measures performance over a day of RS sports:"));
+
+            var def2 = new PerformanceInteractionActivityDefinition(
+                new ResponsePattern(pairs),
+                steps,
+                LanguageMap.EnglishUS("Appendix C"),
+                LanguageMap.EnglishUS("This interaction measures performance over a day of RS sports:"),
                 new Uri("http://example.com/more"));
 
             return new PerformanceInteractionActivityDefinition(
-                LanguageMap.EnglishUS("Appendix C"),
-                LanguageMap.EnglishUS("This interaction measures performance over a day of RS sports:"),
                 new ResponsePattern(pairs),
                 steps,
+                LanguageMap.EnglishUS("Appendix C"),
+                LanguageMap.EnglishUS("This interaction measures performance over a day of RS sports:"),
                 new Uri("http://example.com/more"),
                 new Dictionary<Uri, object> { { new Uri("http://example.com/ext"), "ext" } });
         }
