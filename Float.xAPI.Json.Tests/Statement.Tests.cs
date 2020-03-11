@@ -70,7 +70,7 @@ namespace Float.xAPI.Json.Tests
         public void TestDeserialize()
         {
             var statementJson = ReadFile("about-example-statement.json");
-            var statement = Json.Deserialize.ParseStatement(statementJson).Value;
+            var statement = Deserialize.ParseStatement(statementJson).Value;
 
             // id
             Assert.Equal(new Guid("2a41c918-b88b-4220-20a5-a4c32391a240"), statement.Id);
@@ -106,6 +106,18 @@ namespace Float.xAPI.Json.Tests
             Assert.Equal(XmlConvert.ToTimeSpan("PT30M"), statement.Result.Value.Duration.Value);
             Assert.Equal(new Uri("https://w3id.org/xapi/cmi5/result/extensions/progress"), statement.Result.Value.Extensions.Value.First().Key);
             Assert.Equal("100", statement.Result.Value.Extensions.Value.First().Value);
+        }
+
+        [Fact]
+        public void TestExampleA1()
+        {
+            var expected = FormatJson(ReadFile("data-appendix-a-example-1.json"));
+            var statement = Deserialize.ParseStatement(expected).Value;
+            var target = (IActivity)statement.Object;
+            Assert.NotNull(target.Definition);
+
+            var actual = FormatJson(Serialize.Statement(statement));
+            Assert.Equal(expected, actual);
         }
     }
 }

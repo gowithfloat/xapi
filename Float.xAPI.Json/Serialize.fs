@@ -11,6 +11,7 @@ open System.Runtime.InteropServices
 open System.Xml
 open Float.xAPI
 open Float.xAPI.Activities
+open Float.xAPI.Activities.Definitions
 open Float.xAPI.Actor
 open Float.xAPI.Actor.Identifier
 open Float.xAPI.Languages
@@ -39,12 +40,39 @@ module Serialize =
         | _ -> invalidArg "ifi" "Not a valid IFI" // todo: make an IFI union to avoid this case
 
     /// <summary>
+    /// Convert a language map to a JSON string.
+    /// </summary>
+    let LanguageMap (map: ILanguageMap) =
+        map 
+        |> Seq.map (fun (pair) -> sprintf "{\"%O\":\"%O\"}" pair.Key pair.Value)
+        |> String.concat ","
+
+    let ActivityDefinition (def: IActivityDefinition) =
+        let output = new List<string>()
+
+        match def.Name with
+        | Some name -> output.Add(sprintf "\"name\":%s" (LanguageMap name))
+        | None -> ()
+
+        match def.Description with
+        | Some desc -> output.Add(sprintf "\"description\":%s" (LanguageMap desc))
+        | None -> ()
+
+        sprintf "{%s}" (String.Join(",", output))
+
+
+    /// <summary>
     /// Convert an activity to a JSON string.
     /// </summary>
     let Activity (act: IActivity) =
         let output = new List<string>()
         output.Add("\"objectType\":\"Activity\"")
         output.Add(sprintf "\"id\":\"%s\"" act.Id.Iri.AbsoluteUri)
+
+        match act.Definition with
+        | Some def -> output.Add(sprintf "\"definition\":%s" (ActivityDefinition def))
+        | None -> ()
+
         sprintf "{%s}" (String.Join(",", output))
     
     /// <summary>
@@ -208,11 +236,3 @@ module Serialize =
         | _ -> ()
 
         sprintf "{%s}" (String.Join(",", output))
-
-    /// <summary>
-    /// Convert a language map to a JSON string.
-    /// </summary>
-    let LanguageMap (map: ILanguageMap) =
-        map 
-        |> Seq.map (fun (pair) -> sprintf "{\"%O\":\"%O\"}" pair.Key pair.Value)
-        |> String.concat ","

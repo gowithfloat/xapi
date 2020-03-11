@@ -58,11 +58,11 @@ namespace Float.xAPI.Tests
         public void TestInvalidInit()
         {
             Assert.Throws<ArgumentNullException>(() => new PerformanceInteractionActivityDefinition(null, null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new PerformanceInteractionActivityDefinition(LanguageMap.EnglishUS("name"), null, null, null));
-            Assert.Throws<ArgumentNullException>(() => new PerformanceInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), null, null));
-            Assert.Throws<ArgumentNullException>(() => new PerformanceInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), null));
-            Assert.Throws<ArgumentException>(() => new PerformanceInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new List<IInteractionComponent> { }, new Uri("http://example.com")));
-            Assert.Throws<ArgumentException>(() => new PerformanceInteractionActivityDefinition(LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new ResponsePattern(new CharacterStringNumeric(4)), new List<IInteractionComponent> { new InteractionComponent("id") }, new Uri("http://example.com"), new Dictionary<Uri, object> { }));
+            Assert.Throws<ArgumentNullException>(() => new PerformanceInteractionActivityDefinition(null, null, LanguageMap.EnglishUS("name"), null));
+            Assert.Throws<ArgumentNullException>(() => new PerformanceInteractionActivityDefinition(null, null, LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description")));
+            Assert.Throws<ArgumentNullException>(() => new PerformanceInteractionActivityDefinition(new ResponsePattern(new CharacterStringNumeric(4)), null, LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description")));
+            Assert.Throws<ArgumentException>(() => new PerformanceInteractionActivityDefinition(new ResponsePattern(new CharacterStringNumeric(4)), new List<IInteractionComponent> { }, LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new Uri("http://example.com")));
+            Assert.Throws<ArgumentException>(() => new PerformanceInteractionActivityDefinition(new ResponsePattern(new CharacterStringNumeric(4)), new List<IInteractionComponent> { new InteractionComponent("id") }, LanguageMap.EnglishUS("name"), LanguageMap.EnglishUS("description"), new Uri("http://example.com"), new Dictionary<Uri, object> { }));
         }
 
         [Fact]
