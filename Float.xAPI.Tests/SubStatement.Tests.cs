@@ -20,7 +20,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public SubStatement TestValidInit()
         {
-            var actor = new Agent(new Mailbox(new MailAddress("test@example.com")));
+            var actor = new Agent(new Mailbox(new Uri("mailto:test@example.com")));
             var verb = Verb.Voided;
             var activity = new Activity(new ActivityId("http://example.com"));
             var result = new Result();
@@ -36,7 +36,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInvalidInit()
         {
-            var actor = new Agent(new Mailbox(new MailAddress("test@example.com")));
+            var actor = new Agent(new Mailbox(new Uri("mailto:test@example.com")));
             var verb = Verb.Voided;
             var activity = new Activity(new ActivityId("http://example.com"));
 
@@ -55,7 +55,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestExample()
         {
-            var actor = new Agent(new Mailbox(new MailAddress("test@example.com")), "Agent");
+            var actor = new Agent(new Mailbox(new Uri("mailto:test@example.com")), "Agent");
             var verb1 = new Verb(new VerbId("http://example.com/planned"), new LanguageMap(LanguageTag.EnglishUS, "planned"));
             var verb2 = new Verb(new VerbId("http://example.com/planned"), new LanguageMap(LanguageTag.EnglishUS, "will visit"));
             var definition = new ActivityDefinition(
@@ -73,7 +73,7 @@ namespace Float.xAPI.Tests
         public void TestProperties()
         {
             var substatement = TestValidInit();
-            Assert.Equal(new Agent(new Mailbox(new MailAddress("test@example.com"))), substatement.Actor);
+            Assert.Equal(new Agent(new Mailbox(new Uri("mailto:test@example.com"))), substatement.Actor);
             Assert.Equal(new Context(), substatement.Context);
             Assert.Equal(new Activity(new ActivityId("http://example.com")), substatement.Object);
             Assert.Equal(ObjectType.SubStatement, substatement.ObjectType);
@@ -82,7 +82,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(Verb.Voided, substatement.Verb);
 
             var isubstatement = substatement as ISubStatement;
-            Assert.Equal(new Agent(new Mailbox(new MailAddress("test@example.com"))), isubstatement.Actor);
+            Assert.Equal(new Agent(new Mailbox(new Uri("mailto:test@example.com"))), isubstatement.Actor);
             Assert.Equal(new Context(), isubstatement.Context);
             Assert.Equal(new Activity(new ActivityId("http://example.com")), isubstatement.Object);
             Assert.Equal(ObjectType.SubStatement, isubstatement.ObjectType);

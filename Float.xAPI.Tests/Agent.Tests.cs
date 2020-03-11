@@ -16,7 +16,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public Agent TestValidInit()
         {
-            var ifi1 = new Mailbox(new MailAddress("test@example.com"));
+            var ifi1 = new Mailbox(new Uri("mailto:test@example.com"));
             var ifi2 = new MailboxSha1Sum(new SHAHash("test@example.com"));
             var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
             var ifi4 = new Account("test", new Uri("http://example.com"));
@@ -38,7 +38,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestEquality()
         {
-            var ifi1 = new Mailbox(new MailAddress("test@example.com"));
+            var ifi1 = new Mailbox(new Uri("mailto:test@example.com"));
             var ifi2 = new MailboxSha1Sum(new SHAHash("test@example.com"));
             var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
             var ifi4 = new Account("test", new Uri("http://example.com"));
@@ -59,7 +59,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestInequality()
         {
-            var ifi1 = new Mailbox(new MailAddress("test1@example.com"));
+            var ifi1 = new Mailbox(new Uri("mailto:test1@example.com"));
             var ifi2 = new MailboxSha1Sum(new SHAHash("test2@example.com"));
             var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
             var ifi4 = new Account("test", new Uri("http://example.com"));

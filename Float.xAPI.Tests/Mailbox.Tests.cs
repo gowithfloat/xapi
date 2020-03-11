@@ -15,40 +15,45 @@ namespace Float.xAPI.Tests
         [Fact]
         public Mailbox TestValidInit()
         {
-            return new Mailbox(new MailAddress("valid@example.com"));
+            return new Mailbox(new Uri("mailto:valid@example.com"));
         }
 
         [Fact]
         public void TestInvalidInit()
         {
             Assert.Throws<ArgumentNullException>(() => new Mailbox(null));
-            Assert.Throws<ArgumentNullException>(() => new Mailbox(new MailAddress(null)));
-            Assert.Throws<ArgumentException>(() => new Mailbox(new MailAddress(string.Empty)));
-            Assert.Throws<FormatException>(() => new Mailbox(new MailAddress(" ")));
-            Assert.Throws<FormatException>(() => new Mailbox(new MailAddress("invalid")));
-            Assert.Throws<FormatException>(() => new Mailbox(new MailAddress("invalid.com")));
+            Assert.Throws<ArgumentNullException>(() => new Mailbox(new Uri(null)));
+            Assert.Throws<UriFormatException>(() => new Mailbox(new Uri(string.Empty)));
+            Assert.Throws<UriFormatException>(() => new Mailbox(new Uri(" ")));
+            Assert.Throws<UriFormatException>(() => new Mailbox(new Uri("invalid")));
+            Assert.Throws<UriFormatException>(() => new Mailbox(new Uri("invalid.com")));
         }
 
         [Fact]
         public void TestEquality()
         {
-            var mailbox1 = new Mailbox(new MailAddress("test@example.com"));
-            var mailbox2 = new Mailbox(new MailAddress("test@example.com"));
+            var mailbox1 = new Mailbox(new Uri("mailto:test@example.com"));
+            var mailbox2 = new Mailbox(new Uri("mailto:test@example.com"));
             AssertHelper.Equality<Mailbox, IMailbox, IInverseFunctionalIdentifier>(mailbox1, mailbox2, (a, b) => a == b);
         }
 
         [Fact]
         public void TestInequality()
         {
-            var mailbox1 = new Mailbox(new MailAddress("test@example.com"));
-            var mailbox3 = new Mailbox(new MailAddress("notequal@example.com"));
+            var mailbox1 = new Mailbox(new Uri("mailto:test@example.com"));
+            var mailbox3 = new Mailbox(new Uri("mailto:notequal@example.com"));
+            Assert.False(mailbox1.Address.AbsoluteUri == mailbox3.Address.AbsoluteUri);
+            Assert.True(mailbox1.Address.AbsoluteUri != mailbox3.Address.AbsoluteUri);
+
+            Assert.False(mailbox1 == mailbox3);
+            Assert.True(mailbox1 != mailbox3);
             AssertHelper.Inequality<Mailbox, IMailbox, IInverseFunctionalIdentifier>(mailbox1, mailbox3, (a, b) => a != b);
         }
 
         [Fact]
         public void TestToString()
         {
-            var mailbox = new Mailbox(new MailAddress("email@example.com"));
+            var mailbox = new Mailbox(new Uri("mailto:email@example.com"));
             Assert.Equal("mailto:email@example.com", mailbox.ToString());
         }
     }

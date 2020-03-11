@@ -24,14 +24,14 @@ namespace Float.xAPI.Tests
         [Fact]
         public Statement TestValidInit()
         {
-            var actor = new Agent(new Mailbox(new MailAddress("xapi@adlnet.gov")));
+            var actor = new Agent(new Mailbox(new Uri("mailto:xapi@adlnet.gov")));
             var verb = new Verb(new VerbId("http://adlnet.gov/expapi/verbs/created"), new LanguageMap(LanguageTag.EnglishUS, "created"));
             var obj = new Activity(new ActivityId("http://example.adlnet.gov/xapi/example/activity"));
             var statement = new Statement(actor, verb, obj);
             Assert.Equal(ObjectType.Agent, statement.Actor.ObjectType);
             Assert.Equal(ObjectType.Activity, statement.Object.ObjectType);
             Assert.Null(statement.Actor.Name);
-            Assert.Equal("xapi@adlnet.gov", ((statement.Actor as IAgent).IFI.Item as IMailbox).Address.Address);
+            Assert.Equal("mailto:xapi@adlnet.gov", ((statement.Actor as IAgent).IFI.Item as IMailbox).Address.AbsoluteUri);
             return statement;
         }
 
@@ -89,7 +89,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestConvenienceInitializedStatement()
         {
-            var mailbox = new Mailbox(new MailAddress("example@gowithfloat.com"));
+            var mailbox = new Mailbox(new Uri("mailto:example@gowithfloat.com"));
             var actor = new Agent(mailbox, "Example Learner");
             var verb = new Verb(new VerbId("http://adlnet.gov/expapi/verbs/completed"), new LanguageMap(LanguageTag.EnglishUS, "completed"));
 
@@ -110,7 +110,7 @@ namespace Float.xAPI.Tests
         {
             var id = new Guid("fd41c918-b88b-4b20-a0a5-a4c32391aaa0");
             var timestamp = new DateTime(2015, 11, 18, 12, 17, 0);
-            var address = new MailAddress("user@example.com");
+            var address = new Uri("mailto:user@example.com");
             var mailbox = new Mailbox(address);
             var actor = new Agent(mailbox, "Project Tin Can API");
             var verbUri = new VerbId("http://example.com/xapi/verbs#sent-a-statement");
@@ -139,7 +139,7 @@ namespace Float.xAPI.Tests
         {
             var id = new Guid("7ccd3322-e1a5-411a-a67d-6a735c76f119");
             var timestamp = new DateTime(2015, 12, 18, 12, 17, 0);
-            var mbox = new Mailbox(new MailAddress("example.learner@adlnet.gov"));
+            var mbox = new Mailbox(new Uri("mailto:example.learner@adlnet.gov"));
             var actor = new Agent(mbox, "Example Learner");
             var display = new LanguageMap(LanguageTag.EnglishUS, "attempted");
             var verb = new Verb(new VerbId("http://adlnet.gov/expapi/verbs/attempted"), display);
@@ -158,7 +158,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestStatementWithAttachments()
         {
-            var actor = new Agent(new Mailbox(new MailAddress("sample.agent@example.com")), "Sample Agent");
+            var actor = new Agent(new Mailbox(new Uri("mailto:sample.agent@example.com")), "Sample Agent");
             var verb = new Verb(
                 new VerbId("http://adlnet.gov/expapi/verbs/answered"),
                 new LanguageMap(LanguageTag.EnglishUS, "answered"));
@@ -189,7 +189,7 @@ namespace Float.xAPI.Tests
         [Fact]
         public void TestVoid()
         {
-            var actor = new Agent(new Mailbox(new MailAddress("admin@example.adlnet.gov")), "Example Admin");
+            var actor = new Agent(new Mailbox(new Uri("mailto:admin@example.adlnet.gov")), "Example Admin");
             var obj = new StatementReference(new Guid("e05aa883-acaf-40ad-bf54-02c8ce485fb0"));
             var statement = new Statement(actor, Verb.Voided, obj);
 
@@ -199,13 +199,13 @@ namespace Float.xAPI.Tests
             Assert.Equal(ObjectType.StatementReference, statement.Object.ObjectType);
             Assert.Equal(ObjectType.Agent, statement.Actor.ObjectType);
             Assert.Equal("example.adlnet.gov", ((statement.Actor as IAgent).IFI.Item as IMailbox).Address.Host);
-            Assert.Equal("admin", ((statement.Actor as IAgent).IFI.Item as IMailbox).Address.User);
+            Assert.Equal("admin", ((statement.Actor as IAgent).IFI.Item as IMailbox).Address.UserInfo);
         }
 
         [Fact]
         public void TestWithResult()
         {
-            var actor = new Agent(new Mailbox(new MailAddress("test@example.com")), null);
+            var actor = new Agent(new Mailbox(new Uri("mailto:test@example.com")), null);
             var verb = new Verb(new VerbId("http://example.com/commented"), new LanguageMap(LanguageTag.EnglishUS, "commented"));
             var statementRef = new StatementReference(new Guid("8f87ccde-bb56-4c2e-ab83-44982ef22df0"));
             var result = new Result(response: "Wow, nice work!");

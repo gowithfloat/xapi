@@ -5,7 +5,7 @@
 
 namespace Float.xAPI.Actor.Identifier
 
-open System.Net.Mail
+open System
 open Float.Interop
 
 /// <summary>
@@ -16,14 +16,14 @@ type public IMailbox =
     /// <summary>
     /// Only email addresses that have only ever been and will ever be assigned to this Agent, but no others, SHOULD be used for this property and mbox_sha1sum.
     /// </summary>
-    abstract member Address: MailAddress
+    abstract member Address: Uri
 
     inherit IInverseFunctionalIdentifier
 
 [<CustomEquality;NoComparison;Struct>]
 type public Mailbox =
     /// <inheritdoc />
-    val Address: MailAddress // todo: should be an IRI
+    val Address: Uri
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.Actor.Identifier.Mailbox"/> class.
@@ -34,15 +34,15 @@ type public Mailbox =
         { Address = address }
 
     /// <inheritdoc />
-    override this.ToString() = sprintf "mailto:%s" this.Address.Address
+    override this.ToString() = this.Address.AbsoluteUri
 
     /// <inheritdoc />
-    override this.GetHashCode() = hash this.Address
+    override this.GetHashCode() = hash this.Address.AbsoluteUri
 
     /// <inheritdoc />
     override this.Equals other = 
         match other with
-        | :? IMailbox as mailbox -> this.Address = mailbox.Address
+        | :? IMailbox as mailbox -> this.Address.AbsoluteUri = mailbox.Address.AbsoluteUri
         | _ -> false
 
     static member op_Equality (lhs: IMailbox, rhs: IMailbox) = lhs.Equals(rhs)

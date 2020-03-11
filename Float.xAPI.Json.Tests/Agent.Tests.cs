@@ -17,7 +17,7 @@ namespace Float.xAPI.Json.Tests
         [Fact]
         public void TestSerialize()
         {
-            var ifi1 = new Mailbox(new MailAddress("jdoe@example.com"));
+            var ifi1 = new Mailbox(new Uri("mailto:jdoe@example.com"));
             var ifi2 = new MailboxSha1Sum(new SHAHash("sschmoe@example.com"));
             var ifi3 = new OpenID(new Uri("https://www.gowithfloat.com"));
             var ifi4 = new Account("test", new Uri("http://example.com"));
