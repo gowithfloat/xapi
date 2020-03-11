@@ -76,8 +76,8 @@ type IStatementResource =
         [<Optional>] registration: Guid option * 
         [<Optional;DefaultParameterValue(false)>] relatedActivities: bool * 
         [<Optional;DefaultParameterValue(false)>] relatedAgents: bool * 
-        [<Optional>] since: DateTime option * 
-        [<Optional>] until: DateTime option * 
+        [<Optional>] since: DateTimeOffset option * 
+        [<Optional>] until: DateTimeOffset option * 
         [<Optional;DefaultParameterValue(0)>] limit: int * 
         [<Optional;DefaultParameterValue(StatementResultFormat.Exact)>] format: StatementResultFormat * 
         [<Optional;DefaultParameterValue(false)>] attachments: bool * 

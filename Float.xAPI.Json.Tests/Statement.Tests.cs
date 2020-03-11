@@ -59,7 +59,7 @@ namespace Float.xAPI.Json.Tests
                 id: new Guid("2a41c918-b88b-4220-20a5-a4c32391a240"),
                 result: result,
                 context: context,
-                timestamp: DateTime.Parse("2012-06-01T19:09:13.245+00:00"));
+                timestamp: DateTimeOffset.Parse("2012-06-01T19:09:13.245+00:00"));
 
             Assert.Equal(
                 FormatJson(ReadFile("about-example-statement.json")),

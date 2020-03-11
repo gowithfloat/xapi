@@ -109,7 +109,7 @@ namespace Float.xAPI.Tests
         public void TestExample()
         {
             var id = new Guid("fd41c918-b88b-4b20-a0a5-a4c32391aaa0");
-            var timestamp = new DateTime(2015, 11, 18, 12, 17, 0);
+            var timestamp = new DateTimeOffset(new DateTime(2015, 11, 18, 12, 17, 0));
             var address = new Uri("mailto:user@example.com");
             var mailbox = new Mailbox(address);
             var actor = new Agent(mailbox, "Project Tin Can API");
@@ -138,7 +138,7 @@ namespace Float.xAPI.Tests
         public void TestExampleStatement2()
         {
             var id = new Guid("7ccd3322-e1a5-411a-a67d-6a735c76f119");
-            var timestamp = new DateTime(2015, 12, 18, 12, 17, 0);
+            var timestamp = new DateTimeOffset(new DateTime(2015, 12, 18, 12, 17, 0));
             var mbox = new Mailbox(new Uri("mailto:example.learner@adlnet.gov"));
             var actor = new Agent(mbox, "Example Learner");
             var display = new LanguageMap(LanguageTag.EnglishUS, "attempted");
@@ -241,7 +241,7 @@ namespace Float.xAPI.Tests
                 },
             };
             var context = new Context(new Guid("ec231277-b27b-4c15-8291-d29225b2b8f7"), contextActivities: contextActivities, extensions: ctxExtensions);
-            var timestamp = new DateTime(2012, 6, 1, 19, 13, 24);
+            var timestamp = new DateTimeOffset(new DateTime(2012, 6, 1, 19, 13, 24));
             var statement = new Statement(agent, verb, activity, id, result, context, timestamp);
         }
 
@@ -255,7 +255,7 @@ namespace Float.xAPI.Tests
             var result = new Result(new Score(0.5));
             var contextId = Guid.NewGuid();
             var context = new Context(contextId);
-            var timestamp = DateTime.Now;
+            var timestamp = DateTimeOffset.Now;
             var auth = new Agent(new OpenID(new Uri("http://example.com/authority")));
             var version = new Version(1, 2, 3);
             var attachments = new List<IAttachment>

@@ -94,7 +94,7 @@ module internal Filters =
     /// <summary>
     /// Returns false if the statement has a timestamp that is before the given time.
     /// </summary>
-    let statementSinceMatch (since: DateTime option) (statement: IStatement) =
+    let statementSinceMatch (since: DateTimeOffset option) (statement: IStatement) =
         match statement.Timestamp with
         | Some timestamp ->
             match since with
@@ -105,7 +105,7 @@ module internal Filters =
     /// <summary>
     /// Returns false if the statement has a timestamp that is after the given time.
     /// </summary>
-    let statementUntilMatch (until: DateTime option) (statement: IStatement) =
+    let statementUntilMatch (until: DateTimeOffset option) (statement: IStatement) =
         match statement.Timestamp with
         | Some timestamp ->
             match until with

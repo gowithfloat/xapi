@@ -44,7 +44,7 @@ type public SubStatement =
     val Context: IContext option
 
     /// <inheritdoc />
-    val Timestamp: DateTime option
+    val Timestamp: DateTimeOffset option
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Float.xAPI.SubStatement"/> struct.

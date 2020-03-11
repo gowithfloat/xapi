@@ -26,7 +26,7 @@ type public IStatement =
     /// <summary>
     /// Timestamp of when this Statement was recorded. Set by LRS.
     /// </summary>
-    abstract member Stored: DateTime option
+    abstract member Stored: DateTimeOffset option
 
     /// <summary>
     /// Agent or Group who is asserting this Statement is true.
@@ -69,10 +69,10 @@ type public Statement =
     val Context: IContext option
 
     /// <inheritdoc />
-    val Timestamp: DateTime option
+    val Timestamp: DateTimeOffset option
 
     /// <inheritdoc />
-    val Stored: DateTime option
+    val Stored: DateTimeOffset option
 
     /// <inheritdoc />
     val Authority: IActor option
@@ -101,7 +101,7 @@ type public Statement =
         nullArg actor "actor"
         nullArg verb "verb"
         nullArg object "object"
-        { Id = (id |? Guid.NewGuid()); Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = Some (timestamp |? DateTime.Now); Stored = stored; Authority = authority; Version = version; Attachments = attachments }
+        { Id = (id |? Guid.NewGuid()); Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = Some (timestamp |? DateTimeOffset.Now); Stored = stored; Authority = authority; Version = version; Attachments = attachments }
 
     /// <inheritdoc />
     override this.GetHashCode() = hash this.Id

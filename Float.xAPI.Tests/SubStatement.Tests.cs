@@ -25,7 +25,7 @@ namespace Float.xAPI.Tests
             var activity = new Activity(new ActivityId("http://example.com"));
             var result = new Result();
             var context = new Context();
-            var timestamp = DateTime.Now;
+            var timestamp = DateTimeOffset.Now;
 
             var substatement1 = new SubStatement(actor, verb, activity);
             var substatement2 = new SubStatement(actor, verb, activity, result);
@@ -78,7 +78,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(new Activity(new ActivityId("http://example.com")), substatement.Object);
             Assert.Equal(ObjectType.SubStatement, substatement.ObjectType);
             Assert.Equal(new Result(), substatement.Result);
-            Assert.Equal(DateTime.Now, substatement.Timestamp.Value, new TimeSpan(TimeSpan.TicksPerSecond)); // todo: avoid Value
+            Assert.Equal(DateTime.Now, substatement.Timestamp.Value.DateTime, new TimeSpan(TimeSpan.TicksPerSecond)); // todo: avoid Value
             Assert.Equal(Verb.Voided, substatement.Verb);
 
             var isubstatement = substatement as ISubStatement;
@@ -87,7 +87,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(new Activity(new ActivityId("http://example.com")), isubstatement.Object);
             Assert.Equal(ObjectType.SubStatement, isubstatement.ObjectType);
             Assert.Equal(new Result(), isubstatement.Result);
-            Assert.Equal(DateTime.Now, isubstatement.Timestamp.Value, new TimeSpan(TimeSpan.TicksPerSecond)); // todo: avoid Value
+            Assert.Equal(DateTime.Now, isubstatement.Timestamp.Value.DateTime, new TimeSpan(TimeSpan.TicksPerSecond)); // todo: avoid Value
             Assert.Equal(Verb.Voided, isubstatement.Verb);
         }
     }

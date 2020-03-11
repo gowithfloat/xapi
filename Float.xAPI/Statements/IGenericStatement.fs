@@ -43,4 +43,4 @@ type public IGenericStatement =
     /// <summary>
     /// Timestamp of when the events described within this Statement occurred.
     /// </summary>
-    abstract member Timestamp: DateTime option
+    abstract member Timestamp: DateTimeOffset option
