@@ -23,7 +23,7 @@ type public IContext =
     /// <summary>
     /// Instructor that the Statement relates to, if not included as the Actor of the Statement.
     /// </summary>
-    abstract member Instructor: IActor option
+    abstract member Instructor: Actor option
 
     /// <summary>
     /// Team that this Statement relates to, if not included as the Actor of the Statement.

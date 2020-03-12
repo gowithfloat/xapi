@@ -19,7 +19,7 @@ type public Context =
     val Registration: Guid option
 
     /// <inheritdoc />
-    val Instructor: IActor option
+    val Instructor: Actor option
 
     /// <inheritdoc />
     val Team: IGroup option
