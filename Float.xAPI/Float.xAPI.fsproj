@@ -47,7 +47,7 @@
     <Compile Include="Actor\Identifier\MailboxSha1Sum.fs" />
     <Compile Include="Actor\Identifier\OpenID.fs" />
     <Compile Include="Actor\Identifier\Account.fs" />
-    <Compile Include="Actor\Identifier\AnyIFI.fs" />
+    <Compile Include="Actor\Identifier\InverseFunctionalIdentifier.fs" />
     <Compile Include="Actor\IActor.fs" />
     <Compile Include="Actor\IIdentifiedActor.fs" />
     <Compile Include="Actor\Agent.fs" />
