@@ -12,8 +12,8 @@ open System.Xml
 open Float.xAPI
 open Float.xAPI.Activities
 open Float.xAPI.Activities.Definitions
-open Float.xAPI.Actor
-open Float.xAPI.Actor.Identifier
+open Float.xAPI.Actors
+open Float.xAPI.Actors.Identifier
 open Float.xAPI.Languages
 open Float.xAPI.Statements
 open Newtonsoft.Json
@@ -136,16 +136,20 @@ module Serialize =
     /// <summary>
     /// Convert an actor to a JSON string.
     /// </summary>
-    let Actor (actor: IActor) =
+    let Actor (actor: Actor) =
         let output = new Dictionary<string, obj>()
-        output.Add("objectType", "Agent" |> quoteWrap)
 
-        match actor.Name with
+        match actor.Item.Name with
         | Some name -> output.Add("name", name |> quoteWrap)
         | _ -> ()
 
         match actor with
-        | :? IIdentifiedActor as idActor -> 
+        | Agent agent -> output.Add("objectType", "Agent" |> quoteWrap)
+        | IdentifiedGroup group -> output.Add("objectType", "Group" |> quoteWrap)
+        | AnonymousGroup group -> output.Add("objectType", "Group" |> quoteWrap)
+
+        match actor.Item with
+        | :? IIdentifiedActor as idActor ->
             match idActor.IFI with
             | Mailbox mbox -> output.Add("mbox", mbox |> IFI)
             | MailboxSha1Sum sha -> output.Add("mbox_sha1sum", sha |> IFI)
@@ -263,7 +267,7 @@ module Serialize =
         | _ -> ()
 
         match context.Team with
-        | Some team -> output.Add("team", team |> Actor)
+        | Some team -> output.Add("team", team |> Actors.Actor.From |> Actor)
         | _ -> ()
 
         match context.ContextActivities with

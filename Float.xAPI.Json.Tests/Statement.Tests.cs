@@ -6,10 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Xml;
 using Float.xAPI.Activities;
-using Float.xAPI.Actor;
-using Float.xAPI.Actor.Identifier;
+using Float.xAPI.Actors;
+using Float.xAPI.Actors.Identifier;
 using Float.xAPI.Languages;
 using Float.xAPI.Statements;
 using Xunit;
@@ -76,12 +77,12 @@ namespace Float.xAPI.Json.Tests
             Assert.Equal(new Guid("2a41c918-b88b-4220-20a5-a4c32391a240"), statement.Id);
 
             // actor
-            Assert.Equal("Gert Frobe", statement.Actor.Name);
-            Assert.Equal(ObjectType.Agent, statement.Actor.ObjectType);
-            Assert.IsType<Agent>(statement.Actor);
-            Assert.IsType<Account>(((Agent)statement.Actor).IFI.Item);
-            Assert.Equal("http://example.adlnet.gov/", ((Account)((Agent)statement.Actor).IFI.Item).HomePage.AbsoluteUri);
-            Assert.Equal("1625378", ((Account)((Agent)statement.Actor).IFI.Item).Name);
+            Assert.Equal("Gert Frobe", statement.Actor.Item.Name);
+            Assert.Equal(ObjectType.Agent, statement.Actor.Item.ObjectType);
+            Assert.IsType<Agent>(statement.Actor.Item);
+            Assert.IsType<Account>(((Agent)statement.Actor.Item).IFI.Item);
+            Assert.Equal("http://example.adlnet.gov/", ((Account)((Agent)statement.Actor.Item).IFI.Item).HomePage.AbsoluteUri);
+            Assert.Equal("1625378", ((Account)((Agent)statement.Actor.Item).IFI.Item).Name);
 
             // verb
             Assert.Equal("http://adlnet.gov/expapi/verbs/failed", statement.Verb.Id.Iri.AbsoluteUri);

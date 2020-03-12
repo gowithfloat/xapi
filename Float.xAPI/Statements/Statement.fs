@@ -101,7 +101,12 @@ type public Statement =
         nullArg actor "actor"
         nullArg verb "verb"
         nullArg object "object"
-        { Id = (id |? Guid.NewGuid()); Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = Some (timestamp |? DateTimeOffset.Now); Stored = stored; Authority = authority; Version = version; Attachments = attachments }
+
+        let auth = match authority with
+                   | Some aut -> aut |> Actor.From |> Some
+                   | None -> None
+
+        { Id = (id |? Guid.NewGuid()); Actor = actor |> Actor.From; Verb = verb; Object = object; Result = result; Context = context; Timestamp = Some (timestamp |? DateTimeOffset.Now); Stored = stored; Authority = auth; Version = version; Attachments = attachments }
 
     /// <inheritdoc />
     override this.GetHashCode() = hash this.Id

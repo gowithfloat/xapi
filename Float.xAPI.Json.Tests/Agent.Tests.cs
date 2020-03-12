@@ -4,9 +4,8 @@
 // </copyright>
 
 using System;
-using System.Net.Mail;
-using Float.xAPI.Actor;
-using Float.xAPI.Actor.Identifier;
+using Float.xAPI.Actors;
+using Float.xAPI.Actors.Identifier;
 using Xunit;
 using static Float.xAPI.Json.Tests.TestHelpers;
 
@@ -26,10 +25,14 @@ namespace Float.xAPI.Json.Tests
             var agent3 = new Agent(ifi3, "Learner, Example");
             var agent4 = new Agent(ifi4);
 
-            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Jane Doe\",\"mbox\":\"mailto:jdoe@example.com\"}", Serialize.Actor(agent1));
-            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Sue Schmoe\",\"mbox_sha1sum\":\"0e3372390b51c30c2fa4d2e0fd7b2b2009fc5692\"}", Serialize.Actor(agent2));
-            Assert.Equal("{\"objectType\":\"Agent\",\"name\":\"Learner, Example\",\"openid\":\"https://www.gowithfloat.com/\"}", Serialize.Actor(agent3));
-            Assert.Equal("{\"objectType\":\"Agent\",\"account\":{\"homePage\":\"http://example.com/\",\"name\":\"test\"}}", Serialize.Actor(agent4));
+            Assert.Equal(FormatJson("{\"objectType\":\"Agent\",\"name\":\"Jane Doe\",\"mbox\":\"mailto:jdoe@example.com\"}"),
+                FormatJson(Serialize.Actor(Actor.From(agent1))));
+            Assert.Equal(FormatJson("{\"objectType\":\"Agent\",\"name\":\"Sue Schmoe\",\"mbox_sha1sum\":\"0e3372390b51c30c2fa4d2e0fd7b2b2009fc5692\"}"),
+                FormatJson(Serialize.Actor(Actor.From(agent2))));
+            Assert.Equal(FormatJson("{\"objectType\":\"Agent\",\"name\":\"Learner, Example\",\"openid\":\"https://www.gowithfloat.com/\"}"),
+                FormatJson(Serialize.Actor(Actor.From(agent3))));
+            Assert.Equal(FormatJson("{\"objectType\":\"Agent\",\"account\":{\"homePage\":\"http://example.com/\",\"name\":\"test\"}}"),
+                FormatJson(Serialize.Actor(Actor.From(agent4))));
         }
 
         [Fact]

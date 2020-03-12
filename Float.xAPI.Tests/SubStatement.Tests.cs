@@ -4,11 +4,10 @@
 // </copyright>
 
 using System;
-using System.Net.Mail;
 using Float.xAPI.Activities;
 using Float.xAPI.Activities.Definitions;
-using Float.xAPI.Actor;
-using Float.xAPI.Actor.Identifier;
+using Float.xAPI.Actors;
+using Float.xAPI.Actors.Identifier;
 using Float.xAPI.Languages;
 using Float.xAPI.Statements;
 using Xunit;
@@ -73,7 +72,7 @@ namespace Float.xAPI.Tests
         public void TestProperties()
         {
             var substatement = TestValidInit();
-            Assert.Equal(new Agent(new Mailbox(new Uri("mailto:test@example.com"))), substatement.Actor);
+            Assert.Equal(new Agent(new Mailbox(new Uri("mailto:test@example.com"))), substatement.Actor.Item);
             Assert.Equal(new Context(), substatement.Context);
             Assert.Equal(new Activity(new ActivityId("http://example.com")), substatement.Object);
             Assert.Equal(ObjectType.SubStatement, substatement.ObjectType);
@@ -82,7 +81,7 @@ namespace Float.xAPI.Tests
             Assert.Equal(Verb.Voided, substatement.Verb);
 
             var isubstatement = substatement as ISubStatement;
-            Assert.Equal(new Agent(new Mailbox(new Uri("mailto:test@example.com"))), isubstatement.Actor);
+            Assert.Equal(new Agent(new Mailbox(new Uri("mailto:test@example.com"))), isubstatement.Actor.Item);
             Assert.Equal(new Context(), isubstatement.Context);
             Assert.Equal(new Activity(new ActivityId("http://example.com")), isubstatement.Object);
             Assert.Equal(ObjectType.SubStatement, isubstatement.ObjectType);

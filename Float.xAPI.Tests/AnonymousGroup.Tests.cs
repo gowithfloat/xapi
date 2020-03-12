@@ -6,8 +6,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Float.xAPI.Actor;
-using Float.xAPI.Actor.Identifier;
+using Float.xAPI.Actors;
+using Float.xAPI.Actors.Identifier;
 using Xunit;
 
 namespace Float.xAPI.Tests

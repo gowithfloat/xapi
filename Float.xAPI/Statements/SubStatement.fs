@@ -60,7 +60,7 @@ type public SubStatement =
         nullArg actor "actor"
         nullArg verb "verb"
         nullArg object "object"
-        { Actor = actor; Verb = verb; Object = object; Result = result; Context = context; Timestamp = timestamp }
+        { Actor = actor |> Actor.From; Verb = verb; Object = object; Result = result; Context = context; Timestamp = timestamp }
 
     /// <inheritdoc />
     member this.ObjectType = ObjectType.SubStatement

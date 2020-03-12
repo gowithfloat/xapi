@@ -7,8 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Float.xAPI.Activities;
-using Float.xAPI.Actor;
-using Float.xAPI.Actor.Identifier;
+using Float.xAPI.Actors;
+using Float.xAPI.Actors.Identifier;
 using Float.xAPI.Languages;
 using Float.xAPI.Statements;
 using Xunit;
@@ -91,7 +91,7 @@ namespace Float.xAPI.Tests
             var srguid = ctx.Statement.Value.Id;
             Assert.Equal(new ContextActivities(new IActivity[] { new Activity() }), ctx.ContextActivities);
             Assert.Equal("ext", ctx.Extensions.Value.First().Value);
-            Assert.Equal(new Agent(new OpenID(new Uri("http://example.com"))), ctx.Instructor);
+            Assert.Equal(new Agent(new OpenID(new Uri("http://example.com"))), ctx.Instructor.Value.Item);
             Assert.Equal(LanguageTag.EnglishUS, ctx.Language);
             Assert.Equal("platform", ctx.Platform);
             Assert.Equal(guid, ctx.Registration);
@@ -102,7 +102,7 @@ namespace Float.xAPI.Tests
             var ictx = ctx as IContext;
             Assert.Equal(new ContextActivities(new IActivity[] { new Activity() }), ictx.ContextActivities);
             Assert.Equal("ext", ictx.Extensions.Value.First().Value);
-            Assert.Equal(new Agent(new OpenID(new Uri("http://example.com"))), ictx.Instructor);
+            Assert.Equal(new Agent(new OpenID(new Uri("http://example.com"))), ictx.Instructor.Value.Item);
             Assert.Equal(LanguageTag.EnglishUS, ictx.Language);
             Assert.Equal("platform", ictx.Platform);
             Assert.Equal(guid, ictx.Registration);

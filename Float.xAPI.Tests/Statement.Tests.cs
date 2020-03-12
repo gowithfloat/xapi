@@ -5,13 +5,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Mail;
 using System.Net.Mime;
 using System.Security.Cryptography;
 using Float.xAPI.Activities;
 using Float.xAPI.Activities.Definitions;
-using Float.xAPI.Actor;
-using Float.xAPI.Actor.Identifier;
+using Float.xAPI.Actors;
+using Float.xAPI.Actors.Identifier;
 using Float.xAPI.Languages;
 using Float.xAPI.Statements;
 using Microsoft.FSharp.Core;
@@ -28,10 +27,10 @@ namespace Float.xAPI.Tests
             var verb = new Verb(new VerbId("http://adlnet.gov/expapi/verbs/created"), new LanguageMap(LanguageTag.EnglishUS, "created"));
             var obj = new Activity(new ActivityId("http://example.adlnet.gov/xapi/example/activity"));
             var statement = new Statement(actor, verb, obj);
-            Assert.Equal(ObjectType.Agent, statement.Actor.ObjectType);
+            Assert.Equal(ObjectType.Agent, statement.Actor.Item.ObjectType);
             Assert.Equal(ObjectType.Activity, statement.Object.ObjectType);
-            Assert.Null(statement.Actor.Name);
-            Assert.Equal("mailto:xapi@adlnet.gov", ((statement.Actor as IAgent).IFI.Item as IMailbox).Address.AbsoluteUri);
+            Assert.Null(statement.Actor.Item.Name);
+            Assert.Equal("mailto:xapi@adlnet.gov", ((statement.Actor.Item as IAgent).IFI.Item as IMailbox).Address.AbsoluteUri);
             return statement;
         }
 
@@ -193,13 +192,13 @@ namespace Float.xAPI.Tests
             var obj = new StatementReference(new Guid("e05aa883-acaf-40ad-bf54-02c8ce485fb0"));
             var statement = new Statement(actor, Verb.Voided, obj);
 
-            Assert.Equal(actor, statement.Actor);
+            Assert.Equal(actor, statement.Actor.Item);
             Assert.Equal(Verb.Voided, statement.Verb);
             Assert.Equal(obj, statement.Object);
             Assert.Equal(ObjectType.StatementReference, statement.Object.ObjectType);
-            Assert.Equal(ObjectType.Agent, statement.Actor.ObjectType);
-            Assert.Equal("example.adlnet.gov", ((statement.Actor as IAgent).IFI.Item as IMailbox).Address.Host);
-            Assert.Equal("admin", ((statement.Actor as IAgent).IFI.Item as IMailbox).Address.UserInfo);
+            Assert.Equal(ObjectType.Agent, statement.Actor.Item.ObjectType);
+            Assert.Equal("example.adlnet.gov", ((statement.Actor.Item as IAgent).IFI.Item as IMailbox).Address.Host);
+            Assert.Equal("admin", ((statement.Actor.Item as IAgent).IFI.Item as IMailbox).Address.UserInfo);
         }
 
         [Fact]
@@ -269,9 +268,9 @@ namespace Float.xAPI.Tests
             };
 
             var statement = new Statement(actor, verb, activity, id, result, context, timestamp, timestamp, auth, version, attachments);
-            Assert.Equal(actor, statement.Actor);
+            Assert.Equal(actor, statement.Actor.Item);
             Assert.Equal(attachments, statement.Attachments);
-            Assert.Equal(auth, statement.Authority);
+            Assert.Equal(auth, statement.Authority.Value.Item);
             Assert.Equal(contextId, statement.Context.Value.Registration);
             Assert.Equal(id, statement.Id);
             Assert.Equal(activity, statement.Object);
@@ -282,9 +281,9 @@ namespace Float.xAPI.Tests
             Assert.Equal(version, statement.Version);
 
             var istatement = statement as IStatement;
-            Assert.Equal(actor, istatement.Actor);
+            Assert.Equal(actor, istatement.Actor.Item);
             Assert.Equal(attachments, istatement.Attachments);
-            Assert.Equal(auth, istatement.Authority);
+            Assert.Equal(auth, istatement.Authority.Value.Item);
             Assert.Equal(contextId, istatement.Context.Value.Registration);
             Assert.Equal(id, istatement.Id);
             Assert.Equal(activity, istatement.Object);

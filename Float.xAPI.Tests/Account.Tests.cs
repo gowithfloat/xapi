@@ -4,7 +4,7 @@
 // </copyright>
 
 using System;
-using Float.xAPI.Actor.Identifier;
+using Float.xAPI.Actors.Identifier;
 using FsCheck;
 using FsCheck.Xunit;
 using Xunit;

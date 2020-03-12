@@ -58,7 +58,12 @@ type public Context =
         invalidOptionalStringArg revision "revision"
         invalidOptionalStringArg platform "platform"
         emptyOptionalSeqArg extensions "extensions"
-        { Registration = registration; Instructor = instructor; Team = team; ContextActivities = contextActivities; Revision = revision; Platform = platform; Language = language; Statement = statement; Extensions = extensions }
+
+        let inst = match instructor with
+                   | Some ins -> ins |> Actor.From |> Some
+                   | None -> None
+
+        { Registration = registration; Instructor = inst; Team = team; ContextActivities = contextActivities; Revision = revision; Platform = platform; Language = language; Statement = statement; Extensions = extensions }
 
     interface IContext with
         member this.Registration = this.Registration

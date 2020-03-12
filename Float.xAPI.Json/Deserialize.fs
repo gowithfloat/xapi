@@ -12,8 +12,8 @@ open FSharp.Data
 open Float.xAPI
 open Float.xAPI.Activities
 open Float.xAPI.Activities.Definitions
-open Float.xAPI.Actor
-open Float.xAPI.Actor.Identifier
+open Float.xAPI.Actors
+open Float.xAPI.Actors.Identifier
 open Float.xAPI.Languages
 open Float.xAPI.Statements
 
@@ -533,7 +533,7 @@ module Deserialize =
         match des.ObjectType with
         | Some objectType -> 
             match objectType |> ObjectType.FromString with
-            | Some Agent -> invalidArg "todo" "todo"
+            | Some ObjectType.Agent -> invalidArg "todo" "todo"
             | Some Group -> invalidArg "todo" "todo"
             | Some SubStatement -> invalidArg "todo" "todo"
             | Some StatementReference -> invalidArg "todo" "todo"

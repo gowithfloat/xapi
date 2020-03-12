@@ -3,7 +3,7 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-using Float.xAPI.Actor.Identifier;
+using Float.xAPI.Actors.Identifier;
 using Xunit;
 
 namespace Float.xAPI.Tests

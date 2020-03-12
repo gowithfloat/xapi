@@ -6,8 +6,8 @@
 using System;
 using System.Linq;
 using Float.xAPI.Activities;
-using Float.xAPI.Actor;
-using Float.xAPI.Actor.Identifier;
+using Float.xAPI.Actors;
+using Float.xAPI.Actors.Identifier;
 using Xunit;
 using static Float.xAPI.Tests.LRSTestHelper;
 
