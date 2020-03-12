@@ -3,10 +3,10 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-namespace Float.xAPI.Actor
+namespace Float.xAPI.Actors
 
 open System
-open Float.xAPI.Actor.Identifier
+open Float.xAPI.Actors.Identifier
 
 /// <summary>
 /// Agents and identified groups have unique identifiers and can be checked for equality.

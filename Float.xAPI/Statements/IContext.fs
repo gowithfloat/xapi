@@ -7,7 +7,7 @@ namespace Float.xAPI.Statements
 
 open System
 open Float.xAPI
-open Float.xAPI.Actor
+open Float.xAPI.Actors
 open Float.xAPI.Activities
 open Float.xAPI.Languages
 

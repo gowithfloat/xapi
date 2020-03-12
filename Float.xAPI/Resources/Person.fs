@@ -5,7 +5,7 @@
 
 namespace Float.xAPI.Resources
 
-open Float.xAPI.Actor.Identifier
+open Float.xAPI.Actors.Identifier
 
 // todo: should this be string or ProfileId?
 

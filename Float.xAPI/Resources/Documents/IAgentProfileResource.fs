@@ -7,7 +7,7 @@ namespace Float.xAPI.Resources.Documents
 
 open System
 open System.Runtime.InteropServices
-open Float.xAPI.Actor
+open Float.xAPI.Actors
 
 /// <summary>
 /// The Agent Profile Resource is much like the State Resource, allowing for arbitrary key / document pairs to be saved which are related to an Agent.

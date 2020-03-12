@@ -11,7 +11,7 @@ open System.Runtime.InteropServices
 open System.Linq
 open Float.xAPI
 open Float.xAPI.Activities
-open Float.xAPI.Actor
+open Float.xAPI.Actors
 open Float.xAPI.Resources
 open Float.xAPI.Resources.Documents
 open Float.xAPI.Statements

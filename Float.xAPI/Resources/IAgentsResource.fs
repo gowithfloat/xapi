@@ -5,7 +5,7 @@
 
 namespace Float.xAPI.Resources
 
-open Float.xAPI.Actor
+open Float.xAPI.Actors
 
 /// <summary>
 /// The Agents Resource provides a method to retrieve a special Object with combined information about an Agent derived from an outside service, such as a directory service.

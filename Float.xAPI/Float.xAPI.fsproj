@@ -20,8 +20,8 @@
     <DocumentationFile>bin\Debug\netstandard2.0\Float.xAPI.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Actor\" />
-    <Folder Include="Actor\Identifier\" />
+    <Folder Include="Actors\" />
+    <Folder Include="Actors\Identifier\" />
     <Folder Include="Activities\Definitions\" />
     <Folder Include="Activities\" />
     <Folder Include="Languages\" />
@@ -42,19 +42,19 @@
     <Compile Include="Languages\Region.fs" />
     <Compile Include="Languages\LanguageTag.fs" />
     <Compile Include="Languages\LanguageMap.fs" />
-    <Compile Include="Actor\Identifier\IInverseFunctionalIdentifier.fs" />
-    <Compile Include="Actor\Identifier\Mailbox.fs" />
-    <Compile Include="Actor\Identifier\MailboxSha1Sum.fs" />
-    <Compile Include="Actor\Identifier\OpenID.fs" />
-    <Compile Include="Actor\Identifier\Account.fs" />
-    <Compile Include="Actor\Identifier\InverseFunctionalIdentifier.fs" />
-    <Compile Include="Actor\IActor.fs" />
-    <Compile Include="Actor\IIdentifiedActor.fs" />
-    <Compile Include="Actor\Agent.fs" />
-    <Compile Include="Actor\IGroup.fs" />
-    <Compile Include="Actor\AnonymousGroup.fs" />
-    <Compile Include="Actor\IdentifiedGroup.fs" />
-    <Compile Include="Actor\Actor.fs" />
+    <Compile Include="Actors\Identifier\IInverseFunctionalIdentifier.fs" />
+    <Compile Include="Actors\Identifier\Mailbox.fs" />
+    <Compile Include="Actors\Identifier\MailboxSha1Sum.fs" />
+    <Compile Include="Actors\Identifier\OpenID.fs" />
+    <Compile Include="Actors\Identifier\Account.fs" />
+    <Compile Include="Actors\Identifier\InverseFunctionalIdentifier.fs" />
+    <Compile Include="Actors\IActor.fs" />
+    <Compile Include="Actors\IIdentifiedActor.fs" />
+    <Compile Include="Actors\Agent.fs" />
+    <Compile Include="Actors\IGroup.fs" />
+    <Compile Include="Actors\AnonymousGroup.fs" />
+    <Compile Include="Actors\IdentifiedGroup.fs" />
+    <Compile Include="Actors\Actor.fs" />
     <Compile Include="IExtensions.fs" />
     <Compile Include="VerbId.fs" />
     <Compile Include="Verb.fs" />

@@ -3,7 +3,7 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-namespace Float.xAPI.Actor
+namespace Float.xAPI.Actors
 
 /// <summary>
 /// A Group represents a collection of Agents and can be used in most of the same situations an Agent can be used.

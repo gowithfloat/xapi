@@ -9,7 +9,7 @@ open System
 open System.Runtime.InteropServices
 open Float.xAPI
 open Float.xAPI.Activities
-open Float.xAPI.Actor
+open Float.xAPI.Actors
 open Float.xAPI.Statements
 
 /// <summary>

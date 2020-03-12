@@ -8,7 +8,7 @@ namespace Float.xAPI.Resources.Documents
 open System
 open System.Runtime.InteropServices
 open Float.xAPI.Activities
-open Float.xAPI.Actor
+open Float.xAPI.Actors
 
 // todo: handle merging updates to state (re: uploading a JSON array and getting key/value pairs instead)
 

@@ -3,12 +3,12 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-namespace Float.xAPI.Actor
+namespace Float.xAPI.Actors
 
 open System.Runtime.InteropServices
 open Float.Interop
 open Float.xAPI
-open Float.xAPI.Actor.Identifier
+open Float.xAPI.Actors.Identifier
 
 /// <summary>
 /// An Identified Group is used to uniquely identify a cluster of Agents.

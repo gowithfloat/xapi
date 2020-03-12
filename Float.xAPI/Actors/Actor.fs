@@ -3,7 +3,7 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-namespace Float.xAPI.Actor
+namespace Float.xAPI.Actors
 
 /// <summary>
 /// A discriminated union for every possible actor.

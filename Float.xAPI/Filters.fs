@@ -8,7 +8,7 @@ namespace Float.xAPI
 open System
 open System.Collections.Generic
 open Float.xAPI.Activities
-open Float.xAPI.Actor
+open Float.xAPI.Actors
 open Float.xAPI.Resources.Documents
 open Float.xAPI.Statements
 

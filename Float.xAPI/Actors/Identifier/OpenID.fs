@@ -3,7 +3,7 @@
 // Shared under an MIT license. See license.md for details.
 // </copyright>
 
-namespace Float.xAPI.Actor.Identifier
+namespace Float.xAPI.Actors.Identifier
 
 open System
 open Float.Interop

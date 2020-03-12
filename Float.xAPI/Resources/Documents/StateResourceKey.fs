@@ -7,7 +7,7 @@ namespace Float.xAPI.Resources.Documents
 
 open System
 open Float.Interop
-open Float.xAPI.Actor
+open Float.xAPI.Actors
 open Float.xAPI.Activities
 
 /// <summary>

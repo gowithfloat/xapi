@@ -7,7 +7,7 @@ namespace Float.xAPI.Statements
 
 open System
 open Float.xAPI
-open Float.xAPI.Actor
+open Float.xAPI.Actors
 
 // todo: come up with a better name; IIRC TinCan.NET uses BaseStatement
 
