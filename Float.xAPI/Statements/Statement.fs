@@ -33,7 +33,7 @@ type public IStatement =
     /// Verified by the LRS based on authentication.
     /// Set by LRS if not provided or if a strong trust relationship between the Learning Record Provider and LRS has not been established.
     /// </summary>
-    abstract member Authority: IActor option
+    abstract member Authority: Actor option
 
     /// <summary>
     /// The Statement’s associated xAPI version, formatted according to Semantic Versioning 1.0.0.
@@ -75,7 +75,7 @@ type public Statement =
     val Stored: DateTimeOffset option
 
     /// <inheritdoc />
-    val Authority: IActor option
+    val Authority: Actor option
 
     /// <inheritdoc />
     val Version: IVersion option
