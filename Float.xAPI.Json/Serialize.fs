@@ -35,6 +35,14 @@ module Serialize =
         sprintf "\"%s\"" s
 
     /// <summary>
+    /// Escape backslashes in a string
+    /// </summary>
+    let private escape s = 
+        s |> String.collect (fun c -> match c with
+                                      | '\\' -> "\\\\"
+                                      | _ -> sprintf "%c" c)
+
+    /// <summary>
     /// An F#-friendly wrapper for the C# string join method.
     /// </summary>
     let private commaJoinSeq (s: seq<_>) =
@@ -182,7 +190,7 @@ module Serialize =
     let Extensions (extensions: IExtensions) =
         extensions 
         |> Seq.map (|KeyValue|) 
-        |> Seq.map (fun (k,v) -> k.AbsoluteUri, sprintf "%A" v) 
+        |> Seq.map (fun (k,v) -> k.AbsoluteUri, (sprintf "%A" v) |> escape)
         |> Map.ofSeq 
         |> dictToJson
 
