@@ -34,7 +34,7 @@ module internal Filters =
     /// Returns false if the statement has an identified actor and it doesn't match the given identified actor.
     /// </summary>
     let statementActorMatch (actor: IIdentifiedActor option) (statement: IStatement) =
-        match statement.Actor with
+        match statement.Actor.Item with
         | :? IIdentifiedActor as statementActor ->
             match actor with
             | Some act -> statementActor.IFI = act.IFI

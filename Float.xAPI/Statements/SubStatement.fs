@@ -29,7 +29,7 @@ type public ISubStatement =
 [<NoComparison;NoEquality;Struct>]
 type public SubStatement =
     /// <inheritdoc />
-    val Actor: IActor
+    val Actor: Actor
 
     /// <inheritdoc />
     val Verb: IVerb

@@ -54,7 +54,7 @@ type public Statement =
     val Id: Guid
 
     /// <inheritdoc />
-    val Actor: IActor
+    val Actor: Actor
 
     /// <inheritdoc />
     val Verb: IVerb

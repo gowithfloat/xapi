@@ -18,7 +18,7 @@ type public IGenericStatement =
     /// <summary>
     /// Whom the Statement is about, as an Agent or Group Object.
     /// </summary>
-    abstract member Actor: IActor
+    abstract member Actor: Actor
 
     /// <summary>
     /// Action taken by the Actor.
