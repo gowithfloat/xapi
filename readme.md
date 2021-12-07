@@ -1,6 +1,6 @@
 # [Float.xAPI](https://github.com/gowithfloat/xapi)    [![Build Status](https://travis-ci.org/gowithfloat/xapi.svg?branch=master)](https://travis-ci.org/gowithfloat/xapi) [![codecov](https://codecov.io/gh/gowithfloat/xapi/branch/master/graph/badge.svg)](https://codecov.io/gh/gowithfloat/xapi) [![Documentation Status](https://readthedocs.org/projects/xapi/badge/?version=latest)](https://xapi.readthedocs.io/en/latest/?badge=latest) [![license](https://img.shields.io/badge/license-mit-green.svg)](./license.md) [![nuget](https://img.shields.io/nuget/v/Float.xAPI.svg)](https://www.nuget.org/packages/Float.xAPI/)
 
-An F# implementation of the [xAPI](https://xapi.com/) specification with a focus on type safety and immutability. Wherever possible, we have strived to translate the [xAPI specification](https://github.com/adlnet/xAPI-Spec) directly to code, with requirements embedded as type checks.
+An experimental F# implementation of the [xAPI](https://xapi.com/) specification with a focus on type safety and immutability. Wherever possible, we have strived to translate the [xAPI specification](https://github.com/adlnet/xAPI-Spec) directly to code, with requirements embedded as type checks.
 
 ## Status
 
